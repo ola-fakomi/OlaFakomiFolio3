@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
 
+  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
   <style>
     /* ─── Reset & Base ─────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -205,108 +206,277 @@
     @keyframes orbFloat2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-30px,40px)} }
     @keyframes orbFloat3 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(20px,20px)} 66%{transform:translate(-20px,10px)} }
 
-    .hero-content {
+    /* ─── Hero layout ─── */
+    .hero-new {
       position: relative; z-index: 2;
-      padding: 80px 0 60px;
+      padding: 48px 0;
+      display: flex;
+      justify-content: center;
     }
-    .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-family: 'Unbounded', sans-serif;
-      font-size: 10px; font-weight: 400;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 28px;
-      opacity: 0; animation: fadeUp 0.7s 0.1s forwards;
+    .hero-new-content {
+      width: 100%;
+      max-width: 832px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
     }
-    .hero-eyebrow::before {
+    .hero-new-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    /* Avatar */
+    .hero-new-avatar-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .hero-new-avatar {
+      width: 64px; height: 64px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #4837f3 0%, #2a208d 100%);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 6.56px rgba(0,0,0,0.25);
+      flex-shrink: 0;
+    }
+    .hero-new-avatar::after {
       content: '';
-      display: block; width: 28px; height: 1px;
-      background: var(--blue);
+      position: absolute; inset: 0;
+      border-radius: 16px;
+      box-shadow: inset -2.4px -2.4px 0 rgba(0,0,0,0.14), inset 2.4px 2.4px 0 rgba(0,0,0,0.08);
+      pointer-events: none;
     }
-    .hero-headline {
+    .hero-avatar-img {
+      position: absolute;
+      top: -1.6px; left: -3.2px;
+      width: calc(100% + 6.4px);
+      height: calc(100% + 3.2px);
+      object-fit: cover;
+      mix-blend-mode: lighten;
+    }
+
+    /* Greeting + description */
+    .hero-new-textblock {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .hero-greeting-line {
       font-family: 'Unbounded', sans-serif;
-      font-size: clamp(40px, 6vw, 88px);
-      font-weight: 600;
-      line-height: 1.06;
-      letter-spacing: -0.03em;
-      color: var(--text);
-      margin-bottom: 0;
-      opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+      font-size: 26px;
+      font-weight: 300;
+      color: #ababab;
+      letter-spacing: 0.52px;
+      line-height: 1.6;
     }
-    .hero-headline em {
-      font-style: normal;
-      background: linear-gradient(90deg, var(--red), var(--blue));
+    .hero-greeting-line strong {
+      font-weight: 500;
+      color: #ffffff;
+    }
+    .hero-desc-group {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .hero-desc-text {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 18px;
+      font-weight: 300;
+      color: #ababab;
+      letter-spacing: 0.18px;
+      line-height: 1.6;
+    }
+    .hero-orange { color: #ff7772; }
+
+    /* Skill chips */
+    .hero-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .hero-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 32px;
+      padding: 0 12px;
+      background: #1d1d1d;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 8px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: #dadada;
+      letter-spacing: 0.13px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .hero-chip svg { color: #dadada; flex-shrink: 0; }
+    .hero-chip-icon {
+      width: 16px; height: 16px;
+      flex-shrink: 0;
+      position: relative;
+      overflow: clip;
+    }
+    .hero-chip-icon img {
+      display: block;
+      width: 100%; height: 100%;
+    }
+
+    /* Experience card */
+    .exp-card {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      border-radius: 27px;
+      padding: 12px;
+      display: flex;
+      gap: 21px;
+      align-items: center;
+      overflow: hidden;
+      box-shadow: inset 0 0 0 2.7px rgba(255,255,255,0.05);
+    }
+    .exp-card-glow {
+      position: absolute;
+      left: -1px; top: -268px;
+      width: 814px; height: 610px;
+      background: radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.07) 0%, transparent 55%);
+      mix-blend-mode: color-dodge;
+      pointer-events: none;
+    }
+    .exp-left {
+      width: 180px; height: 180px;
+      background: #191919;
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .exp-union {
+      position: absolute;
+      left: 28px;
+      width: 125px;
+      pointer-events: none;
+    }
+    .exp-union-top { top: 43px; }
+    .exp-union-bot { top: 66px; }
+    .exp-bars-wrap {
+      position: absolute;
+      left: 44px; top: 35px;
+      width: 94px;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .exp-bar {
+      border-radius: 4px;
+      padding: 0 5px;
+      display: flex;
+      align-items: center;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 6.7px;
+      font-weight: 500;
+      color: #191919;
+      letter-spacing: 0.2px;
+      height: 21px;
+    }
+    .exp-label {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Unbounded', sans-serif;
+      font-size: 10.7px;
+      font-weight: 600;
+      text-align: center;
+      line-height: 1.3;
+      letter-spacing: 0.32px;
+      white-space: nowrap;
+      background: linear-gradient(180deg, #ff7772 0%, #ffffff 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-
-    /* The gradient divider line */
-    .hero-divider {
-      display: block;
-      width: 100%; max-width: 680px;
-      height: 2px;
-      background: linear-gradient(90deg, var(--red), var(--blue), transparent);
-      margin: 28px 0;
-      border-radius: 2px;
-      opacity: 0; animation: expandWidth 0.9s 0.45s forwards;
-    }
-    @keyframes expandWidth { from{width:0;opacity:0} to{width:100%;opacity:1} }
-
-    .hero-sub {
-      font-size: 18px; font-weight: 300;
-      color: var(--text-dim);
-      max-width: 520px;
-      line-height: 1.7;
-      margin-bottom: 44px;
-      opacity: 0; animation: fadeUp 0.8s 0.5s forwards;
-    }
-    .hero-actions {
-      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
-      opacity: 0; animation: fadeUp 0.8s 0.65s forwards;
-    }
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 14px 28px;
-      border-radius: var(--r-sm);
+    .exp-right {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 21px 0;
       font-family: 'Unbounded', sans-serif;
-      font-size: 11px; font-weight: 500;
-      letter-spacing: 0.04em;
+      font-size: 18px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.57);
+      letter-spacing: 0.54px;
+      line-height: 1.3;
+    }
+    .exp-stat {
+      display: flex;
+      gap: 8px;
+      align-items: baseline;
+      flex-wrap: wrap;
+    }
+    .exp-stat strong {
+      font-weight: 400;
+      color: #ffffff;
+    }
+
+    /* CTA buttons */
+    .hero-btns {
+      display: flex;
+      gap: 12px;
+      padding: 0 4px;
+      align-items: center;
+    }
+    .hero-btn-talk {
+      height: 52px;
+      padding: 0 16px;
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      border: none;
+      border-radius: 10px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: #ffffff;
+      letter-spacing: 0.13px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25);
+      transition: opacity 0.2s, transform 0.2s;
+      flex-shrink: 0;
+    }
+    .hero-btn-talk::after {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 10px;
+      box-shadow: inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      pointer-events: none;
+    }
+    .hero-btn-talk:hover { opacity: 0.85; transform: translateY(-1px); }
+    .hero-btn-cv {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 52px;
+      padding: 0 16px;
+      background: #191919;
+      border: 1px solid #252525;
+      border-radius: 10px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: #dadada;
+      letter-spacing: 0.13px;
       text-decoration: none;
-      border: none; cursor: pointer;
-      transition: transform 0.22s ease, box-shadow 0.22s ease, opacity 0.22s ease;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: opacity 0.2s, transform 0.2s;
     }
-    .btn:hover { transform: translateY(-2px); }
-    .btn-primary {
-      background: var(--blue);
-      color: #fff;
-      box-shadow: 0 4px 32px rgba(72,55,243,0.4);
-    }
-    .btn-primary:hover { box-shadow: 0 8px 40px rgba(72,55,243,0.55); }
-    .btn-ghost {
-      background: transparent;
-      color: var(--text-dim);
-      border: 1px solid var(--border);
-    }
-    .btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,0.15); background: rgba(255,255,255,0.04); }
-
-    .hero-scroll {
-      position: absolute; bottom: 40px; left: 50%;
-      transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
-      color: var(--muted);
-      font-family: 'Unbounded', sans-serif;
-      font-size: 9px; letter-spacing: 0.12em;
-      text-transform: uppercase;
-      opacity: 0; animation: fadeUp 1s 1.1s forwards;
-    }
-    .scroll-line {
-      width: 1px; height: 40px;
-      background: linear-gradient(to bottom, var(--blue), transparent);
-      animation: scrollPulse 2s ease-in-out infinite;
-    }
-    @keyframes scrollPulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+    .hero-btn-cv:hover { opacity: 0.85; transform: translateY(-1px); }
 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(24px); }
@@ -348,394 +518,597 @@
       gap: 24px; margin-bottom: 56px; flex-wrap: wrap;
     }
 
-    /* ─── WORK ─────────────────────────────────────────────── */
+    /* ─── SELECTED PROJECTS ──────────────────────────────── */
     #work { background: var(--bg); }
 
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
+    .sp-wrapper {
+      max-width: 832px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
     }
-    .project-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--r-lg);
+    .sp-heading {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 20px; font-weight: 500;
+      color: #7581a6;
+      letter-spacing: 0.4px;
+      line-height: 1.6;
+      padding: 0 4px;
+    }
+    .sp-card {
+      display: flex; flex-direction: column; gap: 8px;
+      padding: 8px;
+      border-radius: 16px;
+      background: var(--bg);
+      border: 1px solid rgba(255,255,255,0.05);
       overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-      position: relative;
-      group: '';
     }
-    .project-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
-      border-color: rgba(72,55,243,0.3);
+    .sp-info {
+      display: flex; flex-direction: column; gap: 8px;
+      padding: 0 4px;
     }
-    .project-card:nth-child(1) { grid-column: 1 / -1; }
-
-    .project-thumb {
-      width: 100%; aspect-ratio: 16/9;
-      background: linear-gradient(135deg, #1c1c2e, #16213e);
-      position: relative; overflow: hidden;
+    .sp-top-row {
+      display: flex; align-items: center; gap: 12px;
+      padding-right: 12px; min-height: 56px;
     }
-    .project-card:nth-child(1) .project-thumb { aspect-ratio: 21/9; }
-
-    /* Placeholder art for thumbs */
-    .project-thumb::before {
-      content: '';
-      position: absolute; inset: 0;
-      opacity: 0.6;
-      transition: opacity 0.3s ease;
-    }
-    .project-card:hover .project-thumb::before { opacity: 1; }
-    .thumb-art {
-      position: absolute; inset: 0;
+    .sp-icon-box {
+      width: 56px; height: 56px; border-radius: 28px;
+      background: linear-gradient(180deg, rgba(53,53,55,0.6) 0%, rgba(31,30,30,0.6) 100%);
+      box-shadow: 0 0 5.74px rgba(0,0,0,0.25),
+                  inset -1.4px -1.4px 0 rgba(255,255,255,0.02),
+                  inset 1.4px 1.4px 0 rgba(255,255,255,0.04);
       display: flex; align-items: center; justify-content: center;
+      overflow: hidden; flex-shrink: 0; position: relative;
     }
-    .thumb-art svg { opacity: 0.25; transition: opacity 0.3s, transform 0.4s; }
-    .project-card:hover .thumb-art svg { opacity: 0.4; transform: scale(1.05); }
-
-    .project-thumb-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(25,25,25,0.9) 0%, transparent 50%);
+    .sp-text-col {
+      flex: 1; min-width: 0;
+      display: flex; flex-direction: column; gap: 1px;
+      padding: 4px 0;
     }
-    .project-badge {
-      position: absolute; top: 16px; left: 16px;
-      display: flex; align-items: center; gap: 6px;
-      background: rgba(25,25,25,0.75);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--border);
-      border-radius: 20px; padding: 5px 12px;
+    .sp-name {
       font-family: 'Unbounded', sans-serif;
-      font-size: 9px; font-weight: 400; letter-spacing: 0.1em;
-      color: var(--text-dim);
+      font-size: 18px; font-weight: 600;
+      color: #ffffff; letter-spacing: 0.54px; line-height: 1.3;
     }
-    .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
-
-    .project-body { padding: 24px 28px 28px; }
-    .project-title {
+    .sp-sub {
       font-family: 'Unbounded', sans-serif;
-      font-size: 18px; font-weight: 500;
-      letter-spacing: -0.02em;
-      color: var(--text);
-      margin-bottom: 8px;
+      font-size: 16px; font-weight: 400;
+      color: #dadada; letter-spacing: 0.16px; line-height: 1.4;
     }
-    .project-card:nth-child(1) .project-title { font-size: 22px; }
-    .project-desc {
-      font-size: 14px; color: var(--text-dim);
-      line-height: 1.65; margin-bottom: 20px;
+    .sp-roles-row {
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 8px;
     }
-    .project-tags {
-      display: flex; flex-wrap: wrap; gap: 8px;
+    .sp-roles-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      height: 36px; padding: 0 12px 0 8px;
+      background: #1d1d1d;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 8px; overflow: hidden; flex-shrink: 1;
     }
-    .tag {
-      display: inline-flex; align-items: center; gap: 5px;
-      padding: 5px 11px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--border);
-      font-size: 11px; font-weight: 400;
-      color: var(--text-dim);
-      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    .sp-dots { display: flex; align-items: center; flex-shrink: 0; }
+    .sp-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      border: 2px solid #1d1d1d; flex-shrink: 0;
     }
-    .project-card:hover .tag {
-      background: rgba(72,55,243,0.1);
-      border-color: rgba(72,55,243,0.25);
-      color: #a09cff;
+    .sp-dot + .sp-dot { margin-left: -2px; }
+    .sp-dot-blue   { background: #4837f3; }
+    .sp-dot-orange { background: #ff7772; }
+    .sp-dot-gray   { background: #7581a6; }
+    .sp-role-text {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px; font-weight: 400;
+      color: #dadada; letter-spacing: 0.13px;
+      white-space: nowrap; line-height: 1.5;
     }
-    .tag-dot { width: 4px; height: 4px; border-radius: 50%; background: currentColor; }
-
-    /* Thumb colors */
-    .thumb-1 { background: linear-gradient(135deg, #0d0d2b 0%, #1a1060 50%, #0a0a1a 100%); }
-    .thumb-2 { background: linear-gradient(135deg, #1a0d0d 0%, #3d1515 50%, #1a0808 100%); }
-    .thumb-3 { background: linear-gradient(135deg, #0d1a0d 0%, #0f2d24 50%, #061510 100%); }
-    .thumb-4 { background: linear-gradient(135deg, #0d0d1a 0%, #1e1540 50%, #080812 100%); }
-    .thumb-5 { background: linear-gradient(135deg, #1a120d 0%, #2d1f0f 50%, #120c06 100%); }
+    .sp-sep {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 10px; font-weight: 400;
+      color: #dadada; letter-spacing: 0.1px; line-height: 1.5;
+    }
+    .sp-case-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      height: 36px; padding: 0 12px;
+      background: #1d1d1d;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 8px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px; font-weight: 400;
+      color: #dadada; letter-spacing: 0.13px;
+      text-decoration: none; white-space: nowrap; flex-shrink: 0;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .sp-case-pill:hover {
+      background: rgba(72,55,243,0.12);
+      border-color: rgba(72,55,243,0.35); color: #fff;
+    }
+    .sp-arrow-icon {
+      width: 20px; height: 20px;
+      position: relative; overflow: hidden; flex-shrink: 0;
+    }
+    .sp-arrow-icon img {
+      position: absolute; display: block;
+      top: -3.75%; left: -3.75%;
+      width: 107.5%; height: 107.5%;
+    }
+    .sp-preview {
+      width: 100%; height: 400px;
+      border-radius: 12px; overflow: hidden;
+      position: relative; flex-shrink: 0;
+    }
+    .sp-preview img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top;
+    }
 
     /* ─── CLIENTS ──────────────────────────────────────────── */
     #clients {
-      background: linear-gradient(180deg, var(--bg) 0%, #141420 50%, var(--bg) 100%);
+      background: var(--bg);
+      padding: 40px 0;
     }
 
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+    .clients-content {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-width: 832px;
+      margin: 0 auto;
     }
-    .testimonial-card {
-      height: 400px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--r-lg);
-      padding: 32px;
-      display: flex; flex-direction: column; justify-content: space-between;
-      position: relative; overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: default;
-    }
-    .testimonial-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 30px 70px rgba(0,0,0,0.45);
-    }
-    .testimonial-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0;
-      height: 2px;
-    }
-    .t-card-1::before { background: linear-gradient(90deg, var(--blue), transparent); }
-    .t-card-2::before { background: linear-gradient(90deg, var(--red), transparent); }
-    .t-card-3::before { background: linear-gradient(90deg, var(--muted), transparent); }
-    .t-card-4::before { background: linear-gradient(90deg, var(--blue), var(--red)); }
 
-    /* Subtle bg orb inside card */
-    .testimonial-card::after {
-      content: '';
+    .clients-heading {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      line-height: 1.6;
+      padding: 0 4px;
+    }
+    .clients-heading .h-primary { color: #7581a6; }
+    .clients-heading .h-secondary { color: #2d3652; }
+
+    .clients-card {
+      border: 2px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      padding: 24px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Background gradient glow */
+    .clients-card-bg {
       position: absolute;
-      border-radius: 50%;
-      filter: blur(60px);
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(ellipse 120% 200% at 60% 150%, rgba(72,55,243,0.55) 0%, rgba(30,20,100,0.4) 40%, transparent 70%);
       pointer-events: none;
-      opacity: 0.15;
-      transition: opacity 0.4s;
     }
-    .testimonial-card:hover::after { opacity: 0.28; }
-    .t-card-1::after { width: 200px; height: 200px; background: var(--blue); bottom: -60px; right: -60px; }
-    .t-card-2::after { width: 200px; height: 200px; background: var(--red); bottom: -60px; right: -60px; }
-    .t-card-3::after { width: 200px; height: 200px; background: var(--muted); bottom: -60px; right: -60px; }
-    .t-card-4::after { width: 200px; height: 200px; background: var(--blue); bottom: -60px; right: -60px; }
 
-    .t-status {
-      display: flex; align-items: center; gap: 8px;
-      font-family: 'Unbounded', sans-serif;
-      font-size: 9px; font-weight: 400;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--text-dim);
-      margin-bottom: 24px;
+    .clients-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
     }
-    .status-dot {
-      width: 7px; height: 7px; border-radius: 50%;
+
+    .client-pill {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 8px;
+      background: #1d1d1d;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
       flex-shrink: 0;
-      animation: statusPulse 2.5s ease-in-out infinite;
-    }
-    .dot-blue { background: var(--blue); box-shadow: 0 0 6px var(--blue); }
-    .dot-red  { background: #ff7771; box-shadow: 0 0 6px #ff7771; }
-    .dot-gray { background: var(--muted); }
-    @keyframes statusPulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-
-    .t-quote {
-      font-size: 16px; font-weight: 300;
-      color: var(--text-dim);
-      line-height: 1.75; flex: 1;
-      position: relative; z-index: 1;
-    }
-    .t-quote::before {
-      content: '\201C';
-      display: block;
-      font-family: 'Unbounded', sans-serif;
-      font-size: 48px; line-height: 1;
-      color: var(--blue);
-      opacity: 0.35;
-      margin-bottom: 8px;
     }
 
-    .t-author {
-      display: flex; align-items: center; gap: 14px;
-      margin-top: 28px; position: relative; z-index: 1;
-    }
-    .t-avatar {
-      width: 42px; height: 42px; border-radius: 50%;
-      flex-shrink: 0;
+    .client-icon {
+      width: 20px; height: 20px;
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      border-radius: 5.556px;
+      box-shadow: 0 0 2.278px rgba(0,0,0,0.25), inset 0.556px 0.556px 0 rgba(255,255,255,0.08), inset -0.556px -0.556px 0 rgba(255,255,255,0.03);
       display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .client-icon img {
+      max-width: 100%; max-height: 100%;
+      object-fit: contain;
+    }
+
+    .client-name {
       font-family: 'Unbounded', sans-serif;
-      font-size: 12px; font-weight: 600;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.01em;
       color: #fff;
+      white-space: nowrap;
+      line-height: 1.5;
     }
-    .av-1 { background: linear-gradient(135deg, var(--blue-deep), var(--blue)); }
-    .av-2 { background: linear-gradient(135deg, #7d1a1a, var(--red)); }
-    .av-3 { background: linear-gradient(135deg, #3d4466, var(--muted)); }
-    .av-4 { background: linear-gradient(135deg, #1a2d1a, #3a7d3a); }
-
-    .t-name {
-      font-family: 'Unbounded', sans-serif;
-      font-size: 12px; font-weight: 500;
-      color: var(--text); line-height: 1.3;
-    }
-    .t-role { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
-
-    /* Extra "featured" card spanning 2 columns */
-    .t-featured {
-      grid-column: span 2;
-      height: auto; min-height: 220px;
-      flex-direction: row; align-items: flex-start; gap: 32px;
-    }
-    .t-featured .t-quote { font-size: 18px; }
-    .t-featured .t-quote::before { font-size: 64px; }
 
     /* ─── ABOUT ────────────────────────────────────────────── */
-    #about { background: var(--bg); }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px; align-items: center;
+    #about {
+      background: var(--bg);
+      padding: 40px 0 120px;
     }
-    .about-visual {
+
+    .about-content {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-width: 832px;
+      margin: 0 auto;
+    }
+
+    .about-heading {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: #7581a6;
+      line-height: 1.6;
+      padding: 0 4px;
+    }
+
+    .about-body {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* Hero quote card */
+    .about-hero-card {
       position: relative;
-      aspect-ratio: 1;
-      max-width: 460px;
-    }
-    .about-portrait {
-      width: 100%; height: 100%;
-      border-radius: var(--r-lg);
-      background: linear-gradient(135deg, #141430 0%, #1e1060 50%, #0d0d20 100%);
-      border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      position: relative; overflow: hidden;
-    }
-    .portrait-initials {
-      font-family: 'Unbounded', sans-serif;
-      font-size: 80px; font-weight: 600;
-      letter-spacing: -0.05em;
-      background: linear-gradient(135deg, var(--blue), var(--red));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-      opacity: 0.6;
-    }
-    .portrait-glow {
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 40% 40%, rgba(72,55,243,0.25) 0%, transparent 70%);
+      border-radius: 26px;
+      height: 220px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      gap: 42px;
+      padding: 10px 8px 10px 32px;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.05);
     }
 
-    /* Floating stat cards */
-    .about-stat {
+    .about-hero-bg {
       position: absolute;
-      background: rgba(25,25,25,0.9);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--border);
-      border-radius: var(--r-md);
-      padding: 16px 20px;
+      inset: 0;
+      pointer-events: none;
     }
-    .about-stat-1 { top: -20px; right: -20px; }
-    .about-stat-2 { bottom: 40px; left: -28px; }
-    .stat-number {
+    .about-hero-bg img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      mix-blend-mode: color-dodge;
+      opacity: 0.5;
+    }
+
+    .about-quote-block {
+      flex: 1;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .about-quote-mark {
       font-family: 'Unbounded', sans-serif;
-      font-size: 28px; font-weight: 600;
-      color: var(--text); line-height: 1;
-      margin-bottom: 4px;
+      font-size: 32px;
+      font-weight: 500;
+      color: #7581a6;
+      line-height: 1;
     }
-    .stat-number span { color: var(--blue); }
-    .stat-label { font-size: 11px; color: var(--text-dim); }
 
-    .about-bio {
-      font-size: 16px; font-weight: 300;
-      color: var(--text-dim); line-height: 1.85;
-      margin-bottom: 36px;
+    .about-quote-text {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: #fff;
+      letter-spacing: 0.03em;
+      line-height: 1.4;
     }
-    .about-bio strong { color: var(--text); font-weight: 400; }
 
-    .skills-list {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px;
-      margin-bottom: 40px;
+    .about-quote-text .accent { color: #ff7772; }
+
+    /* Headshot card */
+    .about-headshot {
+      position: relative;
+      width: 188px;
+      height: 204px;
+      flex-shrink: 0;
+      border-radius: 22px;
+      overflow: hidden;
+      background: #1e1e1e;
+      border: 2px solid rgba(255,255,255,0.01);
+      z-index: 1;
     }
-    .skill-item {
-      display: flex; align-items: center; gap: 10px;
-      font-size: 13px; color: var(--text-dim);
+
+    .about-headshot img {
+      position: absolute;
+      left: -13px;
+      top: 6px;
+      width: 211px;
+      height: 196px;
+      object-fit: cover;
+      pointer-events: none;
     }
-    .skill-item::before {
-      content: '';
-      width: 18px; height: 1px;
-      background: var(--blue); flex-shrink: 0;
+
+    /* Bio text */
+    .about-bio-text {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 0 4px;
+    }
+
+    .about-bio-text p {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 18px;
+      font-weight: 300;
+      color: #dadada;
+      letter-spacing: 0.01em;
+      line-height: 1.4;
+    }
+
+    /* Action buttons row */
+    .about-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .about-action-btn {
+      flex: 1;
+      min-width: 120px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 8px;
+      background: #1d1d1d;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .about-action-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .about-action-icon {
+      width: 16px; height: 16px;
+      flex-shrink: 0;
+    }
+
+    .about-action-icon img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+    }
+
+    .about-action-label {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: #dadada;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+    }
+
+    .about-action-arrow {
+      width: 16px; height: 16px;
+      flex-shrink: 0;
+    }
+
+    .about-action-arrow img {
+      width: 100%; height: 100%;
+      object-fit: contain;
     }
 
     /* ─── CONTACT / FOOTER ─────────────────────────────────── */
     #contact {
-      background: linear-gradient(180deg, var(--bg) 0%, #0e0e18 100%);
-      padding-bottom: 0;
-    }
-
-    .contact-inner {
-      padding: 100px 0 0;
+      background: var(--bg);
+      padding: 0;
+      overflow: hidden;
       position: relative;
     }
-    .contact-glow {
-      position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
-      width: 600px; height: 400px;
-      background: radial-gradient(ellipse, rgba(72,55,243,0.12) 0%, transparent 70%);
+
+    .footer-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .footer-bg-clouds {
+      position: absolute;
+      right: -10%;
+      top: -472px;
+      width: 3270px;
+      height: 2493px;
+      mix-blend-mode: hard-light;
+      transform-origin: center center;
+    }
+
+    .footer-bg-clouds img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transform: rotate(10.75deg);
+      filter: blur(4px);
+    }
+
+    .footer-bg-gradient {
+      position: absolute;
+      left: -405px;
+      top: -126px;
+      width: 2606px;
+      height: 1466px;
+      mix-blend-mode: color-dodge;
       pointer-events: none;
     }
 
-    .contact-headline {
-      font-family: 'Unbounded', sans-serif;
-      font-size: clamp(36px, 6vw, 80px);
-      font-weight: 600;
-      letter-spacing: -0.04em;
-      line-height: 1.05;
-      color: var(--text);
-      max-width: 760px;
-      margin-bottom: 32px;
+    .footer-bg-gradient img {
+      width: 100%; height: 100%;
+      object-fit: cover;
     }
-    .contact-headline em {
-      font-style: normal;
-      background: linear-gradient(90deg, var(--blue), var(--red));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .contact-sub {
-      font-size: 16px; color: var(--text-dim);
-      max-width: 440px; line-height: 1.75;
-      margin-bottom: 48px;
-    }
-    .contact-links {
-      display: flex; flex-wrap: wrap; gap: 16px;
-      margin-bottom: 80px;
-    }
-    .contact-link {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 14px 24px;
-      border: 1px solid var(--border);
-      border-radius: var(--r-sm);
-      text-decoration: none;
-      font-family: 'Unbounded', sans-serif;
-      font-size: 11px; font-weight: 400;
-      letter-spacing: 0.04em;
-      color: var(--text-dim);
-      background: rgba(255,255,255,0.03);
-      transition: border-color 0.2s, color 0.2s, background 0.2s, transform 0.2s;
-    }
-    .contact-link:hover {
-      border-color: var(--blue);
-      color: var(--text);
-      background: rgba(72,55,243,0.08);
-      transform: translateY(-2px);
-    }
-    .contact-link svg { opacity: 0.5; transition: opacity 0.2s; }
-    .contact-link:hover svg { opacity: 1; }
 
-    /* Footer bar */
-    .footer-bar {
-      border-top: 1px solid var(--border);
-      padding: 28px 0;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 16px;
+    .footer-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+      padding: 80px 0 0;
+      max-width: 832px;
+      margin: 0 auto;
     }
-    .footer-copy {
+
+    /* Top row: headline + nav links + avatar */
+    .footer-top {
+      display: flex;
+      gap: 9px;
+      align-items: flex-start;
+    }
+
+    .footer-headline {
+      flex: 1;
       font-family: 'Unbounded', sans-serif;
-      font-size: 10px; font-weight: 300;
-      letter-spacing: 0.08em;
-      color: var(--muted);
+      font-size: 48px;
+      font-weight: 400;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      color: #fff;
+      mix-blend-mode: overlay;
+      white-space: pre-wrap;
     }
-    .footer-right {
-      display: flex; align-items: center; gap: 24px;
+
+    .footer-nav-links {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
-    .footer-right a {
+
+    .footer-nav-links a {
       font-family: 'Unbounded', sans-serif;
-      font-size: 10px; font-weight: 300;
-      letter-spacing: 0.06em;
-      color: var(--muted);
+      font-size: 13px;
+      font-weight: 400;
+      color: #fff;
+      mix-blend-mode: overlay;
       text-decoration: none;
-      transition: color 0.2s;
+      line-height: 0.9;
+      transition: opacity 0.2s;
     }
-    .footer-right a:hover { color: var(--text); }
+    .footer-nav-links a:hover { opacity: 0.7; }
+
+    .footer-avatar {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #2a208d 0%, #4837f3 100%);
+      box-shadow: 0 0 4.92px rgba(0,0,0,0.25), inset -1.8px -1.8px 0 rgba(0,0,0,0.14), inset 1.8px 1.8px 0 rgba(0,0,0,0.08);
+      overflow: hidden;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .footer-avatar img {
+      position: absolute;
+      left: -2.4px; top: -1.2px;
+      width: 55.2px; height: 55.2px;
+      object-fit: cover;
+      mix-blend-mode: lighten;
+    }
+
+    /* Bottom bar */
+    .footer-bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .footer-contact-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px;
+      background: #191919;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+    }
+
+    .footer-social-icons {
+      display: flex;
+      align-items: center;
+    }
+
+    .footer-social-icon {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+
+    .footer-social-icon.has-bg {
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      border-radius: 10px;
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25), inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+    }
+
+    .footer-social-icon img {
+      display: block;
+    }
+
+    .footer-email {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: #dadada;
+      white-space: nowrap;
+      line-height: 0.9;
+    }
+
+    .footer-cta {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex: 1;
+    }
+
+    .footer-cta-btn {
+      height: 36px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      border-radius: 10px;
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25), inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      font-family: 'Unbounded', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      color: #fff;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .footer-copyright {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: #fff;
+      mix-blend-mode: overlay;
+      text-align: center;
+      line-height: 0.9;
+      padding-bottom: 40px;
+    }
 
     /* ─── Mobile Nav ───────────────────────────────────────── */
     .mobile-menu {
@@ -787,30 +1160,30 @@
       .nav-links { display: none; }
       .nav-toggle { display: flex; }
 
-      .hero-headline { font-size: clamp(32px, 9vw, 52px); }
-      .hero-content { padding: 60px 0 40px; }
+      .exp-card { flex-direction: column; gap: 16px; }
+      .exp-left { width: 100%; height: 120px; }
+      .exp-right { padding: 0 0 8px; font-size: 14px; }
+      .hero-desc-text { font-size: 14px; }
+      .hero-greeting-line { font-size: 17px; }
 
-      .projects-grid { grid-template-columns: 1fr; }
-      .project-card:nth-child(1) { grid-column: auto; }
+      .sp-preview { height: 260px; }
+      .sp-sub { font-size: 13px; }
+      .sp-roles-pill { overflow-x: auto; }
 
-      .testimonials-grid { grid-template-columns: 1fr; }
-      .testimonial-card { height: auto; min-height: 320px; }
-      .t-featured { flex-direction: column; gap: 0; }
-
-      .about-grid { grid-template-columns: 1fr; gap: 48px; }
-      .about-visual { max-width: 100%; }
-      .about-stat-1 { top: -10px; right: -10px; }
-      .about-stat-2 { bottom: 20px; left: -10px; }
+      .about-hero-card { flex-direction: column; height: auto; gap: 16px; padding: 24px; }
+      .about-headshot { width: 140px; height: 152px; }
+      .about-headshot img { width: 158px; height: 146px; left: -10px; top: 5px; }
+      .about-quote-text { font-size: 16px; }
 
       .section-header { flex-direction: column; align-items: flex-start; }
       .nav-inner { padding: 0 20px; }
       .mobile-menu { padding: 24px 20px 32px; }
-      .footer-bar { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .footer-contact-bar { flex-direction: column; gap: 12px; padding: 12px; }
+      .footer-top { flex-direction: column; gap: 24px; }
+      .footer-headline { font-size: 36px; }
     }
     @media (max-width: 480px) {
       .hero-actions { flex-direction: column; align-items: flex-start; }
-      .contact-links { flex-direction: column; }
-      .skills-list { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -855,340 +1228,464 @@
     <div class="hero-orb hero-orb-2"></div>
     <div class="hero-orb hero-orb-3"></div>
     <div class="container">
-      <div class="hero-content">
-        <span class="hero-eyebrow">Product Designer &amp; Developer</span>
-        <h1 class="hero-headline">
-          Crafting digital<br>
-          experiences that<br>
-          <em>actually work.</em>
-        </h1>
-        <span class="hero-divider"></span>
-        <p class="hero-sub">
-          I design and build products at the intersection of clarity and craft —
-          turning complex problems into intuitive, polished interfaces.
-        </p>
-        <div class="hero-actions">
-          <a href="#work" class="btn btn-primary">View My Work</a>
-          <a href="#contact" class="btn btn-ghost">Get In Touch</a>
-        </div>
-      </div>
-    </div>
-    <div class="hero-scroll">
-      <div class="scroll-line"></div>
-      <span>Scroll</span>
-    </div>
+      <div class="hero-new">
+        <div class="hero-new-content">
+
+          <!-- Top stack: avatar → text → exp card -->
+          <div class="hero-new-stack">
+
+            <!-- Avatar row -->
+            <div class="hero-new-avatar-row">
+              <div class="hero-new-avatar">
+                <img src="https://www.figma.com/api/mcp/asset/56638076-7bea-4d5d-bb40-d4cfe5c54f0a" alt="Ola Fakomi" class="hero-avatar-img">
+              </div>
+            </div>
+
+            <!-- Greeting + description + chips -->
+            <div class="hero-new-textblock">
+              <p class="hero-greeting-line">Hi, <strong>I'm Ola Fakomi</strong></p>
+              <div class="hero-desc-group">
+                <p class="hero-desc-text">A <span class="hero-orange">product designer</span>, with 5 years experience designing and building products for startups &amp; enterprises. I'm committed to designing products flow, brand identity, pitch decks and graphics all in contribution to achieving targeted product goals.</p>
+                <div class="hero-chips">
+                  <!-- Web & Mobile apps -->
+                  <div class="hero-chip">
+                    <div class="hero-chip-icon"><img src="https://www.figma.com/api/mcp/asset/36de0552-1ee6-419e-801d-fed88800097f" alt=""></div>
+                    Web &amp; Mobile apps
+                  </div>
+                  <!-- Code & No-code -->
+                  <div class="hero-chip">
+                    <div class="hero-chip-icon"><img src="https://www.figma.com/api/mcp/asset/72a769a9-746a-4e64-91f0-0f6aa4176d4a" alt=""></div>
+                    Code &amp; No-code
+                  </div>
+                  <!-- Brand identity Design -->
+                  <div class="hero-chip">
+                    <div class="hero-chip-icon"><img src="https://www.figma.com/api/mcp/asset/2943ad1e-965d-405d-a5da-f63204123ade" alt=""></div>
+                    Brand identity Design
+                  </div>
+                  <!-- Websites -->
+                  <div class="hero-chip">
+                    <div class="hero-chip-icon"><img src="https://www.figma.com/api/mcp/asset/4c88ba3e-7ce5-484c-979d-3ea5417158bd" alt=""></div>
+                    Websites
+                  </div>
+                  <!-- Pitch Decks -->
+                  <div class="hero-chip">
+                    <div class="hero-chip-icon"><img src="https://www.figma.com/api/mcp/asset/94de3d7a-fd74-42a6-8c2c-526f6d78208c" alt=""></div>
+                    Pitch Decks
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Experience card -->
+            <div class="exp-card">
+              <div class="exp-card-glow"></div>
+              <div class="exp-left">
+                <img src="https://www.figma.com/api/mcp/asset/f04c9335-930c-4586-91ab-2f3a70be5f66" alt="" class="exp-union exp-union-top">
+                <div class="exp-bars-wrap">
+                  <div class="exp-bar" style="background:#474747">2019</div>
+                  <div class="exp-bar" style="background:#565656">—</div>
+                  <div class="exp-bar" style="background:#656565">2025</div>
+                </div>
+                <img src="https://www.figma.com/api/mcp/asset/14ba3be7-358a-4ef7-b0cf-27884e7b00e3" alt="" class="exp-union exp-union-bot">
+                <div class="exp-label">EXPERIENCE<br>SUMMARY</div>
+              </div>
+              <div class="exp-right">
+                <div class="exp-stat"><span>Worked at</span> <strong>3 Startups</strong></div>
+                <div class="exp-stat"><span>Serviced</span> <strong>6+ Agencies &amp; Businesses</strong></div>
+                <div class="exp-stat"><span>Contributed to</span> <strong>5+ Major Projects</strong></div>
+                <div class="exp-stat">And &nbsp;so much more...</div>
+              </div>
+            </div>
+
+          </div><!-- /hero-new-stack -->
+
+          <!-- CTA buttons -->
+          <div class="hero-btns">
+            <button class="hero-btn-talk">Let's talk</button>
+            <a href="#" class="hero-btn-cv">
+              <div class="hero-chip-icon"><img src="https://www.figma.com/api/mcp/asset/a0de562b-8909-4c11-9032-f1c85dbac134" alt=""></div>
+              Download CV
+            </a>
+          </div>
+
+        </div><!-- /hero-new-content -->
+      </div><!-- /hero-new -->
+    </div><!-- /container -->
   </section>
 
-  <!-- ── WORK ─────────────────────────────────────────────── -->
+  <!-- ── SELECTED PROJECTS ──────────────────────────────── -->
   <section id="work">
     <div class="container">
-      <div class="section-header">
-        <div>
-          <div class="section-label reveal">Selected Work</div>
-          <h2 class="section-title reveal reveal-delay-1">Projects &amp;<br>Case Studies</h2>
-        </div>
-        <p class="section-desc reveal reveal-delay-2">
-          A collection of recent work spanning product design, web development,
-          and brand experience.
-        </p>
-      </div>
+      <div class="sp-wrapper">
 
-      <div class="projects-grid">
+        <p class="sp-heading reveal">SELECTED PROJECTS </p>
 
-        <!-- Card 1 – Featured -->
-        <div class="project-card reveal">
-          <div class="project-thumb thumb-1">
-            <div class="thumb-art">
-              <svg width="320" height="180" viewBox="0 0 320 180" fill="none">
-                <rect x="20" y="20" width="280" height="140" rx="12" stroke="white" stroke-width="0.8"/>
-                <rect x="40" y="40" width="100" height="8" rx="4" fill="white"/>
-                <rect x="40" y="56" width="60" height="6" rx="3" fill="white" opacity=".5"/>
-                <rect x="40" y="80" width="200" height="40" rx="8" fill="white" opacity=".07"/>
-                <rect x="200" y="36" width="80" height="48" rx="8" fill="white" opacity=".07"/>
-                <circle cx="240" cy="60" r="16" stroke="white" stroke-width="0.8" opacity=".4"/>
-                <line x1="40" y1="140" x2="280" y2="140" stroke="white" stroke-width="0.5" opacity=".2"/>
-              </svg>
+        <!-- ─ Card 1: The Roots ─ -->
+        <div class="sp-card reveal">
+          <div class="sp-info">
+            <div class="sp-top-row">
+              <div class="sp-icon-box">
+                <img src="https://www.figma.com/api/mcp/asset/33d75c54-ba1f-47a3-817d-003f9d57c4fc" alt="The Roots" style="width:19px;height:21px;object-fit:contain;">
+              </div>
+              <div class="sp-text-col">
+                <span class="sp-name">The Roots</span>
+                <span class="sp-sub">Indigenous Language learning for African languages</span>
+              </div>
             </div>
-            <div class="project-thumb-overlay"></div>
-            <div class="project-badge"><span class="badge-dot"></span>Product Design</div>
-          </div>
-          <div class="project-body">
-            <h3 class="project-title">Finflow — Banking Dashboard</h3>
-            <p class="project-desc">End-to-end redesign of a B2B banking platform serving 40K+ business accounts. Reduced task completion time by 38% through restructured IA and design system implementation.</p>
-            <div class="project-tags">
-              <span class="tag"><span class="tag-dot"></span>Figma</span>
-              <span class="tag"><span class="tag-dot"></span>React</span>
-              <span class="tag"><span class="tag-dot"></span>Design Systems</span>
-              <span class="tag"><span class="tag-dot"></span>User Research</span>
+            <div class="sp-roles-row">
+              <div class="sp-roles-pill">
+                <div class="sp-dots">
+                  <div class="sp-dot sp-dot-blue"></div>
+                  <div class="sp-dot sp-dot-orange"></div>
+                  <div class="sp-dot sp-dot-gray"></div>
+                </div>
+                <span class="sp-role-text">Product &amp; Brand Designer</span>
+                <span class="sp-sep">|</span>
+                <span class="sp-role-text">React Frontend Dev</span>
+              </div>
+              <a href="#" class="sp-case-pill">
+                Case study
+                <div class="sp-arrow-icon">
+                  <img src="https://www.figma.com/api/mcp/asset/e013149d-2bc6-4858-b2cd-72077dd7028d" alt="">
+                </div>
+              </a>
             </div>
           </div>
+          <div class="sp-preview" style="background:linear-gradient(135deg,#2a1a0a 0%,#1e1208 100%);"></div>
         </div>
 
-        <!-- Card 2 -->
-        <div class="project-card reveal reveal-delay-1">
-          <div class="project-thumb thumb-2">
-            <div class="thumb-art">
-              <svg width="260" height="146" viewBox="0 0 260 146" fill="none">
-                <circle cx="130" cy="73" r="50" stroke="white" stroke-width="0.7" opacity=".4"/>
-                <circle cx="130" cy="73" r="30" stroke="white" stroke-width="0.7" opacity=".25"/>
-                <path d="M80 73 L180 73" stroke="white" stroke-width="0.7" opacity=".3"/>
-                <path d="M130 23 L130 123" stroke="white" stroke-width="0.7" opacity=".3"/>
-                <rect x="30" y="30" width="40" height="6" rx="3" fill="white" opacity=".4"/>
-                <rect x="30" y="42" width="28" height="4" rx="2" fill="white" opacity=".2"/>
-              </svg>
+        <!-- ─ Card 2: Revwit ─ -->
+        <div class="sp-card reveal reveal-delay-1">
+          <div class="sp-info">
+            <div class="sp-top-row">
+              <div class="sp-icon-box" style="background:linear-gradient(180deg,rgba(6,31,28,0.8) 0%,rgba(3,15,14,0.8) 100%);">
+                <div style="position:relative;width:19px;height:19px;">
+                  <div style="position:absolute;inset:0;border:1.6px solid white;border-radius:5.3px;"></div>
+                  <img src="images/projects/Revwit_displayImage.png" alt="" style="position:absolute;top:2.9px;left:2.9px;width:10.7px;height:10.7px;display:block;">
+                  <img src="https://www.figma.com/api/mcp/asset/c8494cc4-e40e-47bf-92c7-c71d13ee8865" alt="" style="position:absolute;top:8.5px;left:8.5px;width:6.4px;height:6.4px;display:block;">
+                </div>
+              </div>
+              <div class="sp-text-col">
+                <span class="sp-name">Revwit</span>
+                <span class="sp-sub">Africa's top B2B Sales Assistant with a custom CRM.</span>
+              </div>
             </div>
-            <div class="project-thumb-overlay"></div>
-            <div class="project-badge"><span class="badge-dot" style="background:var(--red)"></span>Branding</div>
-          </div>
-          <div class="project-body">
-            <h3 class="project-title">Meridian — Brand Identity</h3>
-            <p class="project-desc">Visual identity and brand system for a Series A SaaS startup. Delivered logo, guidelines, and full marketing site.</p>
-            <div class="project-tags">
-              <span class="tag"><span class="tag-dot"></span>Branding</span>
-              <span class="tag"><span class="tag-dot"></span>Illustrator</span>
-              <span class="tag"><span class="tag-dot"></span>Web Design</span>
+            <div class="sp-roles-row">
+              <div class="sp-roles-pill">
+                <div class="sp-dots">
+                  <div class="sp-dot sp-dot-blue"></div>
+                  <div class="sp-dot sp-dot-orange"></div>
+                  <div class="sp-dot sp-dot-gray"></div>
+                </div>
+                <span class="sp-role-text">Lead Product designer</span>
+                <span class="sp-sep">|</span>
+                <span class="sp-role-text">Brand Designer</span>
+              </div>
+              <a href="#" class="sp-case-pill">
+                Case study
+                <div class="sp-arrow-icon">
+                  <img src="https://www.figma.com/api/mcp/asset/e013149d-2bc6-4858-b2cd-72077dd7028d" alt="">
+                </div>
+              </a>
             </div>
           </div>
+          <div class="sp-preview" style="background:linear-gradient(135deg,#051f1a 0%,#03100e 100%);"></div>
         </div>
 
-        <!-- Card 3 -->
-        <div class="project-card reveal reveal-delay-2">
-          <div class="project-thumb thumb-3">
-            <div class="thumb-art">
-              <svg width="260" height="146" viewBox="0 0 260 146" fill="none">
-                <rect x="30" y="20" width="60" height="106" rx="12" stroke="white" stroke-width="0.7" opacity=".35"/>
-                <rect x="42" y="32" width="36" height="36" rx="6" fill="white" opacity=".08"/>
-                <rect x="42" y="76" width="36" height="6" rx="3" fill="white" opacity=".3"/>
-                <rect x="42" y="88" width="24" height="4" rx="2" fill="white" opacity=".15"/>
-                <rect x="110" y="20" width="120" height="50" rx="12" stroke="white" stroke-width="0.7" opacity=".35"/>
-                <rect x="122" y="32" width="60" height="8" rx="4" fill="white" opacity=".3"/>
-                <rect x="122" y="46" width="40" height="6" rx="3" fill="white" opacity=".15"/>
-                <rect x="110" y="82" width="55" height="44" rx="12" stroke="white" stroke-width="0.7" opacity=".35"/>
-                <rect x="175" y="82" width="55" height="44" rx="12" stroke="white" stroke-width="0.7" opacity=".35"/>
-              </svg>
+        <!-- ─ Card 3: Trib ─ -->
+        <div class="sp-card reveal reveal-delay-2">
+          <div class="sp-info">
+            <div class="sp-top-row">
+              <div class="sp-icon-box" style="background:linear-gradient(180deg,rgba(10,20,50,0.9) 0%,rgba(4,11,31,0.9) 100%);">
+                <div style="position:relative;width:30px;height:17px;">
+                  <img src="images/projects/Trib_displayImage.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;display:block;">
+                  <img src="https://www.figma.com/api/mcp/asset/165fec6b-ea74-46f2-9572-da417da1bbd5" alt="" style="position:absolute;top:0.86px;left:0.88px;width:92%;height:86%;display:block;">
+                </div>
+              </div>
+              <div class="sp-text-col">
+                <span class="sp-name">Trib</span>
+                <span class="sp-sub">A web3 Q&amp;A game built on Base network wallet &amp; rewards integration.</span>
+              </div>
             </div>
-            <div class="project-thumb-overlay"></div>
-            <div class="project-badge"><span class="badge-dot" style="background:var(--muted)"></span>Mobile</div>
-          </div>
-          <div class="project-body">
-            <h3 class="project-title">Sprout — Wellness App</h3>
-            <p class="project-desc">iOS app design for a mental wellness platform. Focus on daily habit tracking, mood journaling, and mindful UX patterns.</p>
-            <div class="project-tags">
-              <span class="tag"><span class="tag-dot"></span>iOS Design</span>
-              <span class="tag"><span class="tag-dot"></span>Prototyping</span>
-              <span class="tag"><span class="tag-dot"></span>Motion</span>
+            <div class="sp-roles-row">
+              <div class="sp-roles-pill">
+                <div class="sp-dots">
+                  <div class="sp-dot sp-dot-blue"></div>
+                  <div class="sp-dot sp-dot-orange"></div>
+                  <div class="sp-dot sp-dot-gray"></div>
+                </div>
+                <span class="sp-role-text">Lead Product designer</span>
+                <span class="sp-sep">|</span>
+                <span class="sp-role-text">Brand Designer</span>
+              </div>
+              <a href="#" class="sp-case-pill">
+                Case study
+                <div class="sp-arrow-icon">
+                  <img src="https://www.figma.com/api/mcp/asset/e013149d-2bc6-4858-b2cd-72077dd7028d" alt="">
+                </div>
+              </a>
             </div>
           </div>
+          <div class="sp-preview" style="background:linear-gradient(135deg,#040b1f 0%,#020611 100%);"></div>
         </div>
 
-        <!-- Card 4 -->
-        <div class="project-card reveal reveal-delay-3">
-          <div class="project-thumb thumb-4">
-            <div class="thumb-art">
-              <svg width="260" height="146" viewBox="0 0 260 146" fill="none">
-                <path d="M30 110 Q65 40 130 70 Q195 100 230 30" stroke="white" stroke-width="1.2" opacity=".4" fill="none"/>
-                <path d="M30 110 Q65 40 130 70 Q195 100 230 30 L230 126 L30 126Z" fill="white" opacity=".04"/>
-                <circle cx="130" cy="70" r="5" fill="white" opacity=".5"/>
-                <circle cx="65" cy="75" r="3" fill="white" opacity=".3"/>
-                <circle cx="195" cy="65" r="3" fill="white" opacity=".3"/>
-                <rect x="30" y="20" width="50" height="6" rx="3" fill="white" opacity=".3"/>
-                <rect x="30" y="32" width="35" height="4" rx="2" fill="white" opacity=".15"/>
-              </svg>
-            </div>
-            <div class="project-thumb-overlay"></div>
-            <div class="project-badge"><span class="badge-dot"></span>Development</div>
-          </div>
-          <div class="project-body">
-            <h3 class="project-title">Volta — Analytics Platform</h3>
-            <p class="project-desc">Full-stack build of a real-time analytics dashboard with custom charting, data viz, and a component library in React.</p>
-            <div class="project-tags">
-              <span class="tag"><span class="tag-dot"></span>React</span>
-              <span class="tag"><span class="tag-dot"></span>TypeScript</span>
-              <span class="tag"><span class="tag-dot"></span>D3.js</span>
-              <span class="tag"><span class="tag-dot"></span>Tailwind</span>
-            </div>
-          </div>
-        </div>
-
-      </div><!-- /projects-grid -->
+      </div><!-- /sp-wrapper -->
     </div>
   </section>
 
   <!-- ── CLIENTS ───────────────────────────────────────────── -->
   <section id="clients">
     <div class="container">
-      <div class="section-header">
-        <div>
-          <div class="section-label reveal">Kind Words</div>
-          <h2 class="section-title reveal reveal-delay-1">What Clients<br>Are Saying</h2>
-        </div>
-        <p class="section-desc reveal reveal-delay-2">
-          Trusted by startups and scale-ups to ship design that moves
-          the needle.
+      <div class="clients-content reveal">
+
+        <p class="clients-heading">
+          <span class="h-primary">CLIENTS </span><span class="h-secondary">&amp; COLLABORATIONS</span>
         </p>
-      </div>
 
-      <div class="testimonials-grid">
+        <div class="clients-card">
+          <div class="clients-card-bg"></div>
+          <div class="clients-pills">
 
-        <!-- T1 -->
-        <div class="testimonial-card t-card-1 reveal">
-          <div>
-            <div class="t-status"><span class="status-dot dot-blue"></span>Current Client</div>
-            <div class="t-quote">
-              Ola has an exceptional ability to translate ambiguous briefs into clear, elegant design decisions. Shipped our rebrand 2 weeks ahead of schedule.
+            <!-- Insite -->
+            <div class="client-pill">
+              <div class="client-icon">
+                <img src="https://www.figma.com/api/mcp/asset/38f626b9-51df-4f88-a11f-5a137f40016f" alt="Insite" style="width:9px;height:10px">
+              </div>
+              <span class="client-name">Insite</span>
             </div>
-          </div>
-          <div class="t-author">
-            <div class="t-avatar av-1">RK</div>
-            <div>
-              <div class="t-name">Remi Kowalski</div>
-              <div class="t-role">CPO, Finflow Technologies</div>
-            </div>
-          </div>
-        </div>
 
-        <!-- T2 -->
-        <div class="testimonial-card t-card-2 reveal reveal-delay-1">
-          <div>
-            <div class="t-status"><span class="status-dot dot-red"></span>Completed</div>
-            <div class="t-quote">
-              Working with Ola felt like having a senior designer and a front-end engineer in one. The attention to micro-interactions alone was worth every penny.
+            <!-- Daba -->
+            <div class="client-pill">
+              <div class="client-icon">
+                <img src="https://www.figma.com/api/mcp/asset/0da562a7-0d50-4f80-a459-e3d8403b8436" alt="Daba" style="width:13px;height:10px;object-fit:cover">
+              </div>
+              <span class="client-name">Daba</span>
             </div>
-          </div>
-          <div class="t-author">
-            <div class="t-avatar av-2">SA</div>
-            <div>
-              <div class="t-name">Sophia Adeyemi</div>
-              <div class="t-role">Founder, Meridian Studio</div>
-            </div>
-          </div>
-        </div>
 
-        <!-- T3 -->
-        <div class="testimonial-card t-card-3 reveal reveal-delay-2">
-          <div>
-            <div class="t-status"><span class="status-dot dot-gray"></span>Ongoing</div>
-            <div class="t-quote">
-              The Sprout app launched with a 4.8 star rating on day one. Ola's obsession with the user experience is contagious — the whole team levelled up.
+            <!-- DriveMe -->
+            <div class="client-pill">
+              <div class="client-icon">
+                <img src="https://www.figma.com/api/mcp/asset/d683817f-04c2-413f-9a6e-2e22380b482d" alt="DriveMe" style="width:6px;height:12px">
+              </div>
+              <span class="client-name">DriveMe</span>
             </div>
-          </div>
-          <div class="t-author">
-            <div class="t-avatar av-3">JM</div>
-            <div>
-              <div class="t-name">Jordan Mensah</div>
-              <div class="t-role">CEO, Sprout Health</div>
-            </div>
-          </div>
-        </div>
 
-        <!-- T4 – Featured wide -->
-        <div class="testimonial-card t-card-4 t-featured reveal reveal-delay-3">
-          <div style="flex:1">
-            <div class="t-status"><span class="status-dot dot-blue"></span>Strategic Partner</div>
-            <div class="t-quote">
-              Ola isn't just a designer — he's a strategic thinker who asks the hard questions before touching a single pixel. Our conversion rate jumped 22% post-launch.
+            <!-- SME Hive -->
+            <div class="client-pill">
+              <div class="client-icon">
+                <img src="https://www.figma.com/api/mcp/asset/2371da7e-d2a5-43f0-9520-51d85ebbeabd" alt="SME Hive" style="width:8px;height:11px">
+              </div>
+              <span class="client-name">SME Hive</span>
             </div>
-          </div>
-          <div class="t-author">
-            <div class="t-avatar av-4">DL</div>
-            <div>
-              <div class="t-name">Diana Luo</div>
-              <div class="t-role">Head of Product, Volta Analytics</div>
-            </div>
-          </div>
-        </div>
 
-      </div><!-- /testimonials-grid -->
+            <!-- Justnovate -->
+            <div class="client-pill">
+              <div class="client-icon">
+                <img src="https://www.figma.com/api/mcp/asset/d4c325e9-3217-4e74-bdb4-7d91e2d3a8bd" alt="Justnovate" style="width:13px;height:14px;object-fit:cover">
+              </div>
+              <span class="client-name">Justnovate</span>
+            </div>
+
+            <!-- All Clear Glass -->
+            <div class="client-pill">
+              <div class="client-icon">
+                <img src="https://www.figma.com/api/mcp/asset/7f6aee78-65ea-4019-af1a-6fbb8889ca07" alt="All Clear Glass" style="width:13px;height:8px">
+              </div>
+              <span class="client-name">All Clear Glass</span>
+            </div>
+
+            <!-- Mavlon Tours -->
+            <div class="client-pill">
+              <div class="client-icon" style="background:none;box-shadow:none;border-radius:0;overflow:visible">
+                <img src="https://www.figma.com/api/mcp/asset/58a70de1-9fcd-4079-8bcb-c5eaac6b2a07" alt="Mavlon Tours" style="width:22px;height:22px;object-fit:contain">
+              </div>
+              <span class="client-name">Mavlon Tours</span>
+            </div>
+
+            <!-- IgniteTunes -->
+            <div class="client-pill">
+              <div class="client-icon">
+                <img src="https://www.figma.com/api/mcp/asset/3641e37b-0427-4e8b-8e36-d0bd4c463e46" alt="IgniteTunes" style="width:10px;height:8px;object-fit:cover">
+              </div>
+              <span class="client-name">IgniteTunes</span>
+            </div>
+
+            <!-- High N Dry -->
+            <div class="client-pill">
+              <div class="client-icon">
+                <img src="https://www.figma.com/api/mcp/asset/f54f7ade-a0cd-41dc-83fd-317b3f092b16" alt="High N Dry" style="width:12px;height:5px;object-fit:cover;border-radius:260px">
+              </div>
+              <span class="client-name">High N Dry</span>
+            </div>
+
+            <!-- Renaissance -->
+            <div class="client-pill">
+              <div class="client-icon">
+                <img src="https://www.figma.com/api/mcp/asset/57dc97b8-b071-477a-9003-c1b7fe723ca4" alt="Renaissance" style="width:12px;height:12px;object-fit:cover;border-radius:250px">
+              </div>
+              <span class="client-name">Renaissance</span>
+            </div>
+
+            <!-- WashVilla -->
+            <div class="client-pill">
+              <div class="client-icon">
+                <img src="https://www.figma.com/api/mcp/asset/e553ca20-31fc-44d7-bb98-1bc806a2d93c" alt="WashVilla" style="width:12px;height:12px">
+              </div>
+              <span class="client-name">WashVilla</span>
+            </div>
+
+            <!-- Ride Vendor -->
+            <div class="client-pill">
+              <div class="client-icon">
+                <img src="https://www.figma.com/api/mcp/asset/70dd3541-60e0-46b7-8de7-d49094ceead7" alt="Ride Vendor" style="width:8px;height:9px;object-fit:cover">
+              </div>
+              <span class="client-name">Ride Vendor</span>
+            </div>
+
+            <!-- Lochindaal -->
+            <div class="client-pill">
+              <div class="client-icon">
+                <img src="https://www.figma.com/api/mcp/asset/994ee9a3-068e-4aa7-865c-2bfc1038f889" alt="Lochindaal" style="width:12px;height:12px">
+              </div>
+              <span class="client-name">Lochindaal</span>
+            </div>
+
+          </div><!-- /clients-pills -->
+        </div><!-- /clients-card -->
+
+      </div><!-- /clients-content -->
     </div>
   </section>
 
   <!-- ── ABOUT ──────────────────────────────────────────────── -->
   <section id="about">
     <div class="container">
-      <div class="about-grid">
+      <div class="about-content reveal">
 
-        <div class="about-visual reveal">
-          <div class="about-portrait">
-            <div class="portrait-glow"></div>
-            <span class="portrait-initials">OF</span>
-          </div>
-          <div class="about-stat about-stat-1">
-            <div class="stat-number">5<span>+</span></div>
-            <div class="stat-label">Years of Experience</div>
-          </div>
-          <div class="about-stat about-stat-2">
-            <div class="stat-number">32<span>+</span></div>
-            <div class="stat-label">Projects Shipped</div>
-          </div>
-        </div>
+        <p class="about-heading">ABOUT ME</p>
 
-        <div class="reveal reveal-delay-2">
-          <div class="section-label">About Me</div>
-          <h2 class="section-title" style="margin-bottom:24px">Design with<br>purpose.</h2>
-          <p class="about-bio">
-            I'm <strong>Ola Fakomi</strong>, a product designer and front-end developer based in Lagos &amp; London. I work at the intersection of design thinking and engineering — building products that are both beautiful and technically sound.
-            <br><br>
-            With a background in human-computer interaction and over five years of professional practice, I've partnered with funded startups, agencies, and enterprise teams to ship products that users actually love.
-          </p>
-          <div class="skills-list">
-            <div class="skill-item">Product Design</div>
-            <div class="skill-item">Front-End Development</div>
-            <div class="skill-item">Design Systems</div>
-            <div class="skill-item">User Research</div>
-            <div class="skill-item">Interaction Design</div>
-            <div class="skill-item">Prototyping</div>
-            <div class="skill-item">Brand Identity</div>
-            <div class="skill-item">Motion Design</div>
-          </div>
-          <div style="display:flex;gap:12px;flex-wrap:wrap">
-            <a href="#work" class="btn btn-primary">See My Work</a>
-            <a href="#contact" class="btn btn-ghost">Download CV</a>
-          </div>
-        </div>
+        <div class="about-body">
 
-      </div>
+          <!-- Quote + headshot hero card -->
+          <div class="about-hero-card">
+            <div class="about-hero-bg">
+              <img src="images/about/AboutBG.png" alt="">
+            </div>
+            <div class="about-quote-block">
+              <div class="about-quote-mark">"</div>
+              <p class="about-quote-text">Think of me a <span class="accent">design mercenary</span>. I find the gaps between business goals and design and I make that connection.</p>
+            </div>
+            <div class="about-headshot">
+              <img src="images/about/about_headshot.png" alt="Ola Fakomi">
+            </div>
+          </div>
+
+          <!-- Bio paragraphs -->
+          <div class="about-bio-text">
+            <p>My name is Ola Fakomi &amp; for the past 5 years I've been so many things. A graphic designer, a product designer, a business owner, a technical writer, the President of an NGO, and an engineer&nbsp; while actively being the last born child of a beautiful family.</p>
+            <p>Right now, I'm a solution provider. I help brands and businesses passionate about solving a key problem reach their goals with design.</p>
+          </div>
+
+          <!-- Action buttons -->
+          <div class="about-actions">
+            <a href="#" class="about-action-btn">
+              <div class="about-action-left">
+                <div class="about-action-icon">
+                  <img src="https://www.figma.com/api/mcp/asset/dfbfda16-f512-4648-b580-e99c72e61a19" alt="">
+                </div>
+                <span class="about-action-label">Experience</span>
+              </div>
+              <div class="about-action-arrow">
+                <img src="https://www.figma.com/api/mcp/asset/7c3d6651-3ad2-4ac1-a15a-e002bcc80b01" alt="">
+              </div>
+            </a>
+            <a href="#" class="about-action-btn">
+              <div class="about-action-left">
+                <div class="about-action-icon">
+                  <img src="https://www.figma.com/api/mcp/asset/cbdec2e7-0e4c-48c4-ba7a-cbfa5445e418" alt="">
+                </div>
+                <span class="about-action-label">Competences</span>
+              </div>
+              <div class="about-action-arrow">
+                <img src="https://www.figma.com/api/mcp/asset/7c3d6651-3ad2-4ac1-a15a-e002bcc80b01" alt="">
+              </div>
+            </a>
+            <a href="#" class="about-action-btn">
+              <div class="about-action-left">
+                <div class="about-action-icon">
+                  <img src="https://www.figma.com/api/mcp/asset/a6b39ace-8fd8-4794-b61c-7bd74d3d6813" alt="">
+                </div>
+                <span class="about-action-label">Tools</span>
+              </div>
+              <div class="about-action-arrow">
+                <img src="https://www.figma.com/api/mcp/asset/7c3d6651-3ad2-4ac1-a15a-e002bcc80b01" alt="">
+              </div>
+            </a>
+          </div>
+
+        </div><!-- /about-body -->
+      </div><!-- /about-content -->
     </div>
   </section>
 
   <!-- ── CONTACT / FOOTER ──────────────────────────────────── -->
   <section id="contact">
+    <!-- Background layers -->
+    <div class="footer-bg">
+      <div class="footer-bg-clouds">
+        <img src="images/footer/FooterBG.png" alt="">
+      </div>
+      <div class="footer-bg-gradient">
+        <img src="https://www.figma.com/api/mcp/asset/69aa7745-374d-44ad-a01d-04c4b6386a63" alt="">
+      </div>
+    </div>
+
     <div class="container">
-      <div class="contact-inner">
-        <div class="contact-glow"></div>
+      <div class="footer-inner reveal">
 
-        <h2 class="contact-headline reveal">
-          Let's build something<br><em>great together.</em>
-        </h2>
-        <p class="contact-sub reveal reveal-delay-1">
-          Available for freelance projects, full-time roles, and long-term design partnerships. Let's talk.
-        </p>
-
-        <div class="contact-links reveal reveal-delay-2">
-          <a href="mailto:hello@olafakomi.com" class="contact-link">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-            hello@olafakomi.com
-          </a>
-          <a href="https://twitter.com/olafakomi" target="_blank" class="contact-link">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4l16 16M4 20L20 4"/><path d="M20 4h-5l-11 16h5"/></svg>
-            Twitter / X
-          </a>
-          <a href="https://linkedin.com/in/olafakomi" target="_blank" class="contact-link">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M8 11v5M8 8v.01M12 16v-5M12 11a3 3 0 0 1 6 0v5"/></svg>
-            LinkedIn
-          </a>
-          <a href="https://dribbble.com/olafakomi" target="_blank" class="contact-link">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M19.13 5.09C15.22 9.14 10 10.44 2.25 10.94"/><path d="M21.75 12.84c-6.62-1.41-12.14 1-16.38 6.32"/><path d="M8.56 2.75c4.37 6 6 9.42 8 17.72"/></svg>
-            Dribbble
-          </a>
+        <!-- Top row -->
+        <div class="footer-top">
+          <div class="footer-headline">Get&#10;in touch now...</div>
+          <div class="footer-nav-links">
+            <a href="#home">Homepage</a>
+            <a href="#work">Projects</a>
+            <a href="#work">Explorations</a>
+            <a href="#about">Blog</a>
+          </div>
+          <div class="footer-avatar">
+            <img src="https://www.figma.com/api/mcp/asset/67817995-6d6f-4f26-bb4a-094bd6fa4f5d" alt="Ola Fakomi">
+          </div>
         </div>
 
-        <div class="footer-bar">
-          <div class="footer-copy">&copy; 2025 Ola Fakomi — All rights reserved</div>
-          <div class="footer-right">
-            <a href="#home">Back to top</a>
-            <a href="#work">Work</a>
-            <a href="#about">About</a>
+        <!-- Bottom bar -->
+        <div class="footer-bottom">
+          <div class="footer-contact-bar">
+            <!-- Social icons -->
+            <div class="footer-social-icons">
+              <a href="mailto:Olarewajufakomi@gmail.com" class="footer-social-icon has-bg">
+                <img src="https://www.figma.com/api/mcp/asset/c79d126c-ad46-4866-92eb-4c119cf2cd35" alt="Email" width="19" height="19">
+              </a>
+              <a href="https://twitter.com/olafakomi" target="_blank" class="footer-social-icon">
+                <img src="https://www.figma.com/api/mcp/asset/efaf640d-4875-49ea-9305-22a6734ac8f6" alt="Twitter" width="12" height="12">
+              </a>
+              <a href="#" target="_blank" class="footer-social-icon">
+                <img src="https://www.figma.com/api/mcp/asset/4beaef54-1cda-4e83-b563-dad6a9cd5b28" alt="Substack" width="14" height="14">
+              </a>
+              <a href="https://linkedin.com/in/olafakomi" target="_blank" class="footer-social-icon">
+                <img src="https://www.figma.com/api/mcp/asset/57e78a3e-fc75-4876-9619-ecda2060b091" alt="LinkedIn" width="16" height="16">
+              </a>
+            </div>
+
+            <!-- Email address -->
+            <span class="footer-email">@Olarewajufakomi@gmail.com</span>
+
+            <!-- CTA button -->
+            <div class="footer-cta">
+              <a href="mailto:Olarewajufakomi@gmail.com" class="footer-cta-btn">Let's talk</a>
+            </div>
           </div>
+
+          <p class="footer-copyright">© 2025 — Copyright</p>
         </div>
 
       </div>
