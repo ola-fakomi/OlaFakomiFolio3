@@ -261,7 +261,7 @@
     .hero-new-textblock {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 18px;
     }
     .hero-greeting-line {
       font-family: 'Unbounded', sans-serif;
@@ -340,10 +340,9 @@
     }
     .exp-card-glow {
       position: absolute;
-      left: -1px; top: -268px;
-      width: 814px; height: 610px;
-      background: radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.07) 0%, transparent 55%);
-      mix-blend-mode: color-dodge;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
       pointer-events: none;
     }
     .exp-left {
@@ -351,6 +350,7 @@
       background: #191919;
       border-radius: 16px;
       position: relative;
+      z-index: 1;
       overflow: hidden;
       flex-shrink: 0;
     }
@@ -406,6 +406,8 @@
       flex-direction: column;
       gap: 8px;
       padding: 21px 0;
+      position: relative;
+      z-index: 1;
       font-family: 'Unbounded', sans-serif;
       font-size: 18px;
       font-weight: 300;
@@ -428,7 +430,7 @@
     .hero-btns {
       display: flex;
       gap: 12px;
-      padding: 0 4px;
+      padding: 0;
       align-items: center;
     }
     .hero-btn-talk {
@@ -526,7 +528,7 @@
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 32px;
     }
     .sp-heading {
       font-family: 'Unbounded', sans-serif;
@@ -537,15 +539,15 @@
       padding: 0 4px;
     }
     .sp-card {
-      display: flex; flex-direction: column; gap: 8px;
-      padding: 8px;
+      display: flex; flex-direction: column; gap: 12px;
+      padding: 12px;
       border-radius: 16px;
       background: var(--bg);
       border: 1px solid rgba(255,255,255,0.05);
       overflow: hidden;
     }
     .sp-info {
-      display: flex; flex-direction: column; gap: 8px;
+      display: flex; flex-direction: column; gap: 14px;
       padding: 0 4px;
     }
     .sp-top-row {
@@ -563,7 +565,7 @@
     }
     .sp-text-col {
       flex: 1; min-width: 0;
-      display: flex; flex-direction: column; gap: 1px;
+      display: flex; flex-direction: column; gap: 5px;
       padding: 4px 0;
     }
     .sp-name {
@@ -645,13 +647,13 @@
     /* ─── CLIENTS ──────────────────────────────────────────── */
     #clients {
       background: var(--bg);
-      padding: 40px 0;
+      padding: 72px 0;
     }
 
     .clients-content {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 20px;
       max-width: 832px;
       margin: 0 auto;
     }
@@ -675,19 +677,19 @@
       position: relative;
     }
 
-    /* Background gradient glow */
+    /* Background image */
     .clients-card-bg {
       position: absolute;
       inset: 0;
       border-radius: inherit;
-      background: radial-gradient(ellipse 120% 200% at 60% 150%, rgba(72,55,243,0.55) 0%, rgba(30,20,100,0.4) 40%, transparent 70%);
+      overflow: hidden;
       pointer-events: none;
     }
 
     .clients-pills {
       display: flex;
       flex-wrap: wrap;
-      gap: 4px;
+      gap: 8px;
       align-items: center;
       justify-content: center;
       position: relative;
@@ -697,8 +699,8 @@
     .client-pill {
       display: flex;
       align-items: center;
-      gap: 4px;
-      padding: 8px;
+      gap: 6px;
+      padding: 8px 12px;
       background: #1d1d1d;
       border: 1px solid rgba(255,255,255,0.05);
       border-radius: 12px;
@@ -734,13 +736,13 @@
     /* ─── ABOUT ────────────────────────────────────────────── */
     #about {
       background: var(--bg);
-      padding: 40px 0 120px;
+      padding: 72px 0 100px;
     }
 
     .about-content {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 20px;
       max-width: 832px;
       margin: 0 auto;
     }
@@ -758,7 +760,7 @@
     .about-body {
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 28px;
     }
 
     /* Hero quote card */
@@ -770,7 +772,7 @@
       display: flex;
       align-items: center;
       gap: 42px;
-      padding: 10px 8px 10px 32px;
+      padding: 24px 24px 24px 24px;
       box-shadow: inset 0 0 0 2px rgba(255,255,255,0.05);
     }
 
@@ -841,7 +843,7 @@
     .about-bio-text {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 28px;
       padding: 0 4px;
     }
 
@@ -964,8 +966,8 @@
       z-index: 1;
       display: flex;
       flex-direction: column;
-      gap: 48px;
-      padding: 80px 0 0;
+      gap: 56px;
+      padding: 100px 0 0;
       max-width: 832px;
       margin: 0 auto;
     }
@@ -1107,7 +1109,7 @@
       mix-blend-mode: overlay;
       text-align: center;
       line-height: 0.9;
-      padding-bottom: 40px;
+      padding-bottom: 60px;
     }
 
     /* ─── Mobile Nav ───────────────────────────────────────── */
@@ -1278,16 +1280,9 @@
 
             <!-- Experience card -->
             <div class="exp-card">
-              <div class="exp-card-glow"></div>
+              <div class="exp-card-glow"><img src="images/hero/Experience_BG.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;"></div>
               <div class="exp-left">
-                <img src="https://www.figma.com/api/mcp/asset/f04c9335-930c-4586-91ab-2f3a70be5f66" alt="" class="exp-union exp-union-top">
-                <div class="exp-bars-wrap">
-                  <div class="exp-bar" style="background:#474747">2019</div>
-                  <div class="exp-bar" style="background:#565656">—</div>
-                  <div class="exp-bar" style="background:#656565">2025</div>
-                </div>
-                <img src="https://www.figma.com/api/mcp/asset/14ba3be7-358a-4ef7-b0cf-27884e7b00e3" alt="" class="exp-union exp-union-bot">
-                <div class="exp-label">EXPERIENCE<br>SUMMARY</div>
+                <img src="images/hero/Experience_Image.png" alt="Experience Summary" style="width:100%;height:100%;object-fit:cover;display:block;">
               </div>
               <div class="exp-right">
                 <div class="exp-stat"><span>Worked at</span> <strong>3 Startups</strong></div>
@@ -1351,7 +1346,7 @@
               </a>
             </div>
           </div>
-          <div class="sp-preview" style="background:linear-gradient(135deg,#2a1a0a 0%,#1e1208 100%);"></div>
+          <div class="sp-preview"><img src="images/projects/Roots_displayImage.png" alt="The Roots"></div>
         </div>
 
         <!-- ─ Card 2: Revwit ─ -->
@@ -1361,7 +1356,6 @@
               <div class="sp-icon-box" style="background:linear-gradient(180deg,rgba(6,31,28,0.8) 0%,rgba(3,15,14,0.8) 100%);">
                 <div style="position:relative;width:19px;height:19px;">
                   <div style="position:absolute;inset:0;border:1.6px solid white;border-radius:5.3px;"></div>
-                  <img src="images/projects/Revwit_displayImage.png" alt="" style="position:absolute;top:2.9px;left:2.9px;width:10.7px;height:10.7px;display:block;">
                   <img src="https://www.figma.com/api/mcp/asset/c8494cc4-e40e-47bf-92c7-c71d13ee8865" alt="" style="position:absolute;top:8.5px;left:8.5px;width:6.4px;height:6.4px;display:block;">
                 </div>
               </div>
@@ -1389,7 +1383,7 @@
               </a>
             </div>
           </div>
-          <div class="sp-preview" style="background:linear-gradient(135deg,#051f1a 0%,#03100e 100%);"></div>
+          <div class="sp-preview"><img src="images/projects/Revwit_displayImage.png" alt="Revwit"></div>
         </div>
 
         <!-- ─ Card 3: Trib ─ -->
@@ -1398,7 +1392,6 @@
             <div class="sp-top-row">
               <div class="sp-icon-box" style="background:linear-gradient(180deg,rgba(10,20,50,0.9) 0%,rgba(4,11,31,0.9) 100%);">
                 <div style="position:relative;width:30px;height:17px;">
-                  <img src="images/projects/Trib_displayImage.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;display:block;">
                   <img src="https://www.figma.com/api/mcp/asset/165fec6b-ea74-46f2-9572-da417da1bbd5" alt="" style="position:absolute;top:0.86px;left:0.88px;width:92%;height:86%;display:block;">
                 </div>
               </div>
@@ -1426,7 +1419,7 @@
               </a>
             </div>
           </div>
-          <div class="sp-preview" style="background:linear-gradient(135deg,#040b1f 0%,#020611 100%);"></div>
+          <div class="sp-preview"><img src="images/projects/Trib_displayImage.png" alt="Trib"></div>
         </div>
 
       </div><!-- /sp-wrapper -->
@@ -1443,7 +1436,7 @@
         </p>
 
         <div class="clients-card">
-          <div class="clients-card-bg"></div>
+          <div class="clients-card-bg"><img src="images/clients/Clients_BG.png" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>
           <div class="clients-pills">
 
             <!-- Insite -->
