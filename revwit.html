@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revwit Case Study — Ola Fakomi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:        #ffffff;
+      --bg-page:   #f7f7f6;
+      --bg-card:   #f0efee;
+      --accent:    #4837f3;
+      --accent-lt: rgba(72,55,243,0.08);
+      --green:     #16a34a;
+      --green-lt:  rgba(22,163,74,0.1);
+      --red-lt:    rgba(220,38,38,0.08);
+      --text:      #111111;
+      --text-dim:  #555555;
+      --text-mute: #999999;
+      --border:    rgba(0,0,0,0.08);
+      --nav-bg:    #111111;
+      --r-sm:      10px;
+      --r-md:      16px;
+      --r-lg:      20px;
+      --max-w:     720px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Unbounded', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--nav-bg);
+      height: 56px;
+      display: flex; align-items: center;
+    }
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 32px;
+      width: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-back {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 14px; font-weight: 500;
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 6px;
+      transition: color 0.15s;
+    }
+    .nav-back:hover { color: #fff; }
+    .nav-back svg { width: 14px; height: 14px; }
+    .nav-cta {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 14px; font-weight: 500;
+      color: #fff; text-decoration: none;
+      padding: 8px 18px;
+      background: var(--accent);
+      border-radius: 8px;
+      transition: opacity 0.15s;
+    }
+    .nav-cta:hover { opacity: 0.88; }
+
+    /* ── LAYOUT ─────────────────────────────────────────── */
+    .page {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 32px 80px;
+    }
+
+    /* ── HERO ────────────────────────────────────────────── */
+    .cs-hero {
+      padding-top: 72px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid var(--border);
+    }
+    .cs-logo {
+      width: 40px; height: 40px;
+      border-radius: 10px; overflow: hidden;
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
+    }
+    .cs-logo img { width: 100%; height: 100%; object-fit: cover; }
+    .cs-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 22px; font-weight: 700;
+      line-height: 1.35; margin-bottom: 12px;
+      color: var(--text);
+    }
+    .cs-title .accent { color: var(--accent); }
+    .cs-subtitle {
+      font-size: 15px; color: var(--text-dim);
+      max-width: 600px; line-height: 1.75;
+      margin-bottom: 32px;
+    }
+    .cs-hero-img {
+      width: 100%; border-radius: var(--r-lg);
+      border: 1px solid var(--border); overflow: hidden;
+      background: #f0f7f2;
+    }
+    .cs-hero-img img { width: 100%; display: block; }
+
+    /* ── SECTION ─────────────────────────────────────────── */
+    .cs-section {
+      padding: 40px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .cs-section:last-child { border-bottom: none; }
+    .cs-section-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 17px; font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .cs-body {
+      font-size: 15px; color: var(--text-dim);
+      line-height: 1.8; margin-bottom: 16px;
+    }
+    .cs-body strong { color: var(--text); }
+
+    /* ── PILL LABELS ─────────────────────────────────────── */
+    .pill {
+      display: inline-flex; align-items: center;
+      padding: 4px 10px; border-radius: 999px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 12px; font-weight: 500;
+      margin-bottom: 10px;
+    }
+    .pill-default {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+    }
+    .pill-blue {
+      background: rgba(72,55,243,0.08);
+      border: 1px solid rgba(72,55,243,0.15);
+      color: var(--accent);
+    }
+    .pill-green {
+      background: rgba(22,163,74,0.08);
+      border: 1px solid rgba(22,163,74,0.15);
+      color: #16a34a;
+    }
+    .pill-red {
+      background: rgba(220,38,38,0.06);
+      border: 1px solid rgba(220,38,38,0.12);
+      color: #dc2626;
+    }
+
+    /* ── CHECK LIST ──────────────────────────────────────── */
+    .check-list {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 8px;
+      margin-bottom: 16px;
+    }
+    .check-list li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 14px; color: var(--text-dim); line-height: 1.65;
+    }
+    .check-list li::before {
+      content: '';
+      width: 17px; height: 17px; flex-shrink: 0; margin-top: 1px;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 17 17' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='17' height='17' rx='4.5' fill='%2316a34a' fill-opacity='0.12'/%3E%3Cpath d='M4.5 9l2.5 2.5 5-5' stroke='%2316a34a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain;
+    }
+    .check-list li strong { color: var(--text); }
+
+    /* ── ROLE BADGES ─────────────────────────────────────── */
+    .role-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+    .role-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px; color: var(--text-dim);
+    }
+    .role-badge::before {
+      content: '';
+      width: 15px; height: 15px;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 15 15' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='15' height='15' rx='4' fill='%2316a34a' fill-opacity='0.12'/%3E%3Cpath d='M4 7.5l2.5 2L11 5' stroke='%2316a34a' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain;
+    }
+
+    /* ── TLDR BLOCK ──────────────────────────────────────── */
+    .tldr {
+      padding: 16px 20px;
+      border-left: 3px solid var(--accent);
+      background: var(--accent-lt);
+      border-radius: 0 8px 8px 0;
+      margin: 12px 0 20px;
+    }
+    .tldr p { font-size: 14px; color: var(--text-dim); line-height: 1.8; }
+    .tldr a { color: var(--accent); text-decoration: underline; }
+
+    /* ── TWO-COL ─────────────────────────────────────────── */
+    .two-col {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px; margin-bottom: 16px;
+    }
+    @media (max-width: 560px) { .two-col { grid-template-columns: 1fr; } }
+
+    /* ── INFO CARD ───────────────────────────────────────── */
+    .info-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md); padding: 18px;
+    }
+
+    /* ── FEATURE CARD ────────────────────────────────────── */
+    .feature-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden; margin-bottom: 16px;
+    }
+    .feature-body { padding: 22px 22px 18px; }
+    .feature-num {
+      font-size: 11px; font-weight: 600;
+      color: var(--accent); letter-spacing: 0.06em;
+      text-transform: uppercase; margin-bottom: 6px;
+    }
+    .feature-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 15px; font-weight: 700;
+      color: var(--accent); margin-bottom: 8px;
+    }
+    .feature-desc {
+      font-size: 14px; color: var(--text-dim);
+      line-height: 1.7; margin-bottom: 20px;
+    }
+    .feature-cols {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px; margin-bottom: 4px;
+    }
+    @media (max-width: 560px) { .feature-cols { grid-template-columns: 1fr; } }
+    .feature-img {
+      width: 100%; border-top: 1px solid var(--border);
+      background: #f0f7f2;
+    }
+    .feature-img img { width: 100%; display: block; }
+
+    /* ── STATS ROW ───────────────────────────────────────── */
+    .stats-row {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 12px; margin: 24px 0;
+    }
+    @media (max-width: 560px) { .stats-row { grid-template-columns: 1fr 1fr; } }
+    .stat-card {
+      background: var(--accent-lt);
+      border: 1px solid rgba(72,55,243,0.12);
+      border-radius: var(--r-md); padding: 20px; text-align: center;
+    }
+    .stat-num {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 24px; font-weight: 700;
+      color: var(--accent); display: block; margin-bottom: 4px;
+    }
+    .stat-label { font-size: 12px; color: var(--text-mute); }
+
+    /* ── IMG BLOCK ───────────────────────────────────────── */
+    .img-block {
+      width: 100%;
+      border-radius: var(--r-lg);
+      border: 1px solid var(--border);
+      overflow: hidden; margin: 16px 0;
+      background: #f0f7f2;
+    }
+    .img-block img { width: 100%; display: block; }
+
+    /* ── CLOSING QUOTE ───────────────────────────────────── */
+    .closing-quote {
+      padding: 18px 22px;
+      background: var(--accent-lt);
+      border: 1px solid rgba(72,55,243,0.12);
+      border-radius: var(--r-md); margin-top: 20px;
+    }
+    .closing-quote p {
+      font-size: 14px; color: var(--text-dim);
+      line-height: 1.8; font-style: italic;
+    }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    .cs-footer {
+      padding: 48px 32px 64px;
+      text-align: center;
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+    .back-home {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 14px; font-weight: 500;
+      color: var(--text-dim); text-decoration: none;
+      padding: 10px 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .back-home:hover { background: #e8e7e6; color: var(--text); }
+    .cs-footer p { font-size: 13px; color: var(--text-mute); margin-top: 16px; }
+
+    @media (max-width: 600px) {
+      .page { padding: 0 20px 60px; }
+      .nav-inner { padding: 0 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-back">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M9 2.5L5 7l4 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back
+      </a>
+      <a href="mailto:Olarewajufakomi@gmail.com" class="nav-cta">Let's Talk</a>
+    </div>
+  </nav>
+
+  <div class="page">
+
+    <!-- HERO -->
+    <section class="cs-hero">
+      <div class="cs-logo">
+        <img src="images/Logos/CasestudyRevwit_logoImg.png" alt="Revwit">
+      </div>
+      <h1 class="cs-title"><span class="accent">Revwit</span> — AI-enabled B2B Sales CRM</h1>
+      <p class="cs-subtitle">Revwit is a Sales CRM designed for B2B Sales teams to help capture leads, optimise sales processes, manage client relationships and close more deals, faster and more efficiently.</p>
+      <div class="cs-hero-img">
+        <img src="images/projects/RevwitCasestudy/Revwit Hero.png" alt="Revwit CRM Interface">
+      </div>
+    </section>
+
+    <!-- ROLE + TLDR -->
+    <section class="cs-section">
+      <div class="pill pill-default">Role</div>
+      <div class="role-row">
+        <span class="role-badge">Product Designer</span>
+        <span class="role-badge">Brand Designer</span>
+      </div>
+      <div class="pill pill-default">TL;DR</div>
+      <div class="tldr">
+        <p>I led product and brand design for Revwit, a B2B sales CRM that uses AI to optimise the sales process by capturing leads, tracking deals and building stronger client relationships. Leading to the acquisition of 200+ users in the first week of launch and a special feature in multiple tech publications — including Lagos Startup Expo, African Startup Festival and an interview on Silverbird.</p>
+      </div>
+    </section>
+
+    <!-- BUSINESS CONTEXT -->
+    <section class="cs-section">
+      <h2 class="cs-section-title">Business Context &amp; Problem</h2>
+      <p class="cs-body">Revwit helps B2B teams capture leads, auto-enrich missing data, and optimise communication and deal tracking amongst teams. The product was functional but adoption and retention were low; the website and marketing had different messaging.</p>
+      <div class="two-col">
+        <div class="info-card">
+          <div class="pill pill-default" style="margin-bottom:12px;">Business goals</div>
+          <ul class="check-list">
+            <li>Increase qualified trial signups by 30% in Q2.</li>
+            <li>Reduce average time-to-first-deal by 20%.</li>
+            <li>Improve brand clarity to support enterprise sales collateral.</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <div class="pill pill-default" style="margin-bottom:12px;">Constraints</div>
+          <ul class="check-list">
+            <li>Small team, tight engineering bandwidth.</li>
+            <li>Legacy UI components; needed incremental changes.</li>
+            <li>Regulatory/enterprise security requirements for onboarding and data import on Google and Microsoft.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- MY RESPONSIBILITIES -->
+    <section class="cs-section">
+      <h2 class="cs-section-title">My Responsibilities</h2>
+      <ul class="check-list">
+        <li>Led end-to-end product design (user flows, wireframes, hi-fi screens and developer handoff and synergy).</li>
+        <li>Redesigned brand identity and marketing assets (website, landing pages, hero videos, pitch decks).</li>
+        <li>Ran usability tests in collaboration with customer support and iterated on onboarding copy/flows.</li>
+        <li>Created motion specs and handed off to engineers and motion designers to implement on website and marketing campaigns.</li>
+        <li>Coordinated Ops — A/B tests with Growth, Support, and Sales team to measure impact and seamlessly onboard clients.</li>
+      </ul>
+    </section>
+
+    <!-- USERS & STAKEHOLDERS -->
+    <section class="cs-section">
+      <h2 class="cs-section-title">Users &amp; Stakeholders</h2>
+      <div class="two-col" style="margin-top:12px;">
+        <div class="info-card">
+          <div class="pill pill-blue" style="margin-bottom:12px;">Primary users</div>
+          <ul class="check-list">
+            <li>Sales Managers (use the product daily) — goals: reduce manual work, increase pipeline.</li>
+            <li>Revenue Ops — goals: accurate data and predictable forecasting.</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <div class="pill pill-default" style="margin-bottom:12px;">Stakeholders</div>
+          <ul class="check-list">
+            <li>CEO</li>
+            <li>Head of Sales</li>
+            <li>Sales Team Members</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESEARCH SUMMARY -->
+    <section class="cs-section">
+      <h2 class="cs-section-title">Research Summary</h2>
+      <div class="info-card" style="margin-bottom:12px;">
+        <div class="pill pill-default" style="margin-bottom:12px;">Methods used</div>
+        <ul class="check-list">
+          <li>100+ customer interviews (recorded).</li>
+          <li>80+ product demo sessions.</li>
+          <li>6+ in-person sales booths at tech conferences.</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <div class="pill pill-green" style="margin-bottom:12px;">Key insights</div>
+        <ul class="check-list">
+          <li>Sales teams would be willing to migrate to a cheaper, less cumbersome tool over Zoho, Pipedrive and Salesforce.</li>
+          <li>Onboarding for competitors was a point of friction due to too many technical steps tailored to experienced sales teams.</li>
+          <li>Revwit onboarding required 3 separate configuration steps — many dropped at step 2.</li>
+          <li>Website messaging used product jargon and failed to communicate ROI clearly.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- DESIGN PRINCIPLES -->
+    <section class="cs-section">
+      <h2 class="cs-section-title">Design Principles &amp; Hypothesis</h2>
+      <div class="two-col" style="margin-top:12px;">
+        <div class="info-card">
+          <div class="pill pill-blue" style="margin-bottom:12px;">Principles</div>
+          <ul class="check-list">
+            <li>Make terms simple — make the CRM easily understandable.</li>
+            <li>Remove friction — fewer decisions up-front and automated onboarding for data import.</li>
+            <li>Surface value quickly — show measurable ROI within first session.</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <div class="pill pill-default" style="margin-bottom:12px;">Hypothesis</div>
+          <p style="font-size:14px;color:var(--text-dim);line-height:1.75;font-style:italic;">"If we reduce onboarding steps from 5 to 3 and make the brand language simple to digest, with automated client data import, users will not need technical expertise to understand and use the CRM."</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="cs-section">
+      <h2 class="cs-section-title" style="margin-bottom:20px;">Product Features</h2>
+
+      <div class="feature-card">
+        <div class="feature-body">
+          <div class="feature-num">Feature 1</div>
+          <div class="feature-title">Lead Capture</div>
+          <p class="feature-desc">Use forms, email integrations and AI to automatically capture, enrich and update your leads.</p>
+          <div class="feature-cols">
+            <div>
+              <div class="pill pill-red">Problem</div>
+              <p style="font-size:13px;color:var(--text-dim);line-height:1.7;">Sales teams typically have to upload customer and deal data manually using spreadsheets, ensuring all data is up to date every time.</p>
+            </div>
+            <div>
+              <div class="pill pill-blue">Design Decision</div>
+              <ul class="check-list" style="font-size:13px;">
+                <li>Email sync upload &amp; auto-enrichment.</li>
+                <li>CSV import</li>
+                <li>Import template implementation</li>
+                <li>Website embedded forms for newer leads</li>
+              </ul>
+            </div>
+            <div>
+              <div class="pill pill-green">Impact</div>
+              <ul class="check-list" style="font-size:13px;">
+                <li>Increased customer retention by 80%.</li>
+                <li>Completely erased drop-off at onboarding.</li>
+                <li>Created multiple alternatives for sales teams using other CRM tools.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="feature-img">
+          <img src="images/projects/RevwitCasestudy/Lead Generation.png" alt="Lead Capture">
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-body">
+          <div class="feature-num">Feature 2</div>
+          <div class="feature-title">Single Source of Truth</div>
+          <p class="feature-desc">All of your leads, interactions and insight in one place — viewed as a table or Kanban view categorised by deal status. Deals can also be viewed in multiple currencies.</p>
+          <div class="feature-cols">
+            <div>
+              <div class="pill pill-red">Problem</div>
+              <ul class="check-list" style="font-size:13px;">
+                <li>Sales teams use multiple tools to track their sales process.</li>
+                <li>Customer data easily gets lost in deal tracking.</li>
+                <li>Data imported manually from external form tools.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="pill pill-blue">Design Decision</div>
+              <ul class="check-list" style="font-size:13px;">
+                <li>2 modes of viewing deals and company data.</li>
+                <li>Table view as the central source for all data.</li>
+                <li>Kanban view for deal tracking with automatic currency conversion.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="pill pill-green">Impact</div>
+              <ul class="check-list" style="font-size:13px;">
+                <li>Closed 10+ new sales teams transacting in multiple currencies.</li>
+                <li>Onboarded 30+ clients migrating to Revwit as their sole sales tool.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="feature-img">
+          <img src="images/projects/RevwitCasestudy/Orgnise.png" alt="Single Source of Truth">
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-body">
+          <div class="feature-num">Feature 3</div>
+          <div class="feature-title">Email &amp; Communication</div>
+          <p class="feature-desc">Revwit built &amp; integrated an email feature that allows users to communicate with team members and leads both individually and in groups (via bulk email).</p>
+          <div class="feature-cols">
+            <div>
+              <div class="pill pill-red">Problem</div>
+              <p style="font-size:13px;color:var(--text-dim);line-height:1.7;">Most CRM tools require communication to happen outside of the CRM, breaking context and tracking.</p>
+            </div>
+            <div>
+              <div class="pill pill-blue">Design Decision</div>
+              <ul class="check-list" style="font-size:13px;">
+                <li>Enable email between team members within the CRM.</li>
+                <li>Enable emails to clients and track communication history.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="pill pill-green">Impact</div>
+              <ul class="check-list" style="font-size:13px;">
+                <li>Saved multiple companies from using a separate communication tool.</li>
+                <li>Tracked previous email communications history from within the CRM.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="feature-img">
+          <img src="images/projects/RevwitCasestudy/Outreach.png" alt="Email and Communication">
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-body">
+          <div class="feature-num">Feature 4</div>
+          <div class="feature-title">Task Management</div>
+          <p class="feature-desc">Revwit integrated tasks and notes to enable sales teams to keep track of who is responsible for each deal and manage assignment within the CRM.</p>
+          <div class="feature-cols">
+            <div>
+              <div class="pill pill-red">Problem</div>
+              <ul class="check-list" style="font-size:13px;">
+                <li>Users could not collaborate with team members within the CRM.</li>
+                <li>External tools required to track and assign individual to-dos.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="pill pill-blue">Design Decision</div>
+              <ul class="check-list" style="font-size:13px;">
+                <li>Translate all deal actions to tasks.</li>
+                <li>Translate feedbacks to notes.</li>
+                <li>Sync with Google and Microsoft calendar for deadline tracking.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="pill pill-green">Impact</div>
+              <ul class="check-list" style="font-size:13px;">
+                <li>Platform usage increased by 25%.</li>
+                <li>Users could easily give feedback within the CRM.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="feature-img">
+          <img src="images/projects/RevwitCasestudy/Follow-up.png" alt="Task Management">
+        </div>
+      </div>
+    </section>
+
+    <!-- BRAND & VISUAL IDENTITY -->
+    <section class="cs-section">
+      <h2 class="cs-section-title">Brand &amp; Visual Identity</h2>
+      <p class="cs-body">Due to the introduction of newer automation features, Revwit began to integrate more AI functionality resulting in a rebrand to position it as an AI-powered CRM.</p>
+      <div class="info-card" style="margin-bottom:14px;">
+        <div class="pill pill-blue" style="margin-bottom:12px;">Key Deliverables</div>
+        <ul class="check-list">
+          <li>New logo refresh.</li>
+          <li>Introduction of a consistent visual design system with realistic imagery and illustrations.</li>
+          <li>Introduction of motion graphics for promotions.</li>
+        </ul>
+      </div>
+      <div class="img-block">
+        <img src="images/projects/RevwitCasestudy/Rebrand.png" alt="Revwit Brand Refresh">
+      </div>
+    </section>
+
+    <!-- WEBSITE -->
+    <section class="cs-section">
+      <h2 class="cs-section-title">Website</h2>
+      <p class="cs-body">Revwit needed to modify its messaging to better position it for sales teams. The website had focused on deal closure alone, but as customers engaged with the CRM, customer pain points became clearer. A change was therefore necessary.</p>
+      <div class="info-card" style="margin-bottom:14px;">
+        <div class="pill pill-green" style="margin-bottom:12px;">Impact</div>
+        <ul class="check-list">
+          <li>Introduction as an AI powered tool.</li>
+          <li>Clarity on newer features for users like lead capture and relationship management.</li>
+          <li>Improved customer support and faster onboarding.</li>
+        </ul>
+      </div>
+      <div class="img-block">
+        <img src="images/projects/RevwitCasestudy/Website.png" alt="Revwit Website">
+      </div>
+    </section>
+
+    <!-- MARKETING MATERIALS -->
+    <section class="cs-section">
+      <h2 class="cs-section-title">Marketing Materials</h2>
+      <p class="cs-body">The rebrand had to be universal and across all platforms. It was necessary to produce both physical and online marketing materials.</p>
+      <div class="two-col">
+        <div class="info-card">
+          <div class="pill pill-default" style="margin-bottom:12px;">Deliverable</div>
+          <ul class="check-list">
+            <li>Graphic design, motion videos of app features.</li>
+            <li>Event backdrops, merch and souvenir designs for physical promotions.</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <div class="pill pill-green" style="margin-bottom:12px;">Impact</div>
+          <ul class="check-list">
+            <li>Featured in Tech Cabal, Africa Startup Festival.</li>
+            <li>Present at Moonshot, Revup, Lagos Startup Expo, Silverbird TV, Nigeria Fintech Forum and more.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="two-col" style="margin-top:4px;">
+        <div class="img-block" style="margin:0;">
+          <img src="images/projects/RevwitCasestudy/Online Marketing.png" alt="Online Marketing">
+        </div>
+        <div class="img-block" style="margin:0;">
+          <img src="images/projects/RevwitCasestudy/Physical Marketing.png" alt="Physical Marketing">
+        </div>
+      </div>
+    </section>
+
+    <!-- OUTCOMES -->
+    <section class="cs-section">
+      <h2 class="cs-section-title">Outcomes &amp; Impact</h2>
+      <p class="cs-body">Revwit is a VC-Backed B2B SaaS that, as a result of the rebrand, product evolution and marketing efforts has:</p>
+      <div class="stats-row">
+        <div class="stat-card">
+          <span class="stat-num">200+</span>
+          <span class="stat-label">Sales teams onboarded</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">4×</span>
+          <span class="stat-label">Revenue growth since launch</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">80%</span>
+          <span class="stat-label">Increase in retention</span>
+        </div>
+      </div>
+      <ul class="check-list">
+        <li>Onboarded over 200+ sales teams and team members.</li>
+        <li>Increased company revenue by 4x since initial product launch.</li>
+        <li>Featured in Tech Cabal and Africa Startup Festival.</li>
+        <li>Present at Moonshot, Revup, Lagos Startup Expo, Silverbird TV, Nigeria Fintech Forum and so on.</li>
+      </ul>
+    </section>
+
+    <!-- LESSONS -->
+    <section class="cs-section">
+      <h2 class="cs-section-title">What I Learned &amp; Next Steps</h2>
+      <div class="info-card">
+        <div class="pill pill-default" style="margin-bottom:12px;">Lessons</div>
+        <ul class="check-list">
+          <li>Consistent customer feedback is the biggest driver to product evolution and retention.</li>
+          <li>Users are willing to migrate if sales team efficiency is improved and all product promises are delivered.</li>
+          <li>Leading design across brand, product and marketing is made easy when documentation is done properly and AI tools are leveraged.</li>
+          <li>Meet your customers where they are. Going for sales events has greatly improved product visibility.</li>
+        </ul>
+      </div>
+    </section>
+
+  </div><!-- /page -->
+
+  <div class="cs-footer">
+    <a href="index.html" class="back-home">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M8 2.5L4.5 6.5L8 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to Home
+    </a>
+    <p>© 2025 Ola Fakomi — Product Designer &amp; Developer</p>
+  </div>
+
+</body>
+</html>

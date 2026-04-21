@@ -4,9 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ola Fakomi — Product Designer & Developer</title>
+
+  <!-- Open Graph / WhatsApp / Social preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://olafakomi.vercel.app/" />
+  <meta property="og:title" content="Ola Fakomi's Portfolio" />
+  <meta property="og:description" content="Good design builds Businesses" />
+  <meta property="og:image" content="https://olafakomi.vercel.app/images/OG_image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ola Fakomi's Portfolio" />
+  <meta name="twitter:description" content="Good design builds Businesses" />
+  <meta name="twitter:image" content="https://olafakomi.vercel.app/images/OG_image.png" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
   <style>
@@ -36,7 +52,7 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Unbounded', sans-serif;
       font-size: 16px;
       line-height: 1.6;
       overflow-x: hidden;
@@ -86,73 +102,84 @@
     /* ─── NAV ──────────────────────────────────────────────── */
     nav {
       position: fixed; top: 0; left: 0; right: 0;
-      height: var(--nav-h);
-      z-index: 100;
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      background: rgba(25,25,25,0.82);
-      border-bottom: 1px solid var(--border);
-      transition: background 0.3s ease;
+      z-index: 9500;
+      background: var(--bg);
+      padding-top: 20px;
+      padding-bottom: 12px;
     }
     .nav-inner {
-      max-width: var(--max-w);
+      max-width: 832px;
       margin: 0 auto;
-      padding: 0 40px;
-      height: 100%;
+      padding: 0;
+    }
+    .nav-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-    }
-    .nav-logo {
-      display: flex; align-items: center; gap: 12px;
-      text-decoration: none;
-    }
-    .logo-box {
-      width: 40px; height: 40px;
-      border-radius: var(--r-sm);
-      background: linear-gradient(135deg, var(--blue-deep), var(--blue));
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Unbounded', sans-serif;
-      font-weight: 600;
-      font-size: 13px;
-      color: #fff;
-      letter-spacing: -0.5px;
-      flex-shrink: 0;
-      box-shadow: 0 0 24px rgba(72,55,243,0.35);
-    }
-    .logo-name {
-      font-family: 'Unbounded', sans-serif;
-      font-weight: 500;
-      font-size: 13px;
-      color: var(--text);
-      letter-spacing: 0.02em;
+      background: rgba(18,18,20,0.92);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 14px;
+      padding: 5px 5px 5px 8px;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.35);
     }
     .nav-links {
-      display: flex; align-items: center; gap: 8px;
+      display: flex; align-items: center; gap: 2px;
       list-style: none;
+      margin: 0; padding: 0;
     }
     .nav-links a {
-      display: block;
+      display: flex; align-items: center; gap: 6px;
       padding: 8px 14px;
       font-family: 'Unbounded', sans-serif;
       font-size: 11px;
       font-weight: 400;
-      letter-spacing: 0.05em;
-      color: var(--text-dim);
+      letter-spacing: 0.02em;
+      color: rgba(255,255,255,0.45);
       text-decoration: none;
-      border-radius: var(--r-sm);
+      border-radius: 10px;
       transition: color 0.2s, background 0.2s;
     }
-    .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.05); }
-    .nav-cta {
-      padding: 10px 20px !important;
-      background: var(--blue) !important;
-      color: #fff !important;
-      font-weight: 500 !important;
-      border-radius: var(--r-sm) !important;
-      transition: opacity 0.2s, transform 0.2s !important;
+    .nav-links a .nav-icon {
+      display: flex; align-items: center; justify-content: center;
+      width: 13px; height: 13px;
+      opacity: 0;
+      transform: scale(0.7);
+      transition: opacity 0.2s, transform 0.2s;
+      flex-shrink: 0;
     }
-    .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); background: var(--blue) !important; }
+    .nav-links a .nav-icon svg { width: 13px; height: 13px; stroke-width: 2px; }
+    .nav-links li.active > a .nav-icon,
+    .nav-links a:hover .nav-icon { opacity: 1; transform: scale(1); }
+    .nav-links li.active > a { color: #fff; font-weight: 600; }
+    .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.06); }
+    .nav-cta {
+      padding: 10px 22px;
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      border: none;
+      color: #fff;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      border-radius: 10px;
+      text-decoration: none;
+      white-space: nowrap;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25);
+      transition: opacity 0.2s, transform 0.2s;
+      flex-shrink: 0;
+    }
+    .nav-cta::after {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 10px;
+      box-shadow: inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      pointer-events: none;
+    }
+    .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
 
     .nav-toggle {
       display: none;
@@ -172,9 +199,10 @@
     #home {
       min-height: 100vh;
       display: flex; flex-direction: column; justify-content: center;
-      padding-top: var(--nav-h);
+      padding-top: 96px;
       position: relative;
       overflow: hidden;
+      background: var(--bg);
     }
 
     /* Background orbs */
@@ -289,6 +317,10 @@
       line-height: 1.6;
     }
     .hero-orange { color: #ff7772; }
+    .hero-blue { color: #4837f3; text-decoration: underline; text-underline-offset: 2px; }
+    .hero-blue:hover { opacity: 0.8; }
+    .exp-link { color: #4837f3; text-decoration: underline; text-underline-offset: 2px; }
+    .exp-link:hover { opacity: 0.8; }
 
     /* Skill chips */
     .hero-chips {
@@ -916,49 +948,10 @@
 
     /* ─── CONTACT / FOOTER ─────────────────────────────────── */
     #contact {
-      background: var(--bg);
+      background: url('images/footer/FooterBG.png') center center / cover no-repeat;
       padding: 0;
       overflow: hidden;
       position: relative;
-    }
-
-    .footer-bg {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-    }
-
-    .footer-bg-clouds {
-      position: absolute;
-      right: -10%;
-      top: -472px;
-      width: 3270px;
-      height: 2493px;
-      mix-blend-mode: hard-light;
-      transform-origin: center center;
-    }
-
-    .footer-bg-clouds img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transform: rotate(10.75deg);
-      filter: blur(4px);
-    }
-
-    .footer-bg-gradient {
-      position: absolute;
-      left: -405px;
-      top: -126px;
-      width: 2606px;
-      height: 1466px;
-      mix-blend-mode: color-dodge;
-      pointer-events: none;
-    }
-
-    .footer-bg-gradient img {
-      width: 100%; height: 100%;
-      object-fit: cover;
     }
 
     .footer-inner {
@@ -1039,6 +1032,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      position: relative;
       padding: 4px;
       background: #191919;
       border: 1px solid rgba(255,255,255,0.05);
@@ -1068,6 +1062,9 @@
     }
 
     .footer-email {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
       font-family: 'Unbounded', sans-serif;
       font-size: 13px;
       font-weight: 400;
@@ -1160,6 +1157,8 @@
       section { padding: 72px 0; }
 
       .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .nav-bar { justify-content: flex-end; }
       .nav-toggle { display: flex; }
 
       .exp-card { flex-direction: column; gap: 16px; }
@@ -1178,7 +1177,7 @@
       .about-quote-text { font-size: 16px; }
 
       .section-header { flex-direction: column; align-items: flex-start; }
-      .nav-inner { padding: 0 20px; }
+      .nav-inner { padding: 0 20px; max-width: 100%; }
       .mobile-menu { padding: 24px 20px 32px; }
       .footer-contact-bar { flex-direction: column; gap: 12px; padding: 12px; }
       .footer-top { flex-direction: column; gap: 24px; }
@@ -1198,20 +1197,18 @@
   <!-- ── NAV ──────────────────────────────────────────────── -->
   <nav>
     <div class="nav-inner">
-      <a href="#home" class="nav-logo">
-        <div class="logo-box">OF</div>
-        <span class="logo-name">Ola Fakomi</span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#work">Work</a></li>
-        <li><a href="#clients">Clients</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#contact" class="nav-cta">Contact</a></li>
-      </ul>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-        <span></span><span></span><span></span>
-      </button>
+      <div class="nav-bar">
+        <ul class="nav-links">
+          <li class="active"><a href="#home"><span class="nav-icon"><i data-lucide="house"></i></span>Home</a></li>
+          <li><a href="#work"><span class="nav-icon"><i data-lucide="layout-grid"></i></span>Work</a></li>
+          <li><a href="#clients"><span class="nav-icon"><i data-lucide="users"></i></span>Clients</a></li>
+          <li><a href="#about"><span class="nav-icon"><i data-lucide="user-round"></i></span>About</a></li>
+        </ul>
+        <a href="#contact" class="nav-cta">Let's talk</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </nav>
 
@@ -1226,9 +1223,7 @@
 
   <!-- ── HERO ─────────────────────────────────────────────── -->
   <section id="home">
-    <div class="hero-orb hero-orb-1"></div>
-    <div class="hero-orb hero-orb-2"></div>
-    <div class="hero-orb hero-orb-3"></div>
+
     <div class="container">
       <div class="hero-new">
         <div class="hero-new-content">
@@ -1239,7 +1234,7 @@
             <!-- Avatar row -->
             <div class="hero-new-avatar-row">
               <div class="hero-new-avatar">
-                <img src="https://www.figma.com/api/mcp/asset/56638076-7bea-4d5d-bb40-d4cfe5c54f0a" alt="Ola Fakomi" class="hero-avatar-img">
+                <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi" class="hero-avatar-img">
               </div>
             </div>
 
@@ -1247,32 +1242,37 @@
             <div class="hero-new-textblock">
               <p class="hero-greeting-line">Hi, <strong>I'm Ola Fakomi</strong></p>
               <div class="hero-desc-group">
-                <p class="hero-desc-text">A <span class="hero-orange">product designer</span>, with 5 years experience designing and building products for startups &amp; enterprises. I'm committed to designing products flow, brand identity, pitch decks and graphics all in contribution to achieving targeted product goals.</p>
+                <p class="hero-desc-text">A <span class="hero-orange">product designer &amp; AI builder</span>, with 5+ years designing and building digital products for startups &amp; enterprises. I combine product design with AI development and automation — from crafting user flows and brand identities to building AI-powered workflows and no-code solutions through my agency, <a href="https://ovasys.co" target="_blank" rel="noopener" class="hero-blue">Ovasys</a>.</p>
                 <div class="hero-chips">
                   <!-- Web & Mobile apps -->
                   <div class="hero-chip">
-                    <div class="hero-chip-icon"><img src="https://www.figma.com/api/mcp/asset/36de0552-1ee6-419e-801d-fed88800097f" alt=""></div>
+                    <div class="hero-chip-icon"><img src="images/Icons/Web&Mobile_IconImg.svg" alt=""></div>
                     Web &amp; Mobile apps
-                  </div>
-                  <!-- Code & No-code -->
-                  <div class="hero-chip">
-                    <div class="hero-chip-icon"><img src="https://www.figma.com/api/mcp/asset/72a769a9-746a-4e64-91f0-0f6aa4176d4a" alt=""></div>
-                    Code &amp; No-code
                   </div>
                   <!-- Brand identity Design -->
                   <div class="hero-chip">
-                    <div class="hero-chip-icon"><img src="https://www.figma.com/api/mcp/asset/2943ad1e-965d-405d-a5da-f63204123ade" alt=""></div>
+                    <div class="hero-chip-icon"><img src="images/Icons/Brand_IconImg.svg" alt=""></div>
                     Brand identity Design
                   </div>
-                  <!-- Websites -->
+                  <!-- AI-powered builds -->
                   <div class="hero-chip">
-                    <div class="hero-chip-icon"><img src="https://www.figma.com/api/mcp/asset/4c88ba3e-7ce5-484c-979d-3ea5417158bd" alt=""></div>
-                    Websites
+                    <div class="hero-chip-icon"><img src="images/Icons/Code&Nocode_IconImage.svg" alt=""></div>
+                    AI-powered builds
                   </div>
-                  <!-- Pitch Decks -->
+                  <!-- Zapier & GHL Automations -->
                   <div class="hero-chip">
-                    <div class="hero-chip-icon"><img src="https://www.figma.com/api/mcp/asset/94de3d7a-fd74-42a6-8c2c-526f6d78208c" alt=""></div>
-                    Pitch Decks
+                    <div class="hero-chip-icon"><img src="images/Icons/Web&Mobile_IconImg.svg" alt=""></div>
+                    Zapier &amp; GHL Automations
+                  </div>
+                  <!-- Websites & Pitch Decks -->
+                  <div class="hero-chip">
+                    <div class="hero-chip-icon"><img src="images/Icons/Website_IconImg.svg" alt=""></div>
+                    Websites &amp; Pitch Decks
+                  </div>
+                  <!-- Founder, Ovasys -->
+                  <div class="hero-chip">
+                    <div class="hero-chip-icon"><img src="images/Icons/Pitchdeck_IconImage.svg" alt=""></div>
+                    Founder, Ovasys
                   </div>
                 </div>
               </div>
@@ -1288,7 +1288,7 @@
                 <div class="exp-stat"><span>Worked at</span> <strong>3 Startups</strong></div>
                 <div class="exp-stat"><span>Serviced</span> <strong>6+ Agencies &amp; Businesses</strong></div>
                 <div class="exp-stat"><span>Contributed to</span> <strong>5+ Major Projects</strong></div>
-                <div class="exp-stat">And &nbsp;so much more...</div>
+                <div class="exp-stat"><span>Founder of</span> <a href="https://ovasys.co" target="_blank" rel="noopener" class="exp-link">Ovasys</a> <span>— Design &amp; AI Agency</span></div>
               </div>
             </div>
 
@@ -1298,7 +1298,7 @@
           <div class="hero-btns">
             <button class="hero-btn-talk">Let's talk</button>
             <a href="#" class="hero-btn-cv">
-              <div class="hero-chip-icon"><img src="https://www.figma.com/api/mcp/asset/a0de562b-8909-4c11-9032-f1c85dbac134" alt=""></div>
+              <div class="hero-chip-icon"><img src="images/Icons/CV_IconImage.svg" alt=""></div>
               Download CV
             </a>
           </div>
@@ -1320,7 +1320,7 @@
           <div class="sp-info">
             <div class="sp-top-row">
               <div class="sp-icon-box">
-                <img src="https://www.figma.com/api/mcp/asset/33d75c54-ba1f-47a3-817d-003f9d57c4fc" alt="The Roots" style="width:19px;height:21px;object-fit:contain;">
+                <img src="images/Logos/TheRoots_logoImg.png" alt="The Roots" style="width:100%;height:100%;object-fit:contain;">
               </div>
               <div class="sp-text-col">
                 <span class="sp-name">The Roots</span>
@@ -1338,10 +1338,10 @@
                 <span class="sp-sep">|</span>
                 <span class="sp-role-text">React Frontend Dev</span>
               </div>
-              <a href="#" class="sp-case-pill">
+              <a href="roots.html" class="sp-case-pill">
                 Case study
                 <div class="sp-arrow-icon">
-                  <img src="https://www.figma.com/api/mcp/asset/e013149d-2bc6-4858-b2cd-72077dd7028d" alt="">
+                  <img src="images/Icons/arrowOpenEmail_IconImg.svg" alt="">
                 </div>
               </a>
             </div>
@@ -1353,11 +1353,8 @@
         <div class="sp-card reveal reveal-delay-1">
           <div class="sp-info">
             <div class="sp-top-row">
-              <div class="sp-icon-box" style="background:linear-gradient(180deg,rgba(6,31,28,0.8) 0%,rgba(3,15,14,0.8) 100%);">
-                <div style="position:relative;width:19px;height:19px;">
-                  <div style="position:absolute;inset:0;border:1.6px solid white;border-radius:5.3px;"></div>
-                  <img src="https://www.figma.com/api/mcp/asset/c8494cc4-e40e-47bf-92c7-c71d13ee8865" alt="" style="position:absolute;top:8.5px;left:8.5px;width:6.4px;height:6.4px;display:block;">
-                </div>
+              <div class="sp-icon-box">
+                <img src="images/Logos/CasestudyRevwit_logoImg.png" alt="Revwit" style="width:100%;height:100%;object-fit:contain;">
               </div>
               <div class="sp-text-col">
                 <span class="sp-name">Revwit</span>
@@ -1375,10 +1372,10 @@
                 <span class="sp-sep">|</span>
                 <span class="sp-role-text">Brand Designer</span>
               </div>
-              <a href="#" class="sp-case-pill">
+              <a href="revwit.html" class="sp-case-pill">
                 Case study
                 <div class="sp-arrow-icon">
-                  <img src="https://www.figma.com/api/mcp/asset/e013149d-2bc6-4858-b2cd-72077dd7028d" alt="">
+                  <img src="images/Icons/arrowOpenEmail_IconImg.svg" alt="">
                 </div>
               </a>
             </div>
@@ -1390,10 +1387,8 @@
         <div class="sp-card reveal reveal-delay-2">
           <div class="sp-info">
             <div class="sp-top-row">
-              <div class="sp-icon-box" style="background:linear-gradient(180deg,rgba(10,20,50,0.9) 0%,rgba(4,11,31,0.9) 100%);">
-                <div style="position:relative;width:30px;height:17px;">
-                  <img src="https://www.figma.com/api/mcp/asset/165fec6b-ea74-46f2-9572-da417da1bbd5" alt="" style="position:absolute;top:0.86px;left:0.88px;width:92%;height:86%;display:block;">
-                </div>
+              <div class="sp-icon-box">
+                <img src="images/Logos/caseStudyTrib_logoImg.png" alt="Trib" style="width:100%;height:100%;object-fit:contain;">
               </div>
               <div class="sp-text-col">
                 <span class="sp-name">Trib</span>
@@ -1411,10 +1406,10 @@
                 <span class="sp-sep">|</span>
                 <span class="sp-role-text">Brand Designer</span>
               </div>
-              <a href="#" class="sp-case-pill">
+              <a href="trib.html" class="sp-case-pill">
                 Case study
                 <div class="sp-arrow-icon">
-                  <img src="https://www.figma.com/api/mcp/asset/e013149d-2bc6-4858-b2cd-72077dd7028d" alt="">
+                  <img src="images/Icons/arrowOpenEmail_IconImg.svg" alt="">
                 </div>
               </a>
             </div>
@@ -1442,7 +1437,7 @@
             <!-- Insite -->
             <div class="client-pill">
               <div class="client-icon">
-                <img src="https://www.figma.com/api/mcp/asset/38f626b9-51df-4f88-a11f-5a137f40016f" alt="Insite" style="width:9px;height:10px">
+                <img src="images/Logos/Insite_logoImg.png" alt="Insite">
               </div>
               <span class="client-name">Insite</span>
             </div>
@@ -1450,7 +1445,7 @@
             <!-- Daba -->
             <div class="client-pill">
               <div class="client-icon">
-                <img src="https://www.figma.com/api/mcp/asset/0da562a7-0d50-4f80-a459-e3d8403b8436" alt="Daba" style="width:13px;height:10px;object-fit:cover">
+                <img src="images/Logos/Daba_logoImg.png" alt="Daba">
               </div>
               <span class="client-name">Daba</span>
             </div>
@@ -1458,7 +1453,7 @@
             <!-- DriveMe -->
             <div class="client-pill">
               <div class="client-icon">
-                <img src="https://www.figma.com/api/mcp/asset/d683817f-04c2-413f-9a6e-2e22380b482d" alt="DriveMe" style="width:6px;height:12px">
+                <img src="images/Logos/DriveMe_logoImg.png" alt="DriveMe">
               </div>
               <span class="client-name">DriveMe</span>
             </div>
@@ -1466,7 +1461,7 @@
             <!-- SME Hive -->
             <div class="client-pill">
               <div class="client-icon">
-                <img src="https://www.figma.com/api/mcp/asset/2371da7e-d2a5-43f0-9520-51d85ebbeabd" alt="SME Hive" style="width:8px;height:11px">
+                <img src="images/Logos/SMEHive_logoImg.png" alt="SME Hive">
               </div>
               <span class="client-name">SME Hive</span>
             </div>
@@ -1474,7 +1469,7 @@
             <!-- Justnovate -->
             <div class="client-pill">
               <div class="client-icon">
-                <img src="https://www.figma.com/api/mcp/asset/d4c325e9-3217-4e74-bdb4-7d91e2d3a8bd" alt="Justnovate" style="width:13px;height:14px;object-fit:cover">
+                <img src="images/Logos/Justnovate_logoImg.png" alt="Justnovate">
               </div>
               <span class="client-name">Justnovate</span>
             </div>
@@ -1482,15 +1477,15 @@
             <!-- All Clear Glass -->
             <div class="client-pill">
               <div class="client-icon">
-                <img src="https://www.figma.com/api/mcp/asset/7f6aee78-65ea-4019-af1a-6fbb8889ca07" alt="All Clear Glass" style="width:13px;height:8px">
+                <img src="images/Logos/AllClearGlass_logoImg.png" alt="All Clear Glass">
               </div>
               <span class="client-name">All Clear Glass</span>
             </div>
 
             <!-- Mavlon Tours -->
             <div class="client-pill">
-              <div class="client-icon" style="background:none;box-shadow:none;border-radius:0;overflow:visible">
-                <img src="https://www.figma.com/api/mcp/asset/58a70de1-9fcd-4079-8bcb-c5eaac6b2a07" alt="Mavlon Tours" style="width:22px;height:22px;object-fit:contain">
+              <div class="client-icon">
+                <img src="images/Logos/MavlonTours_logoImg.png" alt="Mavlon Tours">
               </div>
               <span class="client-name">Mavlon Tours</span>
             </div>
@@ -1498,7 +1493,7 @@
             <!-- IgniteTunes -->
             <div class="client-pill">
               <div class="client-icon">
-                <img src="https://www.figma.com/api/mcp/asset/3641e37b-0427-4e8b-8e36-d0bd4c463e46" alt="IgniteTunes" style="width:10px;height:8px;object-fit:cover">
+                <img src="images/Logos/IgniteTunes_logoImg.png" alt="IgniteTunes">
               </div>
               <span class="client-name">IgniteTunes</span>
             </div>
@@ -1506,7 +1501,7 @@
             <!-- High N Dry -->
             <div class="client-pill">
               <div class="client-icon">
-                <img src="https://www.figma.com/api/mcp/asset/f54f7ade-a0cd-41dc-83fd-317b3f092b16" alt="High N Dry" style="width:12px;height:5px;object-fit:cover;border-radius:260px">
+                <img src="images/Logos/HighNDry_logoImg.png" alt="High N Dry">
               </div>
               <span class="client-name">High N Dry</span>
             </div>
@@ -1514,7 +1509,7 @@
             <!-- Renaissance -->
             <div class="client-pill">
               <div class="client-icon">
-                <img src="https://www.figma.com/api/mcp/asset/57dc97b8-b071-477a-9003-c1b7fe723ca4" alt="Renaissance" style="width:12px;height:12px;object-fit:cover;border-radius:250px">
+                <img src="images/Logos/Renaissance_logoImg.png" alt="Renaissance">
               </div>
               <span class="client-name">Renaissance</span>
             </div>
@@ -1522,7 +1517,7 @@
             <!-- WashVilla -->
             <div class="client-pill">
               <div class="client-icon">
-                <img src="https://www.figma.com/api/mcp/asset/e553ca20-31fc-44d7-bb98-1bc806a2d93c" alt="WashVilla" style="width:12px;height:12px">
+                <img src="images/Logos/WashVilla_logoImg.png" alt="WashVilla">
               </div>
               <span class="client-name">WashVilla</span>
             </div>
@@ -1530,7 +1525,7 @@
             <!-- Ride Vendor -->
             <div class="client-pill">
               <div class="client-icon">
-                <img src="https://www.figma.com/api/mcp/asset/70dd3541-60e0-46b7-8de7-d49094ceead7" alt="Ride Vendor" style="width:8px;height:9px;object-fit:cover">
+                <img src="images/Logos/RideVendor_logoImg.png" alt="Ride Vendor">
               </div>
               <span class="client-name">Ride Vendor</span>
             </div>
@@ -1538,7 +1533,7 @@
             <!-- Lochindaal -->
             <div class="client-pill">
               <div class="client-icon">
-                <img src="https://www.figma.com/api/mcp/asset/994ee9a3-068e-4aa7-865c-2bfc1038f889" alt="Lochindaal" style="width:12px;height:12px">
+                <img src="images/Logos/Lochindaal_logoImg.png" alt="Lochindaal">
               </div>
               <span class="client-name">Lochindaal</span>
             </div>
@@ -1580,38 +1575,38 @@
           </div>
 
           <!-- Action buttons -->
-          <div class="about-actions">
+          <div class="about-actions" style="display:none;">
             <a href="#" class="about-action-btn">
               <div class="about-action-left">
                 <div class="about-action-icon">
-                  <img src="https://www.figma.com/api/mcp/asset/dfbfda16-f512-4648-b580-e99c72e61a19" alt="">
+                  <img src="images/Icons/ExperienceEmail_IconImg.svg" alt="">
                 </div>
                 <span class="about-action-label">Experience</span>
               </div>
               <div class="about-action-arrow">
-                <img src="https://www.figma.com/api/mcp/asset/7c3d6651-3ad2-4ac1-a15a-e002bcc80b01" alt="">
+                <img src="images/Icons/arrowOpenEmail_IconImg.svg" alt="">
               </div>
             </a>
             <a href="#" class="about-action-btn">
               <div class="about-action-left">
                 <div class="about-action-icon">
-                  <img src="https://www.figma.com/api/mcp/asset/cbdec2e7-0e4c-48c4-ba7a-cbfa5445e418" alt="">
+                  <img src="images/Icons/CompetenceEmail_IconImg.svg" alt="">
                 </div>
                 <span class="about-action-label">Competences</span>
               </div>
               <div class="about-action-arrow">
-                <img src="https://www.figma.com/api/mcp/asset/7c3d6651-3ad2-4ac1-a15a-e002bcc80b01" alt="">
+                <img src="images/Icons/arrowOpenEmail_IconImg.svg" alt="">
               </div>
             </a>
             <a href="#" class="about-action-btn">
               <div class="about-action-left">
                 <div class="about-action-icon">
-                  <img src="https://www.figma.com/api/mcp/asset/a6b39ace-8fd8-4794-b61c-7bd74d3d6813" alt="">
+                  <img src="images/Icons/Tools_IconImg.svg" alt="">
                 </div>
                 <span class="about-action-label">Tools</span>
               </div>
               <div class="about-action-arrow">
-                <img src="https://www.figma.com/api/mcp/asset/7c3d6651-3ad2-4ac1-a15a-e002bcc80b01" alt="">
+                <img src="images/Icons/arrowOpenEmail_IconImg.svg" alt="">
               </div>
             </a>
           </div>
@@ -1623,15 +1618,6 @@
 
   <!-- ── CONTACT / FOOTER ──────────────────────────────────── -->
   <section id="contact">
-    <!-- Background layers -->
-    <div class="footer-bg">
-      <div class="footer-bg-clouds">
-        <img src="images/footer/FooterBG.png" alt="">
-      </div>
-      <div class="footer-bg-gradient">
-        <img src="https://www.figma.com/api/mcp/asset/69aa7745-374d-44ad-a01d-04c4b6386a63" alt="">
-      </div>
-    </div>
 
     <div class="container">
       <div class="footer-inner reveal">
@@ -1646,7 +1632,7 @@
             <a href="#about">Blog</a>
           </div>
           <div class="footer-avatar">
-            <img src="https://www.figma.com/api/mcp/asset/67817995-6d6f-4f26-bb4a-094bd6fa4f5d" alt="Ola Fakomi">
+            <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi">
           </div>
         </div>
 
@@ -1656,16 +1642,16 @@
             <!-- Social icons -->
             <div class="footer-social-icons">
               <a href="mailto:Olarewajufakomi@gmail.com" class="footer-social-icon has-bg">
-                <img src="https://www.figma.com/api/mcp/asset/c79d126c-ad46-4866-92eb-4c119cf2cd35" alt="Email" width="19" height="19">
+                <img src="images/Icons/Email_IconImg.svg" alt="Email" width="32" height="32">
               </a>
               <a href="https://twitter.com/olafakomi" target="_blank" class="footer-social-icon">
-                <img src="https://www.figma.com/api/mcp/asset/efaf640d-4875-49ea-9305-22a6734ac8f6" alt="Twitter" width="12" height="12">
+                <img src="images/Icons/TwitterX_IconImg.svg" alt="Twitter" width="32" height="32">
               </a>
               <a href="#" target="_blank" class="footer-social-icon">
-                <img src="https://www.figma.com/api/mcp/asset/4beaef54-1cda-4e83-b563-dad6a9cd5b28" alt="Substack" width="14" height="14">
+                <img src="images/Icons/SubstackEmail_IconImg.svg" alt="Substack" width="32" height="32">
               </a>
               <a href="https://linkedin.com/in/olafakomi" target="_blank" class="footer-social-icon">
-                <img src="https://www.figma.com/api/mcp/asset/57e78a3e-fc75-4876-9619-ecda2060b091" alt="LinkedIn" width="16" height="16">
+                <img src="images/Icons/LinkedInEmail_IconImg.svg" alt="LinkedIn" width="32" height="32">
               </a>
             </div>
 
@@ -1745,13 +1731,6 @@
 
     reveals.forEach(el => observer.observe(el));
 
-    // ── Nav background on scroll ──────────────────────────────
-    const nav = document.querySelector('nav');
-    window.addEventListener('scroll', () => {
-      nav.style.background = window.scrollY > 20
-        ? 'rgba(20,20,20,0.95)'
-        : 'rgba(25,25,25,0.82)';
-    }, { passive: true });
 
     // ── Smooth scroll for all anchor links ────────────────────
     document.querySelectorAll('a[href^="#"]').forEach(a => {
@@ -1762,6 +1741,29 @@
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
+    });
+  </script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script>
+    lucide.createIcons();
+
+    // Active nav link on scroll
+    const navSections = ['home','work','clients','about','contact'];
+    const navItems = document.querySelectorAll('.nav-links li');
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          navItems.forEach(li => {
+            const a = li.querySelector('a');
+            li.classList.toggle('active', a && a.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { threshold: 0.4 });
+    navSections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) navObserver.observe(el);
     });
   </script>
 </body>

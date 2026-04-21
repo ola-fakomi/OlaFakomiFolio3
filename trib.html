@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trib Case Study — Ola Fakomi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:        #ffffff;
+      --bg-card:   #f0efee;
+      --bg-card2:  #f7f6f5;
+      --accent:    #4837f3;
+      --accent-lt: #eeeeff;
+      --green:     #16a34a;
+      --text:      #111111;
+      --text-dim:  #555555;
+      --text-mute: #888888;
+      --border:    rgba(0,0,0,0.08);
+      --nav-bg:    #111111;
+      --r-sm:      10px;
+      --r-md:      16px;
+      --r-lg:      24px;
+      --max-w:     832px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Unbounded', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--nav-bg);
+      height: 56px;
+      display: flex; align-items: center;
+    }
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 32px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-back {
+      display: flex; align-items: center; gap: 8px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 11px; font-weight: 500;
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: #ffffff; }
+    .nav-back svg { width: 14px; height: 14px; }
+    .nav-logo {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 12px; font-weight: 600;
+      color: #ffffff; letter-spacing: 0.01em;
+      text-decoration: none;
+    }
+    .nav-cta {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 11px; font-weight: 500;
+      color: #111111; text-decoration: none;
+      padding: 8px 18px;
+      background: #ffffff;
+      border-radius: var(--r-sm);
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* ── LAYOUT ─────────────────────────────────────────── */
+    .page {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ── HERO ────────────────────────────────────────────── */
+    .cs-hero { padding-top: 72px; padding-bottom: 56px; }
+    .cs-logo {
+      width: 52px; height: 52px;
+      border-radius: 14px; overflow: hidden;
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+    }
+    .cs-logo img { width: 100%; height: 100%; object-fit: cover; }
+    .cs-eyebrow {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 10px; font-weight: 500;
+      color: var(--accent); letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 12px;
+    }
+    .cs-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 28px; font-weight: 700;
+      line-height: 1.3; margin-bottom: 20px;
+      color: var(--text);
+    }
+    .cs-title span { color: var(--accent); }
+    .cs-subtitle {
+      font-size: 16px; color: var(--text-dim);
+      max-width: 680px; margin-bottom: 48px; line-height: 1.8;
+    }
+    .cs-hero-img {
+      width: 100%; border-radius: var(--r-lg);
+      border: 1px solid var(--border); overflow: hidden;
+    }
+    .cs-hero-img img { width: 100%; display: block; }
+
+    /* ── DIVIDER ─────────────────────────────────────────── */
+    .divider { height: 1px; background: var(--border); margin: 56px 0; }
+
+    /* ── SECTION ─────────────────────────────────────────── */
+    .cs-section { margin-bottom: 56px; }
+    .cs-section-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 18px; font-weight: 700;
+      margin-bottom: 16px; color: var(--accent);
+    }
+    .cs-section-title.dark { color: var(--text); }
+    .cs-body {
+      font-size: 15px; color: var(--text-dim);
+      line-height: 1.8; margin-bottom: 20px;
+    }
+    .cs-body strong { color: var(--text); font-weight: 600; }
+
+    /* ── PILL LABELS ─────────────────────────────────────── */
+    .pill {
+      display: inline-flex; align-items: center;
+      padding: 5px 12px; border-radius: 999px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 0.04em; margin-bottom: 12px;
+    }
+    .pill-default {
+      background: rgba(0,0,0,0.05);
+      border: 1px solid var(--border); color: var(--text-mute);
+    }
+    .pill-blue {
+      background: rgba(72,55,243,0.08);
+      border: 1px solid rgba(72,55,243,0.2); color: #3829c4;
+    }
+    .pill-green {
+      background: rgba(22,163,74,0.08);
+      border: 1px solid rgba(22,163,74,0.2); color: #15803d;
+    }
+    .pill-purple {
+      background: rgba(139,92,246,0.08);
+      border: 1px solid rgba(139,92,246,0.2); color: #7c3aed;
+    }
+    .pill-orange {
+      background: rgba(234,88,12,0.08);
+      border: 1px solid rgba(234,88,12,0.2); color: #c2410c;
+    }
+
+    /* ── CHECK LIST ──────────────────────────────────────── */
+    .check-list {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 8px;
+      margin-bottom: 20px;
+    }
+    .check-list li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 15px; color: var(--text-dim); line-height: 1.65;
+    }
+    .check-list li::before {
+      content: '';
+      width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='18' height='18' rx='5' fill='%2316a34a' fill-opacity='0.12'/%3E%3Cpath d='M5 9.5l2.5 2.5 5.5-5.5' stroke='%2316a34a' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain;
+    }
+    .check-list li strong { color: var(--text); font-weight: 600; }
+
+    /* ── ROLE ROW ────────────────────────────────────────── */
+    .role-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 32px; }
+    .role-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      font-size: 13px; color: var(--text-dim);
+    }
+    .role-badge::before {
+      content: '';
+      width: 16px; height: 16px;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='16' height='16' rx='4' fill='%2316a34a' fill-opacity='0.12'/%3E%3Cpath d='M4 8.5l2.5 2L12 5.5' stroke='%2316a34a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain;
+    }
+
+    /* ── TLDR ────────────────────────────────────────────── */
+    .tldr {
+      padding: 20px 24px;
+      border-left: 3px solid var(--accent);
+      background: var(--accent-lt);
+      border-radius: 0 var(--r-sm) var(--r-sm) 0;
+      margin-bottom: 32px;
+    }
+    .tldr p { font-size: 15px; color: var(--text-dim); line-height: 1.8; }
+    .tldr a { color: var(--accent); text-decoration: underline; }
+
+    /* ── TWO-COL ─────────────────────────────────────────── */
+    .two-col {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 20px; margin-bottom: 20px;
+    }
+    @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+
+    /* ── INFO CARD ───────────────────────────────────────── */
+    .info-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md); padding: 24px;
+    }
+    .info-card-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 12px; font-weight: 500;
+      color: var(--text-mute); letter-spacing: 0.06em;
+      text-transform: uppercase; margin-bottom: 14px;
+    }
+
+    /* ── FEATURE CARD ────────────────────────────────────── */
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden; margin-bottom: 24px;
+    }
+    .feature-body { padding: 28px 28px 24px; }
+    .feature-tag {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 10px; font-weight: 500;
+      color: var(--accent); letter-spacing: 0.08em;
+      text-transform: uppercase; margin-bottom: 8px;
+    }
+    .feature-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 17px; font-weight: 600; margin-bottom: 10px;
+      color: var(--text);
+    }
+    .feature-desc {
+      font-size: 14px; color: var(--text-dim);
+      margin-bottom: 0; line-height: 1.75;
+    }
+    .feature-img { width: 100%; border-top: 1px solid var(--border); }
+    .feature-img img { width: 100%; display: block; }
+
+    /* ── STATS ROW ───────────────────────────────────────── */
+    .stats-row {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 12px; margin: 32px 0;
+    }
+    @media (max-width: 600px) { .stats-row { grid-template-columns: 1fr 1fr; } }
+    .stat-card {
+      background: var(--accent-lt);
+      border: 1px solid rgba(72,55,243,0.15);
+      border-radius: var(--r-md); padding: 20px; text-align: center;
+    }
+    .stat-num {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 26px; font-weight: 700;
+      color: var(--accent); display: block; margin-bottom: 4px;
+    }
+    .stat-label { font-size: 12px; color: var(--text-mute); }
+
+    /* ── BRAND IMG ───────────────────────────────────────── */
+    .brand-img {
+      width: 100%; border-radius: var(--r-lg);
+      border: 1px solid var(--border); overflow: hidden; margin-top: 20px;
+    }
+    .brand-img img { width: 100%; display: block; }
+
+    /* ── QUOTE ───────────────────────────────────────────── */
+    .closing-quote {
+      padding: 24px 28px;
+      background: var(--accent-lt);
+      border: 1px solid rgba(72,55,243,0.18);
+      border-radius: var(--r-md); margin-top: 24px;
+    }
+    .closing-quote p {
+      font-size: 15px; color: var(--text-dim);
+      line-height: 1.8; font-style: italic;
+    }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    .cs-footer {
+      padding: 60px 0 80px; text-align: center;
+      border-top: 1px solid var(--border); margin-top: 40px;
+    }
+    .back-home {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 11px; font-weight: 500;
+      color: #111111; text-decoration: none;
+      padding: 12px 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .back-home:hover { opacity: 0.7; transform: translateY(-1px); }
+    .cs-footer p { font-size: 13px; color: var(--text-mute); margin-top: 20px; }
+
+    @media (max-width: 809px) {
+      .page { padding: 0 20px; }
+      .nav-inner { padding: 0 20px; }
+      .cs-title { font-size: 22px; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-back">
+        <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 2.5L5 7L9 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Back
+      </a>
+      <span class="nav-logo">Ola Fakomi</span>
+      <a href="mailto:Olarewajufakomi@gmail.com" class="nav-cta">Let's talk</a>
+    </div>
+  </nav>
+
+  <div class="page">
+
+    <!-- HERO -->
+    <section class="cs-hero">
+      <div class="cs-logo">
+        <img src="images/Logos/caseStudyTrib_logoImg.png" alt="Trib">
+      </div>
+      <div class="cs-eyebrow">Case Study</div>
+      <h1 class="cs-title"><span>Trib</span> — Redefining Community Engagement Through Web3 Gaming</h1>
+      <p class="cs-subtitle">Trib (formerly TriviaBase) is a Web3-powered Q&A gaming platform that enhances community engagement through interactive quizzes, tournaments, and rewards. Originally launched as a Hackathon submission for the Base Network, the project has since evolved into a full-fledged product with an upgraded brand, multi-wallet support, and gamified features.</p>
+      <div class="cs-hero-img">
+        <img src="images/projects/TribCasestudy/Trib Hero.png" alt="Trib Platform Interface">
+      </div>
+    </section>
+
+    <!-- ROLE + TLDR -->
+    <section class="cs-section">
+      <div class="pill pill-default" style="margin-bottom:16px;">My Role</div>
+      <div class="role-row">
+        <span class="role-badge">Product Designer</span>
+        <span class="role-badge">Brand Identity Design</span>
+        <span class="role-badge">Graphic &amp; Presentation Designer</span>
+        <span class="role-badge">No-code Developer (Framer)</span>
+      </div>
+      <div class="pill pill-default">TL;DR</div>
+      <div class="tldr" style="margin-top:12px;">
+        <p>I led the entire design process from <a href="#">rebrand</a> and <a href="#">website design to product (WebApp &amp; DApp)</a> UI/UX. Transforming a Base hackathon prototype into a scalable platform with AI-powered question generation, gamification features, and multi-wallet support.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- KEY WINS -->
+    <section class="cs-section">
+      <h2 class="cs-section-title">Key wins</h2>
+      <ul class="check-list">
+        <li><strong>Rebrand:</strong> TriviaBase → Trib with a bold, community-first identity.</li>
+        <li><strong>Product Growth:</strong> Redesigned sleek WebApp + DApp, wallet integrations, and gamified features.</li>
+        <li><strong>Community Engagement:</strong> Demoed in communities across Nigeria, the U.S., and Africa.</li>
+        <li><strong>Partnerships:</strong> Powered trivia games for BitcoinPizzaDay, proving value in Web3 cultural events.</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- THE CHALLENGE -->
+    <section class="cs-section">
+      <h2 class="cs-section-title">The Challenge</h2>
+      <p class="cs-body"><strong>Communities in Web3 often struggle to:</strong></p>
+      <ul class="check-list">
+        <li>Sustain engagement beyond token incentives.</li>
+        <li>Offer fun, rewarding activities that are easy for members to join.</li>
+        <li>Onboard Web2 users seamlessly due to lack of technical understanding and relatively high barrier to entry.</li>
+      </ul>
+      <p class="cs-body"><strong>TriviaBase started as an experiment, but as adoption grew, and users interaction was studied, we needed to:</strong></p>
+      <ul class="check-list">
+        <li>Rebrand into a stronger, community-focused identity (Trib).</li>
+        <li>Redesign the product UI for clarity, usability, and scalability.</li>
+        <li>Support multi-wallet payouts beyond Base Network.</li>
+        <li>Add gamified layers like badges, tournaments, and AI-powered question generation.</li>
+        <li>Simplify the onboarding process more — especially for Web2 users.</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- THE SOLUTION -->
+    <section class="cs-section">
+      <h2 class="cs-section-title">The Solution</h2>
+
+      <div class="feature-card">
+        <div class="feature-body">
+          <div class="feature-tag">Rebrand</div>
+          <h3 class="feature-title">TriviaBase → Trib</h3>
+          <ul class="check-list" style="margin-bottom:0;">
+            <li>Developed a bold, community-first identity.</li>
+            <li>Designed a logo, color palette, and typography system that reflected simplicity and inclusivity.</li>
+            <li>Created brand guidelines for consistency across WebApp, DApp, and marketing.</li>
+          </ul>
+        </div>
+        <div class="feature-img">
+          <img src="images/projects/TribCasestudy/Trib_Rebrand.png" alt="Trib Rebrand">
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-body">
+          <div class="feature-tag">Product Design</div>
+          <h3 class="feature-title">WebApp &amp; DApp Redesign</h3>
+          <ul class="check-list" style="margin-bottom:0;">
+            <li>Redesigned the UI/UX for simplicity and fun.</li>
+            <li>Implemented seamless wallet connection flows (Base + additional wallets using ThirdWeb).</li>
+            <li>Designed host dashboards for community leaders to create games seamlessly with AI while being able to stack rewards.</li>
+            <li>Created player experience screens: game lobby, live Q&amp;A, leaderboard, prize distribution.</li>
+          </ul>
+        </div>
+        <div class="feature-img">
+          <img src="images/projects/TribCasestudy/Trib_Product Design.png" alt="Trib Product Design">
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-body">
+          <div class="feature-tag">Gamification &amp; Auto Q&A Generation</div>
+          <h3 class="feature-title">Tournament Badges &amp; AI Questions</h3>
+          <ul class="check-list" style="margin-bottom:0;">
+            <li><strong>Tournament Badges:</strong> Custom designs for different milestones (e.g., Champion, Runner-Up, Top 10).</li>
+            <li><strong>AI Question Generation:</strong> Integrated AI to auto-generate questions for hosts, reducing friction.</li>
+          </ul>
+        </div>
+        <div class="feature-img">
+          <img src="images/projects/TribCasestudy/Frame 1538228311.png" alt="Trib Gamification">
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-body">
+          <div class="feature-tag">Website Design</div>
+          <h3 class="feature-title">New Landing Page</h3>
+          <ul class="check-list" style="margin-bottom:0;">
+            <li>Designed a landing page to showcase Trib's features, community benefits, and onboarding process.</li>
+            <li><strong>Focused on clarity:</strong> What is Trib? How do I join? What are the key feature?</li>
+            <li>Integrated sign-up and wallet connect flows directly from the website.</li>
+          </ul>
+        </div>
+        <div class="feature-img">
+          <img src="images/projects/TribCasestudy/Trib.png" alt="Trib Website">
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- PROCESS -->
+    <section class="cs-section">
+      <h2 class="cs-section-title">Process</h2>
+
+      <div class="info-card" style="margin-bottom:16px;">
+        <div class="pill pill-blue" style="margin-bottom:14px;">Research &amp; Strategy</div>
+        <ul class="check-list" style="margin-bottom:0;">
+          <li>Studied existing community engagement tools in Web3.</li>
+          <li>Analyzed how trivia and gaming platforms outside Web3 (for example Kahoot) handle engagement.</li>
+        </ul>
+      </div>
+
+      <div class="info-card" style="margin-bottom:16px;">
+        <div class="pill pill-purple" style="margin-bottom:14px;">Design &amp; Iteration</div>
+        <ul class="check-list" style="margin-bottom:0;">
+          <li>Created low-fidelity wireframes → tested flows internally.</li>
+          <li>Refined UI to balance clean aesthetics with playful interactions.</li>
+          <li>User multiple user test within and outside the team (on twitter spaces and physical events) to test adoption.</li>
+        </ul>
+      </div>
+
+      <div class="info-card" style="margin-bottom:16px;">
+        <div class="pill pill-default" style="margin-bottom:14px;">Brand &amp; Identity</div>
+        <ul class="check-list" style="margin-bottom:0;">
+          <li>Explored naming systems → finalized "Trib" for its community resonance.</li>
+          <li>Designed visual identity system scalable across touch points.</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <div class="pill pill-green" style="margin-bottom:14px;">Launch &amp; Evolution</div>
+        <ul class="check-list" style="margin-bottom:0;">
+          <li>Released MVP during Base Hackathon.</li>
+          <li>Rebranded and relaunched with multi-wallet support, AI integration, badges, and tournaments.</li>
+          <li>Partnered with PizzaDAO for large scale use case.</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- IMPACT -->
+    <section class="cs-section">
+      <h2 class="cs-section-title">Impact</h2>
+
+      <div class="info-card" style="margin-bottom:20px;">
+        <div class="pill pill-blue" style="margin-bottom:14px;">Product Growth</div>
+        <ul class="check-list" style="margin-bottom:0;">
+          <li>Transitioned from hackathon prototype → growing Web3 product.</li>
+          <li>Enabled seamless wallet-based prize distribution across multiple networks using ThirdWeb.</li>
+          <li>Successfully rebranded from TriviaBase → Trib, creating a stronger, community-first identity and clearer messaging.</li>
+          <li>Enhanced user engagement with AI-powered question generation and gamification features (tournament badges, leaderboards).</li>
+        </ul>
+      </div>
+
+      <div class="info-card" style="margin-bottom:20px;">
+        <div class="pill pill-green" style="margin-bottom:14px;">Community Engagement</div>
+        <ul class="check-list" style="margin-bottom:0;">
+          <li>Demoed the app in communities across Nigeria, the U.S., and other parts of Africa, validating the product with real users.</li>
+          <li>Received positive feedback on usability, rewards flow, and event hosting.</li>
+          <li>Created an environment where communities could host games, build connections, and reward their members in real-time.</li>
+        </ul>
+      </div>
+
+      <div class="feature-card" style="margin-bottom:20px;">
+        <div class="feature-body">
+          <div class="feature-tag">Partnerships &amp; Collaborations</div>
+          <h3 class="feature-title">BitcoinPizzaDay Collaboration</h3>
+          <ul class="check-list" style="margin-bottom:0;">
+            <li><strong>BitcoinPizzaDay Collaboration:</strong> Partnered with the community to celebrate the iconic BitcoinPizzaDay with Trib-powered trivia games.</li>
+            <li>Showcased Trib's ability to integrate seamlessly into Web3 cultural events, strengthening visibility and adoption.</li>
+            <li>Positioned Trib as a community-first engagement tool in the broader Web3 ecosystem.</li>
+          </ul>
+        </div>
+        <div class="feature-img">
+          <img src="images/projects/TribCasestudy/Trib_Partnership.png" alt="Trib Partnerships">
+        </div>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <span class="stat-num">3,800</span>
+          <span class="stat-label">Players in 24 hrs (BTC Pizza Day)</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">3+</span>
+          <span class="stat-label">Countries reached</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">Web3</span>
+          <span class="stat-label">Cultural event integration</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- LESSONS -->
+    <section class="cs-section">
+      <h2 class="cs-section-title dark">What I Learned &amp; Next Steps</h2>
+
+      <div class="two-col">
+        <div class="info-card">
+          <div class="pill pill-default" style="margin-bottom:14px;">Lessons</div>
+          <ul class="check-list" style="margin-bottom:0;">
+            <li>Designing for Web3 Q&amp;A taught me how to simplify wallet complex Web3 projects into digestible quizzes.</li>
+            <li>Building community-first design systems showed me the importance of identity in adoption.</li>
+            <li>Working solo honed my ability to balance brand, product, and growth needs simultaneously.</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <div class="pill pill-default" style="margin-bottom:14px;">Next Steps</div>
+          <ul class="check-list" style="margin-bottom:0;">
+            <li>Expand Trib into mobile-native experiences.</li>
+            <li>Explore AI-driven personalized trivia challenges.</li>
+            <li>Introduce more social layers like clans, alliances, and community leaderboards.</li>
+            <li>Explore using Trib as a driver for Web3 adoption for Web2 communities.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="closing-quote">
+        <p>"Trib showed me that great design isn't just about aesthetics — it's about making complex, unfamiliar technology feel approachable, fun, and genuinely rewarding for real communities."</p>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <div class="cs-footer">
+      <a href="index.html" class="back-home">
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 2.5L5 7L9 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Back to Home
+      </a>
+      <p>© 2025 Ola Fakomi — Product Designer &amp; Developer</p>
+    </div>
+
+  </div><!-- /page -->
+
+</body>
+</html>
