@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ola Fakomi — Product Designer & Developer</title>
+  <link rel="icon" type="image/png" href="images/hero/OlaAvatar_Img.png" />
 
   <!-- Open Graph / WhatsApp / Social preview -->
   <meta property="og:type" content="website" />
@@ -155,7 +156,7 @@
     .nav-links li.active > a { color: #fff; font-weight: 600; }
     .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.06); }
     .nav-cta {
-      padding: 16px 22px;
+      padding: 13px 22px;
       background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
       border: none;
       color: #fff;
@@ -346,6 +347,11 @@
       flex-shrink: 0;
     }
     .hero-chip svg { color: #dadada; flex-shrink: 0; }
+    .chip-mobile { display: none; }
+    @media (max-width: 809px) {
+      .chip-desktop { display: none; }
+      .chip-mobile { display: inline; }
+    }
     .hero-chip-icon {
       width: 16px; height: 16px;
       flex-shrink: 0;
@@ -574,10 +580,16 @@
       display: flex; flex-direction: column; gap: 12px;
       padding: 12px;
       border-radius: 24px;
-      background: var(--bg);
-      border: 1px solid rgba(255,255,255,0.05);
+      background: #1e1e1e;
       overflow: hidden;
+      position: relative;
     }
+    .sp-card-link {
+      display: block;
+      position: absolute; inset: 0; z-index: 1;
+    }
+    .sp-info { position: relative; z-index: 2; }
+    .sp-preview { position: relative; z-index: 2; }
     .sp-info {
       display: flex; flex-direction: column; gap: 14px;
       padding: 0 4px;
@@ -607,8 +619,8 @@
     }
     .sp-sub {
       font-family: 'Unbounded', sans-serif;
-      font-size: 16px; font-weight: 400;
-      color: #dadada; letter-spacing: 0.16px; line-height: 1.4;
+      font-size: 16px; font-weight: 300;
+      color: #ababab; letter-spacing: 0.16px; line-height: 1.4;
     }
     .sp-roles-row {
       display: flex; align-items: center;
@@ -883,7 +895,7 @@
       font-family: 'Unbounded', sans-serif;
       font-size: 18px;
       font-weight: 300;
-      color: #dadada;
+      color: #ababab;
       letter-spacing: 0.01em;
       line-height: 1.4;
     }
@@ -946,9 +958,312 @@
       object-fit: contain;
     }
 
+    /* ─── EXPERIENCE MODAL ─────────────────────────────────── */
+    .experience-wrapper {
+      position: relative;
+      flex: 1;
+      min-width: 120px;
+    }
+
+    .experience-modal {
+      display: none;
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 0;
+      width: 440px;
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 20px;
+      z-index: 200;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+    }
+
+    .experience-wrapper:hover .experience-modal { display: block; }
+    .experience-modal::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0; right: 0;
+      height: 10px;
+    }
+
+    .exp-modal-intro {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      color: #9a9aaa;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .exp-modal-intro strong { color: #fff; font-weight: 600; }
+
+    .exp-role-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .exp-role-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .exp-role-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(180deg, rgba(53,53,55,0.6) 0%, rgba(31,30,30,0.6) 100%);
+      box-shadow: 0 0 5.74px rgba(0,0,0,0.25),
+                  inset -1.4px -1.4px 0 rgba(255,255,255,0.02),
+                  inset 1.4px 1.4px 0 rgba(255,255,255,0.04);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .exp-role-icon img {
+      width: 40px; height: 40px;
+      object-fit: cover;
+      border-radius: 10px;
+      display: block;
+    }
+
+    .exp-role-name {
+      flex: 1;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: #e0e0e0;
+    }
+
+    .exp-role-year {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: #666;
+      white-space: nowrap;
+    }
+
+    .exp-linkedin-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      background: #252525;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 24px;
+      text-decoration: none;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: #e0e0e0;
+      width: fit-content;
+    }
+
+    .exp-linkedin-icon {
+      width: 28px; height: 28px;
+      border-radius: 7px;
+      background: linear-gradient(180deg, rgba(53,53,55,0.6) 0%, rgba(31,30,30,0.6) 100%);
+      box-shadow: 0 0 5.74px rgba(0,0,0,0.25),
+                  inset -1.4px -1.4px 0 rgba(255,255,255,0.02),
+                  inset 1.4px 1.4px 0 rgba(255,255,255,0.04);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      color: #5b8ef0;
+    }
+
+    /* ─── COMPETENCES MODAL ────────────────────────────────── */
+    .competences-wrapper {
+      position: relative;
+      flex: 1;
+      min-width: 120px;
+    }
+
+    .competences-modal {
+      display: none;
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 0;
+      width: 440px;
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 20px;
+      z-index: 200;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+    }
+
+    .competences-wrapper:hover .competences-modal { display: block; }
+    .competences-modal::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0; right: 0;
+      height: 10px;
+    }
+
+    .comp-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .comp-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: #e0e0e0;
+    }
+
+    .comp-check {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(53,53,55,0.6) 0%, rgba(31,30,30,0.6) 100%);
+      box-shadow: 0 0 5.74px rgba(0,0,0,0.25),
+                  inset -1.4px -1.4px 0 rgba(255,255,255,0.02),
+                  inset 1.4px 1.4px 0 rgba(255,255,255,0.04);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      color: #7c6df0;
+    }
+
+    /* ─── TOOLS MODAL ──────────────────────────────────────── */
+    .tools-wrapper {
+      position: relative;
+      flex: 1;
+      min-width: 120px;
+    }
+
+    .tools-modal {
+      display: none;
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 0;
+      width: 440px;
+      height: 480px;
+      overflow-y: auto;
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 20px;
+      z-index: 200;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+    }
+
+    .tools-wrapper:hover .tools-modal { display: block; }
+    .tools-modal::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0; right: 0;
+      height: 10px;
+    }
+
+    .tools-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .tools-modal-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .tools-modal-title-icon {
+      width: 32px; height: 32px;
+      background: #272630;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: #7c6df0;
+    }
+
+    .tools-modal-close {
+      display: none;
+      background: transparent;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      line-height: 0;
+    }
+
+    .tools-modal-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.07);
+      margin: 0 -20px 16px;
+    }
+
+    .tools-modal-intro {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: #dadada;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .tools-modal-group-label {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: #7c6df0;
+      margin-bottom: 10px;
+    }
+
+    .tools-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .tool-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #252525;
+      border-radius: 10px;
+      padding: 6px 12px 6px 6px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: #e0e0e0;
+      white-space: nowrap;
+    }
+
+    .tool-chip-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(53,53,55,0.6) 0%, rgba(31,30,30,0.6) 100%);
+      box-shadow: 0 0 5.74px rgba(0,0,0,0.25),
+                  inset -1.4px -1.4px 0 rgba(255,255,255,0.02),
+                  inset 1.4px 1.4px 0 rgba(255,255,255,0.04);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .tool-chip-icon img {
+      width: 32px; height: 32px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
     /* ─── CONTACT / FOOTER ─────────────────────────────────── */
     #contact {
-      background: url('images/footer/FooterBG.png') center center / cover no-repeat;
+      background: url('images/footer/Footer Background.webp') center center / cover no-repeat;
       padding: 0;
       overflow: hidden;
       position: relative;
@@ -960,7 +1275,7 @@
       display: flex;
       flex-direction: column;
       gap: 56px;
-      padding: 100px 0 0;
+      padding: 40px 0 0;
       max-width: 832px;
       margin: 0 auto;
     }
@@ -993,7 +1308,7 @@
 
     .footer-nav-links a {
       font-family: 'Unbounded', sans-serif;
-      font-size: 13px;
+      font-size: 16px;
       font-weight: 400;
       color: #fff;
       mix-blend-mode: overlay;
@@ -1004,7 +1319,7 @@
     .footer-nav-links a:hover { opacity: 0.7; }
 
     .footer-avatar {
-      width: 48px; height: 48px;
+      width: 40px; height: 40px;
       border-radius: 12px;
       background: linear-gradient(180deg, #2a208d 0%, #4837f3 100%);
       box-shadow: 0 0 4.92px rgba(0,0,0,0.25), inset -1.8px -1.8px 0 rgba(0,0,0,0.14), inset 1.8px 1.8px 0 rgba(0,0,0,0.08);
@@ -1148,7 +1463,7 @@
     /* ── Mobile nav avatar ────────────────────────────────── */
     .nav-mobile-avatar {
       display: none;
-      width: 48px; height: 48px;
+      width: 42px; height: 42px;
       border-radius: 10px;
       overflow: hidden;
       flex-shrink: 0;
@@ -1176,7 +1491,7 @@
       .mobile-menu { display: none !important; }
       .nav-mobile-avatar { display: flex !important; }
 
-      .exp-card { flex-direction: column; gap: 20px; padding: 20px 20px 36px; align-items: flex-start; height: auto; }
+      .exp-card { flex-direction: column; gap: 20px; padding: 16px 16px 36px; align-items: flex-start; height: auto; }
       .exp-left { width: 80px; height: 80px; }
       .exp-right { padding: 0; font-size: 13px; gap: 6px; }
       .hero-new-avatar { display: none; }
@@ -1190,19 +1505,43 @@
       .sp-name { font-size: 16px; }
       .sp-case-pill { align-self: flex-start; }
       .sp-icon-box { width: 40px; height: 40px; border-radius: 10px; }
-      .sp-top-row { min-height: unset; }
+      .sp-top-row { flex-direction: column; align-items: flex-start; gap: 12px; min-height: unset; }
+      .sp-info { gap: 16px; padding: 0 4px; }
+      .sp-name { font-size: 16px; font-weight: 700; }
+      .sp-sub { font-size: 13px; }
+      .sp-roles-pill { width: 100%; }
+      .sp-preview { height: auto; aspect-ratio: 16/9; }
+      .sp-card { padding: 20px 8px 8px; }
+      .sp-card-link { display: block; }
+      .sp-case-pill { display: none; }
 
-      .about-hero-card { flex-direction: column; height: auto; gap: 20px; padding: 24px; align-items: flex-start; }
+      .about-hero-card { flex-direction: column; height: auto; gap: 20px; padding: 16px; align-items: flex-start; }
+      .about-actions { flex-direction: column; }
+      .experience-wrapper, .competences-wrapper, .tools-wrapper { width: 100%; }
+      .tools-wrapper:hover .tools-modal,
+      .competences-wrapper:hover .competences-modal,
+      .experience-wrapper:hover .experience-modal { display: none; }
+      .tools-wrapper.modal-open .tools-modal,
+      .competences-wrapper.modal-open .competences-modal,
+      .experience-wrapper.modal-open .experience-modal { display: block; position: absolute; bottom: calc(100% + 10px); top: auto; left: 0; transform: none; width: 100%; z-index: 999; }
+      .tools-modal-close { display: flex; }
       .about-headshot { order: -1; width: 120px; height: 120px; }
       .about-headshot img { width: 110%; height: 110%; left: -8px; top: 4px; }
       .about-quote-block { order: 0; width: 100%; }
       .about-quote-text { font-size: 16px; }
+      .about-bio-text p { font-size: 14px; }
 
       .section-header { flex-direction: column; align-items: flex-start; }
       .nav-inner { padding: 0 20px; max-width: 100%; }
       .mobile-menu { padding: 24px 20px 32px; }
-      .clients-pills { justify-content: flex-start; }
-      .footer-top { flex-direction: column; gap: 20px; }
+      .clients-pills { justify-content: flex-start; gap: 4px; }
+      .clients-card { padding: 12px; }
+      .clients-pills .client-pill:nth-child(n+5) { order: 3; }
+      .clients-pills .client-pill:nth-child(11) { order: 1; }
+      .clients-pills .client-pill:nth-child(8) { order: 2; }
+      .clients-pills .client-pill:nth-child(7) { order: 4; }
+      .clients-pills .client-pill:nth-child(5) { order: 5; }
+      .footer-top { flex-direction: column; gap: 72px; }
       .footer-avatar { order: -2; width: 72px; height: 72px; border-radius: 16px; }
       .footer-avatar img { width: 83px; height: 83px; left: -3px; top: -2px; }
       .footer-nav-links { order: -1; }
@@ -1231,10 +1570,10 @@
           <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi">
         </div>
         <ul class="nav-links">
-          <li class="active"><a href="#home"><span class="nav-icon"><i data-lucide="house"></i></span>Home</a></li>
-          <li><a href="#work"><span class="nav-icon"><i data-lucide="layout-grid"></i></span>Work</a></li>
-          <li><a href="#clients"><span class="nav-icon"><i data-lucide="users"></i></span>Clients</a></li>
-          <li><a href="#about"><span class="nav-icon"><i data-lucide="user-round"></i></span>About</a></li>
+          <li class="active"><a href="#home"><span class="nav-icon"><span class="iconify" data-icon="solar:home-2-linear" data-width="16"></span></span>Home</a></li>
+          <li><a href="#work"><span class="nav-icon"><span class="iconify" data-icon="solar:widget-linear" data-width="16"></span></span>Work</a></li>
+          <li><a href="#clients"><span class="nav-icon"><span class="iconify" data-icon="solar:users-group-rounded-linear" data-width="16"></span></span>Clients</a></li>
+          <li><a href="#about"><span class="nav-icon"><span class="iconify" data-icon="solar:user-circle-linear" data-width="16"></span></span>About</a></li>
         </ul>
         <a href="#contact" class="nav-cta">Let's talk</a>
         <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
@@ -1289,7 +1628,7 @@
                   <!-- AI-powered builds -->
                   <div class="hero-chip">
                     <div class="hero-chip-icon"><img src="images/Icons/Code&Nocode_IconImage.svg" alt=""></div>
-                    AI-powered builds
+                    <span class="chip-desktop">AI-powered builds</span><span class="chip-mobile">AI builds</span>
                   </div>
                   <!-- GHL & Zapier Automations -->
                   <div class="hero-chip">
@@ -1320,7 +1659,7 @@
                 <div class="exp-stat"><span>Worked at</span> <strong>3 Startups</strong></div>
                 <div class="exp-stat"><span>Serviced</span> <strong>6+ Agencies &amp; Businesses</strong></div>
                 <div class="exp-stat"><span>Contributed to</span> <strong>5+ Major Projects</strong></div>
-                <div class="exp-stat"><span>Founder of</span> <a href="https://ovasys.co" target="_blank" rel="noopener" class="exp-link">Ovasys</a> <span>— Design &amp; AI Agency</span></div>
+                <div class="exp-stat"><span>Building</span> <a href="https://ovasys.co" target="_blank" rel="noopener" class="exp-link">Ovasys</a> <span>(Design &amp; AI Agency)</span></div>
               </div>
             </div>
 
@@ -1329,7 +1668,7 @@
           <!-- CTA buttons -->
           <div class="hero-btns">
             <button class="hero-btn-talk">Let's talk</button>
-            <a href="#" class="hero-btn-cv">
+            <a href="https://drive.google.com/file/d/1g_R2q3ihOBkWlXZT5xLTSv7u-wDC7IRY/view?usp=sharing" target="_blank" rel="noopener" class="hero-btn-cv">
               <div class="hero-chip-icon"><img src="images/Icons/CV_IconImage.svg" alt=""></div>
               Download CV
             </a>
@@ -1349,6 +1688,7 @@
 
         <!-- ─ Card 1: The Roots ─ -->
         <div class="sp-card reveal">
+          <a class="sp-card-link" href="roots.html"></a>
           <div class="sp-info">
             <div class="sp-top-row">
               <div class="sp-icon-box">
@@ -1356,7 +1696,7 @@
               </div>
               <div class="sp-text-col">
                 <span class="sp-name">The Roots</span>
-                <span class="sp-sub">Indigenous Language learning for African languages</span>
+                <span class="sp-sub">Indigenous Language learning for African languages.</span>
               </div>
             </div>
             <div class="sp-roles-row">
@@ -1383,6 +1723,7 @@
 
         <!-- ─ Card 2: Revwit ─ -->
         <div class="sp-card reveal reveal-delay-1">
+          <a class="sp-card-link" href="revwit.html"></a>
           <div class="sp-info">
             <div class="sp-top-row">
               <div class="sp-icon-box">
@@ -1415,6 +1756,7 @@
 
         <!-- ─ Card 3: Trib ─ -->
         <div class="sp-card reveal reveal-delay-2">
+          <a class="sp-card-link" href="trib.html"></a>
           <div class="sp-info">
             <div class="sp-top-row">
               <div class="sp-icon-box">
@@ -1422,7 +1764,7 @@
               </div>
               <div class="sp-text-col">
                 <span class="sp-name">Trib</span>
-                <span class="sp-sub">A web3 Q&amp;A game built on Base network with crypto rewards</span>
+                <span class="sp-sub">A web3 Q&amp;A game built on Base network with crypto rewards.</span>
               </div>
             </div>
             <div class="sp-roles-row">
@@ -1599,44 +1941,269 @@
           <!-- Bio paragraphs -->
           <div class="about-bio-text">
             <p>My name is Ola Fakomi &amp; for the past 5 years I've been so many things. A graphic designer, a product designer, a business owner, a technical writer, the President of an NGO, and an engineer&nbsp; while actively being the last born child of a beautiful family.</p>
-            <p>Right now, I'm a solution provider. I help brands and businesses passionate about solving a key problem reach their goals with design.</p>
+            <p>Right now, I'm a solution provider. I help brands and businesses passionate about solving a key problem reach their goals with design and AI solutions</p>
           </div>
 
           <!-- Action buttons -->
-          <div class="about-actions" style="display:none;">
-            <a href="#" class="about-action-btn">
-              <div class="about-action-left">
-                <div class="about-action-icon">
-                  <img src="images/Icons/ExperienceEmail_IconImg.svg" alt="">
+          <div class="about-actions">
+            <div class="experience-wrapper">
+              <a href="#" class="about-action-btn" style="width:100%;">
+                <div class="about-action-left">
+                  <div class="about-action-icon">
+                    <img src="images/Icons/ExperienceEmail_IconImg.svg" alt="">
+                  </div>
+                  <span class="about-action-label">Experience</span>
                 </div>
-                <span class="about-action-label">Experience</span>
-              </div>
-              <div class="about-action-arrow">
-                <img src="images/Icons/arrowOpenEmail_IconImg.svg" alt="">
-              </div>
-            </a>
-            <a href="#" class="about-action-btn">
-              <div class="about-action-left">
-                <div class="about-action-icon">
-                  <img src="images/Icons/CompetenceEmail_IconImg.svg" alt="">
+                <div class="about-action-arrow">
+                  <img src="images/Icons/arrowOpenEmail_IconImg.svg" alt="">
                 </div>
-                <span class="about-action-label">Competences</span>
-              </div>
-              <div class="about-action-arrow">
-                <img src="images/Icons/arrowOpenEmail_IconImg.svg" alt="">
-              </div>
-            </a>
-            <a href="#" class="about-action-btn">
-              <div class="about-action-left">
-                <div class="about-action-icon">
-                  <img src="images/Icons/Tools_IconImg.svg" alt="">
+              </a>
+
+              <div class="experience-modal">
+                <div class="tools-modal-header">
+                  <div class="tools-modal-title">
+                    <div class="tools-modal-title-icon">
+                      <span class="iconify" data-icon="solar:suitcase-linear" data-width="18"></span>
+                    </div>
+                    Experience
+                  </div>
+                  <button class="tools-modal-close"><span class="iconify" data-icon="solar:close-circle-linear" data-width="22" style="color:#fff;"></span></button>
                 </div>
-                <span class="about-action-label">Tools</span>
+                <div class="tools-modal-divider"></div>
+
+                <p class="exp-modal-intro">All <strong>Product design</strong> &amp; <strong>Brand Design</strong> roles with contributions extending to graphics, motion and code.</p>
+
+                <div class="exp-role-list">
+                  <div class="exp-role-item">
+                    <div class="exp-role-icon">
+                      <img src="images/Logos/Ovasys_LogoImg.png" alt="Ovasys">
+                    </div>
+                    <span class="exp-role-name">Ovasys (Freelance)</span>
+                    <span class="exp-role-year">2025</span>
+                  </div>
+                  <div class="exp-role-item">
+                    <div class="exp-role-icon">
+                      <img src="images/Logos/CasestudyRevwit_logoImg.png" alt="Revwit">
+                    </div>
+                    <span class="exp-role-name">Revwit</span>
+                    <span class="exp-role-year">2024 - 25</span>
+                  </div>
+                  <div class="exp-role-item">
+                    <div class="exp-role-icon">
+                      <img src="images/Logos/Insite_logoImg.png" alt="Insite Pro">
+                    </div>
+                    <span class="exp-role-name">Insite Pro</span>
+                    <span class="exp-role-year">2023 - 24</span>
+                  </div>
+                  <div class="exp-role-item">
+                    <div class="exp-role-icon">
+                      <img src="images/Logos/Pretzl_LogoImg.png" alt="Pretzl">
+                    </div>
+                    <span class="exp-role-name">Pretzl</span>
+                    <span class="exp-role-year">2021 - 22</span>
+                  </div>
+                  <div class="exp-role-item">
+                    <div class="exp-role-icon">
+                      <img src="images/Logos/NextHandle_LogoImg.png" alt="NextHandle">
+                    </div>
+                    <span class="exp-role-name">NextHandle</span>
+                    <span class="exp-role-year">2021 - 22</span>
+                  </div>
+                </div>
+
+                <a href="https://linkedin.com/in/olafakomi" target="_blank" class="exp-linkedin-btn">
+                  <div class="exp-linkedin-icon">
+                    <span class="iconify" data-icon="mdi:linkedin" data-width="18"></span>
+                  </div>
+                  View LinkedIn
+                </a>
               </div>
-              <div class="about-action-arrow">
-                <img src="images/Icons/arrowOpenEmail_IconImg.svg" alt="">
+            </div>
+            <div class="competences-wrapper">
+              <a href="#" class="about-action-btn" style="width:100%;">
+                <div class="about-action-left">
+                  <div class="about-action-icon">
+                    <img src="images/Icons/CompetenceEmail_IconImg.svg" alt="">
+                  </div>
+                  <span class="about-action-label">Competences</span>
+                </div>
+                <div class="about-action-arrow">
+                  <img src="images/Icons/arrowOpenEmail_IconImg.svg" alt="">
+                </div>
+              </a>
+
+              <div class="competences-modal">
+                <div class="tools-modal-header">
+                  <div class="tools-modal-title">
+                    <div class="tools-modal-title-icon">
+                      <span class="iconify" data-icon="solar:bolt-linear" data-width="18"></span>
+                    </div>
+                    Competences
+                  </div>
+                  <button class="tools-modal-close"><span class="iconify" data-icon="solar:close-circle-linear" data-width="22" style="color:#fff;"></span></button>
+                </div>
+                <div class="tools-modal-divider"></div>
+
+                <div class="comp-list">
+                  <div class="comp-item">
+                    <div class="comp-check"><span class="iconify" data-icon="solar:check-read-linear" data-width="16"></span></div>
+                    UI/UX Design
+                  </div>
+                  <div class="comp-item">
+                    <div class="comp-check"><span class="iconify" data-icon="solar:check-read-linear" data-width="16"></span></div>
+                    Brand Design
+                  </div>
+                  <div class="comp-item">
+                    <div class="comp-check"><span class="iconify" data-icon="solar:check-read-linear" data-width="16"></span></div>
+                    Design System Design
+                  </div>
+                  <div class="comp-item">
+                    <div class="comp-check"><span class="iconify" data-icon="solar:check-read-linear" data-width="16"></span></div>
+                    Graphic Design
+                  </div>
+                  <div class="comp-item">
+                    <div class="comp-check"><span class="iconify" data-icon="solar:check-read-linear" data-width="16"></span></div>
+                    Motion Design
+                  </div>
+                  <div class="comp-item">
+                    <div class="comp-check"><span class="iconify" data-icon="solar:check-read-linear" data-width="16"></span></div>
+                    Presentation &amp; Deck Design
+                  </div>
+                  <div class="comp-item">
+                    <div class="comp-check"><span class="iconify" data-icon="solar:check-read-linear" data-width="16"></span></div>
+                    No Code Development
+                  </div>
+                  <div class="comp-item">
+                    <div class="comp-check"><span class="iconify" data-icon="solar:check-read-linear" data-width="16"></span></div>
+                    HTML &amp; CSS
+                  </div>
+                  <div class="comp-item">
+                    <div class="comp-check"><span class="iconify" data-icon="solar:check-read-linear" data-width="16"></span></div>
+                    React
+                  </div>
+                </div>
               </div>
-            </a>
+            </div>
+            <div class="tools-wrapper">
+              <a href="#" class="about-action-btn" style="width:100%;">
+                <div class="about-action-left">
+                  <div class="about-action-icon">
+                    <img src="images/Icons/Tools_IconImg.svg" alt="">
+                  </div>
+                  <span class="about-action-label">Tools</span>
+                </div>
+                <div class="about-action-arrow">
+                  <img src="images/Icons/arrowOpenEmail_IconImg.svg" alt="">
+                </div>
+              </a>
+
+              <div class="tools-modal">
+                <div class="tools-modal-header">
+                  <div class="tools-modal-title">
+                    <div class="tools-modal-title-icon">
+                      <span class="iconify" data-icon="solar:settings-minimalistic-linear" data-width="18"></span>
+                    </div>
+                    Tools
+                  </div>
+                  <button class="tools-modal-close"><span class="iconify" data-icon="solar:close-circle-linear" data-width="22" style="color:#fff;"></span></button>
+                </div>
+                <div class="tools-modal-divider"></div>
+
+                <p class="tools-modal-intro">These are tools I use often:</p>
+
+                <div class="tools-modal-group-label">Design &amp; Development</div>
+                <div class="tools-grid">
+                  <div class="tool-chip">
+                    <div class="tool-chip-icon">
+                      <img src="images/Logos/Frame 1171275207.png" alt="Figma">
+                    </div>
+                    Figma
+                  </div>
+                  <div class="tool-chip">
+                    <div class="tool-chip-icon">
+                      <img src="images/Logos/Framer_IconImg.png" alt="Framer">
+                    </div>
+                    Framer
+                  </div>
+                  <div class="tool-chip">
+                    <div class="tool-chip-icon">
+                      <img src="images/Logos/Relume_IconImg.png" alt="Relume">
+                    </div>
+                    Relume
+                  </div>
+                  <div class="tool-chip">
+                    <div class="tool-chip-icon">
+                      <img src="images/Logos/ImageFX_IconImg.png" alt="Image FX">
+                    </div>
+                    Image FX
+                  </div>
+                  <div class="tool-chip">
+                    <div class="tool-chip-icon">
+                      <img src="images/Logos/Midjourney_IconImg.png" alt="Midjourney">
+                    </div>
+                    Midjourney
+                  </div>
+                  <div class="tool-chip">
+                    <div class="tool-chip-icon">
+                      <img src="images/Logos/Jitter_IconImg.png" alt="Jitter">
+                    </div>
+                    Jitter
+                  </div>
+                  <div class="tool-chip">
+                    <div class="tool-chip-icon">
+                      <img src="images/Logos/VSCode_IconImg.png" alt="VS Code">
+                    </div>
+                    VS Code
+                  </div>
+                </div>
+
+                <div class="tools-modal-group-label">AI Builds &amp; Automation</div>
+                <div class="tools-grid">
+                  <div class="tool-chip">
+                    <div class="tool-chip-icon">
+                      <img src="images/Logos/Claude_IconImg.png" alt="Claude Code">
+                    </div>
+                    Claude Code
+                  </div>
+                  <div class="tool-chip">
+                    <div class="tool-chip-icon">
+                      <img src="images/Logos/Claude_IconImg.png" alt="Claude">
+                    </div>
+                    Claude
+                  </div>
+                  <div class="tool-chip">
+                    <div class="tool-chip-icon">
+                      <img src="images/Logos/GHL_IconImg.png" alt="GHL">
+                    </div>
+                    GHL
+                  </div>
+                  <div class="tool-chip">
+                    <div class="tool-chip-icon">
+                      <img src="images/Logos/Cursor__IconImg.png" alt="Cursor">
+                    </div>
+                    Cursor
+                  </div>
+                  <div class="tool-chip">
+                    <div class="tool-chip-icon">
+                      <img src="images/Logos/VSCode__IconImg.png" alt="VS Code">
+                    </div>
+                    VS Code
+                  </div>
+                  <div class="tool-chip">
+                    <div class="tool-chip-icon">
+                      <img src="images/Logos/ChatGPT_IconImg.png" alt="GPT">
+                    </div>
+                    GPT
+                  </div>
+                  <div class="tool-chip">
+                    <div class="tool-chip-icon">
+                      <img src="images/Logos/Linear_IconImg.png" alt="Linear">
+                    </div>
+                    Linear
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
         </div><!-- /about-body -->
@@ -1652,7 +2219,7 @@
 
         <!-- Top row -->
         <div class="footer-top">
-          <div class="footer-headline">Get&#10;in touch now...</div>
+          <div class="footer-headline">Get in&#10;touch now...</div>
           <div class="footer-nav-links">
             <a href="#home">Home</a>
             <a href="#work">Work</a>
@@ -1675,7 +2242,7 @@
               <a href="https://twitter.com/olafakomi" target="_blank" class="footer-social-icon">
                 <img src="images/Icons/TwitterX_IconImg.svg" alt="Twitter" width="32" height="32">
               </a>
-              <a href="#" target="_blank" class="footer-social-icon">
+              <a href="https://olafakomi.substack.com/" target="_blank" class="footer-social-icon">
                 <img src="images/Icons/SubstackEmail_IconImg.svg" alt="Substack" width="32" height="32">
               </a>
               <a href="https://linkedin.com/in/olafakomi" target="_blank" class="footer-social-icon">
@@ -1692,7 +2259,7 @@
             </div>
           </div>
 
-          <p class="footer-copyright">© 2025 — Copyright</p>
+          <p class="footer-copyright">© 2026 — Copyright</p>
         </div>
 
       </div>
@@ -1771,9 +2338,54 @@
       });
     });
   </script>
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
   <script>
-    lucide.createIcons();
+    // Mobile modal click behaviour
+    const modalWrappers = [
+      { wrapper: '.experience-wrapper', btn: '.experience-wrapper > .about-action-btn' },
+      { wrapper: '.competences-wrapper', btn: '.competences-wrapper > .about-action-btn' },
+      { wrapper: '.tools-wrapper', btn: '.tools-wrapper > .about-action-btn' },
+    ];
+
+    function isMobile() { return window.innerWidth <= 809; }
+
+    modalWrappers.forEach(({ wrapper, btn }) => {
+      const wrapperEl = document.querySelector(wrapper);
+      const btnEl = document.querySelector(btn);
+      if (!wrapperEl || !btnEl) return;
+
+      // Open on button click (mobile only)
+      btnEl.addEventListener('click', e => {
+        if (!isMobile()) return;
+        e.preventDefault();
+        // Close any other open modals
+        document.querySelectorAll('.experience-wrapper, .competences-wrapper, .tools-wrapper').forEach(el => {
+          if (el !== wrapperEl) el.classList.remove('modal-open');
+        });
+        wrapperEl.classList.toggle('modal-open');
+      });
+
+      // Close on X button click
+      const closeBtn = wrapperEl.querySelector('.tools-modal-close');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', e => {
+          e.stopPropagation();
+          wrapperEl.classList.remove('modal-open');
+        });
+      }
+    });
+
+    // Close modal when tapping outside
+    document.addEventListener('click', e => {
+      if (!isMobile()) return;
+      if (!e.target.closest('.experience-wrapper, .competences-wrapper, .tools-wrapper')) {
+        document.querySelectorAll('.experience-wrapper, .competences-wrapper, .tools-wrapper').forEach(el => {
+          el.classList.remove('modal-open');
+        });
+      }
+    });
+  </script>
+  <script>
 
     // Active nav link on scroll + mobile indicator
     const navSections = ['home','work','clients','about','contact'];

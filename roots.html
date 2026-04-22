@@ -10,7 +10,7 @@
   <style>
     :root {
       --bg:        #ffffff;
-      --bg-card:   #f0efee;
+      --bg-card:   #FBFAFA;
       --bg-card2:  #f7f6f5;
       --accent:    #C36C00;
       --accent-lt: #fdf3e7;
@@ -43,18 +43,27 @@
     nav {
       position: sticky; top: 0; left: 0; right: 0;
       z-index: 100;
-      background: var(--nav-bg);
-      height: 56px;
-      display: flex; align-items: center;
+      background: var(--bg);
+      padding-top: 16px;
+      padding-bottom: 12px;
     }
     .nav-inner {
-      max-width: var(--max-w);
+      max-width: 896px;
       margin: 0 auto;
       padding: 0 32px;
       width: 100%;
+    }
+    .nav-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      background: #191919;
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 14px;
+      padding: 5px 5px 5px 16px;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.35);
     }
     .nav-back {
       display: flex; align-items: center; gap: 8px;
@@ -66,20 +75,16 @@
     }
     .nav-back:hover { color: #ffffff; }
     .nav-back svg { width: 14px; height: 14px; }
-    .nav-logo {
-      font-family: 'Unbounded', sans-serif;
-      font-size: 12px; font-weight: 600;
-      color: #ffffff; letter-spacing: 0.01em;
-      text-decoration: none;
-    }
     .nav-cta {
       font-family: 'Unbounded', sans-serif;
       font-size: 11px; font-weight: 500;
-      color: #111111; text-decoration: none;
-      padding: 8px 18px;
-      background: #ffffff;
-      border-radius: var(--r-sm);
+      color: #ffffff; text-decoration: none;
+      padding: 13px 22px;
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      border-radius: 10px;
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25);
       transition: opacity 0.2s;
+      white-space: nowrap;
     }
     .nav-cta:hover { opacity: 0.85; }
 
@@ -327,10 +332,11 @@
 
     /* ── FOOTER ──────────────────────────────────────────── */
     .cs-footer {
-      padding: 60px 0 80px; text-align: center;
+      padding: 60px 0 80px;
       border-top: 1px solid var(--border); margin-top: 40px;
+      display: flex; align-items: center; justify-content: space-between;
     }
-    .back-home {
+    .back-home, .next-cs {
       display: inline-flex; align-items: center; gap: 8px;
       font-family: 'Unbounded', sans-serif;
       font-size: 11px; font-weight: 500;
@@ -341,14 +347,86 @@
       border-radius: var(--r-sm);
       transition: opacity 0.2s, transform 0.2s;
     }
-    .back-home:hover { opacity: 0.7; transform: translateY(-1px); }
-    .cs-footer p { font-size: 13px; color: var(--text-mute); margin-top: 20px; }
+    .back-home:hover, .next-cs:hover { opacity: 0.7; transform: translateY(-1px); }
+
+    /* ── PAGE FOOTER ─────────────────────────────────────── */
+    .cs-page-footer {
+      background: url('images/footer/Footer Background.webp') center center / cover no-repeat;
+      padding: 0; overflow: hidden; position: relative;
+    }
+    .footer-inner {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; gap: 56px;
+      padding: 40px 0 0; max-width: 832px; margin: 0 auto;
+    }
+    .footer-top { display: flex; gap: 9px; align-items: flex-start; }
+    .footer-headline {
+      flex: 1; font-family: 'Unbounded', sans-serif;
+      font-size: 48px; font-weight: 400; letter-spacing: -0.04em;
+      line-height: 0.9; color: #fff; mix-blend-mode: overlay; white-space: pre-wrap;
+    }
+    .footer-nav-links { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+    .footer-nav-links a {
+      font-family: 'Unbounded', sans-serif; font-size: 16px; font-weight: 400;
+      color: #fff; mix-blend-mode: overlay; text-decoration: none;
+      line-height: 0.9; transition: opacity 0.2s;
+    }
+    .footer-nav-links a:hover { opacity: 0.7; }
+    .footer-avatar {
+      width: 40px; height: 40px; border-radius: 12px;
+      background: linear-gradient(180deg, #2a208d 0%, #4837f3 100%);
+      overflow: hidden; flex-shrink: 0; position: relative;
+    }
+    .footer-avatar img {
+      position: absolute; left: -2.4px; top: -1.2px;
+      width: 55.2px; height: 55.2px; object-fit: cover; mix-blend-mode: lighten;
+    }
+    .footer-bottom { display: flex; flex-direction: column; gap: 24px; }
+    .footer-contact-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      position: relative; padding: 4px;
+      background: #191919; border: 1px solid rgba(255,255,255,0.05); border-radius: 12px;
+    }
+    .footer-social-icons { display: flex; align-items: center; }
+    .footer-social-icon {
+      width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; text-decoration: none;
+    }
+    .footer-social-icon.has-bg {
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%); border-radius: 10px;
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25), inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+    }
+    .footer-social-icon img { display: block; }
+    .footer-email {
+      position: absolute; left: 50%; transform: translateX(-50%);
+      font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 400;
+      color: #dadada; white-space: nowrap; line-height: 0.9;
+    }
+    .footer-cta { display: flex; align-items: center; justify-content: flex-end; flex: 1; }
+    .footer-cta-btn {
+      height: 36px; display: flex; align-items: center; padding: 0 12px;
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%); border-radius: 10px;
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25);
+      font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 400;
+      color: #fff; text-decoration: none; white-space: nowrap;
+    }
+    .footer-copyright {
+      font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 400;
+      color: #fff; mix-blend-mode: overlay; text-align: center;
+      line-height: 0.9; padding-bottom: 60px;
+    }
 
     @media (max-width: 809px) {
       .page { padding: 0 20px; }
       .nav-inner { padding: 0 20px; }
       .cs-title { font-size: 22px; }
       .stats-row { grid-template-columns: 1fr 1fr; }
+      .footer-inner { padding: 40px 20px 0; }
+      .footer-top { flex-direction: column; gap: 40px; }
+      .footer-avatar { width: 72px; height: 72px; border-radius: 16px; }
+      .footer-headline { font-size: 40px; }
+      .footer-contact-bar { flex-direction: row; padding: 4px; }
+      .footer-email { display: none; }
     }
   </style>
 </head>
@@ -357,14 +435,15 @@
   <!-- NAV -->
   <nav>
     <div class="nav-inner">
-      <a href="index.html" class="nav-back">
-        <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M9 2.5L5 7L9 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        Back
-      </a>
-      <span class="nav-logo">Ola Fakomi</span>
-      <a href="mailto:Olarewajufakomi@gmail.com" class="nav-cta">Let's talk</a>
+      <div class="nav-bar">
+        <a href="index.html" class="nav-back">
+          <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 2.5L5 7L9 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Back
+        </a>
+        <a href="mailto:Olarewajufakomi@gmail.com" class="nav-cta">Let's talk</a>
+      </div>
     </div>
   </nav>
 
@@ -378,10 +457,6 @@
       <div class="cs-eyebrow">Case Study</div>
       <h1 class="cs-title"><span>The Roots</span> — Indigenous Language Learning for African Languages</h1>
       <p class="cs-subtitle">The Roots is an indigenous learning app designed to help Africans and the diaspora learn, practice, and retain their native languages in a structured, community-driven way. Inspired by Duolingo, the app makes it fun and practical to learn languages such as Yoruba, Igbo, Hausa, and Swahili.</p>
-      <a href="#" class="cs-live-btn">
-        <span class="cs-live-dot"></span>
-        View live
-      </a>
       <div class="cs-hero-img">
         <img src="images/projects/RootsCasestudy/Hero The Roots.png" alt="The Roots App Interface">
       </div>
@@ -397,7 +472,7 @@
       </div>
       <div class="pill pill-default">TL;DR</div>
       <div class="tldr" style="margin-top:12px;">
-        <p>On The Roots, an indigenous language-learning app for Yoruba, Igbo, Hausa, and Swahili, I led the <a href="#">brand and product design</a>, created the design system, and helped shape all key features. Beyond design, I also <a href="#">coded React UI components</a> and collaborated with the frontend team to ensure a scalable, production-ready interface.</p>
+        <p>On The Roots, an indigenous language-learning app for Yoruba, Igbo, Hausa, and Swahili, I led the <span style="color:var(--accent)">brand and product design</span>, created the design system, and helped shape all key features. Beyond design, I also <span style="color:var(--accent)">coded React UI components</span> and collaborated with the frontend team to ensure a scalable, production-ready interface.</p>
       </div>
     </section>
 
@@ -468,6 +543,17 @@
             <li>Collaborated on component documentation for smoother handoffs and reuse.</li>
           </ul>
         </div>
+      </div>
+
+      <div class="brand-img" style="margin-top:16px;">
+        <video
+          src="images/projects/RootsCasestudy/Roots Video.mp4"
+          autoplay
+          loop
+          muted
+          playsinline
+          style="width:100%; border-radius:16px; display:block;"
+        ></video>
       </div>
     </section>
 
@@ -620,10 +706,56 @@
         </svg>
         Back to Home
       </a>
-      <p>© 2025 Ola Fakomi — Product Designer &amp; Developer</p>
+      <a href="revwit.html" class="next-cs">
+        Revwit
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 2.5L9 7L5 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
     </div>
 
   </div><!-- /page -->
+
+  <!-- FOOTER -->
+  <section class="cs-page-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-headline">Get in&#10;touch now...</div>
+        <div class="footer-nav-links">
+          <a href="index.html#home">Home</a>
+          <a href="index.html#work">Work</a>
+          <a href="index.html#clients">Clients</a>
+          <a href="index.html#about">About</a>
+        </div>
+        <div class="footer-avatar">
+          <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi">
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-contact-bar">
+          <div class="footer-social-icons">
+            <a href="mailto:Olarewajufakomi@gmail.com" class="footer-social-icon has-bg">
+              <img src="images/Icons/Email_IconImg.svg" alt="Email" width="32" height="32">
+            </a>
+            <a href="https://twitter.com/olafakomi" target="_blank" class="footer-social-icon">
+              <img src="images/Icons/TwitterX_IconImg.svg" alt="Twitter" width="32" height="32">
+            </a>
+            <a href="https://olafakomi.substack.com/" target="_blank" class="footer-social-icon">
+              <img src="images/Icons/SubstackEmail_IconImg.svg" alt="Substack" width="32" height="32">
+            </a>
+            <a href="https://linkedin.com/in/olafakomi" target="_blank" class="footer-social-icon">
+              <img src="images/Icons/LinkedInEmail_IconImg.svg" alt="LinkedIn" width="32" height="32">
+            </a>
+          </div>
+          <span class="footer-email">@Olarewajufakomi@gmail.com</span>
+          <div class="footer-cta">
+            <a href="mailto:Olarewajufakomi@gmail.com" class="footer-cta-btn">Let's talk</a>
+          </div>
+        </div>
+        <p class="footer-copyright">© 2026 — Copyright</p>
+      </div>
+    </div>
+  </section>
 
 </body>
 </html>
