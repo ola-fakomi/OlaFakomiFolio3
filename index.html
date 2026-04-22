@@ -583,13 +583,10 @@
       background: #1e1e1e;
       overflow: hidden;
       position: relative;
+      text-decoration: none; color: inherit;
     }
-    .sp-card-link {
-      display: block;
-      position: absolute; inset: 0; z-index: 1;
-    }
-    .sp-info { position: relative; z-index: 2; }
-    .sp-preview { position: relative; z-index: 2; }
+    .sp-info { position: relative; }
+    .sp-preview { position: relative; }
     .sp-info {
       display: flex; flex-direction: column; gap: 14px;
       padding: 0 4px;
@@ -1687,8 +1684,7 @@
         <p class="sp-heading reveal">SELECTED PROJECTS </p>
 
         <!-- ─ Card 1: The Roots ─ -->
-        <div class="sp-card reveal">
-          <a class="sp-card-link" href="roots.html"></a>
+        <a class="sp-card reveal" href="roots.html">
           <div class="sp-info">
             <div class="sp-top-row">
               <div class="sp-icon-box">
@@ -1710,20 +1706,19 @@
                 <span class="sp-sep">|</span>
                 <span class="sp-role-text">Frontend Dev</span>
               </div>
-              <a href="roots.html" class="sp-case-pill">
+              <div class="sp-case-pill">
                 Case study
                 <div class="sp-arrow-icon">
                   <img src="images/Icons/arrowOpenEmail_IconImg.svg" alt="">
                 </div>
-              </a>
+              </div>
             </div>
           </div>
           <div class="sp-preview"><img src="images/projects/Roots_displayImage.png" alt="The Roots"></div>
-        </div>
+        </a>
 
         <!-- ─ Card 2: Revwit ─ -->
-        <div class="sp-card reveal reveal-delay-1">
-          <a class="sp-card-link" href="revwit.html"></a>
+        <a class="sp-card reveal reveal-delay-1" href="revwit.html">
           <div class="sp-info">
             <div class="sp-top-row">
               <div class="sp-icon-box">
@@ -1743,20 +1738,19 @@
                 </div>
                 <span class="sp-role-text">Lead Product &amp; Brand Design</span>
               </div>
-              <a href="revwit.html" class="sp-case-pill">
+              <div class="sp-case-pill">
                 Case study
                 <div class="sp-arrow-icon">
                   <img src="images/Icons/arrowOpenEmail_IconImg.svg" alt="">
                 </div>
-              </a>
+              </div>
             </div>
           </div>
           <div class="sp-preview"><img src="images/projects/Revwit_displayImage.png" alt="Revwit"></div>
-        </div>
+        </a>
 
         <!-- ─ Card 3: Trib ─ -->
-        <div class="sp-card reveal reveal-delay-2">
-          <a class="sp-card-link" href="trib.html"></a>
+        <a class="sp-card reveal reveal-delay-2" href="trib.html">
           <div class="sp-info">
             <div class="sp-top-row">
               <div class="sp-icon-box">
@@ -1776,16 +1770,16 @@
                 </div>
                 <span class="sp-role-text">Lead Product &amp; Brand Design</span>
               </div>
-              <a href="trib.html" class="sp-case-pill">
+              <div class="sp-case-pill">
                 Case study
                 <div class="sp-arrow-icon">
                   <img src="images/Icons/arrowOpenEmail_IconImg.svg" alt="">
                 </div>
-              </a>
+              </div>
             </div>
           </div>
           <div class="sp-preview"><img src="images/projects/Trib_displayImage.png" alt="Trib"></div>
-        </div>
+        </a>
 
       </div><!-- /sp-wrapper -->
     </div>
