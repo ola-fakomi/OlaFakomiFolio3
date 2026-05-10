@@ -1,4 +1,12 @@
 {
   "buildCommand": "",
-  "outputDirectory": "."
+  "outputDirectory": ".",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.olafakomi.vercel.app" }],
+      "destination": "https://olafakomi.vercel.app/:path*",
+      "permanent": true
+    }
+  ]
 }
