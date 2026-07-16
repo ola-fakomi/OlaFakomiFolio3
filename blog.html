@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V1S9EH9HZ5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-V1S9EH9HZ5');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Ola Fakomi</title>
+  <link rel="icon" type="image/png" href="images/hero/OlaAvatar_Img.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #191919;
+      --blue:   #4837f3;
+      --red:    #ff7974;
+      --text:   #ffffff;
+      --muted:  rgba(255,255,255,0.38);
+      --border: rgba(255,255,255,0.08);
+      --max-w:  960px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Unbounded', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.35; pointer-events: none; z-index: 9000;
+    }
+
+    /* ─── Cursor ─── */
+    .cursor, .cursor-ring {
+      position: fixed; border-radius: 50%;
+      pointer-events: none; transform: translate(-50%,-50%);
+    }
+    .cursor      { width:10px; height:10px; background:var(--blue); z-index:9999; transition:background .2s; }
+    .cursor-ring { width:36px; height:36px; border:1.5px solid rgba(72,55,243,.45); z-index:9998; transition:width .22s,height .22s,border-color .22s; }
+    body:has(a:hover) .cursor,
+    body:has(button:hover) .cursor { background:var(--red); }
+    body:has(a:hover) .cursor-ring,
+    body:has(button:hover) .cursor-ring { width:50px; height:50px; border-color:rgba(255,121,116,.5); }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top:20px; left:0; right:0;
+      z-index:8000;
+      display:flex; justify-content:center;
+      padding: 0 20px;
+    }
+    .nav-pill {
+      display:flex; align-items:center; justify-content:space-between;
+      width:100%; max-width:860px;
+      background:rgba(22,22,22,0.92);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:6px 6px 6px 10px;
+      backdrop-filter:blur(24px);
+      -webkit-backdrop-filter:blur(24px);
+      box-shadow:0 4px 32px rgba(0,0,0,.45);
+    }
+    .nav-links { display:flex; align-items:center; list-style:none; gap:2px; }
+    .nav-links a {
+      display:flex; align-items:center; gap:6px;
+      padding:8px 11px;
+      font-family:'Unbounded',sans-serif;
+      font-size:10.5px; font-weight:400;
+      letter-spacing:0.02em;
+      color:var(--muted); text-decoration:none;
+      border-radius:10px;
+      transition:color .18s,background .18s;
+    }
+    .nav-links a:hover { color:var(--text); background:rgba(255,255,255,.05); }
+    .nav-links a.active { color:var(--text); }
+    .nav-links a svg { flex-shrink:0; opacity:.45; transition:opacity .18s; }
+    .nav-links a.active svg, .nav-links a:hover svg { opacity:1; }
+    .nav-cta {
+      display:inline-flex; align-items:center;
+      padding:10px 22px;
+      background:var(--text); color:#111;
+      font-family:'Unbounded',sans-serif;
+      font-size:10.5px; font-weight:600;
+      letter-spacing:.02em;
+      border-radius:10px; text-decoration:none;
+      transition:background .18s,transform .15s;
+    }
+    .nav-cta:hover { background:#e4e4e4; transform:scale(.97); }
+
+    /* ─── PAGE WRAPPER ─── */
+    .blog-page {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: calc(20px + 64px + 72px) 40px 100px;
+    }
+
+    /* ─── NEWSLETTER SECTION ─── */
+    .newsletter-section {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 48px;
+      margin-bottom: 96px;
+    }
+    .newsletter-section:last-child { margin-bottom: 0; }
+
+    /* Left column */
+    .nl-identity { padding-top: 4px; }
+
+    .nl-heading {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 20px; font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+    .nl-desc {
+      font-size: 13.5px; line-height: 1.7;
+      color: rgba(255,255,255,0.48);
+      margin-bottom: 32px;
+    }
+    .btn-substack {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px; font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      transition: background .18s;
+    }
+    .btn-substack:hover { background: rgba(255,255,255,0.1); }
+    .btn-substack img { width: 18px; height: 18px; }
+
+    /* Right column: posts layout */
+    .nl-content {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    /* Optional post thumbnail (left of post stack) */
+    .post-thumb {
+      width: 240px;
+      flex-shrink: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      align-self: stretch;
+    }
+
+    /* Arc Browser thumbnail — purple gradient with compass icon */
+    .post-thumb--arc {
+      background: linear-gradient(135deg, #6644cc 0%, #9966ee 40%, #bb88ff 70%, #8844bb 100%);
+      display: flex; align-items: center; justify-content: center;
+      min-height: 220px;
+    }
+    .arc-icon {
+      width: 64px; height: 64px;
+      background: rgba(255,255,255,0.18);
+      border-radius: 18px;
+      display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(10px);
+    }
+    .arc-icon svg { color: #fff; }
+
+    /* Posts stack */
+    .posts-stack { flex: 1; }
+
+    .post-preview {
+      display: flex;
+      flex-direction: column;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      padding: 20px 0;
+      transition: opacity .2s;
+    }
+    .post-preview:first-child { padding-top: 0; }
+    .post-preview:last-child { border-bottom: none; }
+
+    /* Stacked depth — progressively ghost */
+    .post-preview.depth-1 { opacity: 1; }
+    .post-preview.depth-2 { opacity: 0.42; pointer-events: none; }
+    .post-preview.depth-3 { opacity: 0.20; pointer-events: none; }
+
+    .post-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .post-ep {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 12.5px; font-weight: 400;
+      color: rgba(255,255,255,0.45);
+    }
+    .post-ep strong {
+      color: rgba(255,255,255,0.75);
+      font-weight: 600;
+    }
+    .post-arrow {
+      display: flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      flex-shrink: 0;
+      text-decoration: none;
+      color: rgba(255,255,255,0.5);
+      transition: background .18s, color .18s;
+    }
+    .post-arrow:hover { background: rgba(255,255,255,0.12); color: var(--text); }
+    .post-excerpt {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 17px; font-weight: 400;
+      line-height: 1.55;
+      color: rgba(255,255,255,0.82);
+    }
+
+    /* ─── NEWSLETTER TILES (Full Steam) ─── */
+    .nl-tiles {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+
+    /* Cover tile */
+    .cover-tile {
+      background: #0d0d0d;
+      border-radius: 6px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform .2s;
+    }
+    .cover-tile:hover { transform: scale(1.02); }
+    .tile-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 4px;
+    }
+    .tile-issue {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 7px; font-weight: 600;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.04em;
+    }
+    .tile-brand {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 6px; font-weight: 700;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.06em;
+      text-align: right;
+      line-height: 1.3;
+    }
+    .tile-label {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 7px; font-weight: 400;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .tile-body {
+      flex: 1;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 2px;
+    }
+    .tile-headline {
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(8px, 1.1vw, 11px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+    }
+    .tile-headline .accent { color: #ff5533; }
+
+    /* Pattern tile (bottom row) */
+    .pattern-tile {
+      border-radius: 6px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background:
+        repeating-linear-gradient(
+          60deg,
+          rgba(255,255,255,0.08) 0px,
+          rgba(255,255,255,0.08) 2px,
+          transparent 2px,
+          transparent 12px
+        ),
+        repeating-linear-gradient(
+          -60deg,
+          rgba(255,255,255,0.08) 0px,
+          rgba(255,255,255,0.08) 2px,
+          transparent 2px,
+          transparent 12px
+        ),
+        #0d0d0d;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: linear-gradient(150deg, #1e2eee 0%, #1525cc 40%, #2438f0 100%);
+      padding: 80px 40px 40px;
+      position: relative; overflow: hidden;
+    }
+    footer::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: 50%; transform: translateX(-50%);
+      width: 120%; height: 180px;
+      background: rgba(255,255,255,.07);
+      border-radius: 50%; filter: blur(60px);
+      pointer-events: none;
+    }
+    .footer-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+    .footer-top { display:flex; align-items:flex-start; justify-content:space-between; gap:40px; margin-bottom:56px; }
+    .footer-headline {
+      font-family:'Unbounded',sans-serif;
+      font-size:clamp(38px,6.5vw,82px); font-weight:700;
+      line-height:1.05; letter-spacing:-0.025em;
+      color:rgba(255,255,255,.22);
+    }
+    .footer-right { display:flex; flex-direction:column; align-items:flex-end; padding-top:4px; }
+    .footer-avatar { width:50px; height:50px; border-radius:12px; object-fit:cover; margin-bottom:14px; }
+    .footer-nav { display:flex; flex-direction:column; align-items:flex-end; gap:7px; }
+    .footer-nav a { font-size:14px; color:rgba(255,255,255,.5); text-decoration:none; transition:color .18s; }
+    .footer-nav a:hover { color:rgba(255,255,255,.9); }
+    .footer-bar {
+      display:flex; align-items:center;
+      background:rgba(0,0,0,.28); border-radius:14px;
+      padding:10px; margin-bottom:24px;
+      backdrop-filter:blur(20px);
+    }
+    .footer-socials { display:flex; align-items:center; gap:2px; padding-right:14px; margin-right:14px; border-right:1px solid rgba(255,255,255,.1); }
+    .f-social { display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:8px; text-decoration:none; transition:background .18s; }
+    .f-social:hover { background:rgba(255,255,255,.1); }
+    .f-social img { width:17px; height:17px; filter:brightness(0) invert(1); opacity:.6; }
+    .f-social:hover img { opacity:1; }
+    .footer-email { flex:1; font-size:13.5px; color:rgba(255,255,255,.65); }
+    .footer-cta {
+      display:inline-flex; align-items:center; padding:10px 20px;
+      background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.18);
+      border-radius:10px; font-family:'Unbounded',sans-serif;
+      font-size:10.5px; font-weight:600; color:var(--text); text-decoration:none;
+      transition:background .18s;
+    }
+    .footer-cta:hover { background:rgba(255,255,255,.22); }
+    .footer-copy { text-align:center; font-size:12px; color:rgba(255,255,255,.28); padding-top:18px; border-top:1px solid rgba(255,255,255,.1); }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 780px) {
+      .blog-page { padding-left: 24px; padding-right: 24px; }
+      .newsletter-section { grid-template-columns: 1fr; gap: 32px; }
+      .nl-content { flex-direction: column; }
+      .post-thumb { width: 100%; min-height: 180px; }
+      .nl-tiles { grid-template-columns: repeat(3, 1fr); gap: 4px; }
+      .footer-top { flex-direction: column; }
+      footer { padding: 60px 24px 32px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
+  <!-- ─── NAV ─── -->
+  <nav>
+    <div class="nav-pill">
+      <ul class="nav-links">
+        <li>
+          <a href="index.html">
+            <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 9.5L10 3l7 6.5V17a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/></svg>
+            <span>Home</span>
+          </a>
+        </li>
+        <li>
+          <a href="decks.html">
+            <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="6" height="6" rx="1.5"/><rect x="11" y="3" width="6" height="6" rx="1.5"/><rect x="3" y="11" width="6" height="6" rx="1.5"/><rect x="11" y="11" width="6" height="6" rx="1.5"/></svg>
+            <span>Decks</span>
+          </a>
+        </li>
+        <li>
+          <a href="about.html">
+            <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="7" r="3"/><path d="M4 17c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke-linecap="round"/></svg>
+            <span>About</span>
+          </a>
+        </li>
+        <li>
+          <a href="blog.html" class="active">
+            <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 4h12M4 8h8M4 12h10M4 16h6"/></svg>
+            <span>Blogs</span>
+          </a>
+        </li>
+      </ul>
+      <a href="mailto:olarewajufakomi@gmail.com" class="nav-cta">Let's talk</a>
+    </div>
+  </nav>
+
+  <!-- ─── BLOG CONTENT ─── -->
+  <main class="blog-page">
+
+    <!-- ── Newsletter 1: TAKES BY OVASYS ── -->
+    <section class="newsletter-section">
+
+      <!-- Left: Identity -->
+      <div class="nl-identity">
+        <h2 class="nl-heading">TAKES<br>BY OVASYS</h2>
+        <p class="nl-desc">This newsletter helps founders, designers, PMs, and developers save time, cut costs, and build better with AI. There's a thought process to optimally using AI to build, and you need to know it.</p>
+        <a href="https://substack.com/@olarewajufakomi" class="btn-substack" target="_blank" rel="noopener">
+          <img src="images/Icons/SubstackEmail_IconImg.svg" alt="" />
+          View in Substack
+        </a>
+      </div>
+
+      <!-- Right: Thumbnail + post stack -->
+      <div class="nl-content">
+
+        <!-- Featured post thumbnail -->
+        <div class="post-thumb post-thumb--arc">
+          <div class="arc-icon">
+            <!-- Arc Browser compass/navigation icon -->
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4z" stroke="white" stroke-width="1.5"/>
+              <path d="M22 10l-4.5 11L14 16l-4 1.5 11-4.5-2-3z" fill="white" opacity="0.9"/>
+              <path d="M14 16l3.5 5.5" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Posts stacked with depth -->
+        <div class="posts-stack">
+
+          <div class="post-preview depth-1">
+            <div class="post-meta">
+              <span class="post-ep">EP 3: <strong>AI Browsers and why they matter</strong></span>
+              <a href="https://substack.com/@olarewajufakomi" class="post-arrow" target="_blank" rel="noopener" aria-label="Read post">
+                <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11L11 3M11 3H5M11 3v6"/></svg>
+              </a>
+            </div>
+            <p class="post-excerpt">Later, I discovered Arc Browser, which offered a better experience and a more exciting workflow (there's a chance I downloaded it for the hype but the UX is pretty good regardless)...</p>
+          </div>
+
+          <div class="post-preview depth-2">
+            <div class="post-meta">
+              <span class="post-ep">EP 3: <strong>AI Browsers and why they matter</strong></span>
+              <span class="post-arrow" aria-hidden="true">
+                <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11L11 3M11 3H5M11 3v6"/></svg>
+              </span>
+            </div>
+            <p class="post-excerpt">Later, I discovered Arc Browser, which offered a better experience and a more exciting workflow (there's a chance I downloaded it for the hype but the UX is pretty good regardless)...</p>
+          </div>
+
+          <div class="post-preview depth-3">
+            <div class="post-meta">
+              <span class="post-ep">EP 3: <strong>AI Browsers and why they matter</strong></span>
+              <span class="post-arrow" aria-hidden="true">
+                <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11L11 3M11 3H5M11 3v6"/></svg>
+              </span>
+            </div>
+            <p class="post-excerpt">Later, I discovered Arc Browser, which offered a better experience and a more exciting workflow (there's a chance I downloaded it for the hype but the UX is pretty good regardless)...</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Newsletter 2: FULL STEAM & HARD LEFT ── -->
+    <section class="newsletter-section">
+
+      <!-- Left: Identity -->
+      <div class="nl-identity">
+        <h2 class="nl-heading">FULL STEAM<br>&amp; HARD LEFT</h2>
+        <p class="nl-desc">I'm a guy in my 20s with goals &amp; ambitions, as I am sure you have. I write because of you. So that when you get stuck or confused, you can relate to a problem I've had and solved and find the strength to keep going.</p>
+        <a href="https://substack.com/@olarewajufakomi" class="btn-substack" target="_blank" rel="noopener">
+          <img src="images/Icons/SubstackEmail_IconImg.svg" alt="" />
+          View in Substack
+        </a>
+      </div>
+
+      <!-- Right: Newsletter cover tiles -->
+      <div class="nl-tiles">
+
+        <!-- Row 1 -->
+        <div class="cover-tile">
+          <div class="tile-top">
+            <span class="tile-issue">#130</span>
+            <div>
+              <div class="tile-brand">Full steam</div>
+              <div class="tile-brand">Hard left</div>
+            </div>
+          </div>
+          <div class="tile-label">FSHL #130</div>
+          <div class="tile-body">
+            <p class="tile-headline">Your determination will be tested. <span class="accent">Don't lose.</span></p>
+          </div>
+        </div>
+
+        <div class="cover-tile">
+          <div class="tile-top">
+            <span class="tile-issue">#130</span>
+            <div>
+              <div class="tile-brand">Full steam</div>
+              <div class="tile-brand">Hard left</div>
+            </div>
+          </div>
+          <div class="tile-label">FSHL #130</div>
+          <div class="tile-body">
+            <p class="tile-headline">Your determination will be tested. <span class="accent">Don't lose.</span></p>
+          </div>
+        </div>
+
+        <div class="cover-tile">
+          <div class="tile-top">
+            <span class="tile-issue">#130</span>
+            <div>
+              <div class="tile-brand">Full steam</div>
+              <div class="tile-brand">Hard left</div>
+            </div>
+          </div>
+          <div class="tile-label">FSHL #130</div>
+          <div class="tile-body">
+            <p class="tile-headline">Your determination will be tested. <span class="accent">Don't lose.</span></p>
+          </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="cover-tile">
+          <div class="tile-top">
+            <span class="tile-issue">#130</span>
+            <div>
+              <div class="tile-brand">Full steam</div>
+              <div class="tile-brand">Hard left</div>
+            </div>
+          </div>
+          <div class="tile-label">FSHL #130</div>
+          <div class="tile-body">
+            <p class="tile-headline">Your determination will be tested. <span class="accent">Don't lose.</span></p>
+          </div>
+        </div>
+
+        <div class="cover-tile">
+          <div class="tile-top">
+            <span class="tile-issue">#130</span>
+            <div>
+              <div class="tile-brand">Full steam</div>
+              <div class="tile-brand">Hard left</div>
+            </div>
+          </div>
+          <div class="tile-label">FSHL #130</div>
+          <div class="tile-body">
+            <p class="tile-headline">Your determination will be tested. <span class="accent">Don't lose.</span></p>
+          </div>
+        </div>
+
+        <div class="cover-tile">
+          <div class="tile-top">
+            <span class="tile-issue">#130</span>
+            <div>
+              <div class="tile-brand">Full steam</div>
+              <div class="tile-brand">Hard left</div>
+            </div>
+          </div>
+          <div class="tile-label">FSHL #130</div>
+          <div class="tile-body">
+            <p class="tile-headline">Your determination will be tested. <span class="accent">Don't lose.</span></p>
+          </div>
+        </div>
+
+        <!-- Row 3 -->
+        <div class="cover-tile">
+          <div class="tile-top">
+            <span class="tile-issue">#130</span>
+            <div>
+              <div class="tile-brand">Full steam</div>
+              <div class="tile-brand">Hard left</div>
+            </div>
+          </div>
+          <div class="tile-label">FSHL #130</div>
+          <div class="tile-body">
+            <p class="tile-headline">Your determination will be tested. <span class="accent">Don't lose.</span></p>
+          </div>
+        </div>
+
+        <div class="cover-tile">
+          <div class="tile-top">
+            <span class="tile-issue">#130</span>
+            <div>
+              <div class="tile-brand">Full steam</div>
+              <div class="tile-brand">Hard left</div>
+            </div>
+          </div>
+          <div class="tile-label">FSHL #130</div>
+          <div class="tile-body">
+            <p class="tile-headline">Your determination will be tested. <span class="accent">Don't lose.</span></p>
+          </div>
+        </div>
+
+        <div class="cover-tile">
+          <div class="tile-top">
+            <span class="tile-issue">#130</span>
+            <div>
+              <div class="tile-brand">Full steam</div>
+              <div class="tile-brand">Hard left</div>
+            </div>
+          </div>
+          <div class="tile-label">FSHL #130</div>
+          <div class="tile-body">
+            <p class="tile-headline">Your determination will be tested. <span class="accent">Don't lose.</span></p>
+          </div>
+        </div>
+
+        <!-- Row 4: Pattern tiles -->
+        <div class="pattern-tile"></div>
+        <div class="pattern-tile"></div>
+        <div class="pattern-tile"></div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ─── FOOTER ─── -->
+  <footer id="contact">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <h2 class="footer-headline">Get<br>in touch<br>now...</h2>
+        <div class="footer-right">
+          <img src="images/hero/OlaAvatar_Img.png" alt="Ola" class="footer-avatar" />
+          <nav class="footer-nav">
+            <a href="index.html">Homepage</a>
+            <a href="index.html#projects">Projects</a>
+            <a href="decks.html">Explorations</a>
+            <a href="blog.html">Blog</a>
+          </nav>
+        </div>
+      </div>
+      <div class="footer-bar">
+        <div class="footer-socials">
+          <a href="mailto:olarewajufakomi@gmail.com" class="f-social" aria-label="Email">
+            <img src="images/Icons/Email_IconImg.svg" alt="Email" />
+          </a>
+          <a href="https://twitter.com/olarewajufakomi" class="f-social" aria-label="X" target="_blank" rel="noopener">
+            <img src="images/Icons/TwitterX_IconImg.svg" alt="X" />
+          </a>
+          <a href="https://substack.com/@olarewajufakomi" class="f-social" aria-label="Substack" target="_blank" rel="noopener">
+            <img src="images/Icons/SubstackEmail_IconImg.svg" alt="Substack" />
+          </a>
+          <a href="https://linkedin.com/in/olarewajufakomi" class="f-social" aria-label="LinkedIn" target="_blank" rel="noopener">
+            <img src="images/Icons/LinkedInEmail_IconImg.svg" alt="LinkedIn" />
+          </a>
+        </div>
+        <span class="footer-email">@Olarewajufakomi@gmail.com</span>
+        <a href="mailto:olarewajufakomi@gmail.com" class="footer-cta">Let's talk</a>
+      </div>
+      <p class="footer-copy">© 2025 — Copyright</p>
+    </div>
+  </footer>
+
+  <script>
+    /* ─── Cursor ─── */
+    const cur = document.getElementById('cursor');
+    const ring = document.getElementById('cursor-ring');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+    (function tick(){
+      cur.style.cssText  = `left:${mx}px;top:${my}px`;
+      rx+=(mx-rx)*.13; ry+=(my-ry)*.13;
+      ring.style.cssText = `left:${rx}px;top:${ry}px`;
+      requestAnimationFrame(tick);
+    })();
+  </script>
+</body>
+</html>
