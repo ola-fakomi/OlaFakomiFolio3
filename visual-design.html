@@ -83,7 +83,7 @@
       pointer-events: none;
       z-index: 9999;
       transform: translate(-50%, -50%);
-      transition: width 0.25s, height 0.25s, background 0.25s;
+      transition: transform 0.1s ease, width 0.25s ease, height 0.25s ease, background 0.25s ease;
       mix-blend-mode: screen;
     }
     .cursor-ring {
@@ -125,7 +125,9 @@
       background: #191919;
       border: 1px solid rgba(255,255,255,0.09);
       border-radius: 14px;
-      padding: 5px 5px 5px 16px;
+      padding: 5px 5px 5px 8px;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       box-shadow: 0 4px 24px rgba(0,0,0,0.35);
     }
     .nav-logo {
@@ -153,117 +155,162 @@
     .nav-back:hover { color: var(--text); background: rgba(255,255,255,0.06); }
     .nav-cta {
       display: inline-flex; align-items: center;
-      padding: 10px 20px;
-      background: var(--blue);
+      padding: 13px 22px;
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      border: none;
       color: #fff;
       font-family: 'Unbounded', sans-serif;
-      font-size: 10px; font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.02em;
       border-radius: 10px;
       text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25);
       transition: opacity 0.2s, transform 0.2s;
+      flex-shrink: 0;
+    }
+    .nav-cta::after {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 10px;
+      box-shadow: inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      pointer-events: none;
     }
     .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
 
     /* ─── HERO ──────────────────────────────────────────────── */
-    .hero {
-      padding-top: calc(var(--nav-h) + 32px + 20px);
-      padding-bottom: 80px;
+    #home {
+      padding-top: calc(var(--nav-h) + 40px);
+      padding-bottom: 72px;
+      background: var(--bg);
     }
-    .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: 10px;
-      margin-bottom: 28px;
+    .vd-hero {
+      max-width: 832px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
     }
-    .hero-eyebrow-pill {
-      font-family: 'Unbounded', sans-serif;
-      font-size: 9px; font-weight: 700;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--muted);
-      padding: 6px 14px;
-      border: 1px solid var(--border-hi);
-      border-radius: 100px;
+    /* Top row: avatar + CV button */
+    .vd-hero-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
-    .hero-eyebrow-dot {
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: var(--red);
+    .vd-hero-avatar {
+      width: 64px; height: 64px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #4837f3 0%, #2a208d 100%);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 6.56px rgba(0,0,0,0.25);
       flex-shrink: 0;
     }
-    .hero-headline {
-      font-family: 'Unbounded', sans-serif;
-      font-size: clamp(28px, 4.2vw, 54px);
-      font-weight: 700;
-      line-height: 1.06;
-      letter-spacing: -0.025em;
-      color: var(--text);
-      max-width: 760px;
-      margin-bottom: 22px;
+    .vd-hero-avatar::after {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 16px;
+      box-shadow: inset -2.4px -2.4px 0 rgba(0,0,0,0.14), inset 2.4px 2.4px 0 rgba(0,0,0,0.08);
+      pointer-events: none;
     }
-    .hero-sub {
-      font-family: 'Unbounded', sans-serif;
-      font-size: 12px; font-weight: 300;
-      line-height: 1.8;
-      color: var(--text-dim);
-      max-width: 520px;
-      margin-bottom: 36px;
+    .vd-hero-avatar img {
+      position: absolute;
+      top: -1.6px; left: -3.2px;
+      width: calc(100% + 6.4px);
+      height: calc(100% + 3.2px);
+      object-fit: cover;
+      mix-blend-mode: lighten;
     }
-    .hero-ctas {
-      display: flex; align-items: center; gap: 12px;
-      margin-bottom: 56px;
-    }
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 14px 28px;
-      background: var(--text);
-      color: #111;
+    .vd-cv-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 40px;
+      padding: 0 16px;
+      background: #1d1d1d;
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 10px;
       font-family: 'Unbounded', sans-serif;
-      font-size: 10px; font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      border-radius: 12px;
+      font-size: 13px; font-weight: 400;
+      color: #dadada;
+      letter-spacing: 0.13px;
       text-decoration: none;
       transition: opacity 0.2s, transform 0.2s;
     }
-    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
-    .btn-secondary {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 14px 24px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--border-hi);
-      color: var(--text-dim);
+    .vd-cv-btn img { display: block; width: 16px; height: 16px; object-fit: contain; }
+    .vd-cv-btn:hover { opacity: 0.8; transform: translateY(-1px); }
+    /* Pre-text */
+    .vd-hero-pre {
       font-family: 'Unbounded', sans-serif;
-      font-size: 10px; font-weight: 500;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      border-radius: 12px;
-      text-decoration: none;
-      transition: background 0.2s, color 0.2s, transform 0.2s;
+      font-size: 16px; font-weight: 300;
+      color: #ababab;
+      letter-spacing: 0.16px;
+      line-height: 1.4;
+      margin-bottom: -20px;
     }
-    .btn-secondary:hover { background: rgba(255,255,255,0.09); color: var(--text); transform: translateY(-1px); }
-
-    /* Hero styleframe grid */
-    .hero-grid {
+    /* Big headline */
+    .vd-hero-headline {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      color: #fff;
+      text-transform: uppercase;
+    }
+    .vd-hero-headline-dim {
+      color: #7581a6;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 6px;
+    }
+    /* Three preview frames */
+    .vd-hero-frames {
       display: grid;
-      grid-template-columns: 1.4fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
       gap: 8px;
     }
-    .hero-frame {
+    .vd-hero-frame {
       border-radius: 12px;
       overflow: hidden;
-      background: var(--bg-card);
       aspect-ratio: 16/10;
       position: relative;
     }
-    .hero-frame img {
+    .vd-hero-frame img {
       width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.5s ease;
+      object-fit: cover; display: block;
     }
-    .hero-frame:hover img { transform: scale(1.04); }
-    .hero-frame--tall { aspect-ratio: 4/3; }
+    .vd-hero-frame--mint { background: #b8f5d8; }
+    .vd-hero-frame--dark { background: #0e0e1a; }
+    .vd-hero-frame--navy { background: #172040; }
+    .vd-frame-ph {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      padding: 16px;
+    }
+    .vd-frame-ph span {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 8px; font-weight: 400;
+      color: rgba(0,0,0,0.25);
+      text-align: center; line-height: 1.6; letter-spacing: 0.04em;
+    }
+    .vd-hero-frame--dark .vd-frame-ph span,
+    .vd-hero-frame--navy .vd-frame-ph span { color: rgba(255,255,255,0.2); }
+    /* Body text */
+    .vd-hero-body {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 16px; font-weight: 300;
+      color: #ababab;
+      letter-spacing: 0.16px;
+      line-height: 1.6;
+    }
+    .vd-hero-accent { color: #ff7772; font-weight: 500; }
+    /* Gradient divider */
+    .vd-hero-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, #4837f3 30%, #ff7974 70%, transparent 100%);
+    }
 
     /* ─── POSITIONING STRIP ─────────────────────────────────── */
     .positioning {
@@ -283,13 +330,24 @@
 
     /* ─── SECTION LABEL ─────────────────────────────────────── */
     .section-label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
       font-family: 'Unbounded', sans-serif;
-      font-size: 9px; font-weight: 700;
-      letter-spacing: 0.24em;
+      font-size: 10px; font-weight: 400;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 52px;
+      margin-bottom: 20px;
+      text-align: center;
+      width: 100%;
+    }
+    .section-label::before {
+      content: '';
       display: block;
+      width: 20px; height: 2px;
+      background: var(--blue);
     }
 
     /* ─── WORK / CASE STUDIES ───────────────────────────────── */
@@ -303,50 +361,21 @@
     .cs:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
 
     .cs-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 24px;
-      margin-bottom: 12px;
+      text-align: center;
+      margin-bottom: 24px;
     }
     .cs-title {
       font-family: 'Unbounded', sans-serif;
-      font-size: clamp(18px, 2.6vw, 30px);
-      font-weight: 600;
-      letter-spacing: -0.02em;
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      line-height: 1.6;
       color: var(--text);
+      text-transform: uppercase;
     }
-    .cs-agency {
-      font-family: 'Unbounded', sans-serif;
-      font-size: 10px; font-weight: 400;
-      color: var(--muted);
-      white-space: nowrap;
-      padding-top: 5px;
-      letter-spacing: 0.04em;
-    }
-    .cs-desc {
-      font-family: 'Unbounded', sans-serif;
-      font-size: 11px; font-weight: 300;
-      line-height: 1.8;
-      color: var(--text-dim);
-      max-width: 600px;
-      margin-bottom: 24px;
-    }
-    .cs-tag {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 5px 14px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border-hi);
-      border-radius: 100px;
-      font-family: 'Unbounded', sans-serif;
-      font-size: 9px; font-weight: 500;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-      margin-bottom: 32px;
-    }
-    .cs-tag-dot {
-      width: 4px; height: 4px; border-radius: 50%;
-      background: var(--red); flex-shrink: 0;
+    .cs-title-accent {
+      color: #7581a6;
+      font-weight: 400;
     }
 
     /* Sequence grids */
@@ -368,6 +397,11 @@
       object-fit: cover;
       display: block;
     }
+    .frame video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
     .frame--wide { aspect-ratio: 16/9; }
     .frame--tall { aspect-ratio: 4/3; }
     .frame--sq   { aspect-ratio: 1; }
@@ -384,6 +418,17 @@
       -webkit-backdrop-filter: blur(8px);
       padding: 4px 9px;
       border-radius: 6px;
+    }
+
+    /* Video row — large frame spanning half width */
+    .cs-video-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .frame--video-large {
+      grid-column: 1 / span 2;
+      aspect-ratio: 16/9;
     }
 
     /* Placeholder slot for missing images */
@@ -519,71 +564,198 @@
     .btn-ghost:hover { background: rgba(255,255,255,0.06); color: var(--text); }
 
     /* ─── FOOTER ────────────────────────────────────────────── */
-    .footer {
-      padding: 80px 0 52px;
-      border-top: 1px solid var(--border);
+    #contact {
+      background: url('images/footer/Footer Background.webp') center center / cover no-repeat;
+      padding: 0;
+      overflow: hidden;
+      position: relative;
     }
-    .footer-inner { max-width: var(--content-w); }
+    .footer-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 56px;
+      padding: 40px 0 0;
+      max-width: 832px;
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: flex;
+      gap: 9px;
+      align-items: flex-start;
+    }
     .footer-headline {
+      flex: 1;
       font-family: 'Unbounded', sans-serif;
-      font-size: clamp(30px, 4.5vw, 52px);
-      font-weight: 700;
-      line-height: 1.06;
-      letter-spacing: -0.025em;
-      color: var(--text);
-      margin-bottom: 40px;
-    }
-    .footer-links {
-      display: flex; flex-wrap: wrap; gap: 10px;
-      margin-bottom: 60px;
-    }
-    .footer-link {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 12px 22px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--border-hi);
-      color: var(--text-dim);
-      font-family: 'Unbounded', sans-serif;
-      font-size: 10px; font-weight: 400;
-      letter-spacing: 0.04em;
-      border-radius: 12px;
-      text-decoration: none;
-      transition: background 0.2s, color 0.2s, transform 0.2s;
-    }
-    .footer-link:hover { background: rgba(255,255,255,0.09); color: var(--text); transform: translateY(-1px); }
-    .footer-link--primary {
-      background: var(--blue);
-      border-color: var(--blue);
+      font-size: 48px;
+      font-weight: 400;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
       color: #fff;
-      font-weight: 600;
+      mix-blend-mode: overlay;
+      white-space: pre-wrap;
     }
-    .footer-link--primary:hover { background: #3829d4; border-color: #3829d4; }
-    .footer-copy {
+    .footer-nav-links {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .footer-nav-links a {
       font-family: 'Unbounded', sans-serif;
-      font-size: 9px; font-weight: 300;
-      letter-spacing: 0.04em;
-      color: rgba(255,255,255,0.2);
-      padding-top: 32px;
+      font-size: 16px;
+      font-weight: 400;
+      color: #fff;
+      mix-blend-mode: overlay;
+      text-decoration: none;
+      line-height: 0.9;
+      transition: opacity 0.2s;
+    }
+    .footer-nav-links a:hover { opacity: 0.7; }
+    .footer-avatar {
+      width: 40px; height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #2a208d 0%, #4837f3 100%);
+      box-shadow: 0 0 4.92px rgba(0,0,0,0.25), inset -1.8px -1.8px 0 rgba(0,0,0,0.14), inset 1.8px 1.8px 0 rgba(0,0,0,0.08);
+      overflow: hidden;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .footer-avatar img {
+      position: absolute;
+      left: -2.4px; top: -1.2px;
+      width: 55.2px; height: 55.2px;
+      object-fit: cover;
+      mix-blend-mode: lighten;
+    }
+    .footer-bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .footer-contact-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      padding: 4px;
+      background: #191919;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+    }
+    .footer-social-icons {
+      display: flex;
+      align-items: center;
+    }
+    .footer-social-icon {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .footer-social-icon.has-bg {
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      border-radius: 10px;
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25), inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+    }
+    .footer-social-icon img { display: block; }
+    .footer-email {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: #dadada;
+      white-space: nowrap;
+      line-height: 0.9;
+    }
+    .footer-cta {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex: 1;
+    }
+    .footer-cta-btn {
+      height: 36px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      border-radius: 10px;
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25), inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      font-family: 'Unbounded', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      color: #fff;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .footer-copyright {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: #fff;
+      mix-blend-mode: overlay;
+      text-align: center;
+      line-height: 0.9;
+      padding-bottom: 60px;
+    }
+
+    /* ─── ADDED VISUALS GRID ────────────────────────────────── */
+    .added-visuals {
+      padding: 80px 0;
       border-top: 1px solid var(--border);
+    }
+    .av-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 32px;
+    }
+    .av-cell {
+      aspect-ratio: 4/3;
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--bg-card);
+      position: relative;
+      border: 1.5px dashed rgba(255,255,255,0.09);
+    }
+    .av-cell img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    .av-cell-ph {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .av-cell-ph span {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 8px; font-weight: 400;
+      color: rgba(255,255,255,0.16);
+      text-align: center; line-height: 1.6; letter-spacing: 0.04em;
     }
 
     /* ─── RESPONSIVE ────────────────────────────────────────── */
     @media (max-width: 960px) {
-      .hero-grid { grid-template-columns: 1fr 1fr; }
-      .hero-grid .hero-frame:last-child { display: none; }
       .seq--3 { grid-template-columns: 1fr 1fr; }
       .seq--4 { grid-template-columns: 1fr 1fr; }
       .seq--main-side { grid-template-columns: 1fr; }
-      .freelance-grid { grid-template-columns: 1fr; }
       .secondary-block { flex-direction: column; align-items: flex-start; }
+      .av-grid { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 640px) {
       .container { padding: 0 20px; }
-      .hero-grid { grid-template-columns: 1fr; }
-      .hero-grid .hero-frame:nth-child(n+2) { display: none; }
-      .seq--2, .seq--3, .seq--4, .seq--main-side { grid-template-columns: 1fr; }
-      .hero-ctas { flex-direction: column; align-items: flex-start; }
+      .seq--2, .seq--3, .seq--4 { grid-template-columns: 1fr; }
+      .vd-hero-frames { grid-template-columns: 1fr 1fr; }
+      .vd-hero-frame:last-child { display: none; }
       .secondary-block { padding: 28px 24px; }
+      .footer-headline { font-size: 32px; }
+      .footer-email { display: none; }
+      .av-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
@@ -612,310 +784,188 @@
   </nav>
 
   <!-- ─── HERO ─────────────────────────────────────────────── -->
-  <section class="hero">
+  <section id="home">
     <div class="container">
+      <div class="vd-hero reveal">
 
-      <div class="hero-eyebrow reveal">
-        <span class="hero-eyebrow-pill">Visual Design / Motion</span>
-        <span class="hero-eyebrow-dot"></span>
-      </div>
-
-      <h1 class="hero-headline reveal">Visual Designer specializing in storyboard-to-styleframe pipelines for motion and video production.</h1>
-
-      <p class="hero-sub reveal">5+ years of design experience, with a recent focus on visual development for motion design agencies including Engorgio and CXT.</p>
-
-      <div class="hero-ctas reveal">
-        <!-- TODO: replace # with actual PDF link when assembled -->
-        <a href="#" class="btn-primary">
-          <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-            <path d="M6.5 1v8M3 6l3.5 3.5L10 6M1.5 11.5h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Portfolio PDF
-        </a>
-        <a href="mailto:olarewajufakomi@gmail.com" class="btn-secondary">Contact</a>
-      </div>
-
-      <!-- Hero styleframe grid — strongest stills, no UI screens -->
-      <div class="hero-grid reveal">
-        <!-- Slot 1: replace with best Engorgio or CXT styleframe -->
-        <div class="hero-frame hero-frame--tall">
-          <div class="slot slot--tall"><span>ADD STYLEFRAME<br>Best Engorgio or CXT visual development frame</span></div>
+        <!-- Avatar + Download CV -->
+        <div class="vd-hero-top">
+          <div class="vd-hero-avatar">
+            <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi">
+          </div>
+          <a href="#" class="vd-cv-btn">
+            <img src="images/Icons/CV_IconImage.svg" alt="">
+            Download CV
+          </a>
         </div>
-        <!-- Slot 2 -->
-        <div class="hero-frame">
-          <div class="slot slot--wide"><span>ADD STYLEFRAME<br>Second strongest still</span></div>
-        </div>
-        <!-- Slot 3 -->
-        <div class="hero-frame">
-          <div class="slot slot--wide"><span>ADD STYLEFRAME<br>Third strongest still</span></div>
-        </div>
-      </div>
 
+        <!-- Pre-text -->
+        <p class="vd-hero-pre">Beyond building products I help...</p>
+
+        <!-- Headline -->
+        <h1 class="vd-hero-headline">Products scale with compelling<br>visual <span class="vd-hero-headline-dim">Storyboards</span></h1>
+
+        <!-- Three storyboard preview frames -->
+        <div class="vd-hero-frames">
+          <div class="vd-hero-frame vd-hero-frame--mint">
+            <img src="Storyboard%20Images/Cover%20Images%20/Revwit_image.png" alt="Revwit storyboard styleframe">
+          </div>
+          <div class="vd-hero-frame vd-hero-frame--dark">
+            <img src="Storyboard%20Images/Cover%20Images%20/Kolme_image.png" alt="Kolme storyboard styleframe">
+          </div>
+          <div class="vd-hero-frame vd-hero-frame--navy">
+            <img src="Storyboard%20Images/Cover%20Images%20/Migranium_image.png" alt="Migranium storyboard styleframe">
+          </div>
+        </div>
+
+        <!-- Bio text -->
+        <p class="vd-hero-body">I'm Ola Fakomi and my background spans product and brand design, but my focus is often on motion and video visual development, with <span class="vd-hero-accent">9+ projects delivered</span> across 7+ companies.</p>
+
+        <!-- Gradient divider -->
+        <div class="vd-hero-divider"></div>
+
+      </div>
     </div>
   </section>
 
-  <!-- ─── POSITIONING STRIP ────────────────────────────────── -->
-  <div class="positioning">
-    <div class="container">
-      <p class="reveal">I design the visual bridge between a script and an animated screen — <strong>storyboards, styleframes, and visual development</strong> for motion designers to build from. My background spans product and brand design, but my current focus is motion and video visual development, with <strong>9+ projects delivered</strong> across Engorgio, CXT, and freelance clients including Migranium, Revwit, Raven, and Efata.</p>
-    </div>
-  </div>
-
   <!-- ─── CASE STUDIES ─────────────────────────────────────── -->
-  <section class="work">
+  <section class="work" id="work">
     <div class="container">
 
       <span class="section-label reveal">Selected Work</span>
 
       <!-- ═══════════════════════════════════════════════
-           ENGORGIO 1 — Lead with most complete sequence
+           CXT
            ═══════════════════════════════════════════════ -->
       <div class="cs reveal">
         <div class="cs-header">
-          <h2 class="cs-title"><!-- ADD: Project name --></h2>
-          <span class="cs-agency">Engorgio · 2025</span>
+          <h2 class="cs-title">MOE <span class="cs-title-accent">- CXT Agency</span></h2>
         </div>
-        <p class="cs-desc"><!-- ADD: One-line description e.g. "Brand explainer styleframes for a [category] campaign." --></p>
-        <span class="cs-tag"><span class="cs-tag-dot"></span>Storyboard-to-styleframe · Visual Development · Engorgio, 2025</span>
-
-        <!-- Storyboard panels row -->
-        <div class="seq seq--3 seq-gap">
-          <div class="frame frame--wide">
-            <div class="slot slot--wide"><span>ADD<br>Storyboard panel 1</span></div>
-            <span class="frame-badge">Storyboard</span>
-          </div>
-          <div class="frame frame--wide">
-            <div class="slot slot--wide"><span>ADD<br>Storyboard panel 2</span></div>
-            <span class="frame-badge">Storyboard</span>
-          </div>
-          <div class="frame frame--wide">
-            <div class="slot slot--wide"><span>ADD<br>Storyboard panel 3</span></div>
-            <span class="frame-badge">Storyboard</span>
-          </div>
-        </div>
-
-        <!-- Styleframes row -->
-        <div class="seq seq--2">
-          <div class="frame frame--wide">
-            <div class="slot slot--wide"><span>ADD<br>Styleframe 1 — final visual development</span></div>
-            <span class="frame-badge">Styleframe</span>
-          </div>
-          <div class="frame frame--wide">
-            <div class="slot slot--wide"><span>ADD<br>Styleframe 2</span></div>
-            <span class="frame-badge">Styleframe</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ═══════════════════════════════════════════════
-           ENGORGIO 2
-           ═══════════════════════════════════════════════ -->
-      <div class="cs reveal">
-        <div class="cs-header">
-          <h2 class="cs-title"><!-- ADD: Project name --></h2>
-          <span class="cs-agency">Engorgio · 2025</span>
-        </div>
-        <p class="cs-desc"><!-- ADD: One-line description --></p>
-        <span class="cs-tag"><span class="cs-tag-dot"></span>Storyboard-to-styleframe · Engorgio, 2025</span>
-
-        <div class="seq seq--main-side">
-          <div class="frame frame--wide">
-            <div class="slot slot--wide" style="min-height:280px"><span>ADD<br>Hero styleframe</span></div>
-            <span class="frame-badge">Styleframe</span>
-          </div>
-          <div class="seq" style="gap:8px">
-            <div class="frame frame--tall">
-              <div class="slot slot--tall"><span>ADD<br>Storyboard panel 1</span></div>
-              <span class="frame-badge">Storyboard</span>
-            </div>
-            <div class="frame frame--tall">
-              <div class="slot slot--tall"><span>ADD<br>Storyboard panel 2</span></div>
-              <span class="frame-badge">Storyboard</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ═══════════════════════════════════════════════
-           ENGORGIO 3
-           ═══════════════════════════════════════════════ -->
-      <div class="cs reveal">
-        <div class="cs-header">
-          <h2 class="cs-title"><!-- ADD: Project name --></h2>
-          <span class="cs-agency">Engorgio · 2024</span>
-        </div>
-        <p class="cs-desc"><!-- ADD: One-line description --></p>
-        <span class="cs-tag"><span class="cs-tag-dot"></span>Storyboard-to-styleframe · Visual Development · Engorgio, 2024</span>
 
         <div class="seq seq--4 seq-gap">
           <div class="frame frame--wide">
-            <div class="slot slot--wide"><span>Storyboard<br>panel 1</span></div>
+            <img src="Storyboard%20Images/Moe/Frame%202147257198.png" alt="Moe storyboard panel 1">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <div class="slot slot--wide"><span>Storyboard<br>panel 2</span></div>
+            <img src="Storyboard%20Images/Moe/Frame%202147257221.png" alt="Moe storyboard panel 2">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <div class="slot slot--wide"><span>Storyboard<br>panel 3</span></div>
+            <img src="Storyboard%20Images/Moe/Frame%202147257237.png" alt="Moe storyboard panel 3">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <div class="slot slot--wide"><span>Storyboard<br>panel 4</span></div>
+            <img src="Storyboard%20Images/Moe/Frame%202147257275.png" alt="Moe storyboard panel 4">
             <span class="frame-badge">Storyboard</span>
           </div>
         </div>
-        <div class="seq seq--2">
-          <div class="frame frame--wide">
-            <div class="slot slot--wide"><span>ADD<br>Styleframe 1</span></div>
-            <span class="frame-badge">Styleframe</span>
-          </div>
-          <div class="frame frame--wide">
-            <div class="slot slot--wide"><span>ADD<br>Styleframe 2</span></div>
-            <span class="frame-badge">Styleframe</span>
+        <div class="cs-video-row">
+          <div class="frame frame--video-large">
+            <video src="Storyboard%20Videos/CXT.mp4" autoplay muted loop playsinline></video>
+            <span class="frame-badge">Video</span>
           </div>
         </div>
       </div>
 
       <!-- ═══════════════════════════════════════════════
-           CXT 1
+           PROXIDIZE
            ═══════════════════════════════════════════════ -->
       <div class="cs reveal">
         <div class="cs-header">
-          <h2 class="cs-title"><!-- ADD: Project name --></h2>
-          <span class="cs-agency">CXT · 2025</span>
+          <h2 class="cs-title">Proxidize <span class="cs-title-accent">- Fintech Storyboard</span></h2>
         </div>
-        <p class="cs-desc"><!-- ADD: One-line description --></p>
-        <span class="cs-tag"><span class="cs-tag-dot"></span>Storyboard-to-styleframe · Visual Development · CXT, 2025</span>
 
-        <div class="seq seq--3 seq-gap">
+        <div class="seq seq--4 seq-gap">
           <div class="frame frame--wide">
-            <div class="slot slot--wide"><span>ADD<br>CXT storyboard 1</span></div>
+            <img src="Storyboard%20Images/Proxidize/Proxidize.png" alt="Proxidize storyboard panel 1">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <div class="slot slot--wide"><span>ADD<br>CXT storyboard 2</span></div>
+            <img src="Storyboard%20Images/Proxidize/Proxidize-1.png" alt="Proxidize storyboard panel 2">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <div class="slot slot--wide"><span>ADD<br>CXT storyboard 3</span></div>
+            <img src="Storyboard%20Images/Proxidize/Proxidize-2.png" alt="Proxidize storyboard panel 3">
+            <span class="frame-badge">Storyboard</span>
+          </div>
+          <div class="frame frame--wide">
+            <img src="Storyboard%20Images/Proxidize/Proxidize-3.png" alt="Proxidize storyboard panel 4">
             <span class="frame-badge">Storyboard</span>
           </div>
         </div>
-        <div class="seq seq--2">
-          <div class="frame frame--wide">
-            <div class="slot slot--wide"><span>ADD<br>CXT styleframe 1</span></div>
-            <span class="frame-badge">Styleframe</span>
-          </div>
-          <div class="frame frame--wide">
-            <div class="slot slot--wide"><span>ADD<br>CXT styleframe 2</span></div>
-            <span class="frame-badge">Styleframe</span>
+        <div class="cs-video-row">
+          <div class="frame frame--video-large">
+            <video src="Storyboard%20Videos/PROXIDIZE.mp4" autoplay muted loop playsinline></video>
+            <span class="frame-badge">Video</span>
           </div>
         </div>
       </div>
 
       <!-- ═══════════════════════════════════════════════
-           CXT 2
+           DEXA
            ═══════════════════════════════════════════════ -->
       <div class="cs reveal">
         <div class="cs-header">
-          <h2 class="cs-title"><!-- ADD: Project name --></h2>
-          <span class="cs-agency">CXT · 2025</span>
+          <h2 class="cs-title">Dexa <span class="cs-title-accent">- Tax App Storyboard</span></h2>
         </div>
-        <p class="cs-desc"><!-- ADD: One-line description --></p>
-        <span class="cs-tag"><span class="cs-tag-dot"></span>Storyboard-to-styleframe · CXT, 2025</span>
 
-        <div class="seq seq--main-side">
+        <div class="seq seq--4 seq-gap">
           <div class="frame frame--wide">
-            <div class="slot slot--wide" style="min-height:280px"><span>ADD<br>CXT main styleframe</span></div>
-            <span class="frame-badge">Styleframe</span>
-          </div>
-          <div class="seq" style="gap:8px">
-            <div class="frame frame--tall">
-              <div class="slot slot--tall"><span>ADD<br>Storyboard 1</span></div>
-              <span class="frame-badge">Storyboard</span>
-            </div>
-            <div class="frame frame--tall">
-              <div class="slot slot--tall"><span>ADD<br>Storyboard 2</span></div>
-              <span class="frame-badge">Storyboard</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ═══════════════════════════════════════════════
-           CXT 3
-           ═══════════════════════════════════════════════ -->
-      <div class="cs reveal">
-        <div class="cs-header">
-          <h2 class="cs-title"><!-- ADD: Project name --></h2>
-          <span class="cs-agency">CXT · 2024</span>
-        </div>
-        <p class="cs-desc"><!-- ADD: One-line description --></p>
-        <span class="cs-tag"><span class="cs-tag-dot"></span>Storyboard-to-styleframe · CXT, 2024</span>
-
-        <div class="seq seq--2">
-          <div class="frame frame--wide">
-            <div class="slot slot--wide"><span>ADD<br>Storyboard panels</span></div>
+            <img src="Storyboard%20Images/Dexa/02%20Dexa.png" alt="Dexa storyboard panel 1">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <div class="slot slot--wide"><span>ADD<br>Styleframe</span></div>
-            <span class="frame-badge">Styleframe</span>
+            <img src="Storyboard%20Images/Dexa/14%20Dexa.png" alt="Dexa storyboard panel 2">
+            <span class="frame-badge">Storyboard</span>
+          </div>
+          <div class="frame frame--wide">
+            <img src="Storyboard%20Images/Dexa/21%20Dexa.png" alt="Dexa storyboard panel 3">
+            <span class="frame-badge">Storyboard</span>
+          </div>
+          <div class="frame frame--wide">
+            <img src="Storyboard%20Images/Dexa/41%20Dexa.png" alt="Dexa storyboard panel 4">
+            <span class="frame-badge">Storyboard</span>
+          </div>
+        </div>
+        <div class="cs-video-row">
+          <div class="frame frame--video-large">
+            <video src="Storyboard%20Videos/DEXA.mp4" autoplay muted loop playsinline></video>
+            <span class="frame-badge">Video</span>
           </div>
         </div>
       </div>
 
       <!-- ═══════════════════════════════════════════════
-           SELECTED FREELANCE WORK
-           Migranium · Revwit · Raven · Efata
+           ZYNTHA
            ═══════════════════════════════════════════════ -->
       <div class="cs reveal">
         <div class="cs-header">
-          <h2 class="cs-title">Selected Freelance Work</h2>
-          <span class="cs-agency">Migranium · Revwit · Raven · Efata</span>
+          <h2 class="cs-title">Zyntha <span class="cs-title-accent">- Brand Storyboard</span></h2>
         </div>
-        <p class="cs-desc">Storyboard and visual development across freelance clients in fintech, SaaS, community, and non-profit sectors.</p>
 
-        <div class="freelance-grid">
-          <div class="fl-card">
-            <div class="fl-card-img">
-              <div class="slot" style="min-height:200px"><span>ADD<br>Migranium storyboard or styleframe</span></div>
-            </div>
-            <div class="fl-card-body">
-              <p class="fl-client">Migranium</p>
-              <p class="fl-role">Storyboard · Visual Development · Freelance</p>
-            </div>
+        <div class="seq seq--4 seq-gap">
+          <div class="frame frame--wide">
+            <img src="Storyboard%20Images/Zyntha/Zynta_1.png" alt="Zyntha storyboard panel 1">
+            <span class="frame-badge">Storyboard</span>
           </div>
-
-          <div class="fl-card">
-            <div class="fl-card-img">
-              <img src="images/projects/Revwit_displayImage.png" alt="Revwit — Visual Development" />
-            </div>
-            <div class="fl-card-body">
-              <p class="fl-client">Revwit</p>
-              <p class="fl-role">Visual Development · Brand Design · Freelance</p>
-            </div>
+          <div class="frame frame--wide">
+            <img src="Storyboard%20Images/Zyntha/Zynta_4-1.png" alt="Zyntha storyboard panel 2">
+            <span class="frame-badge">Storyboard</span>
           </div>
-
-          <div class="fl-card">
-            <div class="fl-card-img">
-              <div class="slot" style="min-height:200px"><span>ADD<br>Raven storyboard or styleframe</span></div>
-            </div>
-            <div class="fl-card-body">
-              <p class="fl-client">Raven</p>
-              <p class="fl-role">Storyboard · Visual Development · Freelance</p>
-            </div>
+          <div class="frame frame--wide">
+            <img src="Storyboard%20Images/Zyntha/Zynta_4.png" alt="Zyntha storyboard panel 3">
+            <span class="frame-badge">Storyboard</span>
           </div>
-
-          <div class="fl-card">
-            <div class="fl-card-img">
-              <div class="slot" style="min-height:200px"><span>ADD<br>Efata storyboard or styleframe</span></div>
-            </div>
-            <div class="fl-card-body">
-              <p class="fl-client">Efata</p>
-              <p class="fl-role">Storyboard · Visual Development · Freelance</p>
-            </div>
+          <div class="frame frame--wide">
+            <img src="Storyboard%20Images/Zyntha/Screenshot%202026-04-18%20at%2018.12.26%201.png" alt="Zyntha storyboard panel 4">
+            <span class="frame-badge">Storyboard</span>
+          </div>
+        </div>
+        <div class="cs-video-row">
+          <div class="frame frame--video-large">
+            <video src="Storyboard%20Videos/ZYNTA.mp4" autoplay muted loop playsinline></video>
+            <span class="frame-badge">Video</span>
           </div>
         </div>
       </div>
@@ -923,61 +973,82 @@
     </div><!-- /container -->
   </section>
 
-  <!-- ─── SKILLS STRIP ──────────────────────────────────────── -->
-  <div class="skills">
+  <!-- ─── ADDED VISUALS ─────────────────────────────────────── -->
+  <div class="added-visuals">
     <div class="container">
-      <span class="section-label reveal">Tools &amp; Skills</span>
-      <div class="skills-row reveal">
-        <span class="skill">Adobe Illustrator</span>
-        <span class="skill">Adobe Photoshop</span>
-        <span class="skill">After Effects</span>
-        <span class="skill">Figma</span>
-        <span class="skill">Storyboarding</span>
-        <span class="skill">Visual Development</span>
-        <span class="skill">Typography for Motion</span>
-        <span class="skill">Color &amp; Composition</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ─── SECONDARY WORK ────────────────────────────────────── -->
-  <div class="secondary">
-    <div class="container">
-      <div class="secondary-block reveal">
-        <div>
-          <p class="secondary-label">Also designs product &amp; digital experiences</p>
-          <p class="secondary-body">Alongside motion visual development, Ola designs <strong>product interfaces, brand systems, and AI-integrated tools</strong> — full portfolio at olafakomi.com.</p>
-        </div>
-        <a href="/" class="btn-ghost">
-          Full portfolio
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-            <path d="M2.5 9.5L9.5 2.5M9.5 2.5H5M9.5 2.5V7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
+      <span class="section-label reveal">Added Visuals</span>
+      <div class="av-grid reveal">
+        <!-- AITV -->
+        <div class="av-cell"><img src="Storyboard%20Images/AITV/25_TV.png" alt="AITV 1"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/AITV/26_TV.png" alt="AITV 2"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/AITV/45_TV.png" alt="AITV 3"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/AITV/55_TV.png" alt="AITV 4"></div>
+        <!-- CXT -->
+        <div class="av-cell"><img src="Storyboard%20Images/CXT/01.png" alt="CXT 1"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/CXT/3565-1.png" alt="CXT 2"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/CXT/3565.png" alt="CXT 3"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/CXT/3569.png" alt="CXT 4"></div>
+        <!-- Efata -->
+        <div class="av-cell"><img src="Storyboard%20Images/Efata/01.png" alt="Efata 1"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/Efata/05.png" alt="Efata 2"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/Efata/29.png" alt="Efata 3"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/Efata/48.png" alt="Efata 4"></div>
+        <!-- Raven -->
+        <div class="av-cell"><img src="Storyboard%20Images/Raven/126.png" alt="Raven 1"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/Raven/131.png" alt="Raven 2"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/Raven/137.png" alt="Raven 3"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/Raven/252.png" alt="Raven 4"></div>
       </div>
     </div>
   </div>
 
   <!-- ─── FOOTER ────────────────────────────────────────────── -->
-  <div class="footer">
+  <section id="contact">
     <div class="container">
-      <div class="footer-inner">
-        <h2 class="footer-headline reveal">Let's work<br>together.</h2>
-        <div class="footer-links reveal">
-          <a href="mailto:olarewajufakomi@gmail.com" class="footer-link footer-link--primary">olarewajufakomi@gmail.com</a>
-          <a href="https://linkedin.com/in/olafakomi" class="footer-link" target="_blank" rel="noopener">LinkedIn</a>
-          <!-- TODO: replace # with actual PDF when ready -->
-          <a href="#" class="footer-link">
-            <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-              <path d="M6.5 1v8M3 6l3.5 3.5L10 6M1.5 11.5h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            Portfolio PDF
-          </a>
+      <div class="footer-inner reveal">
+
+        <!-- Top row -->
+        <div class="footer-top">
+          <div class="footer-headline">Get in&#10;touch now...</div>
+          <div class="footer-nav-links">
+            <a href="/">Home</a>
+            <a href="#work">Work</a>
+            <a href="/#clients">Clients</a>
+            <a href="/#about">About</a>
+          </div>
+          <div class="footer-avatar">
+            <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi">
+          </div>
         </div>
-        <p class="footer-copy">© 2026 Ola Fakomi — Visual Design</p>
+
+        <!-- Bottom bar -->
+        <div class="footer-bottom">
+          <div class="footer-contact-bar">
+            <div class="footer-social-icons">
+              <a href="mailto:Olarewajufakomi@gmail.com" class="footer-social-icon has-bg">
+                <img src="images/Icons/Email_IconImg.svg" alt="Email" width="32" height="32">
+              </a>
+              <a href="https://twitter.com/olafakomi" target="_blank" class="footer-social-icon">
+                <img src="images/Icons/TwitterX_IconImg.svg" alt="Twitter" width="32" height="32">
+              </a>
+              <a href="https://olafakomi.substack.com/" target="_blank" class="footer-social-icon">
+                <img src="images/Icons/SubstackEmail_IconImg.svg" alt="Substack" width="32" height="32">
+              </a>
+              <a href="https://linkedin.com/in/olafakomi" target="_blank" class="footer-social-icon">
+                <img src="images/Icons/LinkedInEmail_IconImg.svg" alt="LinkedIn" width="32" height="32">
+              </a>
+            </div>
+            <span class="footer-email">@Olarewajufakomi@gmail.com</span>
+            <div class="footer-cta">
+              <a href="mailto:Olarewajufakomi@gmail.com" class="footer-cta-btn">Let's talk</a>
+            </div>
+          </div>
+          <p class="footer-copyright">© 2026 — Copyright</p>
+        </div>
+
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- ─── JS ───────────────────────────────────────────────── -->
   <script>
