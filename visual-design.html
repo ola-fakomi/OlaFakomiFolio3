@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V1S9EH9HZ5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-V1S9EH9HZ5');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ola Fakomi — Storyboard & Styleframe · Visual Design</title>
+  <meta name="description" content="Ola Fakomi — Visual Designer specializing in storyboard-to-styleframe pipelines for motion and video production. 5+ years experience with Engorgio, CXT, Migranium, Revwit, Raven, and Efata." />
+  <link rel="icon" type="image/png" href="images/hero/OlaAvatar_Img.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://olafakomi.com/visual-design" />
+  <meta property="og:title" content="Ola Fakomi — Storyboard & Styleframe · Visual Design" />
+  <meta property="og:description" content="Storyboard-to-styleframe pipelines for motion and video production." />
+  <meta property="og:image" content="https://olafakomi.com/images/OG_image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ola Fakomi — Storyboard & Styleframe · Visual Design" />
+  <meta name="twitter:description" content="Storyboard-to-styleframe pipelines for motion and video production." />
+  <meta name="twitter:image" content="https://olafakomi.com/images/OG_image.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Reset ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #191919;
+      --bg-card:   #1f1f1f;
+      --bg-glass:  rgba(25,25,25,0.72);
+      --blue:      #4837f3;
+      --blue-deep: #291f8d;
+      --red:       #ff7974;
+      --muted:     #7581a6;
+      --text:      #f0f0f0;
+      --text-dim:  #9a9aaa;
+      --border:    rgba(255,255,255,0.07);
+      --border-hi: rgba(255,255,255,0.12);
+      --r-sm:      8px;
+      --r-md:      16px;
+      --r-lg:      24px;
+      --nav-h:     72px;
+      --max-w:     1200px;
+      --content-w: 840px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Unbounded', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ─── Noise Overlay ─────────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 9000;
+    }
+
+    /* ─── Custom Cursor ─────────────────────────────────────── */
+    .cursor {
+      position: fixed;
+      width: 10px; height: 10px;
+      background: var(--blue);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.25s, height 0.25s, background 0.25s;
+      mix-blend-mode: screen;
+    }
+    .cursor-ring {
+      position: fixed;
+      width: 36px; height: 36px;
+      border: 1.5px solid rgba(72,55,243,0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s, border-color 0.3s;
+    }
+    body:has(a:hover) .cursor-ring,
+    body:has(button:hover) .cursor-ring { width: 52px; height: 52px; border-color: var(--red); }
+    body:has(a:hover) .cursor { background: var(--red); }
+
+    /* ─── Utility ───────────────────────────────────────────── */
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 40px; }
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ─── NAV ───────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 9500;
+      background: var(--bg);
+      padding-top: 20px;
+      padding-bottom: 12px;
+    }
+    .nav-inner {
+      max-width: 896px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #191919;
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 14px;
+      padding: 5px 5px 5px 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+    }
+    .nav-logo {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .nav-right {
+      display: flex; align-items: center; gap: 4px;
+    }
+    .nav-back {
+      display: flex; align-items: center; gap: 6px;
+      padding: 8px 12px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 10px; font-weight: 400;
+      letter-spacing: 0.02em;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      border-radius: 10px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-back:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+    .nav-cta {
+      display: inline-flex; align-items: center;
+      padding: 10px 20px;
+      background: var(--blue);
+      color: #fff;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    /* ─── HERO ──────────────────────────────────────────────── */
+    .hero {
+      padding-top: calc(var(--nav-h) + 32px + 20px);
+      padding-bottom: 80px;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow-pill {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 6px 14px;
+      border: 1px solid var(--border-hi);
+      border-radius: 100px;
+    }
+    .hero-eyebrow-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--red);
+      flex-shrink: 0;
+    }
+    .hero-headline {
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(28px, 4.2vw, 54px);
+      font-weight: 700;
+      line-height: 1.06;
+      letter-spacing: -0.025em;
+      color: var(--text);
+      max-width: 760px;
+      margin-bottom: 22px;
+    }
+    .hero-sub {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 12px; font-weight: 300;
+      line-height: 1.8;
+      color: var(--text-dim);
+      max-width: 520px;
+      margin-bottom: 36px;
+    }
+    .hero-ctas {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 56px;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px;
+      background: var(--text);
+      color: #111;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 24px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border-hi);
+      color: var(--text-dim);
+      font-family: 'Unbounded', sans-serif;
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.09); color: var(--text); transform: translateY(-1px); }
+
+    /* Hero styleframe grid */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 8px;
+    }
+    .hero-frame {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-card);
+      aspect-ratio: 16/10;
+      position: relative;
+    }
+    .hero-frame img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .hero-frame:hover img { transform: scale(1.04); }
+    .hero-frame--tall { aspect-ratio: 4/3; }
+
+    /* ─── POSITIONING STRIP ─────────────────────────────────── */
+    .positioning {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 56px 0;
+    }
+    .positioning p {
+      max-width: var(--content-w);
+      margin: 0 auto;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px; font-weight: 300;
+      line-height: 1.9;
+      color: var(--text-dim);
+    }
+    .positioning p strong { color: var(--text); font-weight: 500; }
+
+    /* ─── SECTION LABEL ─────────────────────────────────────── */
+    .section-label {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 52px;
+      display: block;
+    }
+
+    /* ─── WORK / CASE STUDIES ───────────────────────────────── */
+    .work { padding: 100px 0; }
+
+    .cs {
+      padding-bottom: 96px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 96px;
+    }
+    .cs:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+    .cs-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 12px;
+    }
+    .cs-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(18px, 2.6vw, 30px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    .cs-agency {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 10px; font-weight: 400;
+      color: var(--muted);
+      white-space: nowrap;
+      padding-top: 5px;
+      letter-spacing: 0.04em;
+    }
+    .cs-desc {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 11px; font-weight: 300;
+      line-height: 1.8;
+      color: var(--text-dim);
+      max-width: 600px;
+      margin-bottom: 24px;
+    }
+    .cs-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 5px 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border-hi);
+      border-radius: 100px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 9px; font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+    .cs-tag-dot {
+      width: 4px; height: 4px; border-radius: 50%;
+      background: var(--red); flex-shrink: 0;
+    }
+
+    /* Sequence grids */
+    .seq { display: grid; gap: 8px; }
+    .seq--2  { grid-template-columns: 1fr 1fr; }
+    .seq--3  { grid-template-columns: 1fr 1fr 1fr; }
+    .seq--4  { grid-template-columns: repeat(4, 1fr); }
+    .seq--main-side { grid-template-columns: 1.6fr 1fr; }
+    .seq-gap { margin-bottom: 8px; }
+
+    .frame {
+      background: var(--bg-card);
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+    .frame img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .frame--wide { aspect-ratio: 16/9; }
+    .frame--tall { aspect-ratio: 4/3; }
+    .frame--sq   { aspect-ratio: 1; }
+    .frame-badge {
+      position: absolute;
+      bottom: 10px; left: 10px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 8.5px; font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 4px 9px;
+      border-radius: 6px;
+    }
+
+    /* Placeholder slot for missing images */
+    .slot {
+      width: 100%;
+      border: 1.5px dashed rgba(255,255,255,0.09);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px 20px;
+    }
+    .slot span {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 9px; font-weight: 400;
+      color: rgba(255,255,255,0.16);
+      text-align: center;
+      line-height: 1.7;
+      letter-spacing: 0.04em;
+    }
+    .slot--wide { aspect-ratio: 16/9; }
+    .slot--tall { aspect-ratio: 4/3; }
+    .slot--frame { aspect-ratio: 16/9; }
+
+    /* ─── FREELANCE MINI-GRID ───────────────────────────────── */
+    .freelance-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 40px;
+    }
+    .fl-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .fl-card-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: #222;
+    }
+    .fl-card-img img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform 0.45s;
+    }
+    .fl-card:hover .fl-card-img img { transform: scale(1.04); }
+    .fl-card-body { padding: 20px 22px 24px; }
+    .fl-client {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      margin-bottom: 5px;
+    }
+    .fl-role {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 9px; font-weight: 300;
+      letter-spacing: 0.04em;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    /* ─── SKILLS STRIP ──────────────────────────────────────── */
+    .skills {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+    .skills-row {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      margin-top: 32px;
+      max-width: var(--content-w);
+    }
+    .skill {
+      display: inline-flex; align-items: center;
+      padding: 10px 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border-hi);
+      border-radius: 100px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 9.5px; font-weight: 400;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.72);
+    }
+
+    /* ─── SECONDARY WORK ────────────────────────────────────── */
+    .secondary {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+    .secondary-block {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      padding: 36px 40px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      max-width: var(--content-w);
+    }
+    .secondary-label {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .secondary-body {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 11px; font-weight: 300;
+      line-height: 1.8;
+      color: var(--text-dim);
+      max-width: 400px;
+    }
+    .secondary-body strong { color: var(--text); font-weight: 500; }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 22px;
+      background: transparent;
+      border: 1px solid var(--border-hi);
+      color: var(--text-dim);
+      font-family: 'Unbounded', sans-serif;
+      font-size: 9.5px; font-weight: 500;
+      letter-spacing: 0.04em;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.06); color: var(--text); }
+
+    /* ─── FOOTER ────────────────────────────────────────────── */
+    .footer {
+      padding: 80px 0 52px;
+      border-top: 1px solid var(--border);
+    }
+    .footer-inner { max-width: var(--content-w); }
+    .footer-headline {
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(30px, 4.5vw, 52px);
+      font-weight: 700;
+      line-height: 1.06;
+      letter-spacing: -0.025em;
+      color: var(--text);
+      margin-bottom: 40px;
+    }
+    .footer-links {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      margin-bottom: 60px;
+    }
+    .footer-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 22px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border-hi);
+      color: var(--text-dim);
+      font-family: 'Unbounded', sans-serif;
+      font-size: 10px; font-weight: 400;
+      letter-spacing: 0.04em;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+    }
+    .footer-link:hover { background: rgba(255,255,255,0.09); color: var(--text); transform: translateY(-1px); }
+    .footer-link--primary {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #fff;
+      font-weight: 600;
+    }
+    .footer-link--primary:hover { background: #3829d4; border-color: #3829d4; }
+    .footer-copy {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 9px; font-weight: 300;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.2);
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ─── RESPONSIVE ────────────────────────────────────────── */
+    @media (max-width: 960px) {
+      .hero-grid { grid-template-columns: 1fr 1fr; }
+      .hero-grid .hero-frame:last-child { display: none; }
+      .seq--3 { grid-template-columns: 1fr 1fr; }
+      .seq--4 { grid-template-columns: 1fr 1fr; }
+      .seq--main-side { grid-template-columns: 1fr; }
+      .freelance-grid { grid-template-columns: 1fr; }
+      .secondary-block { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 640px) {
+      .container { padding: 0 20px; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-grid .hero-frame:nth-child(n+2) { display: none; }
+      .seq--2, .seq--3, .seq--4, .seq--main-side { grid-template-columns: 1fr; }
+      .hero-ctas { flex-direction: column; align-items: flex-start; }
+      .secondary-block { padding: 28px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Custom cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- ─── NAV ─────────────────────────────────────────────── -->
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-bar">
+        <a href="/" class="nav-logo">Ola Fakomi</a>
+        <div class="nav-right">
+          <a href="/" class="nav-back">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M8 2L4 6L8 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Portfolio
+          </a>
+          <a href="mailto:olarewajufakomi@gmail.com" class="nav-cta">Let's talk</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ─────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="container">
+
+      <div class="hero-eyebrow reveal">
+        <span class="hero-eyebrow-pill">Visual Design / Motion</span>
+        <span class="hero-eyebrow-dot"></span>
+      </div>
+
+      <h1 class="hero-headline reveal">Visual Designer specializing in storyboard-to-styleframe pipelines for motion and video production.</h1>
+
+      <p class="hero-sub reveal">5+ years of design experience, with a recent focus on visual development for motion design agencies including Engorgio and CXT.</p>
+
+      <div class="hero-ctas reveal">
+        <!-- TODO: replace # with actual PDF link when assembled -->
+        <a href="#" class="btn-primary">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+            <path d="M6.5 1v8M3 6l3.5 3.5L10 6M1.5 11.5h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Portfolio PDF
+        </a>
+        <a href="mailto:olarewajufakomi@gmail.com" class="btn-secondary">Contact</a>
+      </div>
+
+      <!-- Hero styleframe grid — strongest stills, no UI screens -->
+      <div class="hero-grid reveal">
+        <!-- Slot 1: replace with best Engorgio or CXT styleframe -->
+        <div class="hero-frame hero-frame--tall">
+          <div class="slot slot--tall"><span>ADD STYLEFRAME<br>Best Engorgio or CXT visual development frame</span></div>
+        </div>
+        <!-- Slot 2 -->
+        <div class="hero-frame">
+          <div class="slot slot--wide"><span>ADD STYLEFRAME<br>Second strongest still</span></div>
+        </div>
+        <!-- Slot 3 -->
+        <div class="hero-frame">
+          <div class="slot slot--wide"><span>ADD STYLEFRAME<br>Third strongest still</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── POSITIONING STRIP ────────────────────────────────── -->
+  <div class="positioning">
+    <div class="container">
+      <p class="reveal">I design the visual bridge between a script and an animated screen — <strong>storyboards, styleframes, and visual development</strong> for motion designers to build from. My background spans product and brand design, but my current focus is motion and video visual development, with <strong>9+ projects delivered</strong> across Engorgio, CXT, and freelance clients including Migranium, Revwit, Raven, and Efata.</p>
+    </div>
+  </div>
+
+  <!-- ─── CASE STUDIES ─────────────────────────────────────── -->
+  <section class="work">
+    <div class="container">
+
+      <span class="section-label reveal">Selected Work</span>
+
+      <!-- ═══════════════════════════════════════════════
+           ENGORGIO 1 — Lead with most complete sequence
+           ═══════════════════════════════════════════════ -->
+      <div class="cs reveal">
+        <div class="cs-header">
+          <h2 class="cs-title"><!-- ADD: Project name --></h2>
+          <span class="cs-agency">Engorgio · 2025</span>
+        </div>
+        <p class="cs-desc"><!-- ADD: One-line description e.g. "Brand explainer styleframes for a [category] campaign." --></p>
+        <span class="cs-tag"><span class="cs-tag-dot"></span>Storyboard-to-styleframe · Visual Development · Engorgio, 2025</span>
+
+        <!-- Storyboard panels row -->
+        <div class="seq seq--3 seq-gap">
+          <div class="frame frame--wide">
+            <div class="slot slot--wide"><span>ADD<br>Storyboard panel 1</span></div>
+            <span class="frame-badge">Storyboard</span>
+          </div>
+          <div class="frame frame--wide">
+            <div class="slot slot--wide"><span>ADD<br>Storyboard panel 2</span></div>
+            <span class="frame-badge">Storyboard</span>
+          </div>
+          <div class="frame frame--wide">
+            <div class="slot slot--wide"><span>ADD<br>Storyboard panel 3</span></div>
+            <span class="frame-badge">Storyboard</span>
+          </div>
+        </div>
+
+        <!-- Styleframes row -->
+        <div class="seq seq--2">
+          <div class="frame frame--wide">
+            <div class="slot slot--wide"><span>ADD<br>Styleframe 1 — final visual development</span></div>
+            <span class="frame-badge">Styleframe</span>
+          </div>
+          <div class="frame frame--wide">
+            <div class="slot slot--wide"><span>ADD<br>Styleframe 2</span></div>
+            <span class="frame-badge">Styleframe</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════
+           ENGORGIO 2
+           ═══════════════════════════════════════════════ -->
+      <div class="cs reveal">
+        <div class="cs-header">
+          <h2 class="cs-title"><!-- ADD: Project name --></h2>
+          <span class="cs-agency">Engorgio · 2025</span>
+        </div>
+        <p class="cs-desc"><!-- ADD: One-line description --></p>
+        <span class="cs-tag"><span class="cs-tag-dot"></span>Storyboard-to-styleframe · Engorgio, 2025</span>
+
+        <div class="seq seq--main-side">
+          <div class="frame frame--wide">
+            <div class="slot slot--wide" style="min-height:280px"><span>ADD<br>Hero styleframe</span></div>
+            <span class="frame-badge">Styleframe</span>
+          </div>
+          <div class="seq" style="gap:8px">
+            <div class="frame frame--tall">
+              <div class="slot slot--tall"><span>ADD<br>Storyboard panel 1</span></div>
+              <span class="frame-badge">Storyboard</span>
+            </div>
+            <div class="frame frame--tall">
+              <div class="slot slot--tall"><span>ADD<br>Storyboard panel 2</span></div>
+              <span class="frame-badge">Storyboard</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════
+           ENGORGIO 3
+           ═══════════════════════════════════════════════ -->
+      <div class="cs reveal">
+        <div class="cs-header">
+          <h2 class="cs-title"><!-- ADD: Project name --></h2>
+          <span class="cs-agency">Engorgio · 2024</span>
+        </div>
+        <p class="cs-desc"><!-- ADD: One-line description --></p>
+        <span class="cs-tag"><span class="cs-tag-dot"></span>Storyboard-to-styleframe · Visual Development · Engorgio, 2024</span>
+
+        <div class="seq seq--4 seq-gap">
+          <div class="frame frame--wide">
+            <div class="slot slot--wide"><span>Storyboard<br>panel 1</span></div>
+            <span class="frame-badge">Storyboard</span>
+          </div>
+          <div class="frame frame--wide">
+            <div class="slot slot--wide"><span>Storyboard<br>panel 2</span></div>
+            <span class="frame-badge">Storyboard</span>
+          </div>
+          <div class="frame frame--wide">
+            <div class="slot slot--wide"><span>Storyboard<br>panel 3</span></div>
+            <span class="frame-badge">Storyboard</span>
+          </div>
+          <div class="frame frame--wide">
+            <div class="slot slot--wide"><span>Storyboard<br>panel 4</span></div>
+            <span class="frame-badge">Storyboard</span>
+          </div>
+        </div>
+        <div class="seq seq--2">
+          <div class="frame frame--wide">
+            <div class="slot slot--wide"><span>ADD<br>Styleframe 1</span></div>
+            <span class="frame-badge">Styleframe</span>
+          </div>
+          <div class="frame frame--wide">
+            <div class="slot slot--wide"><span>ADD<br>Styleframe 2</span></div>
+            <span class="frame-badge">Styleframe</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════
+           CXT 1
+           ═══════════════════════════════════════════════ -->
+      <div class="cs reveal">
+        <div class="cs-header">
+          <h2 class="cs-title"><!-- ADD: Project name --></h2>
+          <span class="cs-agency">CXT · 2025</span>
+        </div>
+        <p class="cs-desc"><!-- ADD: One-line description --></p>
+        <span class="cs-tag"><span class="cs-tag-dot"></span>Storyboard-to-styleframe · Visual Development · CXT, 2025</span>
+
+        <div class="seq seq--3 seq-gap">
+          <div class="frame frame--wide">
+            <div class="slot slot--wide"><span>ADD<br>CXT storyboard 1</span></div>
+            <span class="frame-badge">Storyboard</span>
+          </div>
+          <div class="frame frame--wide">
+            <div class="slot slot--wide"><span>ADD<br>CXT storyboard 2</span></div>
+            <span class="frame-badge">Storyboard</span>
+          </div>
+          <div class="frame frame--wide">
+            <div class="slot slot--wide"><span>ADD<br>CXT storyboard 3</span></div>
+            <span class="frame-badge">Storyboard</span>
+          </div>
+        </div>
+        <div class="seq seq--2">
+          <div class="frame frame--wide">
+            <div class="slot slot--wide"><span>ADD<br>CXT styleframe 1</span></div>
+            <span class="frame-badge">Styleframe</span>
+          </div>
+          <div class="frame frame--wide">
+            <div class="slot slot--wide"><span>ADD<br>CXT styleframe 2</span></div>
+            <span class="frame-badge">Styleframe</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════
+           CXT 2
+           ═══════════════════════════════════════════════ -->
+      <div class="cs reveal">
+        <div class="cs-header">
+          <h2 class="cs-title"><!-- ADD: Project name --></h2>
+          <span class="cs-agency">CXT · 2025</span>
+        </div>
+        <p class="cs-desc"><!-- ADD: One-line description --></p>
+        <span class="cs-tag"><span class="cs-tag-dot"></span>Storyboard-to-styleframe · CXT, 2025</span>
+
+        <div class="seq seq--main-side">
+          <div class="frame frame--wide">
+            <div class="slot slot--wide" style="min-height:280px"><span>ADD<br>CXT main styleframe</span></div>
+            <span class="frame-badge">Styleframe</span>
+          </div>
+          <div class="seq" style="gap:8px">
+            <div class="frame frame--tall">
+              <div class="slot slot--tall"><span>ADD<br>Storyboard 1</span></div>
+              <span class="frame-badge">Storyboard</span>
+            </div>
+            <div class="frame frame--tall">
+              <div class="slot slot--tall"><span>ADD<br>Storyboard 2</span></div>
+              <span class="frame-badge">Storyboard</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════
+           CXT 3
+           ═══════════════════════════════════════════════ -->
+      <div class="cs reveal">
+        <div class="cs-header">
+          <h2 class="cs-title"><!-- ADD: Project name --></h2>
+          <span class="cs-agency">CXT · 2024</span>
+        </div>
+        <p class="cs-desc"><!-- ADD: One-line description --></p>
+        <span class="cs-tag"><span class="cs-tag-dot"></span>Storyboard-to-styleframe · CXT, 2024</span>
+
+        <div class="seq seq--2">
+          <div class="frame frame--wide">
+            <div class="slot slot--wide"><span>ADD<br>Storyboard panels</span></div>
+            <span class="frame-badge">Storyboard</span>
+          </div>
+          <div class="frame frame--wide">
+            <div class="slot slot--wide"><span>ADD<br>Styleframe</span></div>
+            <span class="frame-badge">Styleframe</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════
+           SELECTED FREELANCE WORK
+           Migranium · Revwit · Raven · Efata
+           ═══════════════════════════════════════════════ -->
+      <div class="cs reveal">
+        <div class="cs-header">
+          <h2 class="cs-title">Selected Freelance Work</h2>
+          <span class="cs-agency">Migranium · Revwit · Raven · Efata</span>
+        </div>
+        <p class="cs-desc">Storyboard and visual development across freelance clients in fintech, SaaS, community, and non-profit sectors.</p>
+
+        <div class="freelance-grid">
+          <div class="fl-card">
+            <div class="fl-card-img">
+              <div class="slot" style="min-height:200px"><span>ADD<br>Migranium storyboard or styleframe</span></div>
+            </div>
+            <div class="fl-card-body">
+              <p class="fl-client">Migranium</p>
+              <p class="fl-role">Storyboard · Visual Development · Freelance</p>
+            </div>
+          </div>
+
+          <div class="fl-card">
+            <div class="fl-card-img">
+              <img src="images/projects/Revwit_displayImage.png" alt="Revwit — Visual Development" />
+            </div>
+            <div class="fl-card-body">
+              <p class="fl-client">Revwit</p>
+              <p class="fl-role">Visual Development · Brand Design · Freelance</p>
+            </div>
+          </div>
+
+          <div class="fl-card">
+            <div class="fl-card-img">
+              <div class="slot" style="min-height:200px"><span>ADD<br>Raven storyboard or styleframe</span></div>
+            </div>
+            <div class="fl-card-body">
+              <p class="fl-client">Raven</p>
+              <p class="fl-role">Storyboard · Visual Development · Freelance</p>
+            </div>
+          </div>
+
+          <div class="fl-card">
+            <div class="fl-card-img">
+              <div class="slot" style="min-height:200px"><span>ADD<br>Efata storyboard or styleframe</span></div>
+            </div>
+            <div class="fl-card-body">
+              <p class="fl-client">Efata</p>
+              <p class="fl-role">Storyboard · Visual Development · Freelance</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /container -->
+  </section>
+
+  <!-- ─── SKILLS STRIP ──────────────────────────────────────── -->
+  <div class="skills">
+    <div class="container">
+      <span class="section-label reveal">Tools &amp; Skills</span>
+      <div class="skills-row reveal">
+        <span class="skill">Adobe Illustrator</span>
+        <span class="skill">Adobe Photoshop</span>
+        <span class="skill">After Effects</span>
+        <span class="skill">Figma</span>
+        <span class="skill">Storyboarding</span>
+        <span class="skill">Visual Development</span>
+        <span class="skill">Typography for Motion</span>
+        <span class="skill">Color &amp; Composition</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── SECONDARY WORK ────────────────────────────────────── -->
+  <div class="secondary">
+    <div class="container">
+      <div class="secondary-block reveal">
+        <div>
+          <p class="secondary-label">Also designs product &amp; digital experiences</p>
+          <p class="secondary-body">Alongside motion visual development, Ola designs <strong>product interfaces, brand systems, and AI-integrated tools</strong> — full portfolio at olafakomi.com.</p>
+        </div>
+        <a href="/" class="btn-ghost">
+          Full portfolio
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2.5 9.5L9.5 2.5M9.5 2.5H5M9.5 2.5V7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── FOOTER ────────────────────────────────────────────── -->
+  <div class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <h2 class="footer-headline reveal">Let's work<br>together.</h2>
+        <div class="footer-links reveal">
+          <a href="mailto:olarewajufakomi@gmail.com" class="footer-link footer-link--primary">olarewajufakomi@gmail.com</a>
+          <a href="https://linkedin.com/in/olafakomi" class="footer-link" target="_blank" rel="noopener">LinkedIn</a>
+          <!-- TODO: replace # with actual PDF when ready -->
+          <a href="#" class="footer-link">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+              <path d="M6.5 1v8M3 6l3.5 3.5L10 6M1.5 11.5h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Portfolio PDF
+          </a>
+        </div>
+        <p class="footer-copy">© 2026 Ola Fakomi — Visual Design</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── JS ───────────────────────────────────────────────── -->
+  <script>
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    const ring   = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top  = my + 'px';
+    });
+
+    function animateRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    document.addEventListener('mouseleave', () => {
+      cursor.style.opacity = '0'; ring.style.opacity = '0';
+    });
+    document.addEventListener('mouseenter', () => {
+      cursor.style.opacity = '1'; ring.style.opacity = '1';
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
