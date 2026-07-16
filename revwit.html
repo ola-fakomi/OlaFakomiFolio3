@@ -17,18 +17,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:        #ffffff;
-      --bg-page:   #f7f7f6;
-      --bg-card:   #FBFAFA;
+      --bg:        #191919;
+      --bg-page:   #141414;
+      --bg-card:   #1f1f1f;
       --accent:    #4837f3;
-      --accent-lt: rgba(72,55,243,0.08);
+      --accent-lt: rgba(72,55,243,0.16);
       --green:     #16a34a;
       --green-lt:  rgba(22,163,74,0.1);
       --red-lt:    rgba(220,38,38,0.08);
-      --text:      #111111;
-      --text-dim:  #555555;
-      --text-mute: #999999;
-      --border:    rgba(0,0,0,0.08);
+      --text:      #f0f0f0;
+      --text-dim:  #ababab;
+      --text-mute: #7581a6;
+      --border:    rgba(255,255,255,0.08);
       --nav-bg:    #111111;
       --r-sm:      10px;
       --r-md:      16px;
@@ -137,7 +137,7 @@
     .cs-hero-img {
       width: 100%; border-radius: var(--r-lg);
       border: 1px solid var(--border); overflow: hidden;
-      background: #f0f7f2;
+      background: #1a1a1a;
     }
     .cs-hero-img img { width: 100%; display: block; }
 
@@ -168,8 +168,8 @@
       margin-bottom: 10px;
     }
     .pill-default {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
       color: var(--text-dim);
     }
     .pill-blue {
@@ -275,7 +275,7 @@
     @media (max-width: 560px) { .feature-cols { grid-template-columns: 1fr; } }
     .feature-img {
       width: 100%; border-top: 1px solid var(--border);
-      background: #f0f7f2;
+      background: #1a1a1a;
     }
     .feature-img img { width: 100%; display: block; }
 
@@ -303,7 +303,7 @@
       border-radius: var(--r-lg);
       border: 1px solid var(--border);
       overflow: hidden; margin: 16px 0;
-      background: #f0f7f2;
+      background: #1a1a1a;
     }
     .img-block img { width: 100%; display: block; }
 
@@ -337,7 +337,7 @@
       border-radius: 8px;
       transition: background 0.15s, color 0.15s;
     }
-    .back-home:hover, .next-cs:hover { background: #e8e7e6; color: var(--text); }
+    .back-home:hover, .next-cs:hover { background: rgba(255,255,255,0.08); color: var(--text); }
 
     @media (max-width: 600px) {
       .page { padding: 0 20px 60px; }
@@ -358,13 +358,13 @@
     .footer-headline {
       flex: 1; font-family: 'Unbounded', sans-serif;
       font-size: 48px; font-weight: 400; letter-spacing: -0.04em;
-      line-height: 0.9; color: #fff; mix-blend-mode: overlay; white-space: pre-wrap;
+      line-height: 1.1; color: #fff; mix-blend-mode: overlay; white-space: pre-wrap;
     }
     .footer-nav-links { flex: 1; display: flex; flex-direction: column; gap: 12px; }
     .footer-nav-links a {
       font-family: 'Unbounded', sans-serif; font-size: 16px; font-weight: 400;
       color: #fff; mix-blend-mode: overlay; text-decoration: none;
-      line-height: 0.9; transition: opacity 0.2s;
+      line-height: 1; transition: opacity 0.2s;
     }
     .footer-nav-links a:hover { opacity: 0.7; }
     .footer-avatar {
@@ -395,7 +395,7 @@
     .footer-email {
       position: absolute; left: 50%; transform: translateX(-50%);
       font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 400;
-      color: #dadada; white-space: nowrap; line-height: 0.9;
+      color: #dadada; white-space: nowrap; line-height: 1;
     }
     .footer-cta { display: flex; align-items: center; justify-content: flex-end; flex: 1; }
     .footer-cta-btn {
@@ -410,7 +410,7 @@
     .footer-copyright {
       font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 400;
       color: #fff; mix-blend-mode: overlay; text-align: center;
-      line-height: 0.9; padding-bottom: 60px;
+      line-height: 1; padding-bottom: 60px;
     }
     @media (max-width: 809px) {
       .footer-inner { padding: 40px 20px 0; }
@@ -852,7 +852,7 @@
               <img src="images/Icons/LinkedInEmail_IconImg.svg" alt="LinkedIn" width="32" height="32">
             </a>
           </div>
-          <span class="footer-email">@Olarewajufakomi@gmail.com</span>
+          <span class="footer-email">Olarewajufakomi@gmail.com</span>
           <div class="footer-cta">
             <a href="mailto:Olarewajufakomi@gmail.com" class="footer-cta-btn">Let's talk</a>
           </div>

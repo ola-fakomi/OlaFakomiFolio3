@@ -61,7 +61,7 @@
       font-size: 16px;
       line-height: 1.6;
       overflow-x: hidden;
-      cursor: none;
+
     }
 
     /* ─── Noise Overlay ─────────────────────────────────────── */
@@ -73,6 +73,9 @@
       pointer-events: none;
       z-index: 9000;
     }
+
+    @media (pointer: fine) { body { cursor: none; } }
+    @media (pointer: coarse) { .cursor, .cursor-ring { display: none; } }
 
     /* ─── Custom Cursor ─────────────────────────────────────── */
     .cursor {
@@ -190,7 +193,7 @@
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 36px;
+      gap: 24px;
     }
     /* Top row: avatar + CV button */
     .vd-hero-top {
@@ -247,7 +250,6 @@
       color: #ababab;
       letter-spacing: 0.16px;
       line-height: 1.4;
-      margin-bottom: -20px;
     }
     /* Big headline */
     .vd-hero-headline {
@@ -849,19 +851,19 @@
 
         <div class="seq seq--4 seq-gap">
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Moe/Frame%202147257198.png" alt="Moe storyboard panel 1">
+            <img src="Storyboard%20Images/Moe/Frame%202147257198.png" alt="Moe storyboard panel 1" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Moe/Frame%202147257221.png" alt="Moe storyboard panel 2">
+            <img src="Storyboard%20Images/Moe/Frame%202147257221.png" alt="Moe storyboard panel 2" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Moe/Frame%202147257237.png" alt="Moe storyboard panel 3">
+            <img src="Storyboard%20Images/Moe/Frame%202147257237.png" alt="Moe storyboard panel 3" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Moe/Frame%202147257275.png" alt="Moe storyboard panel 4">
+            <img src="Storyboard%20Images/Moe/Frame%202147257275.png" alt="Moe storyboard panel 4" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
         </div>
@@ -883,19 +885,19 @@
 
         <div class="seq seq--4 seq-gap">
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Proxidize/Proxidize.png" alt="Proxidize storyboard panel 1">
+            <img src="Storyboard%20Images/Proxidize/Proxidize.png" alt="Proxidize storyboard panel 1" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Proxidize/Proxidize-1.png" alt="Proxidize storyboard panel 2">
+            <img src="Storyboard%20Images/Proxidize/Proxidize-1.png" alt="Proxidize storyboard panel 2" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Proxidize/Proxidize-2.png" alt="Proxidize storyboard panel 3">
+            <img src="Storyboard%20Images/Proxidize/Proxidize-2.png" alt="Proxidize storyboard panel 3" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Proxidize/Proxidize-3.png" alt="Proxidize storyboard panel 4">
+            <img src="Storyboard%20Images/Proxidize/Proxidize-3.png" alt="Proxidize storyboard panel 4" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
         </div>
@@ -917,19 +919,19 @@
 
         <div class="seq seq--4 seq-gap">
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Dexa/02%20Dexa.png" alt="Dexa storyboard panel 1">
+            <img src="Storyboard%20Images/Dexa/02%20Dexa.png" alt="Dexa storyboard panel 1" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Dexa/14%20Dexa.png" alt="Dexa storyboard panel 2">
+            <img src="Storyboard%20Images/Dexa/14%20Dexa.png" alt="Dexa storyboard panel 2" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Dexa/21%20Dexa.png" alt="Dexa storyboard panel 3">
+            <img src="Storyboard%20Images/Dexa/21%20Dexa.png" alt="Dexa storyboard panel 3" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Dexa/41%20Dexa.png" alt="Dexa storyboard panel 4">
+            <img src="Storyboard%20Images/Dexa/41%20Dexa.png" alt="Dexa storyboard panel 4" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
         </div>
@@ -951,19 +953,19 @@
 
         <div class="seq seq--4 seq-gap">
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Zyntha/Zynta_1.png" alt="Zyntha storyboard panel 1">
+            <img src="Storyboard%20Images/Zyntha/Zynta_1.png" alt="Zyntha storyboard panel 1" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Zyntha/Zynta_4-1.png" alt="Zyntha storyboard panel 2">
+            <img src="Storyboard%20Images/Zyntha/Zynta_4-1.png" alt="Zyntha storyboard panel 2" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Zyntha/Zynta_4.png" alt="Zyntha storyboard panel 3">
+            <img src="Storyboard%20Images/Zyntha/Zynta_4.png" alt="Zyntha storyboard panel 3" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Zyntha/Screenshot%202026-04-18%20at%2018.12.26%201.png" alt="Zyntha storyboard panel 4">
+            <img src="Storyboard%20Images/Zyntha/Screenshot%202026-04-18%20at%2018.12.26%201.png" alt="Zyntha storyboard panel 4" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
         </div>
@@ -984,25 +986,25 @@
       <span class="section-label reveal">Added Visuals</span>
       <div class="av-grid reveal">
         <!-- AITV -->
-        <div class="av-cell"><img src="Storyboard%20Images/AITV/25_TV.png" alt="AITV 1"></div>
-        <div class="av-cell"><img src="Storyboard%20Images/AITV/26_TV.png" alt="AITV 2"></div>
-        <div class="av-cell"><img src="Storyboard%20Images/AITV/45_TV.png" alt="AITV 3"></div>
-        <div class="av-cell"><img src="Storyboard%20Images/AITV/55_TV.png" alt="AITV 4"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/AITV/25_TV.png" alt="AITV 1" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/AITV/26_TV.png" alt="AITV 2" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/AITV/45_TV.png" alt="AITV 3" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/AITV/55_TV.png" alt="AITV 4" loading="lazy"></div>
         <!-- CXT -->
-        <div class="av-cell"><img src="Storyboard%20Images/CXT/01.png" alt="CXT 1"></div>
-        <div class="av-cell"><img src="Storyboard%20Images/CXT/3565-1.png" alt="CXT 2"></div>
-        <div class="av-cell"><img src="Storyboard%20Images/CXT/3565.png" alt="CXT 3"></div>
-        <div class="av-cell"><img src="Storyboard%20Images/CXT/3569.png" alt="CXT 4"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/CXT/01.png" alt="CXT 1" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/CXT/3565-1.png" alt="CXT 2" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/CXT/3565.png" alt="CXT 3" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/CXT/3569.png" alt="CXT 4" loading="lazy"></div>
         <!-- Efata -->
-        <div class="av-cell"><img src="Storyboard%20Images/Efata/01.png" alt="Efata 1"></div>
-        <div class="av-cell"><img src="Storyboard%20Images/Efata/05.png" alt="Efata 2"></div>
-        <div class="av-cell"><img src="Storyboard%20Images/Efata/29.png" alt="Efata 3"></div>
-        <div class="av-cell"><img src="Storyboard%20Images/Efata/48.png" alt="Efata 4"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/Efata/01.png" alt="Efata 1" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/Efata/05.png" alt="Efata 2" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/Efata/29.png" alt="Efata 3" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/Efata/48.png" alt="Efata 4" loading="lazy"></div>
         <!-- Raven -->
-        <div class="av-cell"><img src="Storyboard%20Images/Raven/126.png" alt="Raven 1"></div>
-        <div class="av-cell"><img src="Storyboard%20Images/Raven/131.png" alt="Raven 2"></div>
-        <div class="av-cell"><img src="Storyboard%20Images/Raven/137.png" alt="Raven 3"></div>
-        <div class="av-cell"><img src="Storyboard%20Images/Raven/252.png" alt="Raven 4"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/Raven/126.png" alt="Raven 1" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/Raven/131.png" alt="Raven 2" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/Raven/137.png" alt="Raven 3" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/Raven/252.png" alt="Raven 4" loading="lazy"></div>
       </div>
     </div>
   </div>
@@ -1022,7 +1024,7 @@
             <a href="/#about">About</a>
           </div>
           <div class="footer-avatar">
-            <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi">
+            <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi" loading="lazy">
           </div>
         </div>
 
@@ -1043,7 +1045,7 @@
                 <img src="images/Icons/LinkedInEmail_IconImg.svg" alt="LinkedIn" width="32" height="32">
               </a>
             </div>
-            <span class="footer-email">@Olarewajufakomi@gmail.com</span>
+            <span class="footer-email">Olarewajufakomi@gmail.com</span>
             <div class="footer-cta">
               <a href="mailto:Olarewajufakomi@gmail.com" class="footer-cta-btn">Let's talk</a>
             </div>

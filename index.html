@@ -33,7 +33,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
   <style>
     /* ─── Reset & Base ─────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -65,8 +64,11 @@
       font-size: 16px;
       line-height: 1.6;
       overflow-x: hidden;
-      cursor: none;
+
     }
+
+    @media (pointer: fine) { body { cursor: none; } }
+    @media (pointer: coarse) { .cursor, .cursor-ring { display: none; } }
 
     /* ─── Custom Cursor ────────────────────────────────────── */
     .cursor {
@@ -1422,7 +1424,7 @@
       font-size: 48px;
       font-weight: 400;
       letter-spacing: -0.04em;
-      line-height: 0.9;
+      line-height: 1;
       color: #fff;
       mix-blend-mode: overlay;
       white-space: pre-wrap;
@@ -1442,7 +1444,7 @@
       color: #fff;
       mix-blend-mode: overlay;
       text-decoration: none;
-      line-height: 0.9;
+      line-height: 1;
       transition: opacity 0.2s;
     }
     .footer-nav-links a:hover { opacity: 0.7; }
@@ -1514,7 +1516,7 @@
       font-weight: 400;
       color: #dadada;
       white-space: nowrap;
-      line-height: 0.9;
+      line-height: 1;
     }
 
     .footer-cta {
@@ -1549,7 +1551,7 @@
       color: #fff;
       mix-blend-mode: overlay;
       text-align: center;
-      line-height: 0.9;
+      line-height: 1;
       padding-bottom: 60px;
     }
 
@@ -1846,7 +1848,7 @@
               </div>
             </div>
           </div>
-          <div class="sp-preview"><img src="images/projects/Roots_displayImage.png" alt="The Roots"></div>
+          <div class="sp-preview"><img src="images/projects/Roots_displayImage.png" loading="lazy" alt="The Roots"></div>
         </a>
 
         <!-- ─ Card 2: Revwit ─ -->
@@ -1878,7 +1880,7 @@
               </div>
             </div>
           </div>
-          <div class="sp-preview"><img src="images/projects/Revwit_displayImage.png" alt="Revwit"></div>
+          <div class="sp-preview"><img src="images/projects/Revwit_displayImage.png" loading="lazy" alt="Revwit"></div>
         </a>
 
         <!-- ─ Card 3: Trib ─ -->
@@ -1910,7 +1912,7 @@
               </div>
             </div>
           </div>
-          <div class="sp-preview"><img src="images/projects/Trib_displayImage.png" alt="Trib"></div>
+          <div class="sp-preview"><img src="images/projects/Trib_displayImage.png" loading="lazy" alt="Trib"></div>
         </a>
 
       </div><!-- /sp-wrapper -->
@@ -1933,13 +1935,13 @@
           <!-- Replace .vd-frame-ph divs with <img> tags when you have the real assets -->
           <div class="vd-frames">
             <div class="vd-frame vd-frame--side vd-frame--mint">
-              <img src="Storyboard%20Images/Cover%20Images%20/Revwit_image.png" alt="Revwit storyboard styleframe">
+              <img src="Storyboard%20Images/Cover%20Images%20/Revwit_image.png" alt="Revwit storyboard styleframe" loading="lazy">
             </div>
             <div class="vd-frame vd-frame--center vd-frame--dark">
-              <img src="Storyboard%20Images/Cover%20Images%20/Kolme_image.png" alt="Kolme storyboard styleframe">
+              <img src="Storyboard%20Images/Cover%20Images%20/Kolme_image.png" alt="Kolme storyboard styleframe" loading="lazy">
             </div>
             <div class="vd-frame vd-frame--side vd-frame--navy">
-              <img src="Storyboard%20Images/Cover%20Images%20/Migranium_image.png" alt="Migranium storyboard styleframe">
+              <img src="Storyboard%20Images/Cover%20Images%20/Migranium_image.png" alt="Migranium storyboard styleframe" loading="lazy">
             </div>
           </div>
 
@@ -1959,7 +1961,7 @@
         </p>
 
         <div class="clients-card">
-          <div class="clients-card-bg"><img src="images/clients/Clients_BG.png" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>
+          <div class="clients-card-bg"><img src="images/clients/Clients_BG.png" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>
           <div class="clients-pills">
 
             <!-- Insite -->
@@ -2085,14 +2087,14 @@
           <!-- Quote + headshot hero card -->
           <div class="about-hero-card">
             <div class="about-hero-bg">
-              <img src="images/about/AboutBG.png" alt="">
+              <img src="images/about/AboutBG.png" loading="lazy" alt="">
             </div>
             <div class="about-quote-block">
               <div class="about-quote-mark">"</div>
               <p class="about-quote-text">Think of me a <span class="accent">design mercenary</span>. I find the gaps between business goals and design and I make that connection.</p>
             </div>
             <div class="about-headshot">
-              <img src="images/about/about_headshot.png" alt="Ola Fakomi">
+              <img src="images/about/about_headshot.png" loading="lazy" alt="Ola Fakomi">
             </div>
           </div>
 
@@ -2385,7 +2387,7 @@
             <a href="#about">About</a>
           </div>
           <div class="footer-avatar">
-            <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi">
+            <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi" loading="lazy">
           </div>
         </div>
 
@@ -2409,7 +2411,7 @@
             </div>
 
             <!-- Email address -->
-            <span class="footer-email">@Olarewajufakomi@gmail.com</span>
+            <span class="footer-email">Olarewajufakomi@gmail.com</span>
 
             <!-- CTA button -->
             <div class="footer-cta">
@@ -2496,7 +2498,7 @@
       });
     });
   </script>
-  <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
+  <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" async></script>
   <script>
     // Mobile modal click behaviour
     const modalWrappers = [

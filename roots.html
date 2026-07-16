@@ -17,17 +17,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:        #ffffff;
-      --bg-card:   #FBFAFA;
-      --bg-card2:  #f7f6f5;
+      --bg:        #191919;
+      --bg-card:   #1f1f1f;
+      --bg-card2:  #252525;
       --accent:    #C36C00;
-      --accent-lt: #fdf3e7;
+      --accent-lt: rgba(195,108,0,0.14);
       --blue:      #4837f3;
       --green:     #16a34a;
-      --text:      #111111;
-      --text-dim:  #555555;
-      --text-mute: #888888;
-      --border:    rgba(0,0,0,0.08);
+      --text:      #f0f0f0;
+      --text-dim:  #ababab;
+      --text-mute: #7581a6;
+      --border:    rgba(255,255,255,0.08);
       --nav-bg:    #111111;
       --r-sm:      10px;
       --r-md:      16px;
@@ -138,7 +138,7 @@
       display: inline-flex; align-items: center; gap: 8px;
       font-family: 'Unbounded', sans-serif;
       font-size: 11px; font-weight: 500;
-      color: #111111; text-decoration: none;
+      color: var(--text); text-decoration: none;
       padding: 10px 18px;
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -183,8 +183,8 @@
       letter-spacing: 0.04em; margin-bottom: 12px;
     }
     .pill-default {
-      background: rgba(0,0,0,0.05);
-      border: 1px solid var(--border); color: var(--text-mute);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1); color: var(--text-mute);
     }
     .pill-amber {
       background: rgba(195,108,0,0.1);
@@ -353,7 +353,7 @@
       display: inline-flex; align-items: center; gap: 8px;
       font-family: 'Unbounded', sans-serif;
       font-size: 11px; font-weight: 500;
-      color: #111111; text-decoration: none;
+      color: var(--text); text-decoration: none;
       padding: 12px 20px;
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -376,13 +376,13 @@
     .footer-headline {
       flex: 1; font-family: 'Unbounded', sans-serif;
       font-size: 48px; font-weight: 400; letter-spacing: -0.04em;
-      line-height: 0.9; color: #fff; mix-blend-mode: overlay; white-space: pre-wrap;
+      line-height: 1.1; color: #fff; mix-blend-mode: overlay; white-space: pre-wrap;
     }
     .footer-nav-links { flex: 1; display: flex; flex-direction: column; gap: 12px; }
     .footer-nav-links a {
       font-family: 'Unbounded', sans-serif; font-size: 16px; font-weight: 400;
       color: #fff; mix-blend-mode: overlay; text-decoration: none;
-      line-height: 0.9; transition: opacity 0.2s;
+      line-height: 1; transition: opacity 0.2s;
     }
     .footer-nav-links a:hover { opacity: 0.7; }
     .footer-avatar {
@@ -413,7 +413,7 @@
     .footer-email {
       position: absolute; left: 50%; transform: translateX(-50%);
       font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 400;
-      color: #dadada; white-space: nowrap; line-height: 0.9;
+      color: #dadada; white-space: nowrap; line-height: 1;
     }
     .footer-cta { display: flex; align-items: center; justify-content: flex-end; flex: 1; }
     .footer-cta-btn {
@@ -428,7 +428,7 @@
     .footer-copyright {
       font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 400;
       color: #fff; mix-blend-mode: overlay; text-align: center;
-      line-height: 0.9; padding-bottom: 60px;
+      line-height: 1; padding-bottom: 60px;
     }
 
     @media (max-width: 809px) {
@@ -762,7 +762,7 @@
               <img src="images/Icons/LinkedInEmail_IconImg.svg" alt="LinkedIn" width="32" height="32">
             </a>
           </div>
-          <span class="footer-email">@Olarewajufakomi@gmail.com</span>
+          <span class="footer-email">Olarewajufakomi@gmail.com</span>
           <div class="footer-cta">
             <a href="mailto:Olarewajufakomi@gmail.com" class="footer-cta-btn">Let's talk</a>
           </div>
