@@ -1,6 +1,12 @@
 {
   "buildCommand": "",
   "outputDirectory": ".",
+  "rewrites": [
+    {
+      "source": "/visual-design",
+      "destination": "/visual-design.html"
+    }
+  ],
   "redirects": [
     {
       "source": "/:path*",
