@@ -749,7 +749,10 @@
     }
     @media (max-width: 640px) {
       .container { padding: 0 20px; }
-      .seq--2, .seq--3, .seq--4 { grid-template-columns: 1fr; }
+      .seq--2, .seq--3 { grid-template-columns: 1fr; }
+      .seq--4 { grid-template-columns: 1fr 1fr; }
+      .cs-video-row { grid-template-columns: 1fr; }
+      .frame--video-large { grid-column: 1 / -1; }
       .vd-hero-frames { grid-template-columns: 1fr 1fr; }
       .vd-hero-frame:last-child { display: none; }
       .secondary-block { padding: 28px 24px; }
