@@ -314,6 +314,8 @@
       background: linear-gradient(90deg, transparent 0%, #4837f3 30%, #ff7974 70%, transparent 100%);
     }
 
+    .mob-br { display: none; }
+
     /* ─── POSITIONING STRIP ─────────────────────────────────── */
     .positioning {
       border-top: 1px solid var(--border);
@@ -751,6 +753,7 @@
     }
     @media (max-width: 640px) {
       .container { padding: 0 20px; }
+      .mob-br { display: block; }
       .vd-hero-headline { font-size: 20px; line-height: 1.2; }
       .vd-hero-pre, .vd-hero-body { font-size: 14px; }
       .seq--2, .seq--3 { grid-template-columns: 1fr; }
@@ -810,7 +813,7 @@
         <p class="vd-hero-pre">Beyond building products I help...</p>
 
         <!-- Headline -->
-        <h1 class="vd-hero-headline">Products scale with compelling<br>visual <span class="vd-hero-headline-dim">Storyboards</span></h1>
+        <h1 class="vd-hero-headline">Products scale<br class="mob-br"> with compelling<br>visual <span class="vd-hero-headline-dim">Storyboards</span></h1>
 
         <!-- Three storyboard preview frames -->
         <div class="vd-hero-frames">

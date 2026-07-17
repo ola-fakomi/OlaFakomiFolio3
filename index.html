@@ -735,6 +735,7 @@
       margin-bottom: 14px;
       font-style: italic;
     }
+    .mob-br { display: none; }
     .vd-title {
       font-family: 'Unbounded', sans-serif;
       font-size: 20px;
@@ -1680,6 +1681,9 @@
       .footer-contact-bar { flex-direction: row; padding: 4px; }
       .footer-email { display: none; }
     }
+    @media (max-width: 809px) {
+      .mob-br { display: block; }
+    }
     @media (max-width: 480px) {
       .hero-actions { flex-direction: column; align-items: flex-start; }
     }
@@ -1928,7 +1932,7 @@
 
           <div class="vd-panel-text">
             <p class="vd-pre">Beyond building products I help...</p>
-            <h2 class="vd-title">Products scale with compelling<br>visual <span class="vd-title-accent">storyboards</span><span class="vd-arrow-icon"><img src="images/Icons/arrowOpenEmail_IconImg.svg" alt=""></span></h2>
+            <h2 class="vd-title">Products scale<br class="mob-br"> with compelling<br>visual <span class="vd-title-accent">storyboards</span><span class="vd-arrow-icon"><img src="images/Icons/arrowOpenEmail_IconImg.svg" alt=""></span></h2>
           </div>
 
           <!-- Three styleframe previews peeking at the bottom -->
