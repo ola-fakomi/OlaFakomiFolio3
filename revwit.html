@@ -420,6 +420,32 @@
       .footer-contact-bar { flex-direction: row; padding: 4px; }
       .footer-email { display: none; }
     }
+
+    /* ─── Skeleton Loading ──────────────────────────────────── */
+    @keyframes sk-shimmer {
+      0%   { background-position: -200% 0; }
+      100% { background-position:  200% 0; }
+    }
+    .cs-hero-img,
+    .brand-img,
+    .feature-img { position: relative; background: #252525; }
+    .cs-hero-img::before,
+    .brand-img::before,
+    .feature-img::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.05) 50%, transparent 100%);
+      background-size: 200% 100%;
+      animation: sk-shimmer 1.4s ease-in-out infinite;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+      border-radius: inherit;
+    }
+    .cs-hero-img.sk-loaded::before,
+    .brand-img.sk-loaded::before,
+    .feature-img.sk-loaded::before { opacity: 0; }
   </style>
 </head>
 <body>
@@ -862,5 +888,21 @@
     </div>
   </section>
 
+  <script>
+    // ── Skeleton loader ──────────────────────────────────────
+    (function(){
+      document.querySelectorAll('.cs-hero-img,.brand-img,.feature-img').forEach(function(w){
+        var img = w.querySelector('img'), vid = w.querySelector('video');
+        var done = function(){ w.classList.add('sk-loaded'); };
+        if(vid){
+          if(vid.readyState >= 3) done();
+          else { vid.addEventListener('canplay',done,{once:true}); vid.addEventListener('error',done,{once:true}); }
+        } else if(img){
+          if(img.complete && img.naturalWidth > 0) done();
+          else { img.addEventListener('load',done,{once:true}); img.addEventListener('error',done,{once:true}); }
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
