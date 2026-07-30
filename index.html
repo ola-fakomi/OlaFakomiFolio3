@@ -326,6 +326,7 @@
       line-height: 1.6;
     }
     .hero-orange { color: #ff7772; }
+    .hero-accent-blue { color: #7b72ff; }
     .hero-blue { color: #ff7772; text-decoration: underline; text-underline-offset: 2px; }
     .hero-blue:hover { opacity: 0.8; }
     .exp-link { color: #ff7772; text-decoration: underline; text-underline-offset: 2px; }
@@ -574,16 +575,60 @@
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 32px;
+      gap: 28px;
     }
-    .sp-heading {
+
+    /* Tab bar */
+    .sp-tabs { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .sp-tab {
+      display: inline-flex; align-items: center;
+      height: 40px; padding: 0 18px;
+      border-radius: 100px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.08);
       font-family: 'Unbounded', sans-serif;
-      font-size: 20px; font-weight: 500;
+      font-size: 13px; font-weight: 400;
       color: #7581a6;
-      letter-spacing: 0.4px;
-      line-height: 1.6;
-      padding: 0 4px;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      white-space: nowrap; user-select: none;
     }
+    .sp-tab:hover { border-color: rgba(255,255,255,0.15); color: #c0c0c0; }
+    .sp-tab.active { background: #23232e; border-color: rgba(255,255,255,0.12); color: #ffffff; }
+
+    /* Section header */
+    .sp-section-header {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .sp-section-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 24px; font-weight: 700;
+      color: #7581a6; letter-spacing: 0.5px; line-height: 1.2;
+    }
+    .sp-view-all {
+      display: inline-flex; align-items: center; gap: 8px;
+      height: 36px; padding: 0 14px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 100px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 12px; font-weight: 400;
+      color: #9aa0b8; text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .sp-view-all:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.14); }
+    .sp-view-all-icon {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; color: #fff;
+    }
+
+    /* Category groups */
+    .sp-category { display: none; flex-direction: column; gap: 20px; }
+    .sp-category.active { display: flex; }
+
+    /* Project card */
     .sp-card {
       display: flex; flex-direction: column; gap: 12px;
       padding: 12px;
@@ -592,12 +637,11 @@
       overflow: hidden;
       position: relative;
       text-decoration: none; color: inherit;
+      transition: opacity 0.2s;
     }
-    .sp-info { position: relative; }
-    .sp-preview { position: relative; }
+    .sp-card:hover { opacity: 0.88; }
     .sp-info {
-      display: flex; flex-direction: column; gap: 14px;
-      padding: 0 4px;
+      display: flex; flex-direction: column; gap: 14px; padding: 0 4px;
     }
     .sp-top-row {
       display: flex; align-items: center; gap: 12px;
@@ -688,7 +732,8 @@
       border-radius: 12px; overflow: hidden;
       position: relative; flex-shrink: 0;
     }
-    .sp-preview img {
+    .sp-preview img,
+    .sp-preview > div {
       width: 100%; height: 100%;
       object-fit: cover; object-position: top;
     }
@@ -1641,8 +1686,10 @@
       .sp-roles-pill { width: 100%; }
       .sp-preview { height: auto; aspect-ratio: 16/9; }
       .sp-card { padding: 20px 8px 8px; }
-      .sp-card-link { display: block; }
       .sp-case-pill { display: none; }
+      .sp-section-title { font-size: 18px; }
+      .sp-tab { height: 34px; padding: 0 14px; font-size: 12px; }
+      .sp-tabs { gap: 6px; }
 
       .about-hero-card { flex-direction: column; height: auto; gap: 20px; padding: 16px; align-items: flex-start; }
       .about-actions { flex-direction: column; }
@@ -1681,6 +1728,27 @@
     @media (max-width: 480px) {
       .hero-actions { flex-direction: column; align-items: flex-start; }
     }
+
+    /* ─── Skeleton Loading ──────────────────────────────────── */
+    @keyframes sk-shimmer {
+      0%   { background-position: -200% 0; }
+      100% { background-position:  200% 0; }
+    }
+    .sp-preview { background: #252525; }
+    .sp-preview::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.05) 50%, transparent 100%);
+      background-size: 200% 100%;
+      animation: sk-shimmer 1.4s ease-in-out infinite;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+      border-radius: inherit;
+    }
+    .sp-preview.sk-loaded::before { opacity: 0; }
+
 
   </style>
 </head>
@@ -1738,44 +1806,10 @@
               </div>
             </div>
 
-            <!-- Greeting + description + chips -->
+            <!-- Greeting + description -->
             <div class="hero-new-textblock">
               <p class="hero-greeting-line">Hi, <strong>I'm Ola Fakomi</strong></p>
-              <div class="hero-desc-group">
-                <p class="hero-desc-text">A <span class="hero-orange">Design Engineer &amp; AI builder</span>, with 5+ years designing and building digital products for startups &amp; enterprises. I combine product design with AI development and automation — from crafting user flows and brand identities to building AI-powered workflows and no-code solutions through my agency, <a href="https://ovasys.co" target="_blank" rel="noopener" class="hero-blue">Ovasys</a>.</p>
-                <div class="hero-chips">
-                  <!-- Web & Mobile apps -->
-                  <div class="hero-chip">
-                    <div class="hero-chip-icon"><img src="images/Icons/Web&Mobile_IconImg.svg" alt=""></div>
-                    Web &amp; Mobile apps
-                  </div>
-                  <!-- Brand identity Design -->
-                  <div class="hero-chip">
-                    <div class="hero-chip-icon"><img src="images/Icons/Brand_IconImg.svg" alt=""></div>
-                    Brand Design
-                  </div>
-                  <!-- AI-powered builds -->
-                  <div class="hero-chip">
-                    <div class="hero-chip-icon"><img src="images/Icons/Code&Nocode_IconImage.svg" alt=""></div>
-                    <span class="chip-desktop">AI-powered builds</span><span class="chip-mobile">AI builds</span>
-                  </div>
-                  <!-- GHL & Zapier Automations -->
-                  <div class="hero-chip">
-                    <div class="hero-chip-icon"><img src="images/Icons/Web&Mobile_IconImg.svg" alt=""></div>
-                    Automations
-                  </div>
-                  <!-- Websites -->
-                  <div class="hero-chip">
-                    <div class="hero-chip-icon"><img src="images/Icons/Website_IconImg.svg" alt=""></div>
-                    Websites
-                  </div>
-                  <!-- Pitch Decks -->
-                  <div class="hero-chip">
-                    <div class="hero-chip-icon"><img src="images/Icons/Pitchdeck_IconImage.svg" alt=""></div>
-                    Pitch Decks
-                  </div>
-                </div>
-              </div>
+              <p class="hero-desc-text">A <span class="hero-orange">Product Designer</span> &amp; <span class="hero-accent-blue">Design Engineer</span>, with 5+ years designing and building products for startups &amp; enterprises. I combine product design, brand design &amp; AI expertise to create business solutions in form of products, internal tools and websites at <a href="https://ovasys.co" target="_blank" rel="noopener" class="hero-blue">Ovasys.</a></p>
             </div>
 
             <!-- Experience card -->
@@ -1788,7 +1822,7 @@
                 <div class="exp-stat"><span>Worked at</span> <strong>3 Startups</strong></div>
                 <div class="exp-stat"><span>Serviced</span> <strong>6+ Agencies &amp; Businesses</strong></div>
                 <div class="exp-stat"><span>Contributed to</span> <strong>5+ Major Projects</strong></div>
-                <div class="exp-stat"><span>Building</span> <a href="https://ovasys.co" target="_blank" rel="noopener" class="exp-link">Ovasys</a> <span>(Design &amp; AI Agency)</span></div>
+                <div class="exp-stat"><span>Building</span> <a href="https://ovasys.co" target="_blank" rel="noopener" class="exp-link">Ovasys</a> <span>(Product &amp; AI Agency)</span></div>
               </div>
             </div>
 
@@ -1813,139 +1847,350 @@
     <div class="container">
       <div class="sp-wrapper">
 
-        <p class="sp-heading reveal">SELECTED PROJECTS </p>
+        <!-- Tab bar -->
+        <div class="sp-tabs reveal">
+          <button class="sp-tab active" data-tab="ux">UX</button>
+          <button class="sp-tab" data-tab="builds">Builds</button>
+          <button class="sp-tab" data-tab="visual">Graphics</button>
+          <button class="sp-tab" data-tab="websites">Website</button>
+        </div>
 
-        <!-- ─ Card 1: The Roots ─ -->
-        <a class="sp-card reveal" href="roots.html">
-          <div class="sp-info">
-            <div class="sp-top-row">
-              <div class="sp-icon-box">
-                <img src="images/Logos/TheRoots_logoImg.png" alt="The Roots" style="width:100%;height:100%;object-fit:contain;">
-              </div>
-              <div class="sp-text-col">
-                <span class="sp-name">The Roots</span>
-                <span class="sp-sub">Indigenous Language learning for African languages.</span>
-              </div>
-            </div>
-            <div class="sp-roles-row">
-              <div class="sp-roles-pill">
-                <div class="sp-dots">
-                  <div class="sp-dot sp-dot-blue"></div>
-                  <div class="sp-dot sp-dot-orange"></div>
-                  <div class="sp-dot sp-dot-gray"></div>
-                </div>
-                <span class="sp-role-text">Designer</span>
-                <span class="sp-sep">|</span>
-                <span class="sp-role-text">Frontend Dev</span>
-              </div>
-              <div class="sp-case-pill">
-                Case study
-                <div class="sp-arrow-icon">
-                  <img src="images/Icons/arrowOpenEmail_IconImg.svg" alt="">
-                </div>
-              </div>
-            </div>
+        <!-- ── UX / Product Design (original design) ── -->
+        <div class="sp-category active reveal" data-category="ux">
+          <div class="sp-section-header">
+            <h2 class="sp-section-title">PRODUCT DESIGN</h2>
           </div>
-          <div class="sp-preview"><img src="images/projects/Roots_displayImage.png" alt="The Roots"></div>
-        </a>
 
-        <!-- ─ Card 2: Revwit ─ -->
-        <a class="sp-card reveal reveal-delay-1" href="revwit.html">
-          <div class="sp-info">
-            <div class="sp-top-row">
-              <div class="sp-icon-box">
-                <img src="images/Logos/CasestudyRevwit_logoImg.png" alt="Revwit" style="width:100%;height:100%;object-fit:contain;">
-              </div>
-              <div class="sp-text-col">
-                <span class="sp-name">Revwit</span>
-                <span class="sp-sub">Africa's top B2B Sales Assistant with a custom CRM.</span>
-              </div>
-            </div>
-            <div class="sp-roles-row">
-              <div class="sp-roles-pill">
-                <div class="sp-dots">
-                  <div class="sp-dot sp-dot-blue"></div>
-                  <div class="sp-dot sp-dot-orange"></div>
-                  <div class="sp-dot sp-dot-gray"></div>
+          <!-- Card 1: The Roots -->
+          <a class="sp-card" href="roots.html">
+            <div class="sp-info">
+              <div class="sp-top-row">
+                <div class="sp-icon-box">
+                  <img src="images/Logos/TheRoots_logoImg.png" alt="The Roots" style="width:100%;height:100%;object-fit:contain;">
                 </div>
-                <span class="sp-role-text">Lead Product &amp; Brand Design</span>
-              </div>
-              <div class="sp-case-pill">
-                Case study
-                <div class="sp-arrow-icon">
-                  <img src="images/Icons/arrowOpenEmail_IconImg.svg" alt="">
+                <div class="sp-text-col">
+                  <span class="sp-name">The Roots</span>
+                  <span class="sp-sub">Indigenous Language learning for African languages.</span>
                 </div>
               </div>
+              <div class="sp-roles-row">
+                <div class="sp-roles-pill">
+                  <div class="sp-dots">
+                    <div class="sp-dot sp-dot-blue"></div>
+                    <div class="sp-dot sp-dot-orange"></div>
+                    <div class="sp-dot sp-dot-gray"></div>
+                  </div>
+                  <span class="sp-role-text">Product, Brand &amp; Frontend</span>
+                </div>
+                <div class="sp-case-pill">
+                  Case study
+                  <div class="sp-arrow-icon"><img src="images/Icons/arrowOpenEmail_IconImg.svg" alt=""></div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="sp-preview"><img src="images/projects/Revwit_displayImage.png" alt="Revwit"></div>
-        </a>
+            <div class="sp-preview"><img src="images/projects/Roots_displayImage.png" alt="The Roots"></div>
+          </a>
 
-        <!-- ─ Card 3: Trib ─ -->
-        <a class="sp-card reveal reveal-delay-2" href="trib.html">
-          <div class="sp-info">
-            <div class="sp-top-row">
-              <div class="sp-icon-box">
-                <img src="images/Logos/caseStudyTrib_logoImg.png" alt="Trib" style="width:100%;height:100%;object-fit:contain;">
-              </div>
-              <div class="sp-text-col">
-                <span class="sp-name">Trib</span>
-                <span class="sp-sub">A web3 Q&amp;A game built on Base network with crypto rewards.</span>
-              </div>
-            </div>
-            <div class="sp-roles-row">
-              <div class="sp-roles-pill">
-                <div class="sp-dots">
-                  <div class="sp-dot sp-dot-blue"></div>
-                  <div class="sp-dot sp-dot-orange"></div>
-                  <div class="sp-dot sp-dot-gray"></div>
+          <!-- Card 2: Revwit -->
+          <a class="sp-card" href="revwit.html">
+            <div class="sp-info">
+              <div class="sp-top-row">
+                <div class="sp-icon-box">
+                  <img src="images/Logos/CasestudyRevwit_logoImg.png" alt="Revwit" style="width:100%;height:100%;object-fit:contain;">
                 </div>
-                <span class="sp-role-text">Lead Product &amp; Brand Design</span>
-              </div>
-              <div class="sp-case-pill">
-                Case study
-                <div class="sp-arrow-icon">
-                  <img src="images/Icons/arrowOpenEmail_IconImg.svg" alt="">
+                <div class="sp-text-col">
+                  <span class="sp-name">Revwit</span>
+                  <span class="sp-sub">Africa's top B2B Sales Assistant with a custom CRM.</span>
                 </div>
               </div>
+              <div class="sp-roles-row">
+                <div class="sp-roles-pill">
+                  <div class="sp-dots">
+                    <div class="sp-dot sp-dot-blue"></div>
+                    <div class="sp-dot sp-dot-orange"></div>
+                    <div class="sp-dot sp-dot-gray"></div>
+                  </div>
+                  <span class="sp-role-text">Product &amp; Brand designer</span>
+                </div>
+                <div class="sp-case-pill">
+                  Case study
+                  <div class="sp-arrow-icon"><img src="images/Icons/arrowOpenEmail_IconImg.svg" alt=""></div>
+                </div>
+              </div>
             </div>
+            <div class="sp-preview"><img src="images/projects/Revwit_displayImage.png" alt="Revwit"></div>
+          </a>
+
+          <!-- Card 3: Trib -->
+          <a class="sp-card" href="trib.html">
+            <div class="sp-info">
+              <div class="sp-top-row">
+                <div class="sp-icon-box">
+                  <img src="images/Logos/caseStudyTrib_logoImg.png" alt="Trib" style="width:100%;height:100%;object-fit:contain;">
+                </div>
+                <div class="sp-text-col">
+                  <span class="sp-name">Trib</span>
+                  <span class="sp-sub">A web3 Q&amp;A game built on Base network with crypto rewards.</span>
+                </div>
+              </div>
+              <div class="sp-roles-row">
+                <div class="sp-roles-pill">
+                  <div class="sp-dots">
+                    <div class="sp-dot sp-dot-blue"></div>
+                    <div class="sp-dot sp-dot-orange"></div>
+                    <div class="sp-dot sp-dot-gray"></div>
+                  </div>
+                  <span class="sp-role-text">Product &amp; Brand designer</span>
+                </div>
+                <div class="sp-case-pill">
+                  Case study
+                  <div class="sp-arrow-icon"><img src="images/Icons/arrowOpenEmail_IconImg.svg" alt=""></div>
+                </div>
+              </div>
+            </div>
+            <div class="sp-preview"><img src="images/projects/Trib_displayImage.png" alt="Trib"></div>
+          </a>
+        </div><!-- /ux -->
+
+        <!-- ── Builds / Product Builds ── -->
+        <div class="sp-category" data-category="builds">
+          <div class="sp-section-header">
+            <h2 class="sp-section-title">PRODUCT BUILDS</h2>
           </div>
-          <div class="sp-preview"><img src="images/projects/Trib_displayImage.png" alt="Trib"></div>
-        </a>
+
+          <a class="sp-card" href="https://www.loom.com/share/c4127f5148734a4da9f4aa2e5bb0e345" target="_blank" rel="noopener">
+            <div class="sp-info">
+              <div class="sp-top-row">
+                <div class="sp-icon-box"><img src="images/Logos/Kelliworks_LogoImg.png" alt="Budget Efficiency App" style="width:100%;height:100%;object-fit:contain;"></div>
+                <div class="sp-text-col">
+                  <span class="sp-name">Budget Efficiency App</span>
+                  <span class="sp-sub">Built for an accounting firm to manage client budget &amp; transactions</span>
+                </div>
+              </div>
+              <div class="sp-roles-row">
+                <div class="sp-roles-pill">
+                  <div class="sp-dots">
+                    <div class="sp-dot sp-dot-blue"></div>
+                    <div class="sp-dot sp-dot-orange"></div>
+                    <div class="sp-dot sp-dot-gray"></div>
+                  </div>
+                  <span class="sp-role-text">AI Builds &amp; Coding</span>
+                </div>
+                <div class="sp-case-pill">Watch Demo<div class="sp-arrow-icon"><img src="images/Icons/arrowOpenEmail_IconImg.svg" alt=""></div></div>
+              </div>
+            </div>
+            <div class="sp-preview"><img src="images/Builds/Budget Efficiency App.png" alt="Budget Efficiency App"></div>
+          </a>
+
+          <a class="sp-card" href="https://www.loom.com/share/d580ae891e254c1aa9bc1008fbd4aba2" target="_blank" rel="noopener">
+            <div class="sp-info">
+              <div class="sp-top-row">
+                <div class="sp-icon-box"><img src="images/Logos/Kelliworks_LogoImg.png" alt="Content Management Tool" style="width:100%;height:100%;object-fit:contain;"></div>
+                <div class="sp-text-col">
+                  <span class="sp-name">Content Management Tool</span>
+                  <span class="sp-sub">Built to speed up content review process</span>
+                </div>
+              </div>
+              <div class="sp-roles-row">
+                <div class="sp-roles-pill">
+                  <div class="sp-dots">
+                    <div class="sp-dot sp-dot-blue"></div>
+                    <div class="sp-dot sp-dot-orange"></div>
+                    <div class="sp-dot sp-dot-gray"></div>
+                  </div>
+                  <span class="sp-role-text">AI Builds &amp; Coding</span>
+                </div>
+                <div class="sp-case-pill">Watch Demo<div class="sp-arrow-icon"><img src="images/Icons/arrowOpenEmail_IconImg.svg" alt=""></div></div>
+              </div>
+            </div>
+            <div class="sp-preview"><img src="images/Builds/Content Management App.png" alt="Content Management Tool"></div>
+          </a>
+
+          <a class="sp-card" href="https://x.com/Olafakomi/status/2032791976836268153?s=20" target="_blank" rel="noopener">
+            <div class="sp-info">
+              <div class="sp-top-row">
+                <div class="sp-icon-box"><img src="images/Logos/LeftUnread_LogoImg.png" alt="Left Unread" style="width:100%;height:100%;object-fit:contain;"></div>
+                <div class="sp-text-col">
+                  <span class="sp-name">Left Unread</span>
+                  <span class="sp-sub">Bookclub Management app for close friends</span>
+                </div>
+              </div>
+              <div class="sp-roles-row">
+                <div class="sp-roles-pill">
+                  <div class="sp-dots">
+                    <div class="sp-dot sp-dot-blue"></div>
+                    <div class="sp-dot sp-dot-orange"></div>
+                    <div class="sp-dot sp-dot-gray"></div>
+                  </div>
+                  <span class="sp-role-text">AI Builds &amp; Coding</span>
+                </div>
+                <div class="sp-case-pill">Watch Demo<div class="sp-arrow-icon"><img src="images/Icons/arrowOpenEmail_IconImg.svg" alt=""></div></div>
+              </div>
+            </div>
+            <div class="sp-preview"><img src="images/Builds/LeftUnread.png" alt="Left Unread"></div>
+          </a>
+        </div><!-- /builds -->
+
+        <!-- ── Visual Design / Visual Projects ── -->
+        <div class="sp-category" data-category="visual">
+          <div class="sp-section-header">
+            <h2 class="sp-section-title">GRAPHICS</h2>
+            <a href="visual-design.html" class="sp-view-all">View all <span class="sp-view-all-icon">↗</span></a>
+          </div>
+
+          <a class="sp-card" href="visual-design.html#proxidize">
+            <div class="sp-info">
+              <div class="sp-top-row">
+                <div class="sp-icon-box"><img src="images/Logos/Proxidize_LogoImg.png" alt="Proxidize" style="width:100%;height:100%;object-fit:contain;"></div>
+                <div class="sp-text-col">
+                  <span class="sp-name">Proxidize</span>
+                  <span class="sp-sub">Storyboard for cloud mobile and residential proxies.</span>
+                </div>
+              </div>
+              <div class="sp-roles-row">
+                <div class="sp-roles-pill">
+                  <div class="sp-dots">
+                    <div class="sp-dot sp-dot-blue"></div>
+                    <div class="sp-dot sp-dot-orange"></div>
+                    <div class="sp-dot sp-dot-gray"></div>
+                  </div>
+                  <span class="sp-role-text">Storyboard Design</span>
+                </div>
+                <div class="sp-case-pill">View<div class="sp-arrow-icon"><img src="images/Icons/arrowOpenEmail_IconImg.svg" alt=""></div></div>
+              </div>
+            </div>
+            <div class="sp-preview"><img src="images/Graphics/Proxidize.png" alt="Proxidize"></div>
+          </a>
+
+          <a class="sp-card" href="visual-design.html#dexa">
+            <div class="sp-info">
+              <div class="sp-top-row">
+                <div class="sp-icon-box"><img src="images/Logos/Dexa_LogoImg.png" alt="Dexa" style="width:100%;height:100%;object-fit:contain;"></div>
+                <div class="sp-text-col">
+                  <span class="sp-name">Dexa</span>
+                  <span class="sp-sub">AI-based tax management app storyboard</span>
+                </div>
+              </div>
+              <div class="sp-roles-row">
+                <div class="sp-roles-pill">
+                  <div class="sp-dots">
+                    <div class="sp-dot sp-dot-blue"></div>
+                    <div class="sp-dot sp-dot-orange"></div>
+                    <div class="sp-dot sp-dot-gray"></div>
+                  </div>
+                  <span class="sp-role-text">Storyboard Design</span>
+                </div>
+                <div class="sp-case-pill">View<div class="sp-arrow-icon"><img src="images/Icons/arrowOpenEmail_IconImg.svg" alt=""></div></div>
+              </div>
+            </div>
+            <div class="sp-preview"><img src="images/Graphics/Dexa.png" alt="Dexa"></div>
+          </a>
+
+          <a class="sp-card" href="visual-design.html#zyntha">
+            <div class="sp-info">
+              <div class="sp-top-row">
+                <div class="sp-icon-box"><img src="images/Logos/Zyntha_LogoImg.png" alt="Zyntha" style="width:100%;height:100%;object-fit:contain;"></div>
+                <div class="sp-text-col">
+                  <span class="sp-name">Zyntha</span>
+                  <span class="sp-sub">Fintech product video storyboard design</span>
+                </div>
+              </div>
+              <div class="sp-roles-row">
+                <div class="sp-roles-pill">
+                  <div class="sp-dots">
+                    <div class="sp-dot sp-dot-blue"></div>
+                    <div class="sp-dot sp-dot-orange"></div>
+                    <div class="sp-dot sp-dot-gray"></div>
+                  </div>
+                  <span class="sp-role-text">Storyboard Design</span>
+                </div>
+                <div class="sp-case-pill">View<div class="sp-arrow-icon"><img src="images/Icons/arrowOpenEmail_IconImg.svg" alt=""></div></div>
+              </div>
+            </div>
+            <div class="sp-preview"><img src="images/Graphics/Zyntha.png" alt="Zyntha"></div>
+          </a>
+        </div><!-- /visual -->
+
+        <!-- ── Websites ── -->
+        <div class="sp-category" data-category="websites">
+          <div class="sp-section-header">
+            <h2 class="sp-section-title">WEBSITES</h2>
+          </div>
+
+          <a class="sp-card" href="https://www.pneumagroup.org/" target="_blank" rel="noopener">
+            <div class="sp-info">
+              <div class="sp-top-row">
+                <div class="sp-icon-box"><img src="images/Logos/Pneuma_LogoImg.png" alt="Pneuma Group" style="width:100%;height:100%;object-fit:contain;"></div>
+                <div class="sp-text-col">
+                  <span class="sp-name">Pneuma Group</span>
+                  <span class="sp-sub">Built for an accounting firm to manage client budget &amp; transactions</span>
+                </div>
+              </div>
+              <div class="sp-roles-row">
+                <div class="sp-roles-pill">
+                  <div class="sp-dots">
+                    <div class="sp-dot sp-dot-blue"></div>
+                    <div class="sp-dot sp-dot-orange"></div>
+                    <div class="sp-dot sp-dot-gray"></div>
+                  </div>
+                  <span class="sp-role-text">Framer &amp; Figma</span>
+                </div>
+                <div class="sp-case-pill">Live site<div class="sp-arrow-icon"><img src="images/Icons/arrowOpenEmail_IconImg.svg" alt=""></div></div>
+              </div>
+            </div>
+            <div class="sp-preview"><img src="images/Websites/Pneuma.png" alt="Pneuma Group"></div>
+          </a>
+
+          <a class="sp-card" href="https://ovasys.co/" target="_blank" rel="noopener">
+            <div class="sp-info">
+              <div class="sp-top-row">
+                <div class="sp-icon-box"><img src="images/Logos/Ovasys_LogoImg.png" alt="Ovasys.co" style="width:100%;height:100%;object-fit:contain;"></div>
+                <div class="sp-text-col">
+                  <span class="sp-name">Ovasys.co</span>
+                  <span class="sp-sub">Built to speed up content review process</span>
+                </div>
+              </div>
+              <div class="sp-roles-row">
+                <div class="sp-roles-pill">
+                  <div class="sp-dots">
+                    <div class="sp-dot sp-dot-blue"></div>
+                    <div class="sp-dot sp-dot-orange"></div>
+                    <div class="sp-dot sp-dot-gray"></div>
+                  </div>
+                  <span class="sp-role-text">Custom Code</span>
+                </div>
+                <div class="sp-case-pill">Live site<div class="sp-arrow-icon"><img src="images/Icons/arrowOpenEmail_IconImg.svg" alt=""></div></div>
+              </div>
+            </div>
+            <div class="sp-preview"><img src="images/Websites/Ovasys.png" alt="Ovasys.co"></div>
+          </a>
+
+          <a class="sp-card" href="https://bluespectruminnovative.com/" target="_blank" rel="noopener">
+            <div class="sp-info">
+              <div class="sp-top-row">
+                <div class="sp-icon-box"><img src="images/Logos/Bluespectrum_LogoImg.png" alt="Bluespectrum Innovative" style="width:100%;height:100%;object-fit:contain;"></div>
+                <div class="sp-text-col">
+                  <span class="sp-name">Bluespectrum Innovative</span>
+                  <span class="sp-sub">Bookclub Management app close friends</span>
+                </div>
+              </div>
+              <div class="sp-roles-row">
+                <div class="sp-roles-pill">
+                  <div class="sp-dots">
+                    <div class="sp-dot sp-dot-blue"></div>
+                    <div class="sp-dot sp-dot-orange"></div>
+                    <div class="sp-dot sp-dot-gray"></div>
+                  </div>
+                  <span class="sp-role-text">Framer &amp; Figma</span>
+                </div>
+                <div class="sp-case-pill">Live site<div class="sp-arrow-icon"><img src="images/Icons/arrowOpenEmail_IconImg.svg" alt=""></div></div>
+              </div>
+            </div>
+            <div class="sp-preview"><img src="images/Websites/Bluespectrum.png" alt="Bluespectrum Innovative"></div>
+          </a>
+        </div><!-- /websites -->
 
       </div><!-- /sp-wrapper -->
-    </div>
-  </section>
-
-  <!-- ── VISUAL DESIGN CTA ─────────────────────────────────── -->
-  <section id="visual-design-cta">
-    <div class="container">
-      <div class="vd-wrap reveal">
-
-        <a href="visual-design.html" class="vd-panel">
-
-          <div class="vd-panel-text">
-            <p class="vd-pre">Beyond building products I help...</p>
-            <h2 class="vd-title">Products scale with compelling<br>visual <span class="vd-title-accent">storyboards</span><span class="vd-arrow-icon"><img src="images/Icons/arrowOpenEmail_IconImg.svg" alt=""></span></h2>
-          </div>
-
-          <!-- Three styleframe previews peeking at the bottom -->
-          <!-- Replace .vd-frame-ph divs with <img> tags when you have the real assets -->
-          <div class="vd-frames">
-            <div class="vd-frame vd-frame--side vd-frame--mint">
-              <img src="Storyboard%20Images/Cover%20Images%20/Revwit_image.png" alt="Revwit storyboard styleframe">
-            </div>
-            <div class="vd-frame vd-frame--center vd-frame--dark">
-              <img src="Storyboard%20Images/Cover%20Images%20/Kolme_image.png" alt="Kolme storyboard styleframe">
-            </div>
-            <div class="vd-frame vd-frame--side vd-frame--navy">
-              <img src="Storyboard%20Images/Cover%20Images%20/Migranium_image.png" alt="Migranium storyboard styleframe">
-            </div>
-          </div>
-
-        </a>
-
-      </div>
     </div>
   </section>
 
@@ -2485,6 +2730,18 @@
     reveals.forEach(el => observer.observe(el));
 
 
+    // ── Project tab filter ─────────────────────────────────────
+    document.querySelectorAll('.sp-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+        document.querySelectorAll('.sp-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        document.querySelectorAll('.sp-category').forEach(cat => {
+          cat.classList.toggle('active', cat.dataset.category === target);
+        });
+      });
+    });
+
     // ── Smooth scroll for all anchor links ────────────────────
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', e => {
@@ -2564,6 +2821,21 @@
       const el = document.getElementById(id);
       if (el) navObserver.observe(el);
     });
+
+    // ── Skeleton loader ──────────────────────────────────────
+    (function(){
+      document.querySelectorAll('.sp-preview').forEach(function(w){
+        var img = w.querySelector('img');
+        var done = function(){ w.classList.add('sk-loaded'); };
+        if(img){
+          if(img.complete && img.naturalWidth > 0) done();
+          else { img.addEventListener('load',done,{once:true}); img.addEventListener('error',done,{once:true}); }
+        } else {
+          // placeholder div — mark loaded immediately
+          done();
+        }
+      });
+    })();
   </script>
 </body>
 </html>
