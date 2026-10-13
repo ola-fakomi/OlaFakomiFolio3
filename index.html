@@ -840,6 +840,21 @@
       transition: border-color 0.2s, transform 0.2s;
     }
     .client-pill:hover { border-color: rgba(255,255,255,0.16); transform: translateY(-2px); }
+    .dollar-float {
+      position: fixed;
+      pointer-events: none;
+      width: 24px;
+      height: 24px;
+      z-index: 9999;
+      animation: dollarPop 0.8s ease-out forwards;
+      transform-origin: center bottom;
+    }
+    @keyframes dollarPop {
+      0%   { opacity: 0; transform: translateY(0px) scale(0.4); }
+      15%  { opacity: 1; transform: translateY(-8px) scale(1.2); }
+      40%  { opacity: 1; transform: translateY(-20px) scale(1); }
+      100% { opacity: 0; transform: translateY(-52px) scale(0.8); }
+    }
     .client-icon {
       width: 28px; height: 28px;
       background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
@@ -1338,6 +1353,47 @@
     /* ─── Nav item hover sounds ─── */
     document.querySelectorAll('.nav-links a').forEach(link => {
       link.addEventListener('mouseenter', () => playTick(750, 0.10, 0.055));
+    });
+
+    /* ─── Clients section money sound ─── */
+    function playMoney() {
+      const ctx = getAudioCtx();
+      const now = ctx.currentTime;
+      // Clean sine bell with reverb tail — crypto ping
+      const freq = 1047; // C6
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.type = 'sine'; osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.10, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.6);
+      osc.start(now); osc.stop(now + 0.6);
+      // Reverb tail — delayed softer echo
+      [0.08, 0.18, 0.30].forEach((delay, i) => {
+        const echoOsc = ctx.createOscillator();
+        const echoGain = ctx.createGain();
+        echoOsc.connect(echoGain); echoGain.connect(ctx.destination);
+        echoOsc.type = 'sine'; echoOsc.frequency.value = freq;
+        const vol = 0.05 / (i + 1);
+        const t = now + delay;
+        echoGain.gain.setValueAtTime(vol, t);
+        echoGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.4);
+        echoOsc.start(t); echoOsc.stop(t + 0.4);
+      });
+    }
+    document.querySelectorAll('.client-pill').forEach(pill => {
+      pill.addEventListener('mouseenter', () => {
+        playMoney();
+        const rect = pill.getBoundingClientRect();
+        const el = document.createElement('img');
+        el.className = 'dollar-float';
+        el.src = 'images/Icons/Icon_dollar.svg';
+        el.alt = '';
+        el.style.left = (rect.left + rect.width / 2 - 8) + 'px';
+        el.style.top  = (rect.top - 4) + 'px';
+        document.body.appendChild(el);
+        el.addEventListener('animationend', () => el.remove());
+      });
     });
 
     /* ─── Global click sound ─── */
