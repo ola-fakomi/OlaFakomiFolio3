@@ -505,7 +505,7 @@
 
     /* ─── LANDING PAGES SECTION ─── */
     .lp-section {
-      background: #0b1422;
+      background: #191919;
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -521,20 +521,20 @@
       font-size: 10px; font-weight: 300;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
+      color: #929292;
       margin-bottom: 20px;
     }
     .lp-heading {
       font-family: 'Unbounded', sans-serif;
-      font-size: clamp(36px, 5.5vw, 64px);
+      font-size: 36px;
       font-weight: 300;
       color: var(--text);
       line-height: 1.1;
       letter-spacing: -0.02em;
     }
     .lp-heading em {
-      font-style: italic;
-      color: rgba(255,255,255,0.45);
+      font-style: normal;
+      color: #929292;
     }
 
     /* ─── DECKS SECTION ─── */
@@ -545,18 +545,9 @@
       align-items: center;
       justify-content: center;
       padding: 80px 40px;
-      position: relative;
-    }
-    .decks-section::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(72,55,243,0.08) 0%, transparent 70%);
-      pointer-events: none;
     }
     .decks-inner {
       text-align: center;
-      position: relative; z-index: 1;
     }
     .decks-label {
       display: block;
@@ -564,20 +555,20 @@
       font-size: 10px; font-weight: 300;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--blue);
+      color: #929292;
       margin-bottom: 20px;
     }
     .decks-heading {
       font-family: 'Unbounded', sans-serif;
-      font-size: clamp(26px, 3.8vw, 46px);
-      font-weight: 700;
+      font-size: 36px;
+      font-weight: 300;
       line-height: 1.15;
       letter-spacing: -0.02em;
       color: var(--text);
     }
     .decks-heading em {
       font-style: normal;
-      color: rgba(255,255,255,0.35);
+      color: #929292;
       text-decoration: underline;
       text-decoration-style: dotted;
       text-underline-offset: 5px;
@@ -801,65 +792,76 @@
     /* ─── CLIENTS ─── */
     .clients {
       min-height: 100vh;
-      background: #0e0e10;
+      background: #191919;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
       overflow: hidden;
     }
-    /* Subtle grid texture */
-    .clients::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
-      background-size: 60px 60px;
-      pointer-events: none;
-    }
     .clients-inner {
       position: relative; z-index: 1;
       text-align: center;
+      max-width: 832px;
+      width: 100%;
       margin: 0 auto;
+      padding: 80px 24px;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 16px;
     }
-    .clients-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
     .clients-heading {
       font-family: 'Unbounded', sans-serif;
-      font-size: 30px;
+      font-size: 36px;
       font-weight: 300;
       color: #929292;
       text-align: center;
-      margin: 12px 0 4px;
+      margin: 16px 0;
       letter-spacing: -0.01em;
     }
-    .clients-heading strong { font-weight: 700; color: var(--text); }
-    .client-chip {
+    .clients-heading strong { font-weight: 300; color: var(--text); }
+    .clients-pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      align-items: center;
+      justify-content: center;
+    }
+    .client-pill {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 9px 18px;
-      background: #1b1b1e;
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 100px;
-      font-size: 13px; font-weight: 300;
-      color: rgba(255,255,255,0.78);
+      padding: 8px 14px;
+      background: #1d1d1d;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      font-size: 13px; font-weight: 400;
+      color: rgba(255,255,255,0.80);
       white-space: nowrap;
       transition: border-color 0.2s, transform 0.2s;
     }
-    .client-chip:hover { border-color: rgba(255,255,255,0.18); transform: translateY(-2px); }
-    .client-chip img {
-      width: 20px; height: 20px;
-      border-radius: 5px;
-      object-fit: cover;
+    .client-pill:hover { border-color: rgba(255,255,255,0.16); transform: translateY(-2px); }
+    .client-icon {
+      width: 28px; height: 28px;
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      border-radius: 7px;
+      box-shadow: 0 0 2.278px rgba(0,0,0,0.25), inset 0.556px 0.556px 0 rgba(255,255,255,0.08), inset -0.556px -0.556px 0 rgba(255,255,255,0.03);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .client-icon img {
+      max-width: 100%; max-height: 100%;
+      object-fit: contain;
+    }
+    .client-name {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px;
+      font-weight: 200;
+      letter-spacing: 0.02em;
+      color: #fff;
+      white-space: nowrap;
+      line-height: 1.5;
     }
 
     /* ─── FOOTER ─── */
@@ -1132,7 +1134,28 @@
   <!-- ─── CLIENTS ─── -->
   <section class="clients">
     <div class="clients-inner">
+      <div class="clients-pills-row">
+        <div class="client-pill"><div class="client-icon"><img src="images/Logos/AllClearGlass_logoImg.png" alt="All Clear Glass" /></div><span class="client-name">All Clear Glass</span></div>
+        <div class="client-pill"><div class="client-icon"><img src="images/Logos/MavlonTours_logoImg.png" alt="Mavlon Tours" /></div><span class="client-name">Mavlon Tours</span></div>
+      </div>
+      <div class="clients-pills-row">
+        <div class="client-pill"><div class="client-icon"><img src="images/Logos/Insite_logoImg.png" alt="Insite" /></div><span class="client-name">Insite</span></div>
+        <div class="client-pill"><div class="client-icon"><img src="images/Logos/Daba_logoImg.png" alt="Daba" /></div><span class="client-name">Daba</span></div>
+        <div class="client-pill"><div class="client-icon"><img src="images/Logos/DriveMe_logoImg.png" alt="DriveMe" /></div><span class="client-name">DriveMe</span></div>
+        <div class="client-pill"><div class="client-icon"><img src="images/Logos/SMEHive_logoImg.png" alt="SME Hive" /></div><span class="client-name">SME Hive</span></div>
+        <div class="client-pill"><div class="client-icon"><img src="images/Logos/Justnovate_logoImg.png" alt="Justnovate" /></div><span class="client-name">Justnovate</span></div>
+      </div>
       <h2 class="clients-heading"><strong>Clients</strong> &amp; Collaborations</h2>
+      <div class="clients-pills-row">
+        <div class="client-pill"><div class="client-icon"><img src="images/Logos/IgniteTunes_logoImg.png" alt="IgniteTunes" /></div><span class="client-name">IgniteTunes</span></div>
+        <div class="client-pill"><div class="client-icon"><img src="images/Logos/HighNDry_logoImg.png" alt="High N Dry" /></div><span class="client-name">High N Dry</span></div>
+        <div class="client-pill"><div class="client-icon"><img src="images/Logos/Renaissance_logoImg.png" alt="Renaissance" /></div><span class="client-name">Renaissance</span></div>
+        <div class="client-pill"><div class="client-icon"><img src="images/Logos/WashVilla_logoImg.png" alt="WashVilla" /></div><span class="client-name">WashVilla</span></div>
+      </div>
+      <div class="clients-pills-row">
+        <div class="client-pill"><div class="client-icon"><img src="images/Logos/RideVendor_logoImg.png" alt="Ride Vendor" /></div><span class="client-name">Ride Vendor</span></div>
+        <div class="client-pill"><div class="client-icon"><img src="images/Logos/Lochindaal_logoImg.png" alt="Lochindaal" /></div><span class="client-name">Lochindaal</span></div>
+      </div>
     </div>
   </section>
 
