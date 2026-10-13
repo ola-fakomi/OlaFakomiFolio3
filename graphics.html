@@ -74,34 +74,21 @@
       z-index: 9000;
     }
 
-    @media (pointer: fine) { body { cursor: none; } }
-    @media (pointer: coarse) { .cursor, .cursor-ring { display: none; } }
+    body { cursor: none; }
+    @media (pointer: coarse) { body { cursor: auto; } .cursor-svg { display: none; } }
 
-    /* ─── Custom Cursor ─────────────────────────────────────── */
-    .cursor {
+    /* ─── Custom Cursor ─── */
+    .cursor-svg {
       position: fixed;
-      width: 10px; height: 10px;
-      background: var(--blue);
-      border-radius: 50%;
       pointer-events: none;
+      transform: translate(-4px, -4px);
       z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.1s ease, width 0.25s ease, height 0.25s ease, background 0.25s ease;
-      mix-blend-mode: screen;
+      width: 32px; height: 32px;
+      transition: width 0.2s, height 0.2s;
     }
-    .cursor-ring {
-      position: fixed;
-      width: 36px; height: 36px;
-      border: 1.5px solid rgba(72,55,243,0.5);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9998;
-      transform: translate(-50%, -50%);
-      transition: width 0.3s, height 0.3s, border-color 0.3s;
-    }
-    body:has(a:hover) .cursor-ring,
-    body:has(button:hover) .cursor-ring { width: 52px; height: 52px; border-color: var(--red); }
-    body:has(a:hover) .cursor { background: var(--red); }
+    .cursor-svg img { width: 100%; height: 100%; display: block; }
+    body:has(a:hover) .cursor-svg,
+    body:has(button:hover) .cursor-svg { width: 40px; height: 40px; }
 
     /* ─── Utility ───────────────────────────────────────────── */
     .container { max-width: var(--max-w); margin: 0 auto; padding: 0 40px; }
@@ -865,8 +852,9 @@
 <body>
 
   <!-- Custom cursor -->
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="cursor-svg" id="cursor-svg">
+    <img src="images/Icons/Icon_Cursor.svg" alt="" />
+  </div>
 
   <!-- ─── NAV ─────────────────────────────────────────────── -->
   <nav>
@@ -1174,30 +1162,10 @@
   <!-- ─── JS ───────────────────────────────────────────────── -->
   <script>
     // Custom cursor
-    const cursor = document.getElementById('cursor');
-    const ring   = document.getElementById('cursorRing');
-    let mx = 0, my = 0, rx = 0, ry = 0;
-
+    const cursorSvg = document.getElementById('cursor-svg');
     document.addEventListener('mousemove', e => {
-      mx = e.clientX; my = e.clientY;
-      cursor.style.left = mx + 'px';
-      cursor.style.top  = my + 'px';
-    });
-
-    function animateRing() {
-      rx += (mx - rx) * 0.12;
-      ry += (my - ry) * 0.12;
-      ring.style.left = rx + 'px';
-      ring.style.top  = ry + 'px';
-      requestAnimationFrame(animateRing);
-    }
-    animateRing();
-
-    document.addEventListener('mouseleave', () => {
-      cursor.style.opacity = '0'; ring.style.opacity = '0';
-    });
-    document.addEventListener('mouseenter', () => {
-      cursor.style.opacity = '1'; ring.style.opacity = '1';
+      cursorSvg.style.left = e.clientX + 'px';
+      cursorSvg.style.top  = e.clientY + 'px';
     });
 
     // Scroll reveal
