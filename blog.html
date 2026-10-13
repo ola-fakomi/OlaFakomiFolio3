@@ -21,13 +21,16 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:     #191919;
-      --blue:   #4837f3;
-      --red:    #ff7974;
-      --text:   #ffffff;
-      --muted:  rgba(255,255,255,0.38);
-      --border: rgba(255,255,255,0.08);
-      --max-w:  960px;
+      --bg:        #191919;
+      --bg-card:   #1f1f1f;
+      --blue:      #4837f3;
+      --red:       #ff7974;
+      --text:      #f0f0f0;
+      --text-dim:  #9a9aaa;
+      --muted:     #7581a6;
+      --border:    rgba(255,255,255,0.07);
+      --nav-h:     72px;
+      --max-w:     960px;
     }
 
     html { scroll-behavior: smooth; }
@@ -37,6 +40,7 @@
       color: var(--text);
       font-family: 'Unbounded', sans-serif;
       font-size: 16px;
+      font-weight: 300;
       line-height: 1.6;
       overflow-x: hidden;
       cursor: none;
@@ -50,67 +54,105 @@
     }
 
     /* ─── Cursor ─── */
-    .cursor, .cursor-ring {
-      position: fixed; border-radius: 50%;
-      pointer-events: none; transform: translate(-50%,-50%);
+    .cursor-svg {
+      position: fixed; pointer-events: none;
+      transform: translate(-4px, -4px);
+      z-index: 9999; width: 32px; height: 32px;
+      transition: transform 0.15s ease, width 0.2s, height 0.2s;
     }
-    .cursor      { width:10px; height:10px; background:var(--blue); z-index:9999; transition:background .2s; }
-    .cursor-ring { width:36px; height:36px; border:1.5px solid rgba(72,55,243,.45); z-index:9998; transition:width .22s,height .22s,border-color .22s; }
-    body:has(a:hover) .cursor,
-    body:has(button:hover) .cursor { background:var(--red); }
-    body:has(a:hover) .cursor-ring,
-    body:has(button:hover) .cursor-ring { width:50px; height:50px; border-color:rgba(255,121,116,.5); }
+    .cursor-svg img { width: 100%; height: 100%; display: block; }
+    body:has(a:hover) .cursor-svg,
+    body:has(button:hover) .cursor-svg { width: 40px; height: 40px; }
 
     /* ─── NAV ─── */
     nav {
-      position: fixed; top:20px; left:0; right:0;
-      z-index:8000;
-      display:flex; justify-content:center;
-      padding: 0 20px;
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 9500; background: transparent;
+      padding-top: 20px; padding-bottom: 12px;
     }
-    .nav-pill {
-      display:flex; align-items:center; justify-content:space-between;
-      width:100%; max-width:860px;
-      background:rgba(22,22,22,0.92);
-      border:1px solid var(--border);
-      border-radius:14px;
-      padding:6px 6px 6px 10px;
-      backdrop-filter:blur(24px);
-      -webkit-backdrop-filter:blur(24px);
-      box-shadow:0 4px 32px rgba(0,0,0,.45);
+    .nav-inner { max-width: 896px; margin: 0 auto; padding: 0; }
+    .nav-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(25,25,25,0.65); border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 16px; padding: 5px 5px 5px 8px;
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.35);
     }
-    .nav-links { display:flex; align-items:center; list-style:none; gap:2px; }
+    .nav-links { display: flex; align-items: center; gap: 0; list-style: none; margin: 0; padding: 0 8px; }
     .nav-links a {
-      display:flex; align-items:center; gap:6px;
-      padding:8px 11px;
-      font-family:'Unbounded',sans-serif;
-      font-size:10.5px; font-weight:400;
-      letter-spacing:0.02em;
-      color:var(--muted); text-decoration:none;
-      border-radius:10px;
-      transition:color .18s,background .18s;
+      display: flex; align-items: center; gap: 4px; padding: 4px 4px;
+      font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 300;
+      letter-spacing: 0.02em; color: rgba(255,255,255,0.45);
+      text-decoration: none; border-radius: 10px;
+      transition: color 0.2s, background 0.2s;
     }
-    .nav-links a:hover { color:var(--text); background:rgba(255,255,255,.05); }
-    .nav-links a.active { color:var(--text); }
-    .nav-links a svg { flex-shrink:0; opacity:.45; transition:opacity .18s; }
-    .nav-links a.active svg, .nav-links a:hover svg { opacity:1; }
+    .nav-links a .nav-icon {
+      display: flex; align-items: center; justify-content: center;
+      width: 0; height: 13px; overflow: hidden; opacity: 0;
+      flex-shrink: 0; transition: width 0.2s, opacity 0.2s;
+    }
+    .nav-links a .nav-icon img { width: 13px; height: 13px; flex-shrink: 0; display: block; opacity: 0.45; transition: opacity 0.2s; }
+    .nav-links li.active > a .nav-icon img,
+    .nav-links a:hover .nav-icon img { opacity: 1; }
+    .nav-links li.active > a .nav-icon,
+    .nav-links a:hover .nav-icon { width: 13px; opacity: 1; }
+    .nav-links li.active > a { color: #fff; font-weight: 300; }
+    .nav-links a:hover { color: #fff; }
     .nav-cta {
-      display:inline-flex; align-items:center;
-      padding:10px 22px;
-      background:var(--text); color:#111;
-      font-family:'Unbounded',sans-serif;
-      font-size:10.5px; font-weight:600;
-      letter-spacing:.02em;
-      border-radius:10px; text-decoration:none;
-      transition:background .18s,transform .15s;
+      padding: 13px 22px;
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      border: none; color: #fff; font-family: 'Unbounded', sans-serif;
+      font-size: 11px; font-weight: 300; letter-spacing: 0.02em;
+      border-radius: 12px; text-decoration: none; white-space: nowrap;
+      position: relative; overflow: hidden;
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25);
+      transition: opacity 0.2s, transform 0.2s; flex-shrink: 0;
     }
-    .nav-cta:hover { background:#e4e4e4; transform:scale(.97); }
+    .nav-cta::after {
+      content: ''; position: absolute; inset: 0; border-radius: 10px;
+      box-shadow: inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      pointer-events: none;
+    }
+    .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+    .nav-toggle {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .nav-toggle span {
+      display: block; width: 22px; height: 1.5px;
+      background: var(--text); border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .mobile-menu { display: none; }
+    @media (max-width: 860px) {
+      .mobile-menu {
+        position: fixed; top: var(--nav-h); left: 0; right: 0;
+        background: rgba(20,20,20,0.98); backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border); z-index: 99;
+        padding: 24px 20px 32px;
+        transform: translateY(-110%);
+        transition: transform 0.35s cubic-bezier(0.32,0,0,1);
+        display: flex; flex-direction: column; gap: 4px;
+      }
+      .mobile-menu.open { transform: translateY(0); }
+    }
+    .mobile-menu a {
+      display: block; padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 300;
+      color: var(--text-dim); text-decoration: none; transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--text); }
+    .mobile-menu a:last-child { border-bottom: none; }
 
     /* ─── PAGE WRAPPER ─── */
     .blog-page {
       max-width: var(--max-w);
       margin: 0 auto;
-      padding: calc(20px + 64px + 72px) 40px 100px;
+      padding: 100px 40px 100px;
     }
 
     /* ─── NEWSLETTER SECTION ─── */
@@ -145,7 +187,7 @@
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 10px;
       font-family: 'Unbounded', sans-serif;
-      font-size: 13px; font-weight: 600;
+      font-size: 13px; font-weight: 400;
       color: var(--text);
       text-decoration: none;
       transition: background .18s;
@@ -211,12 +253,12 @@
     }
     .post-ep {
       font-family: 'Unbounded', sans-serif;
-      font-size: 12.5px; font-weight: 400;
+      font-size: 12.5px; font-weight: 300;
       color: rgba(255,255,255,0.45);
     }
     .post-ep strong {
       color: rgba(255,255,255,0.75);
-      font-weight: 600;
+      font-weight: 400;
     }
     .post-arrow {
       display: flex; align-items: center; justify-content: center;
@@ -231,7 +273,7 @@
     .post-arrow:hover { background: rgba(255,255,255,0.12); color: var(--text); }
     .post-excerpt {
       font-family: 'Unbounded', sans-serif;
-      font-size: 17px; font-weight: 400;
+      font-size: 17px; font-weight: 300;
       line-height: 1.55;
       color: rgba(255,255,255,0.82);
     }
@@ -264,7 +306,7 @@
     }
     .tile-issue {
       font-family: 'Unbounded', sans-serif;
-      font-size: 7px; font-weight: 600;
+      font-size: 7px; font-weight: 400;
       color: rgba(255,255,255,0.35);
       letter-spacing: 0.04em;
     }
@@ -278,7 +320,7 @@
     }
     .tile-label {
       font-family: 'Unbounded', sans-serif;
-      font-size: 7px; font-weight: 400;
+      font-size: 7px; font-weight: 300;
       color: rgba(255,255,255,0.2);
       letter-spacing: 0.06em;
       text-transform: uppercase;
@@ -322,104 +364,114 @@
     }
 
     /* ─── FOOTER ─── */
-    footer {
-      background: linear-gradient(150deg, #1e2eee 0%, #1525cc 40%, #2438f0 100%);
-      padding: 80px 40px 40px;
-      position: relative; overflow: hidden;
+    #contact {
+      background:url('images/footer/Footer Background.webp') center center/cover no-repeat;
+      padding:0; overflow:hidden; position:relative;
     }
-    footer::after {
-      content: '';
-      position: absolute;
-      bottom: -80px; left: 50%; transform: translateX(-50%);
-      width: 120%; height: 180px;
-      background: rgba(255,255,255,.07);
-      border-radius: 50%; filter: blur(60px);
-      pointer-events: none;
+    .footer-inner {
+      position:relative; z-index:1; display:flex; flex-direction:column; gap:56px;
+      padding:40px 0 0; max-width:832px; margin:0 auto;
     }
-    .footer-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
-    .footer-top { display:flex; align-items:flex-start; justify-content:space-between; gap:40px; margin-bottom:56px; }
+    .footer-top { display:flex; gap:9px; align-items:flex-start; }
     .footer-headline {
-      font-family:'Unbounded',sans-serif;
-      font-size:clamp(38px,6.5vw,82px); font-weight:700;
-      line-height:1.05; letter-spacing:-0.025em;
-      color:rgba(255,255,255,.22);
+      flex:1; font-family:'Unbounded',sans-serif;
+      font-size:48px; font-weight:300; letter-spacing:-0.04em;
+      line-height:0.9; color:#fff; mix-blend-mode:overlay; white-space:pre-wrap;
     }
-    .footer-right { display:flex; flex-direction:column; align-items:flex-end; padding-top:4px; }
-    .footer-avatar { width:50px; height:50px; border-radius:12px; object-fit:cover; margin-bottom:14px; }
-    .footer-nav { display:flex; flex-direction:column; align-items:flex-end; gap:7px; }
-    .footer-nav a { font-size:14px; color:rgba(255,255,255,.5); text-decoration:none; transition:color .18s; }
-    .footer-nav a:hover { color:rgba(255,255,255,.9); }
-    .footer-bar {
-      display:flex; align-items:center;
-      background:rgba(0,0,0,.28); border-radius:14px;
-      padding:10px; margin-bottom:24px;
-      backdrop-filter:blur(20px);
+    .footer-nav-links { flex:1; display:flex; flex-direction:column; gap:12px; }
+    .footer-nav-links a {
+      font-family:'Unbounded',sans-serif; font-size:16px; font-weight:300;
+      color:#fff; mix-blend-mode:overlay; text-decoration:none; line-height:0.9; transition:opacity .2s;
     }
-    .footer-socials { display:flex; align-items:center; gap:2px; padding-right:14px; margin-right:14px; border-right:1px solid rgba(255,255,255,.1); }
-    .f-social { display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:8px; text-decoration:none; transition:background .18s; }
-    .f-social:hover { background:rgba(255,255,255,.1); }
-    .f-social img { width:17px; height:17px; filter:brightness(0) invert(1); opacity:.6; }
-    .f-social:hover img { opacity:1; }
-    .footer-email { flex:1; font-size:13.5px; color:rgba(255,255,255,.65); }
-    .footer-cta {
-      display:inline-flex; align-items:center; padding:10px 20px;
-      background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.18);
-      border-radius:10px; font-family:'Unbounded',sans-serif;
-      font-size:10.5px; font-weight:600; color:var(--text); text-decoration:none;
-      transition:background .18s;
+    .footer-nav-links a:hover { opacity:0.7; }
+    .footer-avatar {
+      width:40px; height:40px; border-radius:12px;
+      background:linear-gradient(180deg,#2a208d 0%,#4837f3 100%);
+      overflow:hidden; flex-shrink:0; position:relative;
     }
-    .footer-cta:hover { background:rgba(255,255,255,.22); }
-    .footer-copy { text-align:center; font-size:12px; color:rgba(255,255,255,.28); padding-top:18px; border-top:1px solid rgba(255,255,255,.1); }
+    .footer-avatar img {
+      position:absolute; left:-2.4px; top:-1.2px;
+      width:55.2px; height:55.2px; object-fit:cover; mix-blend-mode:lighten;
+    }
+    .footer-bottom { display:flex; flex-direction:column; gap:24px; }
+    .footer-contact-bar {
+      display:flex; align-items:center; justify-content:space-between;
+      position:relative; padding:4px;
+      background:#191919; border:1px solid rgba(255,255,255,0.05); border-radius:12px;
+    }
+    .footer-social-icons { display:flex; align-items:center; }
+    .footer-social-icon {
+      width:36px; height:36px; display:flex; align-items:center; justify-content:center;
+      flex-shrink:0; text-decoration:none;
+    }
+    .footer-social-icon.has-bg {
+      background:linear-gradient(180deg,#353537 0%,#1f1e1e 100%); border-radius:10px;
+      box-shadow:0 0 4.1px rgba(0,0,0,0.25),inset -1px -1px 0 rgba(255,255,255,0.03),inset 1px 1px 0 rgba(255,255,255,0.08);
+    }
+    .footer-social-icon img { display:block; }
+    .footer-email {
+      position:absolute; left:50%; transform:translateX(-50%);
+      font-family:'Unbounded',sans-serif; font-size:13px; font-weight:300;
+      color:#dadada; white-space:nowrap; line-height:0.9;
+    }
+    .footer-cta { display:flex; align-items:center; justify-content:flex-end; flex:1; }
+    .footer-cta-btn {
+      height:36px; display:flex; align-items:center; padding:0 12px;
+      background:linear-gradient(180deg,#353537 0%,#1f1e1e 100%); border-radius:10px;
+      box-shadow:0 0 4.1px rgba(0,0,0,0.25),inset -1px -1px 0 rgba(255,255,255,0.03),inset 1px 1px 0 rgba(255,255,255,0.08);
+      font-family:'Unbounded',sans-serif; font-size:11px; font-weight:300;
+      color:#fff; text-decoration:none; white-space:nowrap;
+    }
+    .footer-copyright {
+      font-family:'Unbounded',sans-serif; font-size:13px; font-weight:300;
+      color:#fff; mix-blend-mode:overlay; text-align:center; line-height:0.9; padding-bottom:60px;
+    }
 
     /* ─── Responsive ─── */
+    @media (max-width: 860px) { .nav-toggle { display:flex; } .nav-inner { padding: 0 20px; max-width: 100%; } }
     @media (max-width: 780px) {
       .blog-page { padding-left: 24px; padding-right: 24px; }
       .newsletter-section { grid-template-columns: 1fr; gap: 32px; }
       .nl-content { flex-direction: column; }
       .post-thumb { width: 100%; min-height: 180px; }
       .nl-tiles { grid-template-columns: repeat(3, 1fr); gap: 4px; }
-      .footer-top { flex-direction: column; }
-      footer { padding: 60px 24px 32px; }
+      .footer-inner { padding: 40px 20px 0; }
+      .footer-top { flex-direction: column; gap: 40px; }
+      .footer-avatar { width: 72px; height: 72px; border-radius: 16px; }
+      .footer-headline { font-size: 40px; }
+      .footer-email { display: none; }
     }
   </style>
 </head>
 
 <body>
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-ring" id="cursor-ring"></div>
+  <div class="cursor-svg" id="cursor-svg"><img src="images/Icons/Icon_Cursor.svg" alt="" /></div>
 
   <!-- ─── NAV ─── -->
   <nav>
-    <div class="nav-pill">
-      <ul class="nav-links">
-        <li>
-          <a href="index.html">
-            <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 9.5L10 3l7 6.5V17a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/></svg>
-            <span>Home</span>
-          </a>
-        </li>
-        <li>
-          <a href="decks.html">
-            <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="6" height="6" rx="1.5"/><rect x="11" y="3" width="6" height="6" rx="1.5"/><rect x="3" y="11" width="6" height="6" rx="1.5"/><rect x="11" y="11" width="6" height="6" rx="1.5"/></svg>
-            <span>Decks</span>
-          </a>
-        </li>
-        <li>
-          <a href="about.html">
-            <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="7" r="3"/><path d="M4 17c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke-linecap="round"/></svg>
-            <span>About</span>
-          </a>
-        </li>
-        <li>
-          <a href="blog.html" class="active">
-            <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 4h12M4 8h8M4 12h10M4 16h6"/></svg>
-            <span>Blogs</span>
-          </a>
-        </li>
-      </ul>
-      <a href="mailto:olarewajufakomi@gmail.com" class="nav-cta">Let's talk</a>
+    <div class="nav-inner">
+      <div class="nav-bar">
+        <ul class="nav-links">
+          <li><a href="index.html"><span class="nav-icon"><img src="images/Icons/navIcon_Home.svg" alt="" /></span>Home</a></li>
+          <li><a href="ux-projects.html"><span class="nav-icon"><img src="images/Icons/navIcon_UXProjects.svg" alt="" /></span>UX Projects</a></li>
+          <li><a href="graphics.html"><span class="nav-icon"><img src="images/Icons/navIcon_Graphics.svg" alt="" /></span>Graphics</a></li>
+          <li class="active"><a href="blog.html"><span class="nav-icon"><img src="images/Icons/navIcon_Blog.svg" alt="" /></span>Blogs</a></li>
+          <li><a href="about.html"><span class="nav-icon"><img src="images/Icons/navIcon_About.svg" alt="" /></span>About</a></li>
+        </ul>
+        <a href="mailto:olarewajufakomi@gmail.com" class="nav-cta">Let's talk</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="ux-projects.html">UX Projects</a>
+    <a href="graphics.html">Graphics</a>
+    <a href="blog.html">Blogs</a>
+    <a href="about.html">About</a>
+  </div>
 
   <!-- ─── BLOG CONTENT ─── -->
   <main class="blog-page">
@@ -645,54 +697,117 @@
   </main>
 
   <!-- ─── FOOTER ─── -->
-  <footer id="contact">
+  <section id="contact">
     <div class="footer-inner">
       <div class="footer-top">
-        <h2 class="footer-headline">Get<br>in touch<br>now...</h2>
-        <div class="footer-right">
-          <img src="images/hero/OlaAvatar_Img.png" alt="Ola" class="footer-avatar" />
-          <nav class="footer-nav">
-            <a href="index.html">Homepage</a>
-            <a href="index.html#projects">Projects</a>
-            <a href="decks.html">Explorations</a>
-            <a href="blog.html">Blog</a>
-          </nav>
+        <div class="footer-headline">Get in&#10;touch now...</div>
+        <div class="footer-nav-links">
+          <a href="index.html">Home</a>
+          <a href="ux-projects.html">UX Projects</a>
+          <a href="graphics.html">Graphics</a>
+          <a href="blog.html">Blogs</a>
+          <a href="about.html">About</a>
+        </div>
+        <div class="footer-avatar">
+          <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi">
         </div>
       </div>
-      <div class="footer-bar">
-        <div class="footer-socials">
-          <a href="mailto:olarewajufakomi@gmail.com" class="f-social" aria-label="Email">
-            <img src="images/Icons/Email_IconImg.svg" alt="Email" />
-          </a>
-          <a href="https://twitter.com/olarewajufakomi" class="f-social" aria-label="X" target="_blank" rel="noopener">
-            <img src="images/Icons/TwitterX_IconImg.svg" alt="X" />
-          </a>
-          <a href="https://substack.com/@olarewajufakomi" class="f-social" aria-label="Substack" target="_blank" rel="noopener">
-            <img src="images/Icons/SubstackEmail_IconImg.svg" alt="Substack" />
-          </a>
-          <a href="https://linkedin.com/in/olarewajufakomi" class="f-social" aria-label="LinkedIn" target="_blank" rel="noopener">
-            <img src="images/Icons/LinkedInEmail_IconImg.svg" alt="LinkedIn" />
-          </a>
+      <div class="footer-bottom">
+        <div class="footer-contact-bar">
+          <div class="footer-social-icons">
+            <a href="mailto:Olarewajufakomi@gmail.com" class="footer-social-icon has-bg">
+              <img src="images/Icons/Email_IconImg.svg" alt="Email" width="32" height="32">
+            </a>
+            <a href="https://twitter.com/olafakomi" target="_blank" class="footer-social-icon">
+              <img src="images/Icons/TwitterX_IconImg.svg" alt="Twitter" width="32" height="32">
+            </a>
+            <a href="https://olafakomi.substack.com/" target="_blank" class="footer-social-icon">
+              <img src="images/Icons/SubstackEmail_IconImg.svg" alt="Substack" width="32" height="32">
+            </a>
+            <a href="https://linkedin.com/in/olafakomi" target="_blank" class="footer-social-icon">
+              <img src="images/Icons/LinkedInEmail_IconImg.svg" alt="LinkedIn" width="32" height="32">
+            </a>
+          </div>
+          <span class="footer-email">@Olarewajufakomi@gmail.com</span>
+          <div class="footer-cta">
+            <a href="mailto:Olarewajufakomi@gmail.com" class="footer-cta-btn">Let's talk</a>
+          </div>
         </div>
-        <span class="footer-email">@Olarewajufakomi@gmail.com</span>
-        <a href="mailto:olarewajufakomi@gmail.com" class="footer-cta">Let's talk</a>
+        <p class="footer-copyright">© 2026 — Copyright</p>
       </div>
-      <p class="footer-copy">© 2025 — Copyright</p>
     </div>
-  </footer>
+  </section>
 
   <script>
-    /* ─── Cursor ─── */
-    const cur = document.getElementById('cursor');
-    const ring = document.getElementById('cursor-ring');
-    let mx=0,my=0,rx=0,ry=0;
-    document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
-    (function tick(){
-      cur.style.cssText  = `left:${mx}px;top:${my}px`;
-      rx+=(mx-rx)*.13; ry+=(my-ry)*.13;
-      ring.style.cssText = `left:${rx}px;top:${ry}px`;
-      requestAnimationFrame(tick);
-    })();
+    /* ─── Custom Cursor ─── */
+    const cursorSvg = document.getElementById('cursor-svg');
+    document.addEventListener('mousemove', e => {
+      cursorSvg.style.left = e.clientX + 'px';
+      cursorSvg.style.top  = e.clientY + 'px';
+    });
+    /* ─── Mobile Nav ─── */
+    const navToggle = document.getElementById('navToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (navToggle && mobileMenu) {
+      navToggle.addEventListener('click', () => {
+        navToggle.classList.toggle('open');
+        mobileMenu.classList.toggle('open');
+      });
+      mobileMenu.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          navToggle.classList.remove('open');
+          mobileMenu.classList.remove('open');
+        });
+      });
+    }
+
+    /* ─── Tick sounds ─── */
+    let _audioCtx;
+    function getAudioCtx() {
+      if (!_audioCtx) _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (_audioCtx.state === 'suspended') _audioCtx.resume();
+      return _audioCtx;
+    }
+    function playTick(freq, vol, dur) {
+      const ctx = getAudioCtx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.type = 'sine'; osc.frequency.value = freq;
+      gain.gain.setValueAtTime(vol, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur);
+      osc.start(ctx.currentTime); osc.stop(ctx.currentTime + dur);
+    }
+    function playClick() {
+      const ctx = getAudioCtx();
+      const dur = 0.018;
+      const buf = ctx.createBuffer(1, Math.floor(ctx.sampleRate * dur), ctx.sampleRate);
+      const data = buf.getChannelData(0);
+      for (let i = 0; i < data.length; i++) {
+        data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / data.length, 4);
+      }
+      const src = ctx.createBufferSource();
+      src.buffer = buf;
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.value = 1800;
+      filter.Q.value = 1.0;
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.09, ctx.currentTime);
+      src.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      src.start();
+      src.stop(ctx.currentTime + dur);
+    }
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('mouseenter', () => playTick(750, 0.10, 0.055));
+    });
+
+    /* ─── Global click sound ─── */
+    document.addEventListener('click', e => {
+      if (e.target.closest('a, button')) playClick();
+    }, { passive: true });
   </script>
 </body>
 </html>

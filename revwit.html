@@ -46,64 +46,109 @@
       font-size: 15px;
       line-height: 1.7;
       overflow-x: hidden;
+      cursor: none;
     }
+
+    /* ─── Cursor ─── */
+    .cursor-svg {
+      position: fixed; pointer-events: none;
+      transform: translate(-4px, -4px);
+      z-index: 9999; width: 32px; height: 32px;
+      transition: transform 0.15s ease, width 0.2s, height 0.2s;
+    }
+    .cursor-svg img { width: 100%; height: 100%; display: block; }
+    body:has(a:hover) .cursor-svg,
+    body:has(button:hover) .cursor-svg { width: 40px; height: 40px; }
 
     /* ── NAV ─────────────────────────────────────────────── */
     nav {
-      position: sticky; top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: var(--bg);
-      padding-top: 16px;
-      padding-bottom: 12px;
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 9500; background: transparent;
+      padding-top: 20px; padding-bottom: 12px;
     }
-    .nav-inner {
-      max-width: 896px;
-      margin: 0 auto;
-      padding: 0 32px;
-      width: 100%;
-    }
+    .nav-inner { max-width: 896px; margin: 0 auto; padding: 0; }
     .nav-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: #191919;
-      border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 14px;
-      padding: 5px 5px 5px 16px;
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(25,25,25,0.65); border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 16px; padding: 5px 5px 5px 8px;
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
       box-shadow: 0 4px 24px rgba(0,0,0,0.35);
     }
-    .nav-back {
-      display: flex; align-items: center; gap: 8px;
-      font-family: 'Unbounded', sans-serif;
-      font-size: 11px; font-weight: 500;
-      color: rgba(255,255,255,0.65);
-      text-decoration: none;
-      transition: color 0.2s;
+    .nav-links { display: flex; align-items: center; gap: 0; list-style: none; margin: 0; padding: 0 8px; }
+    .nav-links a {
+      display: flex; align-items: center; gap: 4px; padding: 4px 4px;
+      font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 300;
+      letter-spacing: 0.02em; color: rgba(255,255,255,0.45);
+      text-decoration: none; border-radius: 10px;
+      transition: color 0.2s, background 0.2s;
     }
-    .nav-back:hover { color: #ffffff; }
-    .nav-back svg { width: 14px; height: 14px; }
+    .nav-links a .nav-icon {
+      display: flex; align-items: center; justify-content: center;
+      width: 0; height: 13px; overflow: hidden; opacity: 0;
+      flex-shrink: 0; transition: width 0.2s, opacity 0.2s;
+    }
+    .nav-links a .nav-icon img { width: 13px; height: 13px; flex-shrink: 0; display: block; opacity: 0.45; transition: opacity 0.2s; }
+    .nav-links li.active > a .nav-icon img,
+    .nav-links a:hover .nav-icon img { opacity: 1; }
+    .nav-links li.active > a .nav-icon,
+    .nav-links a:hover .nav-icon { width: 13px; opacity: 1; }
+    .nav-links li.active > a { color: #fff; font-weight: 300; }
+    .nav-links a:hover { color: #fff; }
     .nav-cta {
-      font-family: 'Unbounded', sans-serif;
-      font-size: 11px; font-weight: 500;
-      color: #ffffff; text-decoration: none;
       padding: 13px 22px;
-      background: linear-gradient(180deg, rgba(53,53,55,0.6) 0%, rgba(31,30,30,0.6) 100%);
-      border-radius: 10px;
-      box-shadow: 0 0 5.74px rgba(0,0,0,0.25),
-                  inset -1.4px -1.4px 0 rgba(255,255,255,0.02),
-                  inset 1.4px 1.4px 0 rgba(255,255,255,0.04);
-      transition: opacity 0.2s;
-      white-space: nowrap;
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      border: none; color: #fff; font-family: 'Unbounded', sans-serif;
+      font-size: 11px; font-weight: 300; letter-spacing: 0.02em;
+      border-radius: 12px; text-decoration: none; white-space: nowrap;
+      position: relative; overflow: hidden;
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25);
+      transition: opacity 0.2s, transform 0.2s; flex-shrink: 0;
     }
-    .nav-cta:hover { opacity: 0.85; }
+    .nav-cta::after {
+      content: ''; position: absolute; inset: 0; border-radius: 10px;
+      box-shadow: inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      pointer-events: none;
+    }
+    .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+    .nav-toggle {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .nav-toggle span {
+      display: block; width: 22px; height: 1.5px;
+      background: #f0f0f0; border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .mobile-menu { display: none; }
+    @media (max-width: 860px) {
+      .mobile-menu {
+        position: fixed; top: 72px; left: 0; right: 0;
+        background: rgba(20,20,20,0.98); backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255,255,255,0.07); z-index: 99;
+        padding: 24px 20px 32px;
+        transform: translateY(-110%);
+        transition: transform 0.35s cubic-bezier(0.32,0,0,1);
+        display: flex; flex-direction: column; gap: 4px;
+      }
+      .mobile-menu.open { transform: translateY(0); }
+    }
+    .mobile-menu a {
+      display: block; padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 300;
+      color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: #f0f0f0; }
+    .mobile-menu a:last-child { border-bottom: none; }
 
     /* ── LAYOUT ─────────────────────────────────────────── */
     .page {
       max-width: var(--max-w);
       margin: 0 auto;
-      padding: 0 32px 80px;
+      padding: 80px 32px 80px;
     }
 
     /* ── HERO ────────────────────────────────────────────── */
@@ -164,7 +209,7 @@
       display: inline-flex; align-items: center;
       padding: 4px 10px; border-radius: 999px;
       font-family: 'Unbounded', sans-serif;
-      font-size: 12px; font-weight: 500;
+      font-size: 12px; font-weight: 300;
       margin-bottom: 10px;
     }
     .pill-default {
@@ -255,7 +300,7 @@
     }
     .feature-body { padding: 22px 22px 18px; }
     .feature-num {
-      font-size: 11px; font-weight: 600;
+      font-size: 11px; font-weight: 400;
       color: var(--accent); letter-spacing: 0.06em;
       text-transform: uppercase; margin-bottom: 6px;
     }
@@ -329,7 +374,7 @@
     .back-home, .next-cs {
       display: inline-flex; align-items: center; gap: 7px;
       font-family: 'Unbounded', sans-serif;
-      font-size: 11px; font-weight: 500;
+      font-size: 11px; font-weight: 300;
       color: var(--text-dim); text-decoration: none;
       padding: 12px 20px;
       background: var(--bg-card);
@@ -357,12 +402,12 @@
     .footer-top { display: flex; gap: 9px; align-items: flex-start; }
     .footer-headline {
       flex: 1; font-family: 'Unbounded', sans-serif;
-      font-size: 48px; font-weight: 400; letter-spacing: -0.04em;
+      font-size: 48px; font-weight: 300; letter-spacing: -0.04em;
       line-height: 0.9; color: #fff; mix-blend-mode: overlay; white-space: pre-wrap;
     }
     .footer-nav-links { flex: 1; display: flex; flex-direction: column; gap: 12px; }
     .footer-nav-links a {
-      font-family: 'Unbounded', sans-serif; font-size: 16px; font-weight: 400;
+      font-family: 'Unbounded', sans-serif; font-size: 16px; font-weight: 300;
       color: #fff; mix-blend-mode: overlay; text-decoration: none;
       line-height: 0.9; transition: opacity 0.2s;
     }
@@ -394,7 +439,7 @@
     .footer-social-icon img { display: block; }
     .footer-email {
       position: absolute; left: 50%; transform: translateX(-50%);
-      font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 400;
+      font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 300;
       color: #dadada; white-space: nowrap; line-height: 0.9;
     }
     .footer-cta { display: flex; align-items: center; justify-content: flex-end; flex: 1; }
@@ -404,11 +449,11 @@
       box-shadow: 0 0 5.74px rgba(0,0,0,0.25),
                   inset -1.4px -1.4px 0 rgba(255,255,255,0.02),
                   inset 1.4px 1.4px 0 rgba(255,255,255,0.04);
-      font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 400;
+      font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 300;
       color: #fff; text-decoration: none; white-space: nowrap;
     }
     .footer-copyright {
-      font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 400;
+      font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 300;
       color: #fff; mix-blend-mode: overlay; text-align: center;
       line-height: 0.9; padding-bottom: 60px;
     }
@@ -424,18 +469,33 @@
 </head>
 <body>
 
-  <!-- NAV -->
+  <div class="cursor-svg" id="cursor-svg"><img src="images/Icons/Icon_Cursor.svg" alt="" /></div>
+
+  <!-- ─── NAV ─── -->
   <nav>
     <div class="nav-inner">
       <div class="nav-bar">
-        <a href="index.html" class="nav-back">
-          <svg viewBox="0 0 14 14" fill="none"><path d="M9 2.5L5 7l4 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Back
-        </a>
-        <a href="mailto:Olarewajufakomi@gmail.com" class="nav-cta">Let's talk</a>
+        <ul class="nav-links">
+          <li><a href="index.html"><span class="nav-icon"><img src="images/Icons/navIcon_Home.svg" alt="" /></span>Home</a></li>
+          <li><a href="ux-projects.html"><span class="nav-icon"><img src="images/Icons/navIcon_UXProjects.svg" alt="" /></span>UX Projects</a></li>
+          <li><a href="graphics.html"><span class="nav-icon"><img src="images/Icons/navIcon_Graphics.svg" alt="" /></span>Graphics</a></li>
+          <li><a href="blog.html"><span class="nav-icon"><img src="images/Icons/navIcon_Blog.svg" alt="" /></span>Blogs</a></li>
+          <li><a href="about.html"><span class="nav-icon"><img src="images/Icons/navIcon_About.svg" alt="" /></span>About</a></li>
+        </ul>
+        <a href="mailto:olarewajufakomi@gmail.com" class="nav-cta">Let's talk</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </div>
   </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="ux-projects.html">UX Projects</a>
+    <a href="graphics.html">Graphics</a>
+    <a href="blog.html">Blogs</a>
+    <a href="about.html">About</a>
+  </div>
 
   <div class="page">
 
@@ -827,10 +887,11 @@
       <div class="footer-top">
         <div class="footer-headline">Get in&#10;touch now...</div>
         <div class="footer-nav-links">
-          <a href="index.html#home">Home</a>
-          <a href="index.html#work">Work</a>
-          <a href="index.html#clients">Clients</a>
-          <a href="index.html#about">About</a>
+          <a href="index.html">Home</a>
+          <a href="ux-projects.html">UX Projects</a>
+          <a href="graphics.html">Graphics</a>
+          <a href="blog.html">Blogs</a>
+          <a href="about.html">About</a>
         </div>
         <div class="footer-avatar">
           <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi">
@@ -862,5 +923,77 @@
     </div>
   </section>
 
+  <script>
+    /* ─── Custom Cursor ─── */
+    const cursorSvg = document.getElementById('cursor-svg');
+    document.addEventListener('mousemove', e => {
+      cursorSvg.style.left = e.clientX + 'px';
+      cursorSvg.style.top  = e.clientY + 'px';
+    });
+
+    /* ─── Mobile Nav ─── */
+    const navToggle = document.getElementById('navToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (navToggle && mobileMenu) {
+      navToggle.addEventListener('click', () => {
+        navToggle.classList.toggle('open');
+        mobileMenu.classList.toggle('open');
+      });
+      mobileMenu.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          navToggle.classList.remove('open');
+          mobileMenu.classList.remove('open');
+        });
+      });
+    }
+
+    /* ─── Tick sounds ─── */
+    let _audioCtx;
+    function getAudioCtx() {
+      if (!_audioCtx) _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (_audioCtx.state === 'suspended') _audioCtx.resume();
+      return _audioCtx;
+    }
+    function playTick(freq, vol, dur) {
+      const ctx = getAudioCtx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.type = 'sine'; osc.frequency.value = freq;
+      gain.gain.setValueAtTime(vol, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur);
+      osc.start(ctx.currentTime); osc.stop(ctx.currentTime + dur);
+    }
+    function playClick() {
+      const ctx = getAudioCtx();
+      const dur = 0.018;
+      const buf = ctx.createBuffer(1, Math.floor(ctx.sampleRate * dur), ctx.sampleRate);
+      const data = buf.getChannelData(0);
+      for (let i = 0; i < data.length; i++) {
+        data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / data.length, 4);
+      }
+      const src = ctx.createBufferSource();
+      src.buffer = buf;
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.value = 1800;
+      filter.Q.value = 1.0;
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.09, ctx.currentTime);
+      src.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      src.start();
+      src.stop(ctx.currentTime + dur);
+    }
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('mouseenter', () => playTick(750, 0.10, 0.055));
+    });
+
+    /* ─── Global click sound ─── */
+    document.addEventListener('click', e => {
+      if (e.target.closest('a, button')) playClick();
+    }, { passive: true });
+  </script>
 </body>
 </html>
