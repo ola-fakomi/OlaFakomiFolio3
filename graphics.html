@@ -233,6 +233,27 @@
     .mobile-menu a:hover { color: var(--text); }
     .mobile-menu a:last-child { border-bottom: none; }
 
+    /* ─── SVG frame wiggle animations ─── */
+    @keyframes svgFloat {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-5px); }
+    }
+    @keyframes svgWiggle {
+      0%, 100% { transform: rotate(0deg) translateY(0px); }
+      25%       { transform: rotate(0.8deg) translateY(-2px); }
+      75%       { transform: rotate(-0.8deg) translateY(-1px); }
+    }
+    .svg-float, .svg-wiggle {
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+    .vd-hero-frame:hover .svg-float {
+      animation: svgFloat 2.2s ease-in-out infinite;
+    }
+    .vd-hero-frame:hover .svg-wiggle {
+      animation: svgWiggle 1.8s ease-in-out infinite;
+    }
+
     /* ─── HERO ──────────────────────────────────────────────── */
     #home {
       padding-top: calc(var(--nav-h) + 40px);
@@ -1200,6 +1221,47 @@
           if(img.complete && img.naturalWidth > 0) done();
           else { img.addEventListener('load',done,{once:true}); img.addEventListener('error',done,{once:true}); }
         }
+      });
+    })();
+
+    /* ─── Inline Deck SVGs for hover animation ─── */
+    (function() {
+      const frames = document.querySelectorAll('.vd-hero-frame img[src*="images/Decks/"]');
+      frames.forEach((img, idx) => {
+        fetch(img.src)
+          .then(r => r.text())
+          .then(raw => {
+            // Prefix all IDs to avoid cross-SVG conflicts
+            const p = 'dk' + idx + '_';
+            const prefixed = raw
+              .replace(/\bid="([^"]+)"/g, `id="${p}$1"`)
+              .replace(/url\(#([^)]+)\)/g, `url(#${p}$1)`)
+              .replace(/href="#([^"]+)"/g, `href="#${p}$1"`)
+              .replace(/xlink:href="#([^"]+)"/g, `xlink:href="#${p}$1"`)
+              .replace(/ mask="url\(#([^)]+)\)"/g, ` mask="url(#${p}$1)"`);
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(prefixed, 'image/svg+xml');
+            const svg = doc.querySelector('svg');
+            if (!svg) return;
+            svg.setAttribute('width', '100%');
+            svg.setAttribute('height', '100%');
+            svg.style.display = 'block';
+
+            // Mark animatable child groups with staggered delays
+            const outerG = svg.querySelector(':scope > g');
+            if (outerG) {
+              const children = Array.from(outerG.children).filter(el =>
+                el.tagName === 'g' && !el.querySelector('clipPath') && el.tagName !== 'defs'
+              );
+              children.forEach((el, i) => {
+                el.classList.add(i % 2 === 0 ? 'svg-float' : 'svg-wiggle');
+                el.style.animationDelay = (i * 0.14).toFixed(2) + 's';
+              });
+            }
+
+            img.replaceWith(svg);
+          })
+          .catch(() => {}); // keep img if fetch fails
       });
     })();
 
