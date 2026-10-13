@@ -1,0 +1,1135 @@
+;<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V1S9EH9HZ5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-V1S9EH9HZ5');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ola Fakomi — Storyboard & Styleframe · Visual Design</title>
+  <meta name="description" content="Ola Fakomi — Visual Designer specializing in storyboard-to-styleframe pipelines for motion and video production. 5+ years experience with Engorgio, CXT, Migranium, Revwit, Raven, and Efata." />
+  <link rel="icon" type="image/png" href="images/hero/OlaAvatar_Img.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://olafakomi.com/graphics" />
+  <meta property="og:title" content="Ola Fakomi — Storyboard & Styleframe · Visual Design" />
+  <meta property="og:description" content="Storyboard-to-styleframe pipelines for motion and video production." />
+  <meta property="og:image" content="https://olafakomi.com/images/OG_image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ola Fakomi — Storyboard & Styleframe · Visual Design" />
+  <meta name="twitter:description" content="Storyboard-to-styleframe pipelines for motion and video production." />
+  <meta name="twitter:image" content="https://olafakomi.com/images/OG_image.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Reset ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #191919;
+      --bg-card:   #1f1f1f;
+      --bg-glass:  rgba(25,25,25,0.72);
+      --blue:      #4837f3;
+      --blue-deep: #291f8d;
+      --red:       #ff7974;
+      --muted:     #7581a6;
+      --text:      #f0f0f0;
+      --text-dim:  #9a9aaa;
+      --border:    rgba(255,255,255,0.07);
+      --border-hi: rgba(255,255,255,0.12);
+      --r-sm:      8px;
+      --r-md:      16px;
+      --r-lg:      24px;
+      --nav-h:     72px;
+      --max-w:     1200px;
+      --content-w: 840px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Unbounded', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+
+    }
+
+    /* ─── Noise Overlay ─────────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 9000;
+    }
+
+    @media (pointer: fine) { body { cursor: none; } }
+    @media (pointer: coarse) { .cursor, .cursor-ring { display: none; } }
+
+    /* ─── Custom Cursor ─────────────────────────────────────── */
+    .cursor {
+      position: fixed;
+      width: 10px; height: 10px;
+      background: var(--blue);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease, width 0.25s ease, height 0.25s ease, background 0.25s ease;
+      mix-blend-mode: screen;
+    }
+    .cursor-ring {
+      position: fixed;
+      width: 36px; height: 36px;
+      border: 1.5px solid rgba(72,55,243,0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s, border-color 0.3s;
+    }
+    body:has(a:hover) .cursor-ring,
+    body:has(button:hover) .cursor-ring { width: 52px; height: 52px; border-color: var(--red); }
+    body:has(a:hover) .cursor { background: var(--red); }
+
+    /* ─── Utility ───────────────────────────────────────────── */
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 40px; }
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ─── NAV ───────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 9500;
+      background: var(--bg);
+      padding-top: 20px;
+      padding-bottom: 12px;
+    }
+    .nav-inner {
+      max-width: 896px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #191919;
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 14px;
+      padding: 5px 5px 5px 8px;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+    }
+    .nav-logo {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .nav-right {
+      display: flex; align-items: center; gap: 4px;
+    }
+    .nav-back {
+      display: flex; align-items: center; gap: 6px;
+      padding: 8px 12px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 10px; font-weight: 400;
+      letter-spacing: 0.02em;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      border-radius: 10px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-back:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+    .nav-cta {
+      display: inline-flex; align-items: center;
+      padding: 13px 22px;
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      border: none;
+      color: #fff;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.02em;
+      border-radius: 10px;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25);
+      transition: opacity 0.2s, transform 0.2s;
+      flex-shrink: 0;
+    }
+    .nav-cta::after {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 10px;
+      box-shadow: inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      pointer-events: none;
+    }
+    .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    /* ─── HERO ──────────────────────────────────────────────── */
+    #home {
+      padding-top: calc(var(--nav-h) + 40px);
+      padding-bottom: 72px;
+      background: var(--bg);
+    }
+    .vd-hero {
+      max-width: 832px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    /* Top row: avatar + CV button */
+    .vd-hero-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .vd-hero-avatar {
+      width: 64px; height: 64px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #4837f3 0%, #2a208d 100%);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 6.56px rgba(0,0,0,0.25);
+      flex-shrink: 0;
+    }
+    .vd-hero-avatar::after {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 16px;
+      box-shadow: inset -2.4px -2.4px 0 rgba(0,0,0,0.14), inset 2.4px 2.4px 0 rgba(0,0,0,0.08);
+      pointer-events: none;
+    }
+    .vd-hero-avatar img {
+      position: absolute;
+      top: -1.6px; left: -3.2px;
+      width: calc(100% + 6.4px);
+      height: calc(100% + 3.2px);
+      object-fit: cover;
+      mix-blend-mode: lighten;
+    }
+    .vd-cv-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 40px;
+      padding: 0 16px;
+      background: #1d1d1d;
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 10px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px; font-weight: 400;
+      color: #dadada;
+      letter-spacing: 0.13px;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .vd-cv-btn img { display: block; width: 16px; height: 16px; object-fit: contain; }
+    .vd-cv-btn:hover { opacity: 0.8; transform: translateY(-1px); }
+    /* Pre-text */
+    .vd-hero-pre {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 16px; font-weight: 300;
+      color: #ababab;
+      letter-spacing: 0.16px;
+      line-height: 1.4;
+    }
+    /* Big headline */
+    .vd-hero-headline {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      color: #fff;
+      text-transform: uppercase;
+    }
+    .vd-hero-headline-dim {
+      color: #7581a6;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 6px;
+    }
+    /* Three preview frames */
+    .vd-hero-frames {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+    .vd-hero-frame {
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 16/10;
+      position: relative;
+    }
+    .vd-hero-frame img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    .vd-hero-frame--mint { background: none; }
+    .vd-hero-frame--dark { background: none; }
+    .vd-hero-frame--navy { background: none; }
+    .vd-frame-ph {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      padding: 16px;
+    }
+    .vd-frame-ph span {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 8px; font-weight: 400;
+      color: rgba(0,0,0,0.25);
+      text-align: center; line-height: 1.6; letter-spacing: 0.04em;
+    }
+    .vd-hero-frame--dark .vd-frame-ph span,
+    .vd-hero-frame--navy .vd-frame-ph span { color: rgba(255,255,255,0.2); }
+    /* Body text */
+    .vd-hero-body {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 16px; font-weight: 300;
+      color: #ababab;
+      letter-spacing: 0.16px;
+      line-height: 1.6;
+    }
+    .vd-hero-accent { color: #ff7772; font-weight: 500; }
+    /* Gradient divider */
+    .vd-hero-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, #4837f3 30%, #ff7974 70%, transparent 100%);
+    }
+
+    .mob-br { display: none; }
+
+    /* ─── POSITIONING STRIP ─────────────────────────────────── */
+    .positioning {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 56px 0;
+    }
+    .positioning p {
+      max-width: var(--content-w);
+      margin: 0 auto;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px; font-weight: 300;
+      line-height: 1.9;
+      color: var(--text-dim);
+    }
+    .positioning p strong { color: var(--text); font-weight: 500; }
+
+    /* ─── SECTION LABEL ─────────────────────────────────────── */
+    .section-label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 10px; font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+      text-align: center;
+      width: 100%;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 20px; height: 2px;
+      background: var(--blue);
+    }
+
+    /* ─── WORK / CASE STUDIES ───────────────────────────────── */
+    .work { padding: 100px 0; }
+
+    .cs {
+      padding-bottom: 96px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 96px;
+    }
+    .cs:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+    .cs-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .cs-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      line-height: 1.6;
+      color: var(--text);
+      text-transform: uppercase;
+    }
+    .cs-title-accent {
+      color: #7581a6;
+      font-weight: 400;
+    }
+
+    /* Sequence grids */
+    .seq { display: grid; gap: 8px; }
+    .seq--2  { grid-template-columns: 1fr 1fr; }
+    .seq--3  { grid-template-columns: 1fr 1fr 1fr; }
+    .seq--4  { grid-template-columns: repeat(4, 1fr); }
+    .seq--main-side { grid-template-columns: 1.6fr 1fr; }
+    .seq-gap { margin-bottom: 8px; }
+
+    .frame {
+      background: var(--bg-card);
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+    .frame img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .frame video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .frame--wide { aspect-ratio: 16/9; }
+    .frame--tall { aspect-ratio: 4/3; }
+    .frame--sq   { aspect-ratio: 1; }
+    .frame-badge {
+      position: absolute;
+      bottom: 10px; left: 10px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 8.5px; font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 4px 9px;
+      border-radius: 6px;
+    }
+
+    /* Video row — large frame spanning half width */
+    .cs-video-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .frame--video-large {
+      grid-column: 2 / span 2;
+      aspect-ratio: 16/9;
+    }
+
+    /* Placeholder slot for missing images */
+    .slot {
+      width: 100%;
+      border: 1.5px dashed rgba(255,255,255,0.09);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px 20px;
+    }
+    .slot span {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 9px; font-weight: 400;
+      color: rgba(255,255,255,0.16);
+      text-align: center;
+      line-height: 1.7;
+      letter-spacing: 0.04em;
+    }
+    .slot--wide { aspect-ratio: 16/9; }
+    .slot--tall { aspect-ratio: 4/3; }
+    .slot--frame { aspect-ratio: 16/9; }
+
+    /* ─── FREELANCE MINI-GRID ───────────────────────────────── */
+    .freelance-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 40px;
+    }
+    .fl-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .fl-card-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: #222;
+    }
+    .fl-card-img img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform 0.45s;
+    }
+    .fl-card:hover .fl-card-img img { transform: scale(1.04); }
+    .fl-card-body { padding: 20px 22px 24px; }
+    .fl-client {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      margin-bottom: 5px;
+    }
+    .fl-role {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 9px; font-weight: 300;
+      letter-spacing: 0.04em;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    /* ─── SKILLS STRIP ──────────────────────────────────────── */
+    .skills {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+    .skills-row {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      margin-top: 32px;
+      max-width: var(--content-w);
+    }
+    .skill {
+      display: inline-flex; align-items: center;
+      padding: 10px 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border-hi);
+      border-radius: 100px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 9.5px; font-weight: 400;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.72);
+    }
+
+    /* ─── SECONDARY WORK ────────────────────────────────────── */
+    .secondary {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+    .secondary-block {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      padding: 36px 40px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      max-width: var(--content-w);
+    }
+    .secondary-label {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .secondary-body {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 11px; font-weight: 300;
+      line-height: 1.8;
+      color: var(--text-dim);
+      max-width: 400px;
+    }
+    .secondary-body strong { color: var(--text); font-weight: 500; }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 22px;
+      background: transparent;
+      border: 1px solid var(--border-hi);
+      color: var(--text-dim);
+      font-family: 'Unbounded', sans-serif;
+      font-size: 9.5px; font-weight: 500;
+      letter-spacing: 0.04em;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.06); color: var(--text); }
+
+    /* ─── FOOTER ────────────────────────────────────────────── */
+    #contact {
+      background: url('images/footer/Footer Background.webp') center center / cover no-repeat;
+      padding: 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .footer-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 56px;
+      padding: 40px 0 0;
+      max-width: 832px;
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: flex;
+      gap: 9px;
+      align-items: flex-start;
+    }
+    .footer-headline {
+      flex: 1;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 48px;
+      font-weight: 400;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      color: #fff;
+      mix-blend-mode: overlay;
+      white-space: pre-wrap;
+    }
+    .footer-nav-links {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .footer-nav-links a {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      color: #fff;
+      mix-blend-mode: overlay;
+      text-decoration: none;
+      line-height: 0.9;
+      transition: opacity 0.2s;
+    }
+    .footer-nav-links a:hover { opacity: 0.7; }
+    .footer-avatar {
+      width: 40px; height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #2a208d 0%, #4837f3 100%);
+      box-shadow: 0 0 4.92px rgba(0,0,0,0.25), inset -1.8px -1.8px 0 rgba(0,0,0,0.14), inset 1.8px 1.8px 0 rgba(0,0,0,0.08);
+      overflow: hidden;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .footer-avatar img {
+      position: absolute;
+      left: -2.4px; top: -1.2px;
+      width: 55.2px; height: 55.2px;
+      object-fit: cover;
+      mix-blend-mode: lighten;
+    }
+    .footer-bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .footer-contact-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      padding: 4px;
+      background: #191919;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+    }
+    .footer-social-icons {
+      display: flex;
+      align-items: center;
+    }
+    .footer-social-icon {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .footer-social-icon.has-bg {
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      border-radius: 10px;
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25), inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+    }
+    .footer-social-icon img { display: block; }
+    .footer-email {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: #dadada;
+      white-space: nowrap;
+      line-height: 0.9;
+    }
+    .footer-cta {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex: 1;
+    }
+    .footer-cta-btn {
+      height: 36px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      border-radius: 10px;
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25), inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      font-family: 'Unbounded', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      color: #fff;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .footer-copyright {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: #fff;
+      mix-blend-mode: overlay;
+      text-align: center;
+      line-height: 0.9;
+      padding-bottom: 60px;
+    }
+
+    /* ─── ADDED VISUALS GRID ────────────────────────────────── */
+    .added-visuals {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+    .av-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 32px;
+    }
+    .av-cell {
+      aspect-ratio: 4/3;
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--bg-card);
+      position: relative;
+      border: 1.5px dashed rgba(255,255,255,0.09);
+    }
+    .av-cell img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    .av-cell-ph {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .av-cell-ph span {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 8px; font-weight: 400;
+      color: rgba(255,255,255,0.16);
+      text-align: center; line-height: 1.6; letter-spacing: 0.04em;
+    }
+
+    /* ─── RESPONSIVE ────────────────────────────────────────── */
+    @media (max-width: 960px) {
+      .seq--3 { grid-template-columns: 1fr 1fr; }
+      .seq--4 { grid-template-columns: 1fr 1fr; }
+      .seq--main-side { grid-template-columns: 1fr; }
+      .secondary-block { flex-direction: column; align-items: flex-start; }
+      .av-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .container { padding: 0 20px; }
+      .mob-br { display: block; }
+      .vd-hero-headline { font-size: 20px; line-height: 1.2; }
+      .vd-hero-pre, .vd-hero-body { font-size: 14px; }
+      .seq--2, .seq--3 { grid-template-columns: 1fr; }
+      .seq--4 { grid-template-columns: 1fr 1fr; }
+      .cs-video-row { grid-template-columns: 1fr; }
+      .frame--video-large { grid-column: 1 / -1; }
+      .vd-hero-frames { grid-template-columns: 1fr 1fr; }
+      .vd-hero-frame:last-child { display: none; }
+      .secondary-block { padding: 28px 24px; }
+      .footer-headline { font-size: 32px; }
+      .footer-email { display: none; }
+      .av-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ─── Skeleton Loading ──────────────────────────────────── */
+    @keyframes sk-shimmer {
+      0%   { background-position: -200% 0; }
+      100% { background-position:  200% 0; }
+    }
+    .frame { position: relative; }
+    .frame::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.05) 50%, transparent 100%);
+      background-size: 200% 100%;
+      animation: sk-shimmer 1.4s ease-in-out infinite;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+      border-radius: inherit;
+    }
+    .frame.sk-loaded::before { opacity: 0; }
+
+  </style>
+</head>
+<body>
+
+  <!-- Custom cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- ─── NAV ─────────────────────────────────────────────── -->
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-bar">
+        <a href="/" class="nav-back">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M8 2L4 6L8 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Portfolio
+        </a>
+        <a href="mailto:olarewajufakomi@gmail.com" class="nav-cta">Let's talk</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ─────────────────────────────────────────────── -->
+  <section id="home">
+    <div class="container">
+      <div class="vd-hero reveal">
+
+        <!-- Avatar + Download CV -->
+        <div class="vd-hero-top">
+          <div class="vd-hero-avatar">
+            <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi">
+          </div>
+          <a href="https://drive.google.com/file/d/14Zw7PaUDkt0MyB2YxcYqAMVVKrJ1m_Oc/view?usp=sharing" target="_blank" rel="noopener" class="vd-cv-btn">
+            <img src="images/Icons/CV_IconImage.svg" alt="">
+            Design CV
+          </a>
+        </div>
+
+        <!-- Pre-text -->
+        <p class="vd-hero-pre">Beyond building products I help...</p>
+
+        <!-- Headline -->
+        <h1 class="vd-hero-headline">Products scale<br class="mob-br"> with compelling<br>visual <span class="vd-hero-headline-dim">Storyboards</span></h1>
+
+        <!-- Three storyboard preview frames -->
+        <div class="vd-hero-frames">
+          <div class="vd-hero-frame vd-hero-frame--mint">
+            <img src="Storyboard%20Images/Cover%20Images%20/Revwit_image.png" alt="Revwit storyboard styleframe">
+          </div>
+          <div class="vd-hero-frame vd-hero-frame--dark">
+            <img src="Storyboard%20Images/Cover%20Images%20/Kolme_image.png" alt="Kolme storyboard styleframe">
+          </div>
+          <div class="vd-hero-frame vd-hero-frame--navy">
+            <img src="Storyboard%20Images/Cover%20Images%20/Migranium_image.png" alt="Migranium storyboard styleframe">
+          </div>
+        </div>
+
+        <!-- Bio text -->
+        <p class="vd-hero-body">I'm Ola Fakomi and my background spans product and brand design, but my focus is often on motion and video visual development, with <span class="vd-hero-accent">9+ projects delivered</span> across 7+ companies.</p>
+
+        <!-- Gradient divider -->
+        <div class="vd-hero-divider"></div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CASE STUDIES ─────────────────────────────────────── -->
+  <section class="work" id="work">
+    <div class="container">
+
+      <span class="section-label reveal">Selected Work</span>
+
+      <!-- ═══════════════════════════════════════════════
+           CXT
+           ═══════════════════════════════════════════════ -->
+      <div class="cs reveal">
+        <div class="cs-header">
+          <h2 class="cs-title">MOE <span class="cs-title-accent">- CXT Agency</span></h2>
+        </div>
+
+        <div class="seq seq--4 seq-gap">
+          <div class="frame frame--wide">
+            <img src="Storyboard%20Images/Moe/Frame%202147257198.png" alt="Moe storyboard panel 1" loading="lazy">
+            <span class="frame-badge">Storyboard</span>
+          </div>
+          <div class="frame frame--wide">
+            <img src="Storyboard%20Images/Moe/Frame%202147257221.png" alt="Moe storyboard panel 2" loading="lazy">
+            <span class="frame-badge">Storyboard</span>
+          </div>
+          <div class="frame frame--wide">
+            <img src="Storyboard%20Images/Moe/Frame%202147257237.png" alt="Moe storyboard panel 3" loading="lazy">
+            <span class="frame-badge">Storyboard</span>
+          </div>
+          <div class="frame frame--wide">
+            <img src="Storyboard%20Images/Moe/Frame%202147257275.png" alt="Moe storyboard panel 4" loading="lazy">
+            <span class="frame-badge">Storyboard</span>
+          </div>
+        </div>
+        <div class="cs-video-row">
+          <div class="frame frame--video-large">
+            <video src="Storyboard%20Videos/CXT.mp4" autoplay muted loop playsinline></video>
+            <span class="frame-badge">Video</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════
+           PROXIDIZE
+           ═══════════════════════════════════════════════ -->
+      <div class="cs reveal" id="proxidize">
+        <div class="cs-header">
+          <h2 class="cs-title">Proxidize <span class="cs-title-accent">- Fintech Storyboard</span></h2>
+        </div>
+
+        <div class="seq seq--4 seq-gap">
+          <div class="frame frame--wide">
+            <img src="Storyboard%20Images/Proxidize/Proxidize.png" alt="Proxidize storyboard panel 1" loading="lazy">
+            <span class="frame-badge">Storyboard</span>
+          </div>
+          <div class="frame frame--wide">
+            <img src="Storyboard%20Images/Proxidize/Proxidize-1.png" alt="Proxidize storyboard panel 2" loading="lazy">
+            <span class="frame-badge">Storyboard</span>
+          </div>
+          <div class="frame frame--wide">
+            <img src="Storyboard%20Images/Proxidize/Proxidize-2.png" alt="Proxidize storyboard panel 3" loading="lazy">
+            <span class="frame-badge">Storyboard</span>
+          </div>
+          <div class="frame frame--wide">
+            <img src="Storyboard%20Images/Proxidize/Proxidize-3.png" alt="Proxidize storyboard panel 4" loading="lazy">
+            <span class="frame-badge">Storyboard</span>
+          </div>
+        </div>
+        <div class="cs-video-row">
+          <div class="frame frame--video-large">
+            <video src="Storyboard%20Videos/PROXIDIZE.mp4" autoplay muted loop playsinline></video>
+            <span class="frame-badge">Video</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════
+           DEXA
+           ═══════════════════════════════════════════════ -->
+      <div class="cs reveal" id="dexa">
+        <div class="cs-header">
+          <h2 class="cs-title">Dexa <span class="cs-title-accent">- Tax App Storyboard</span></h2>
+        </div>
+
+        <div class="seq seq--4 seq-gap">
+          <div class="frame frame--wide">
+            <img src="Storyboard%20Images/Dexa/02%20Dexa.png" alt="Dexa storyboard panel 1" loading="lazy">
+            <span class="frame-badge">Storyboard</span>
+          </div>
+          <div class="frame frame--wide">
+            <img src="Storyboard%20Images/Dexa/14%20Dexa.png" alt="Dexa storyboard panel 2" loading="lazy">
+            <span class="frame-badge">Storyboard</span>
+          </div>
+          <div class="frame frame--wide">
+            <img src="Storyboard%20Images/Dexa/21%20Dexa.png" alt="Dexa storyboard panel 3" loading="lazy">
+            <span class="frame-badge">Storyboard</span>
+          </div>
+          <div class="frame frame--wide">
+            <img src="Storyboard%20Images/Dexa/41%20Dexa.png" alt="Dexa storyboard panel 4" loading="lazy">
+            <span class="frame-badge">Storyboard</span>
+          </div>
+        </div>
+        <div class="cs-video-row">
+          <div class="frame frame--video-large">
+            <video src="Storyboard%20Videos/DEXA.mp4" autoplay muted loop playsinline></video>
+            <span class="frame-badge">Video</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════
+           ZYNTHA
+           ═══════════════════════════════════════════════ -->
+      <div class="cs reveal" id="zyntha">
+        <div class="cs-header">
+          <h2 class="cs-title">Zyntha <span class="cs-title-accent">- Brand Storyboard</span></h2>
+        </div>
+
+        <div class="seq seq--4 seq-gap">
+          <div class="frame frame--wide">
+            <img src="Storyboard%20Images/Zyntha/Zynta_1.png" alt="Zyntha storyboard panel 1" loading="lazy">
+            <span class="frame-badge">Storyboard</span>
+          </div>
+          <div class="frame frame--wide">
+            <img src="Storyboard%20Images/Zyntha/Zynta_4-1.png" alt="Zyntha storyboard panel 2" loading="lazy">
+            <span class="frame-badge">Storyboard</span>
+          </div>
+          <div class="frame frame--wide">
+            <img src="Storyboard%20Images/Zyntha/Zynta_4.png" alt="Zyntha storyboard panel 3" loading="lazy">
+            <span class="frame-badge">Storyboard</span>
+          </div>
+          <div class="frame frame--wide">
+            <img src="Storyboard%20Images/Zyntha/Screenshot%202026-04-18%20at%2018.12.26%201.png" alt="Zyntha storyboard panel 4" loading="lazy">
+            <span class="frame-badge">Storyboard</span>
+          </div>
+        </div>
+        <div class="cs-video-row">
+          <div class="frame frame--video-large">
+            <video src="Storyboard%20Videos/ZYNTA.mp4" autoplay muted loop playsinline></video>
+            <span class="frame-badge">Video</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /container -->
+  </section>
+
+  <!-- ─── ADDED VISUALS ─────────────────────────────────────── -->
+  <div class="added-visuals">
+    <div class="container">
+      <span class="section-label reveal">Added Visuals</span>
+      <div class="av-grid reveal">
+        <!-- AITV -->
+        <div class="av-cell"><img src="Storyboard%20Images/AITV/25_TV.png" alt="AITV 1" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/AITV/26_TV.png" alt="AITV 2" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/AITV/45_TV.png" alt="AITV 3" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/AITV/55_TV.png" alt="AITV 4" loading="lazy"></div>
+        <!-- CXT -->
+        <div class="av-cell"><img src="Storyboard%20Images/CXT/01.png" alt="CXT 1" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/CXT/3565-1.png" alt="CXT 2" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/CXT/3565.png" alt="CXT 3" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/CXT/3569.png" alt="CXT 4" loading="lazy"></div>
+        <!-- Efata -->
+        <div class="av-cell"><img src="Storyboard%20Images/Efata/01.png" alt="Efata 1" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/Efata/05.png" alt="Efata 2" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/Efata/29.png" alt="Efata 3" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/Efata/48.png" alt="Efata 4" loading="lazy"></div>
+        <!-- Raven -->
+        <div class="av-cell"><img src="Storyboard%20Images/Raven/126.png" alt="Raven 1" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/Raven/131.png" alt="Raven 2" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/Raven/137.png" alt="Raven 3" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/Raven/252.png" alt="Raven 4" loading="lazy"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── FOOTER ────────────────────────────────────────────── -->
+  <section id="contact">
+    <div class="container">
+      <div class="footer-inner reveal">
+
+        <!-- Top row -->
+        <div class="footer-top">
+          <div class="footer-headline">Get in&#10;touch now...</div>
+          <div class="footer-nav-links">
+            <a href="/">Home</a>
+            <a href="#work">Work</a>
+            <a href="/#clients">Clients</a>
+            <a href="/#about">About</a>
+          </div>
+          <div class="footer-avatar">
+            <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi" loading="lazy">
+          </div>
+        </div>
+
+        <!-- Bottom bar -->
+        <div class="footer-bottom">
+          <div class="footer-contact-bar">
+            <div class="footer-social-icons">
+              <a href="mailto:Olarewajufakomi@gmail.com" class="footer-social-icon has-bg">
+                <img src="images/Icons/Email_IconImg.svg" alt="Email" width="32" height="32">
+              </a>
+              <a href="https://twitter.com/olafakomi" target="_blank" class="footer-social-icon">
+                <img src="images/Icons/TwitterX_IconImg.svg" alt="Twitter" width="32" height="32">
+              </a>
+              <a href="https://olafakomi.substack.com/" target="_blank" class="footer-social-icon">
+                <img src="images/Icons/SubstackEmail_IconImg.svg" alt="Substack" width="32" height="32">
+              </a>
+              <a href="https://linkedin.com/in/olafakomi" target="_blank" class="footer-social-icon">
+                <img src="images/Icons/LinkedInEmail_IconImg.svg" alt="LinkedIn" width="32" height="32">
+              </a>
+            </div>
+            <span class="footer-email">Olarewajufakomi@gmail.com</span>
+            <div class="footer-cta">
+              <a href="mailto:Olarewajufakomi@gmail.com" class="footer-cta-btn">Let's talk</a>
+            </div>
+          </div>
+          <p class="footer-copyright">© 2026 — Copyright</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── JS ───────────────────────────────────────────────── -->
+  <script>
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    const ring   = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top  = my + 'px';
+    });
+
+    function animateRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    document.addEventListener('mouseleave', () => {
+      cursor.style.opacity = '0'; ring.style.opacity = '0';
+    });
+    document.addEventListener('mouseenter', () => {
+      cursor.style.opacity = '1'; ring.style.opacity = '1';
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
+
+    // ── Skeleton loader ──────────────────────────────────────
+    (function(){
+      document.querySelectorAll('.frame').forEach(function(w){
+        var img = w.querySelector('img'), vid = w.querySelector('video');
+        var done = function(){ w.classList.add('sk-loaded'); };
+        if(vid){
+          if(vid.readyState >= 3) done();
+          else { vid.addEventListener('canplay',done,{once:true}); vid.addEventListener('error',done,{once:true}); }
+        } else if(img){
+          if(img.complete && img.naturalWidth > 0) done();
+          else { img.addEventListener('load',done,{once:true}); img.addEventListener('error',done,{once:true}); }
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
