@@ -64,7 +64,6 @@
       font-size: 16px;
       font-weight: 300;
       line-height: 1.6;
-      overflow-x: hidden;
       cursor: none;
     }
 
@@ -1002,6 +1001,70 @@
       .footer-contact-bar { flex-direction: row; padding: 4px; }
       .footer-email { display: none; }
     }
+
+    /* ─── INTRO ANIMATION (new classes only — nothing below overrides existing styles) ─── */
+    html.intro-locked,
+    html.intro-locked body { overflow: hidden; }
+
+    #intro {
+      position: relative;
+      height: 110vh;
+      background: var(--bg);
+    }
+
+    .intro-stage {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .intro-item {
+      position: absolute;
+      left: 0; top: 0;
+      will-change: transform;
+      user-select: none;
+    }
+
+    /* "hello" wordmark — CSS text, no image needed */
+    .intro-hello {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 26vw;
+      font-weight: 800;
+      line-height: 0.8;
+      letter-spacing: -0.1em;
+      width: max-content;
+      text-align: center;
+      background: linear-gradient(to right, #191919 0%, #272727 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    /* Floating image sizes — adjust to match Figma exports */
+    /* Horizontal positions as % of viewport (x / 1200 artboard width).
+       GSAP only animates y — left never changes on scroll or resize. */
+    .intro-hello     { left: 50%; }
+    .intro-cloud-l   { left: 0%;      width: 26vw; }
+    .intro-cloud-r   { left: 94.58%;  width: 11vw; }
+    .intro-keyboard  { left: 23.75%;  width: 13vw; }
+    .intro-character { left: 53.33%;  width: 10vw; mix-blend-mode: overlay; }
+    .intro-trib      { left: 78.75%;  width: 10vw; }
+    .intro-phone     { left: 36.67%;  width: 13vw; }
+    .intro-coin      { left: 84.17%;  width: 10vw; }
+
+    /* Hero copy container — positioned at its frame-6 resting place.
+       GSAP translates it on Y; top: 160px matches the real hero's padding-top. */
+    .intro-copy {
+      position: absolute;
+      top: 160px;
+      left: 0; right: 0;
+      z-index: 2;
+      pointer-events: none; /* visual only; the real hero section handles interactions */
+    }
   </style>
 </head>
 
@@ -1045,6 +1108,76 @@
     <a href="blog.html">Blogs</a>
     <a href="about.html">About</a>
   </div>
+
+  <!-- ─── INTRO ANIMATION ─── -->
+  <!--
+    Floating items live here. After the pin releases the real hero below
+    is revealed — nothing in this section changes the existing hero HTML.
+
+    ASSETS (all present in images/intro/):
+      BigCloud Hero.webp    — large white cloud (left side)
+      Small Cloud Hero.webp — small white cloud (right / bottom-right)
+      Keyboard Hero.webp    — mechanical keyboard with dashed-border card frame
+      Avatar Hero.webp      — illustrated 3D character
+      Logo Hero.webp        — "trib" 3D logo sticker
+      Phone Hero.webp       — phone mockup with fintech app screen
+      Coin Hero.webp        — blue/silver coin with $ sign
+
+    The "hello" wordmark is CSS text — no export needed.
+  -->
+  <section id="intro">
+
+    <!-- "hello" sits outside the stage so it can bleed past the viewport edges -->
+    <div class="intro-item intro-hello">hello</div>
+
+    <!-- Stage: floating items animated by GSAP, clipped to viewport -->
+    <div class="intro-stage">
+      <img class="intro-item intro-cloud-l"   src="images/intro/BigCloud Hero.webp"    alt="" draggable="false" />
+      <img class="intro-item intro-cloud-r"   src="images/intro/Small Cloud Hero.webp" alt="" draggable="false" />
+      <img class="intro-item intro-keyboard"  src="images/intro/Keyboard Hero.webp"    alt="" draggable="false" />
+      <img class="intro-item intro-character" src="images/intro/Avatar Hero.webp"      alt="" draggable="false" />
+      <img class="intro-item intro-trib"      src="images/intro/Logo Hero.webp"        alt="" draggable="false" />
+      <img class="intro-item intro-phone"     src="images/intro/Phone Hero.webp"       alt="" draggable="false" />
+      <img class="intro-item intro-coin"      src="images/intro/Coin Hero.webp"        alt="" draggable="false" />
+    </div>
+
+    <!-- Hero copy: rises into view during frames 4 → 5 → 6.
+         Styled with the same classes as the real hero for a seamless handoff. -->
+    <div class="intro-copy">
+      <div class="hero-inner">
+        <div class="hero-greeting">
+          <p class="greeting">Hi, I'm</p>
+          <h1 class="hero-name">OLA FAKOMI</h1>
+        </div>
+        <div class="hero-middle">
+          <div class="hero-bio-row">
+            <a href="about.html" class="hero-avatar-wrap" tabindex="-1" aria-hidden="true">
+              <img src="images/hero/OlaAvatar_Img.png" alt="" class="hero-avatar-illustrated" />
+              <img src="images/hero/OlaAvatar_realImg.png" alt="" class="hero-avatar-real" />
+            </a>
+            <div class="hero-subtext-ctas">
+              <p>A <span class="hero-orange">product designer</span>, with 5 years experience designing and building products for startups &amp; enterprises. I'm committed to designing products flow, brand identity, pitch decks and graphics all in contribution to achieving targeted product goals.</p>
+              <div class="hero-ctas">
+                <a href="mailto:olarewajufakomi@gmail.com" class="btn-primary" tabindex="-1" aria-hidden="true">Let's talk</a>
+                <a href="#" class="btn-secondary" tabindex="-1" aria-hidden="true">
+                  <img src="images/Icons/CV_IconImage.svg" alt="" />
+                  Download CV
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="case-badge-ring" aria-hidden="true">
+            <a class="case-badge" href="#projects" tabindex="-1">
+              <span>CASE</span>
+              <span>STUDIES</span>
+              <img src="images/hero/Gradient Arrow.svg" alt="" class="case-badge-arrow" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
 
   <!-- ─── HERO ─── -->
   <section class="hero">
@@ -1425,5 +1558,8 @@
       if (e.target.closest('a, button')) playClick();
     }, { passive: true });
   </script>
+
+  <!-- Intro animation (GSAP + ScrollTrigger, bundled by Vite) -->
+  <script type="module" src="src/intro.js"></script>
 </body>
 </html>
