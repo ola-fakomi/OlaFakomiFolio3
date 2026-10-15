@@ -246,7 +246,43 @@
       padding-top: calc(var(--nav-h) + 40px);
       padding-bottom: 72px;
       background: var(--bg);
+      overflow: hidden;
     }
+
+    /* ─── Graphics Hero: three overlapping image cards ─── */
+    .gfx-hero {
+      max-width: 896px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .gfx-hero-frame {
+      width: 400px;
+      height: 250px;
+      flex-shrink: 0;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+    }
+    .gfx-hero-frame img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    .gfx-hero-frame--proxidize {
+      transform: rotate(-5deg);
+      z-index: 1;
+      margin-right: -155px;
+    }
+    .gfx-hero-frame--dexa {
+      z-index: 3;
+    }
+    .gfx-hero-frame--zyntha {
+      transform: rotate(5deg);
+      z-index: 2;
+      margin-left: -155px;
+    }
+
     .vd-hero {
       max-width: 832px;
       margin: 0 auto;
@@ -953,45 +989,15 @@
 
   <!-- ─── HERO ─────────────────────────────────────────────── -->
   <section id="home">
-    <div class="container">
-      <div class="vd-hero reveal">
-
-        <!-- Avatar + Download CV -->
-        <div class="vd-hero-top">
-          <div class="vd-hero-avatar">
-            <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi">
-          </div>
-          <a href="https://drive.google.com/file/d/14Zw7PaUDkt0MyB2YxcYqAMVVKrJ1m_Oc/view?usp=sharing" target="_blank" rel="noopener" class="vd-cv-btn">
-            <img src="images/Icons/CV_IconImage.svg" alt="">
-            Design CV
-          </a>
-        </div>
-
-        <!-- Pre-text -->
-        <p class="vd-hero-pre">Beyond building products I help...</p>
-
-        <!-- Headline -->
-        <h1 class="vd-hero-headline">Products scale<br class="mob-br"> with compelling<br>visual <span class="vd-hero-headline-dim">Storyboards</span></h1>
-
-        <!-- Three storyboard preview frames -->
-        <div class="vd-hero-frames">
-          <div class="vd-hero-frame vd-hero-frame--mint">
-            <img src="images/Decks/GR_Proxidize.png" alt="Proxidize graphic">
-          </div>
-          <div class="vd-hero-frame vd-hero-frame--dark">
-            <img src="images/Decks/GR_Dexa.png" alt="Dexa graphic">
-          </div>
-          <div class="vd-hero-frame vd-hero-frame--navy">
-            <img src="images/Decks/GR_Zyntha.png" alt="Zyntha graphic">
-          </div>
-        </div>
-
-        <!-- Bio text -->
-        <p class="vd-hero-body">I'm Ola Fakomi and my background spans product and brand design, but my focus is often on motion and video visual development, with <span class="vd-hero-accent">9+ projects delivered</span> across 7+ companies.</p>
-
-        <!-- Gradient divider -->
-        <div class="vd-hero-divider"></div>
-
+    <div class="gfx-hero">
+      <div class="gfx-hero-frame gfx-hero-frame--proxidize">
+        <img src="images/Graphics/Proxidize.webp" alt="Proxidize" />
+      </div>
+      <div class="gfx-hero-frame gfx-hero-frame--dexa">
+        <img src="images/Graphics/dexa.webp" alt="Dexa" />
+      </div>
+      <div class="gfx-hero-frame gfx-hero-frame--zyntha">
+        <img src="images/Graphics/Zyntha.webp" alt="Zyntha" />
       </div>
     </div>
   </section>
