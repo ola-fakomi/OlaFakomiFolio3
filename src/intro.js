@@ -7,6 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 // ─── Lenis smooth scroll ──────────────────────────────────────────────────────
 const lenis = new Lenis({ autoRaf: false });
+window.__lenis = lenis; // expose for other scripts (e.g. card stack)
 
 // Keep ScrollTrigger in sync with Lenis's virtual scroll position
 lenis.on('scroll', ScrollTrigger.update);
@@ -167,7 +168,7 @@ document.querySelectorAll('.intro-item:not(.intro-hello)').forEach(el => {
     if (hovered) return;
     hovered = true;
     baseRot = gsap.getProperty(el, 'rotation');
-    gsap.to(el, { rotation: baseRot + 8, duration: 0.45, ease: 'back.out(1.7)', overwrite: 'auto' });
+    gsap.to(el, { rotation: baseRot + 12, duration: 0.45, ease: 'back.out(1.7)', overwrite: 'auto' });
   });
 
   el.addEventListener('mouseleave', () => {
