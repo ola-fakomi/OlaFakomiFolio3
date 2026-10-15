@@ -1,45 +1,83 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Lenis from 'lenis';
 import { AW, AH, FRAMES, HERO_OFFSET } from './intro-frames.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Always start the page at the very top so the intro plays in full.
-if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-window.scrollTo(0, 0);
+// ─── Lenis smooth scroll ──────────────────────────────────────────────────────
+const lenis = new Lenis({ autoRaf: false });
+
+// Keep ScrollTrigger in sync with Lenis's virtual scroll position
+lenis.on('scroll', ScrollTrigger.update);
+
+// Drive Lenis from GSAP's ticker so both run on the same frame
+gsap.ticker.add((time) => lenis.raf(time * 1000));
+gsap.ticker.lagSmoothing(0);
 
 // ─── Coordinate helpers ───────────────────────────────────────────────────────
-// Scale artboard units → current viewport pixels at call time.
-// x is intentionally excluded — horizontal position is set via CSS `left` percentages
-// so it stays fixed relative to the viewport on every screen size and never moves on scroll.
 const sy = v => (v / AH) * window.innerHeight;
-
-// Snapshot values for the auto-play timeline (captured once, not reactive).
 const posNow  = ([_x, y, r = 0]) => ({ y: sy(y), rotation: r });
-
-// Function-based values for the scroll timeline (recalculated on every resize).
 const posLive = ([_x, y, r = 0]) => ({ y: () => sy(y), rotation: r });
-
 const selectors = Object.keys(FRAMES);
 
-// ─── Reduced-motion: skip straight to the frame-6 state ──────────────────────
-if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  selectors.forEach(sel =>
-    gsap.set(sel, { xPercent: -50, yPercent: -50, ...posNow(FRAMES[sel][5]) })
-  );
-  gsap.set('.intro-copy', { y: 0 });
-  gsap.set('nav', { opacity: 1 });
-} else {
-  // ─── gsap.matchMedia: desktop vs mobile ────────────────────────────────────
-  // TODO: swap in FRAMES_MOBILE / HERO_OFFSET_MOBILE for the mobile branch
-  //       once those values are added to intro-frames.js.
-  const mm = gsap.matchMedia();
-  mm.add('(min-width: 810px)', () => boot(FRAMES, HERO_OFFSET));
-  mm.add('(max-width: 809px)', () => boot(FRAMES, HERO_OFFSET)); // TODO: mobile frames
-}
+// ─── Skip intro when navigating from within the site ─────────────────────────
+// Only skip if the user arrived via an internal link (referrer is same origin).
+// Fresh loads, direct URL visits, and page refreshes all play the full intro.
+const fromInternal = (() => {
+  try {
+    const ref = new URL(document.referrer);
+    // Same origin but different page — genuine internal navigation (not a reload)
+    return ref.origin === location.origin && ref.pathname !== location.pathname;
+  }
+  catch (e) { return false; }
+})();
 
-// Recalculate once all images and fonts have loaded.
-window.addEventListener('load', () => ScrollTrigger.refresh());
+if (fromInternal) {
+  // ─── Internal navigation: start at hero, keep intro scrollable upward ────
+  // Place items at frame 3 (start of scroll phase) so the scrub owns their state.
+  selectors.forEach(sel =>
+    gsap.set(sel, { xPercent: -50, yPercent: -50, ...posNow(FRAMES[sel][2]) })
+  );
+  gsap.set('.intro-copy', { y: sy(HERO_OFFSET[2]) });
+  gsap.set('nav', { opacity: 0 });
+  document.querySelectorAll('.intro-item, .intro-copy').forEach(el => {
+    el.style.visibility = 'visible';
+  });
+  document.documentElement.classList.remove('js-intro');
+
+  // scrub:true = no lag, so jumping to the end snaps the animation to frame 6 instantly.
+  startScrollPart(FRAMES, HERO_OFFSET, true);
+
+  // Jump to the end of the pin (62% vh → 100% progress → frame 6 / hero fully visible).
+  requestAnimationFrame(() => {
+    lenis.scrollTo(Math.round(window.innerHeight * 0.62), { immediate: true });
+  });
+  // No ScrollTrigger.refresh() on load — it would snap the scroll back after assets load.
+
+} else {
+
+  // ─── Fresh load / refresh: play full intro from the top ──────────────────
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  lenis.scrollTo(0, { immediate: true });
+
+  // ─── Reduced-motion: skip straight to the frame-6 state ──────────────────
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    selectors.forEach(sel =>
+      gsap.set(sel, { xPercent: -50, yPercent: -50, ...posNow(FRAMES[sel][5]) })
+    );
+    gsap.set('.intro-copy', { y: 0 });
+    gsap.set('nav', { opacity: 1 });
+  } else {
+    // ─── gsap.matchMedia: desktop vs mobile ──────────────────────────────────
+    const mm = gsap.matchMedia();
+    mm.add('(min-width: 810px)', () => boot(FRAMES, HERO_OFFSET));
+    mm.add('(max-width: 809px)', () => boot(FRAMES, HERO_OFFSET)); // TODO: mobile frames
+  }
+
+  // Recalculate once all images and fonts have loaded.
+  window.addEventListener('load', () => ScrollTrigger.refresh());
+}
 
 // ─── boot: place items at frame 1 and kick off the two-part animation ─────────
 function boot(frames, heroOffset) {
@@ -49,6 +87,12 @@ function boot(frames, heroOffset) {
   gsap.set('.intro-copy', { y: sy(heroOffset[0]) });
   gsap.set('nav', { opacity: 0 });
 
+  // Reveal elements now that GSAP has placed them in their correct starting positions.
+  // Must use 'visible' as inline style to override the html.js-intro CSS class rule.
+  document.querySelectorAll('.intro-item, .intro-copy').forEach(el => {
+    el.style.visibility = 'visible';
+  });
+
   lockScroll(true);
 
   // ─── Part 1: auto-play frames 1 → 2 → 3 ───────────────────────────────────
@@ -56,6 +100,7 @@ function boot(frames, heroOffset) {
     delay: 0.3,
     onComplete() { startScrollPart(frames, heroOffset); },
   });
+
 
   selectors.forEach(sel => {
     part1.to(
@@ -75,7 +120,7 @@ function boot(frames, heroOffset) {
 }
 
 // ─── Part 2: scroll-scrubbed frames 3 → 4 → 5 → 6 ───────────────────────────
-function startScrollPart(frames, heroOffset) {
+function startScrollPart(frames, heroOffset, scrub = 1) {
   lockScroll(false);
   document.documentElement.classList.remove('js-intro');
 
@@ -84,10 +129,14 @@ function startScrollPart(frames, heroOffset) {
     scrollTrigger: {
       trigger: '#intro',
       start: 'top top',
-      end: '+=62%',     // spacer ≈ 1395px at 813px vh — (110+62)%×813=1401px
-      pin: true,         // keeps #intro fixed while the user scrolls
-      scrub: 1,          // ties timeline progress to the scrollbar (1 s smoothing)
+      end: '+=62%',
+      pin: true,
+      scrub,
       invalidateOnRefresh: true,
+      onUpdate(self) {
+        document.getElementById('intro')
+          ?.classList.toggle('intro-hero-visible', self.progress > 0.85);
+      },
     },
   });
 
@@ -102,12 +151,27 @@ function startScrollPart(frames, heroOffset) {
 }
 
 // ─── Scroll lock helpers ──────────────────────────────────────────────────────
-function preventDefault(e) { e.preventDefault(); }
-
 function lockScroll(on) {
   document.documentElement.classList.toggle('intro-locked', on);
-  const method = on ? 'addEventListener' : 'removeEventListener';
-  ['wheel', 'touchmove'].forEach(evt =>
-    window[method](evt, preventDefault, { passive: false })
-  );
+  if (on) { lenis.stop(); } else { lenis.start(); }
 }
+
+// ─── Hover tilt on floating intro items ──────────────────────────────────────
+document.querySelectorAll('.intro-item:not(.intro-hello)').forEach(el => {
+  let baseRot = 0;
+  let hovered = false;
+
+  el.addEventListener('mouseenter', () => {
+    if (hovered) return;
+    hovered = true;
+    baseRot = gsap.getProperty(el, 'rotation');
+    gsap.to(el, { rotation: baseRot + 8, duration: 0.45, ease: 'back.out(1.7)', overwrite: 'auto' });
+  });
+
+  el.addEventListener('mouseleave', () => {
+    if (!hovered) return;
+    hovered = false;
+    gsap.to(el, { rotation: baseRot, duration: 0.45, ease: 'back.out(1.7)', overwrite: 'auto' });
+  });
+});
+

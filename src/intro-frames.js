@@ -35,7 +35,7 @@ export const FRAMES = {
 
 // Hero copy offset from its resting place, in artboard units (Y axis only).
 // 0 = fully in position. Positive = pushed below the viewport.
-export const HERO_OFFSET = [600, 600, 600, 600, 505, 0];
+export const HERO_OFFSET = [900, 900, 900, 900, 505, 0];
 
 // ─── MOBILE ───────────────────────────────────────────────────────────────────
 // TODO: supply mobile-specific values once the mobile artboard is ready in Figma.

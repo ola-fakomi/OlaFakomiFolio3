@@ -55,7 +55,11 @@
       --trib-c:    #eae6ff;
     }
 
-    html { scroll-behavior: smooth; }
+    /* Lenis recommended base — disables native smooth scroll (Lenis handles it) */
+    html { scroll-behavior: auto; }
+    html.lenis, html.lenis body { height: auto; }
+    .lenis.lenis-smooth { scroll-behavior: auto !important; }
+    .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
 
     body {
       background: var(--bg);
@@ -305,17 +309,41 @@
       z-index: 1;
       transform: rotate(10deg);
     }
-    .hero-subtext-ctas p {
+    .hero-subtext-swap {
+      position: relative;
+    }
+    .hero-subtext-bio,
+    .hero-subtext-exp {
       font-size: 14.5px;
       font-weight: 300;
       line-height: 1.7;
       color: rgba(255,255,255,0.58);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .hero-subtext-exp {
+      position: absolute;
+      top: 0; left: 0;
+      opacity: 0;
+      transform: translateY(6px);
+      pointer-events: none;
+    }
+    .hero-subtext-exp strong { color: var(--text); font-weight: 500; }
+    .exp-line { display: block; }
+    .exp-hovered .hero-subtext-bio {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    .exp-hovered .hero-subtext-exp {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
     }
     .hero-subtext-ctas strong { color: var(--text); font-weight: 400; }
     .hero-orange { color: var(--orange); }
     .hero-accent-blue { color: var(--text); }
-    .hero-blue { color: var(--orange); text-decoration: underline; text-underline-offset: 2px; }
-    .hero-blue:hover { opacity: 0.8; }
+    .hero-blue { color: #ffffff; }
+    .hero-link { color: var(--orange); text-decoration: underline; text-underline-offset: 3px; }
+    .hero-link:hover { opacity: 0.8; }
 
     .hero-ctas {
       display: flex; align-items: center; gap: 8px;
@@ -358,39 +386,30 @@
     .btn-secondary img { width: 18px; height: 18px; }
 
     /* Case Studies badge */
-    .case-badge-ring {
-      background: linear-gradient(135deg, #1A1A1A 0%, #FF7974 31%, #FFFFFF 51%, #4837F3 70%, #1A1A1A 100%);
-      border-radius: 50%;
-      padding: 1px;
+    .exp-card {
       flex-shrink: 0;
-      transition: transform 0.3s;
-      cursor: pointer;
+      width: auto;
+      transform: rotate(3deg);
+      transform-origin: center center;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      cursor: grab;
+      user-select: none;
+      position: relative;
     }
-    .case-badge-ring:hover {
-      transform: rotate(15deg);
-      background: linear-gradient(135deg, #1A1A1A 0%, #FF7974 11%, #FFFFFF 31%, #4837F3 50%, #1A1A1A 100%);
+    .exp-card:hover {
+      transform: rotate(12deg);
     }
-    .case-badge {
-      width: 120px; height: 120px;
-      border-radius: 50%;
-      background: #1e1e1e;
-      border: none;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1px;
-      text-decoration: none;
+    .exp-card.dragging {
+      cursor: grabbing;
+      transition: none;
+      transform: rotate(8deg) scale(1.08);
+      z-index: 999;
     }
-    .case-badge span {
+    .exp-card img {
+      width: auto;
+      height: 120px;
       display: block;
-      font-family: 'Unbounded', sans-serif;
-      font-size: 8.5px; font-weight: 700;
-      letter-spacing: 0.16em;
-      color: var(--text);
-      text-transform: uppercase;
     }
-    .case-badge-arrow { margin-top: 9px; opacity: 0.6; }
 
     /* ─── CASE STUDIES STACK ─── */
     .case-stack {
@@ -441,21 +460,25 @@
     .case-stack[data-state="5"] .cs-23     { margin-top: calc(-57vw + 40px); }
     .case-stack[data-state="5"] .cs-card-3 { margin-top: calc(-57vw + 40px); }
 
-    /* ─── AI PRODUCT BUILDS ─── */
-    .ai-builds {
-      min-height: 100vh;
-      background: #1e1e1e;
+    /* Card 4: AI Product Builds — rises in from below after card 3 */
+    .cs-card-4 {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      z-index: 5;
+      background: #191919;
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 80px 40px;
-      position: relative;
-      z-index: 4;
-      margin-top: -80px;
     }
+    /* ─── AI PRODUCT BUILDS ─── */
     .ai-builds-inner {
-      max-width: 540px;
-      width: 100%;
+      position: relative;
+      z-index: 1;
+      width: 60vw;
+      max-width: 900px;
       margin: 0 auto;
     }
     .ai-builds-label {
@@ -469,22 +492,57 @@
       margin-bottom: 14px;
     }
     .ai-builds-rule {
-      width: 100%;
+      width: 33.333%;
       height: 1px;
-      background: linear-gradient(90deg, var(--red) 0%, var(--blue) 100%);
-      margin-bottom: 40px;
+      background: linear-gradient(90deg, #1A1A1A 0%, #FF7974 31%, #FFFFFF 51%, #1225FF 70%, #1A1A1A 100%);
+      margin: 0 auto 40px;
+    }
+    .ai-builds-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
     .ai-build-item {
       display: flex;
       align-items: center;
       gap: 12px;
       padding: 22px 16px;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      background: linear-gradient(135deg, #1E1E1E 0%, #191919 100%);
       text-decoration: none;
-      transition: background 0.2s;
+      transition: background 1.2s ease;
     }
-    .ai-build-item:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
-    .ai-build-item:hover { background: rgba(255,255,255,0.04); }
+    /* Active item: blue gradient on hover */
+    .ai-build-item--active:hover {
+      background: linear-gradient(90deg, #1E1E1E 0%, #191919 50%, #1225FF 100%);
+    }
+    /* Locked (inactive) items: not clickable, no bg change */
+    .ai-build-item--locked { cursor: default; }
+    .ai-build-lock-area {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .ai-build-im-on-it {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.35);
+      opacity: 0;
+      transform: translateX(6px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      white-space: nowrap;
+    }
+    .ai-build-item--locked:hover .ai-build-im-on-it {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .ai-build-lock {
+      width: 40px;
+      height: 40px;
+      opacity: 0.35;
+    }
     .ai-build-num {
       font-family: 'Unbounded', sans-serif;
       font-size: 12px; font-weight: 300;
@@ -498,7 +556,8 @@
       flex: 1;
     }
     .ai-build-arrow {
-      color: rgba(255,255,255,0.4);
+      width: 40px;
+      height: 40px;
       flex-shrink: 0;
     }
 
@@ -985,9 +1044,7 @@
     }
     @media (max-width: 700px) {
       .hero-middle { flex-direction: column; }
-      .case-badge { width: 90px; height: 90px; }
-      .case-badge-ring { flex-shrink: 0; }
-      .case-badge span { font-size: 7px; }
+      .exp-card img { height: 120px; }
       .hero-name { font-size: 36px; }
       .panel-header { flex-direction: column; }
       .panel-meta { align-items: flex-start; }
@@ -1007,11 +1064,18 @@
     html.intro-locked body { overflow: hidden; }
 
     html.js-intro .case-stack { opacity: 0; }
+    html.js-intro .intro-item,
+    html.js-intro .intro-copy { visibility: hidden; }
+    html.js-intro nav { opacity: 0; }
 
     #intro {
       position: relative;
-      height: 85vh;
+      height: 100vh;
+      transition: height 0.6s ease;
       background: var(--bg);
+    }
+    #intro.intro-hero-visible {
+      height: 85vh;
     }
 
     .intro-stage {
@@ -1027,9 +1091,10 @@
       left: 0; top: 0;
       will-change: transform;
       user-select: none;
+      pointer-events: auto;
     }
 
-    /* "hello" wordmark — CSS text, no image needed */
+    /* "kaabo" wordmark — CSS text, no image needed */
     .intro-hello {
       font-family: 'Unbounded', sans-serif;
       font-size: 24vw;
@@ -1046,6 +1111,8 @@
       pointer-events: none;
       left: 50%;
     }
+
+    .intro-letter { display: inline-block; }
 
     /* Floating image sizes — adjust to match Figma exports */
     /* Horizontal positions as % of viewport (x / 1200 artboard width).
@@ -1130,7 +1197,7 @@
   <section id="intro">
 
     <!-- "hello" and unclipped items sit outside the stage -->
-    <div class="intro-item intro-hello">kaabo</div>
+    <div class="intro-item intro-hello"><span class="intro-letter">k</span><span class="intro-letter">a</span><span class="intro-letter">a</span><span class="intro-letter">b</span><span class="intro-letter">o</span></div>
     <img class="intro-item intro-cloud-r" src="images/intro/Small Cloud Hero.webp" alt="" draggable="false" />
 
     <!-- Stage: floating items animated by GSAP, clipped to viewport -->
@@ -1159,7 +1226,15 @@
               <img src="images/hero/OlaAvatar_realImg.png" alt="Ola Fakomi" class="hero-avatar-real" />
             </a>
             <div class="hero-subtext-ctas">
-              <p>A <span class="hero-orange">product designer</span>, with 5 years experience designing and building products for startups &amp; enterprises. I'm committed to designing products flow, brand identity, pitch decks and graphics all in contribution to achieving targeted product goals.</p>
+              <div class="hero-subtext-swap">
+                <p class="hero-subtext-bio">A <span class="hero-orange">Product Designer</span> &amp; <span class="hero-blue">Design Engineer</span>, with 5+ years designing and building products for startups &amp; enterprises. I combine product design, brand design &amp; AI expertise to create business solutions in form of products, internal tools and websites at <a href="https://www.ovasys.co/" class="hero-link" target="_blank" rel="noopener noreferrer">Ovasys.</a></p>
+                <p class="hero-subtext-exp">
+                  <span class="exp-line">Worked at <strong>3 Startups</strong></span>
+                  <span class="exp-line">Serviced <strong>6+ Agencies &amp; Businesses</strong></span>
+                  <span class="exp-line">Contributed to <strong>5+ Major Projects</strong></span>
+                  <span class="exp-line">Building @ <strong style="color:#ffffff;">Ovasys</strong></span>
+                </p>
+              </div>
               <div class="hero-ctas">
                 <a href="mailto:olarewajufakomi@gmail.com" class="btn-primary">Let's talk</a>
                 <a href="#" class="btn-secondary">
@@ -1170,12 +1245,8 @@
             </div>
           </div>
 
-          <div class="case-badge-ring">
-            <a class="case-badge" href="#projects" aria-label="Jump to case studies">
-              <span>CASE</span>
-              <span>STUDIES</span>
-              <img src="images/hero/Gradient Arrow.svg" alt="" class="case-badge-arrow" />
-            </a>
+          <div class="exp-card">
+            <img src="images/hero/ExpCompIcon.webp" alt="Experience Summary" draggable="false" />
           </div>
         </div>
 
@@ -1193,29 +1264,35 @@
         <div class="cs-card cs-card-3"></div>
       </div>
     </div>
-  </section>
 
-  <!-- ─── AI PRODUCT BUILDS ─── -->
-  <section class="ai-builds" id="ai-builds">
-    <div class="ai-builds-inner">
-      <span class="ai-builds-label">AI Product Builds</span>
-      <div class="ai-builds-rule"></div>
-      <div class="ai-builds-list">
-        <a href="#" class="ai-build-item">
-          <span class="ai-build-num">01.</span>
-          <span class="ai-build-name">Budget Efficiency App</span>
-          <svg class="ai-build-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13L13 3M13 3H6M13 3v7"/></svg>
-        </a>
-        <a href="#" class="ai-build-item">
-          <span class="ai-build-num">02.</span>
-          <span class="ai-build-name">Content Management Tool</span>
-          <svg class="ai-build-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13L13 3M13 3H6M13 3v7"/></svg>
-        </a>
-        <a href="#" class="ai-build-item">
-          <span class="ai-build-num">03.</span>
-          <span class="ai-build-name">Left Unread</span>
-          <svg class="ai-build-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13L13 3M13 3H6M13 3v7"/></svg>
-        </a>
+    <!-- Card 4: rises in from below after card 3, sticks at top -->
+    <div class="cs-card-4" id="ai-builds">
+      <div class="ai-builds-inner">
+        <span class="ai-builds-label">AI Product Builds</span>
+        <div class="ai-builds-rule"></div>
+        <div class="ai-builds-list">
+          <a href="https://x.com/Olafakomi/status/2032791976836268153?s=20" target="_blank" rel="noopener" class="ai-build-item ai-build-item--active">
+            <span class="ai-build-num">01.</span>
+            <span class="ai-build-name">Left Unread</span>
+            <img src="images/Icons/Icon-arrwwoor.svg" class="ai-build-arrow" alt="" />
+          </a>
+          <div class="ai-build-item ai-build-item--locked">
+            <span class="ai-build-num">02.</span>
+            <span class="ai-build-name">Content Management Tool</span>
+            <div class="ai-build-lock-area">
+              <span class="ai-build-im-on-it">I'm on it</span>
+              <img src="images/Icons/lock-icon.svg" class="ai-build-lock" alt="" />
+            </div>
+          </div>
+          <div class="ai-build-item ai-build-item--locked">
+            <span class="ai-build-num">03.</span>
+            <span class="ai-build-name">Budget Efficiency App</span>
+            <div class="ai-build-lock-area">
+              <span class="ai-build-im-on-it">I'm on it</span>
+              <img src="images/Icons/lock-icon.svg" class="ai-build-lock" alt="" />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1464,6 +1541,87 @@
       avatarWrap.addEventListener('mouseenter', () => playTick(750, 0.10, 0.055));
       avatarWrap.addEventListener('mouseleave', () => playTick(1100, 0.18, 0.055));
     }
+    const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&!?';
+    function scrambleLine(el, delay) {
+      const finalHTML = el.innerHTML;
+      const plain = el.textContent;
+      const len = plain.length;
+      const totalFrames = 12;
+      const resolveStart = 4;
+      let frame = 0;
+      setTimeout(() => {
+        const interval = setInterval(() => {
+          frame++;
+          if (frame >= totalFrames) { el.innerHTML = finalHTML; clearInterval(interval); return; }
+          const resolved = frame < resolveStart ? 0 : Math.floor(((frame - resolveStart) / (totalFrames - resolveStart)) * len);
+          let out = '';
+          for (let i = 0; i < len; i++) {
+            if (i < resolved || plain[i] === ' ') { out += plain[i]; }
+            else { out += SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)]; }
+          }
+          el.textContent = out;
+        }, 18);
+      }, delay);
+    }
+
+    const expCard = document.querySelector('.exp-card');
+    const subtextSwap = document.querySelector('.hero-subtext-swap');
+    if (expCard) {
+      expCard.addEventListener('mouseenter', () => {
+        if (!expCard.classList.contains('dragging')) playTick(750, 0.10, 0.055);
+        if (subtextSwap) {
+          subtextSwap.classList.add('exp-hovered');
+          subtextSwap.querySelectorAll('.exp-line').forEach((line, i) => scrambleLine(line, i * 80));
+        }
+      });
+      expCard.addEventListener('mouseleave', () => {
+        if (!expCard.classList.contains('dragging')) playTick(1100, 0.18, 0.055);
+        subtextSwap && subtextSwap.classList.remove('exp-hovered');
+      });
+
+      let dragOffsetX = 0, dragOffsetY = 0, isDragging = false;
+
+      expCard.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        isDragging = true;
+        expCard.setPointerCapture(e.pointerId);
+        expCard.classList.add('dragging');
+        const rect = expCard.getBoundingClientRect();
+        dragOffsetX = e.clientX - rect.left - rect.width / 2;
+        dragOffsetY = e.clientY - rect.top - rect.height / 2;
+        expCard.style.position = 'fixed';
+        expCard.style.left = rect.left + rect.width / 2 + 'px';
+        expCard.style.top  = rect.top  + rect.height / 2 + 'px';
+        expCard.style.margin = '0';
+        playTick(750, 0.10, 0.055);
+      });
+
+      expCard.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        expCard.style.left = e.clientX - dragOffsetX + 'px';
+        expCard.style.top  = e.clientY - dragOffsetY + 'px';
+      });
+
+      function endDrag(e) {
+        if (!isDragging) return;
+        isDragging = false;
+        expCard.classList.remove('dragging');
+        // Animate back to original position
+        const rect = expCard.getBoundingClientRect();
+        expCard.style.transition = 'left 0.5s cubic-bezier(0.34,1.56,0.64,1), top 0.5s cubic-bezier(0.34,1.56,0.64,1), transform 0.35s cubic-bezier(0.34,1.56,0.64,1)';
+        expCard.style.left = '';
+        expCard.style.top  = '';
+        expCard.style.position = '';
+        expCard.style.margin = '';
+        playTick(1100, 0.18, 0.055);
+        expCard.addEventListener('transitionend', () => {
+          expCard.style.transition = '';
+        }, { once: true });
+      }
+
+      expCard.addEventListener('pointerup', endDrag);
+      expCard.addEventListener('pointercancel', endDrag);
+    }
 
     /* ─── Nav item hover sounds ─── */
     document.querySelectorAll('.nav-links a').forEach(link => {
@@ -1519,5 +1677,12 @@
 
   <!-- Intro animation (GSAP + ScrollTrigger, bundled by Vite) -->
   <script type="module" src="src/intro.js"></script>
+
+  <!-- ASCII Ripple background for AI Product Builds -->
+  <script type="module">
+    import { initAsciiRipple } from '/src/AsciiRipple.js';
+    const aiBuilds = document.getElementById('ai-builds');
+    if (aiBuilds) initAsciiRipple(aiBuilds);
+  </script>
 </body>
 </html>
