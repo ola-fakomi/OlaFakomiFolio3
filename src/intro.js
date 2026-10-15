@@ -133,9 +133,11 @@ function startScrollPart(frames, heroOffset, scrub = 1) {
       pin: true,
       scrub,
       invalidateOnRefresh: true,
-      onUpdate(self) {
+      onUpdate() {
+        const hello = document.querySelector('.intro-hello');
+        const atTop = hello ? hello.getBoundingClientRect().top <= 0 : false;
         document.getElementById('intro')
-          ?.classList.toggle('intro-hero-visible', self.progress > 0.85);
+          ?.classList.toggle('intro-hero-visible', atTop);
       },
     },
   });
