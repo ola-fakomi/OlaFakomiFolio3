@@ -1025,6 +1025,14 @@
     document.addEventListener('click', e => {
       if (e.target.closest('a, button')) playClick();
     }, { passive: true });
+
+    /* ─── Button & footer hover sounds ─── */
+    document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta').forEach(el => {
+      el.addEventListener('mouseenter', () => playTick(900, 0.08, 0.05));
+    });
+    document.querySelectorAll('.footer-social-icon, .footer-nav-links a, .footer-cta-btn').forEach(el => {
+      el.addEventListener('mouseenter', () => playTick(750, 0.06, 0.05));
+    });
   </script>
 </body>
 </html>

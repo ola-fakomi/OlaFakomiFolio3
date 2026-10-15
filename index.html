@@ -1639,6 +1639,21 @@
       link.addEventListener('mouseenter', () => playTick(750, 0.10, 0.055));
     });
 
+    /* ─── Button hover sounds ─── */
+    document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta').forEach(el => {
+      el.addEventListener('mouseenter', () => playTick(900, 0.08, 0.05));
+    });
+
+    /* ─── AI build item hover sounds ─── */
+    document.querySelectorAll('.ai-build-item').forEach(el => {
+      el.addEventListener('mouseenter', () => playTick(750, 0.08, 0.055));
+    });
+
+    /* ─── Footer hover sounds ─── */
+    document.querySelectorAll('.footer-social-icon, .footer-nav-links a, .footer-cta-btn').forEach(el => {
+      el.addEventListener('mouseenter', () => playTick(750, 0.06, 0.05));
+    });
+
     /* ─── Clients section money sound ─── */
     function playMoney() {
       const ctx = getAudioCtx();
