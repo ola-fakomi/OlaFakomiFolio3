@@ -623,6 +623,8 @@
     .decks-img {
       flex: 0 0 25%;
       max-width: 340px;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      cursor: pointer;
     }
     .decks-img img {
       width: 100%;
@@ -664,6 +666,12 @@
     .decks-img--bl { transform: rotate(-5deg); }
     .decks-img--bc { transform: rotate(3deg); }
     .decks-img--br { transform: rotate(7deg); }
+    .decks-img--tl:hover { transform: rotate(2deg); }
+    .decks-img--tc:hover { transform: rotate(7deg); }
+    .decks-img--tr:hover { transform: rotate(16deg); }
+    .decks-img--bl:hover { transform: rotate(5deg); }
+    .decks-img--bc:hover { transform: rotate(13deg); }
+    .decks-img--br:hover { transform: rotate(17deg); }
 
     /* Slide 1 — dark blue automation */
     .deck-slide--blue {
@@ -1647,6 +1655,12 @@
     /* ─── AI build item hover sounds ─── */
     document.querySelectorAll('.ai-build-item').forEach(el => {
       el.addEventListener('mouseenter', () => playTick(750, 0.08, 0.055));
+    });
+
+    /* ─── Decks item hover sounds ─── */
+    document.querySelectorAll('.decks-img').forEach(el => {
+      el.addEventListener('mouseenter', () => playTick(750, 0.10, 0.055));
+      el.addEventListener('mouseleave', () => playTick(1100, 0.18, 0.055));
     });
 
     /* ─── Footer hover sounds ─── */
