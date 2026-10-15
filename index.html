@@ -1006,9 +1006,11 @@
     html.intro-locked,
     html.intro-locked body { overflow: hidden; }
 
+    html.js-intro .case-stack { opacity: 0; }
+
     #intro {
       position: relative;
-      height: 110vh;
+      height: 85vh;
       background: var(--bg);
     }
 
@@ -1030,24 +1032,24 @@
     /* "hello" wordmark — CSS text, no image needed */
     .intro-hello {
       font-family: 'Unbounded', sans-serif;
-      font-size: 26vw;
+      font-size: 30vw;
       font-weight: 800;
-      line-height: 0.8;
+      line-height: 0.85;
       letter-spacing: -0.1em;
       width: max-content;
-      text-align: center;
+      padding: 0 62px;
       background: linear-gradient(to right, #191919 0%, #272727 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       white-space: nowrap;
       pointer-events: none;
+      left: 50%;
     }
 
     /* Floating image sizes — adjust to match Figma exports */
     /* Horizontal positions as % of viewport (x / 1200 artboard width).
        GSAP only animates y — left never changes on scroll or resize. */
-    .intro-hello     { left: 50%; }
     .intro-cloud-l   { left: 0%;      width: 26vw; }
     .intro-cloud-r   { left: 94.58%;  width: 11vw; }
     .intro-keyboard  { left: 23.75%;  width: 13vw; }
@@ -1063,10 +1065,10 @@
       top: 160px;
       left: 0; right: 0;
       z-index: 2;
-      pointer-events: none; /* visual only; the real hero section handles interactions */
     }
   </style>
 </head>
+<script>document.documentElement.classList.add('js-intro');</script>
 
 <body>
   <div class="cursor-svg" id="cursor-svg">
@@ -1127,13 +1129,13 @@
   -->
   <section id="intro">
 
-    <!-- "hello" sits outside the stage so it can bleed past the viewport edges -->
+    <!-- "hello" and unclipped items sit outside the stage -->
     <div class="intro-item intro-hello">hello</div>
+    <img class="intro-item intro-cloud-r" src="images/intro/Small Cloud Hero.webp" alt="" draggable="false" />
 
     <!-- Stage: floating items animated by GSAP, clipped to viewport -->
     <div class="intro-stage">
       <img class="intro-item intro-cloud-l"   src="images/intro/BigCloud Hero.webp"    alt="" draggable="false" />
-      <img class="intro-item intro-cloud-r"   src="images/intro/Small Cloud Hero.webp" alt="" draggable="false" />
       <img class="intro-item intro-keyboard"  src="images/intro/Keyboard Hero.webp"    alt="" draggable="false" />
       <img class="intro-item intro-character" src="images/intro/Avatar Hero.webp"      alt="" draggable="false" />
       <img class="intro-item intro-trib"      src="images/intro/Logo Hero.webp"        alt="" draggable="false" />
@@ -1141,89 +1143,45 @@
       <img class="intro-item intro-coin"      src="images/intro/Coin Hero.webp"        alt="" draggable="false" />
     </div>
 
-    <!-- Hero copy: rises into view during frames 4 → 5 → 6.
-         Styled with the same classes as the real hero for a seamless handoff. -->
+    <!-- Hero copy: rises into view during scroll frames 4 → 5 → 6. -->
     <div class="intro-copy">
       <div class="hero-inner">
+
         <div class="hero-greeting">
           <p class="greeting">Hi, I'm</p>
           <h1 class="hero-name">OLA FAKOMI</h1>
         </div>
+
         <div class="hero-middle">
           <div class="hero-bio-row">
-            <a href="about.html" class="hero-avatar-wrap" tabindex="-1" aria-hidden="true">
-              <img src="images/hero/OlaAvatar_Img.png" alt="" class="hero-avatar-illustrated" />
-              <img src="images/hero/OlaAvatar_realImg.png" alt="" class="hero-avatar-real" />
+            <a href="about.html" class="hero-avatar-wrap">
+              <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi" class="hero-avatar-illustrated" />
+              <img src="images/hero/OlaAvatar_realImg.png" alt="Ola Fakomi" class="hero-avatar-real" />
             </a>
             <div class="hero-subtext-ctas">
               <p>A <span class="hero-orange">product designer</span>, with 5 years experience designing and building products for startups &amp; enterprises. I'm committed to designing products flow, brand identity, pitch decks and graphics all in contribution to achieving targeted product goals.</p>
               <div class="hero-ctas">
-                <a href="mailto:olarewajufakomi@gmail.com" class="btn-primary" tabindex="-1" aria-hidden="true">Let's talk</a>
-                <a href="#" class="btn-secondary" tabindex="-1" aria-hidden="true">
+                <a href="mailto:olarewajufakomi@gmail.com" class="btn-primary">Let's talk</a>
+                <a href="#" class="btn-secondary">
                   <img src="images/Icons/CV_IconImage.svg" alt="" />
                   Download CV
                 </a>
               </div>
             </div>
           </div>
-          <div class="case-badge-ring" aria-hidden="true">
-            <a class="case-badge" href="#projects" tabindex="-1">
+
+          <div class="case-badge-ring">
+            <a class="case-badge" href="#projects" aria-label="Jump to case studies">
               <span>CASE</span>
               <span>STUDIES</span>
               <img src="images/hero/Gradient Arrow.svg" alt="" class="case-badge-arrow" />
             </a>
           </div>
         </div>
-      </div>
-    </div>
-
-  </section>
-
-  <!-- ─── HERO ─── -->
-  <section class="hero">
-    <div class="hero-inner">
-
-      <!-- HI I'm Ola: greeting + name -->
-      <div class="hero-greeting">
-        <p class="greeting">Hi, I'm</p>
-        <h1 class="hero-name">OLA FAKOMI</h1>
-      </div>
-
-      <!-- Avatar, subtext, casestudy button, CTA buttons row -->
-      <div class="hero-middle">
-
-        <!-- Avatar left, text+CTAs right -->
-        <div class="hero-bio-row">
-          <a href="about.html" class="hero-avatar-wrap">
-            <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi" class="hero-avatar-illustrated" />
-            <img src="images/hero/OlaAvatar_realImg.png" alt="Ola Fakomi" class="hero-avatar-real" />
-          </a>
-
-          <!-- Subtext + CTA buttons column -->
-          <div class="hero-subtext-ctas">
-            <p>A <span class="hero-orange">product designer</span>, with 5 years experience designing and building products for startups &amp; enterprises. I'm committed to designing products flow, brand identity, pitch decks and graphics all in contribution to achieving targeted product goals.</p>
-
-            <div class="hero-ctas">
-              <a href="mailto:olarewajufakomi@gmail.com" class="btn-primary">Let's talk</a>
-              <a href="#" class="btn-secondary">
-                <img src="images/Icons/CV_IconImage.svg" alt="" />
-                Download CV
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Casestudy button -->
-        <div class="case-badge-ring">
-          <a class="case-badge" href="#projects" aria-label="Jump to case studies">
-            <span>CASE</span>
-            <span>STUDIES</span>
-            <img src="images/hero/Gradient Arrow.svg" alt="" class="case-badge-arrow" />
-          </a>
-        </div>
 
       </div>
     </div>
+
   </section>
 
   <!-- ─── CASE STUDIES ─── -->
@@ -1412,7 +1370,7 @@
     /* ─── Case Study Scroll States ─── */
     (function() {
       const stack   = document.querySelector('.case-stack');
-      const heroSec = document.querySelector('.hero');
+      const heroSec = document.querySelector('#intro');
       const card1   = document.querySelector('.cs-card-1');
       const card2   = document.querySelector('.cs-card-2');
       const card3   = document.querySelector('.cs-card-3');

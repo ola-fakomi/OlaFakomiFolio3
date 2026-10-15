@@ -77,13 +77,14 @@ function boot(frames, heroOffset) {
 // ─── Part 2: scroll-scrubbed frames 3 → 4 → 5 → 6 ───────────────────────────
 function startScrollPart(frames, heroOffset) {
   lockScroll(false);
+  document.documentElement.classList.remove('js-intro');
 
   const tl = gsap.timeline({
     defaults: { ease: 'none', duration: 1 },
     scrollTrigger: {
       trigger: '#intro',
       start: 'top top',
-      end: '+=250%',    // total extra scroll distance that drives frames 3 → 6
+      end: '+=62%',     // spacer ≈ 1395px at 813px vh — (110+62)%×813=1401px
       pin: true,         // keeps #intro fixed while the user scrolls
       scrub: 1,          // ties timeline progress to the scrollbar (1 s smoothing)
       invalidateOnRefresh: true,
