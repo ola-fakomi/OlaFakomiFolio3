@@ -53,6 +53,18 @@
       --roots-c:   #ffd4cb;
       --revwit-c:  #fff2eb;
       --trib-c:    #eae6ff;
+
+      /* ── Typography ── */
+      --text-size-ui:       13px;
+      --text-size-body:     15px;
+      --text-size-hero:     28px;
+      --text-size-heading:  36px;
+      --text-weight:        300;
+      --text-track-ui:      0.02em;
+      --text-track-heading: -0.02em;
+      --text-lh-ui:         1.6;
+      --text-lh-hero:       1.2;
+      --text-lh-heading:    1.1;
     }
 
     /* Lenis recommended base — disables native smooth scroll (Lenis handles it) */
@@ -65,9 +77,10 @@
       background: var(--bg);
       color: var(--text);
       font-family: 'Unbounded', sans-serif;
-      font-size: 16px;
-      font-weight: 300;
-      line-height: 1.6;
+      font-size: var(--text-size-body);
+      font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
+      line-height: var(--text-lh-ui);
       cursor: none;
     }
 
@@ -131,9 +144,9 @@
       display: flex; align-items: center; gap: 4px;
       padding: 4px 4px;
       font-family: 'Unbounded', sans-serif;
-      font-size: 11px;
-      font-weight: 300;
-      letter-spacing: 0.02em;
+      font-size: var(--text-size-ui);
+      font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
       color: rgba(255,255,255,0.45);
       text-decoration: none;
       border-radius: 10px;
@@ -160,9 +173,9 @@
       border: none;
       color: #fff;
       font-family: 'Unbounded', sans-serif;
-      font-size: 11px;
-      font-weight: 300;
-      letter-spacing: 0.02em;
+      font-size: var(--text-size-ui);
+      font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
       border-radius: 12px;
       text-decoration: none;
       white-space: nowrap;
@@ -215,7 +228,7 @@
       display: block; padding: 14px 0;
       border-bottom: 1px solid var(--border);
       font-family: 'Unbounded', sans-serif;
-      font-size: 13px; font-weight: 300;
+      font-size: var(--text-size-ui); font-weight: var(--text-weight);
       color: var(--text-dim); text-decoration: none;
       transition: color 0.2s;
     }
@@ -263,17 +276,18 @@
 
     .greeting {
       font-family: 'Unbounded', sans-serif;
-      font-size: 28px; font-weight: 300;
-      line-height: 1.2;
+      font-size: var(--text-size-hero); font-weight: var(--text-weight);
+      line-height: var(--text-lh-hero);
+      letter-spacing: var(--text-track-ui);
       color: rgba(255,255,255,0.4);
       margin-bottom: 2px;
     }
     .hero-name {
       font-family: 'Unbounded', sans-serif;
-      font-size: 28px;
-      font-weight: 300;
-      line-height: 1.2;
-      letter-spacing: -0.025em;
+      font-size: var(--text-size-hero);
+      font-weight: var(--text-weight);
+      line-height: var(--text-lh-hero);
+      letter-spacing: var(--text-track-ui);
       color: var(--text);
       margin-bottom: 12px;
     }
@@ -315,8 +329,9 @@
     }
     .hero-subtext-bio,
     .hero-subtext-exp {
-      font-size: 14.5px;
-      font-weight: 300;
+      font-size: var(--text-size-body);
+      letter-spacing: var(--text-track-ui);
+      font-weight: var(--text-weight);
       line-height: 1.7;
       color: rgba(255,255,255,0.58);
       transition: opacity 0.3s ease, transform 0.3s ease;
@@ -355,8 +370,8 @@
       background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
       color: #fff;
       font-family: 'Unbounded', sans-serif;
-      font-size: 13px; font-weight: 300;
-      letter-spacing: 0.02em;
+      font-size: var(--text-size-ui); font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
       border-radius: 12px;
       text-decoration: none;
       position: relative; overflow: hidden;
@@ -377,8 +392,8 @@
       border: 1px solid rgba(72,55,243,0.45);
       color: var(--text);
       font-family: 'Unbounded', sans-serif;
-      font-size: 13px; font-weight: 300;
-      letter-spacing: 0.02em;
+      font-size: var(--text-size-ui); font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
       border-radius: 12px;
       text-decoration: none;
       transition: background 0.18s, transform 0.15s;
@@ -456,8 +471,8 @@
     }
     .ai-builds-label {
       font-family: 'Unbounded', sans-serif;
-      font-size: 10px; font-weight: 400;
-      letter-spacing: 0.2em;
+      font-size: var(--text-size-ui); font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
       text-transform: uppercase;
       color: rgba(255,255,255,0.5);
       text-align: center;
@@ -499,8 +514,9 @@
     }
     .ai-build-im-on-it {
       font-family: 'Unbounded', sans-serif;
-      font-size: 12px;
-      font-weight: 300;
+      font-size: var(--text-size-ui);
+      font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
       color: rgba(255,255,255,0.35);
       opacity: 0;
       transform: translateX(6px);
@@ -518,13 +534,13 @@
     }
     .ai-build-num {
       font-family: 'Unbounded', sans-serif;
-      font-size: 12px; font-weight: 300;
+      font-size: var(--text-size-ui); font-weight: var(--text-weight); letter-spacing: var(--text-track-ui);
       color: rgba(255,255,255,0.35);
       flex-shrink: 0;
     }
     .ai-build-name {
       font-family: 'Unbounded', sans-serif;
-      font-size: 15px; font-weight: 400;
+      font-size: var(--text-size-body); font-weight: var(--text-weight); letter-spacing: var(--text-track-ui);
       color: rgba(255,255,255,0.9);
       flex: 1;
     }
@@ -549,19 +565,19 @@
     .lp-label {
       display: block;
       font-family: 'Unbounded', sans-serif;
-      font-size: 10px; font-weight: 300;
-      letter-spacing: 0.22em;
+      font-size: var(--text-size-ui); font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
       text-transform: uppercase;
       color: #929292;
       margin-bottom: 20px;
     }
     .lp-heading {
       font-family: 'Unbounded', sans-serif;
-      font-size: 36px;
-      font-weight: 300;
+      font-size: var(--text-size-heading);
+      font-weight: var(--text-weight);
       color: var(--text);
-      line-height: 1.1;
-      letter-spacing: -0.02em;
+      line-height: var(--text-lh-heading);
+      letter-spacing: var(--text-track-heading);
     }
     .lp-heading em {
       font-style: normal;
@@ -597,18 +613,18 @@
     .decks-label {
       display: block;
       font-family: 'Unbounded', sans-serif;
-      font-size: 10px; font-weight: 300;
-      letter-spacing: 0.2em;
+      font-size: var(--text-size-ui); font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
       text-transform: uppercase;
       color: #929292;
       margin-bottom: 20px;
     }
     .decks-heading {
       font-family: 'Unbounded', sans-serif;
-      font-size: 36px;
-      font-weight: 300;
+      font-size: var(--text-size-heading);
+      font-weight: var(--text-weight);
       line-height: 1.25;
-      letter-spacing: -0.02em;
+      letter-spacing: var(--text-track-heading);
       color: var(--text);
     }
     .decks-heading em {
@@ -843,12 +859,12 @@
     }
     .clients-heading {
       font-family: 'Unbounded', sans-serif;
-      font-size: 36px;
-      font-weight: 300;
+      font-size: var(--text-size-heading);
+      font-weight: var(--text-weight);
       color: #929292;
       text-align: center;
       margin: 16px 0;
-      letter-spacing: -0.01em;
+      letter-spacing: var(--text-track-heading);
     }
     .clients-heading strong { font-weight: 300; color: var(--text); }
     .clients-pills-row {
@@ -901,9 +917,9 @@
     }
     .client-name {
       font-family: 'Unbounded', sans-serif;
-      font-size: 13px;
-      font-weight: 200;
-      letter-spacing: 0.02em;
+      font-size: var(--text-size-ui);
+      font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
       color: #fff;
       white-space: nowrap;
       line-height: 1.5;
@@ -931,9 +947,9 @@
     .footer-headline {
       flex: 1;
       font-family: 'Unbounded', sans-serif;
-      font-size: 48px;
-      font-weight: 300;
-      letter-spacing: -0.04em;
+      font-size: var(--text-size-heading);
+      font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-heading);
       line-height: 0.9;
       color: #fff;
       mix-blend-mode: overlay;
@@ -945,7 +961,7 @@
     }
     .footer-nav-links a {
       font-family: 'Unbounded', sans-serif;
-      font-size: 16px; font-weight: 300;
+      font-size: var(--text-size-body); font-weight: var(--text-weight); letter-spacing: var(--text-track-ui);
       color: #fff;
       mix-blend-mode: overlay;
       text-decoration: none;
@@ -990,7 +1006,7 @@
     .footer-email {
       position: absolute; left: 50%; transform: translateX(-50%);
       font-family: 'Unbounded', sans-serif;
-      font-size: 13px; font-weight: 300;
+      font-size: var(--text-size-ui); font-weight: var(--text-weight); letter-spacing: var(--text-track-ui);
       color: #dadada; white-space: nowrap; line-height: 0.9;
     }
     .footer-cta { display: flex; align-items: center; justify-content: flex-end; flex: 1; }
@@ -1003,7 +1019,7 @@
       color: #fff; letter-spacing: 0.01em; text-decoration: none; white-space: nowrap;
     }
     .footer-copyright {
-      font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 300;
+      font-family: 'Unbounded', sans-serif; font-size: var(--text-size-ui); font-weight: var(--text-weight);
       color: #fff; mix-blend-mode: overlay; text-align: center;
       line-height: 0.9; padding-bottom: 60px;
     }
