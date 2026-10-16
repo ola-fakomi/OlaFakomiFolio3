@@ -581,9 +581,30 @@
       align-items: center;
       justify-content: center;
       padding: 80px 40px;
+      position: relative;
+      overflow: hidden;
     }
     .lp-inner {
       text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .lp-card {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 85%;
+      aspect-ratio: 984 / 652;
+      border-radius: 16px;
+      overflow: hidden;
+      z-index: 3;
+      will-change: transform;
+    }
+    .lp-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
     .lp-label {
       display: block;
@@ -1520,6 +1541,9 @@
       <span class="lp-label">Conversion Driving</span>
       <h2 class="lp-heading">Landing Page<br><em>&</em> Collaborations</h2>
     </div>
+    <div class="lp-card lp-card--1"><img src="images/Websites/Pneuma.png" alt="Pneuma Group" /></div>
+    <div class="lp-card lp-card--2"><img src="images/Websites/Ovasys.png" alt="Ovasys" /></div>
+    <div class="lp-card lp-card--3"><img src="images/Websites/Bluespectrum.png" alt="Bluespectrum" /></div>
   </section>
 
   <!-- ─── DECKS & VISUAL STORIES ─── -->
@@ -2088,6 +2112,8 @@
 
   <!-- Intro animation (GSAP + ScrollTrigger, bundled by Vite) -->
   <script type="module" src="src/intro.js"></script>
+  <!-- Landing page card scroll -->
+  <script type="module" src="src/lp-scroll.js"></script>
 
   <!-- ASCII Ripple background for AI Product Builds -->
   <script type="module">
