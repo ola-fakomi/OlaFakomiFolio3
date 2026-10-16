@@ -1225,10 +1225,7 @@
       pointer-events: none;
       transition: opacity 0.3s ease;
     }
-    .slide-modal.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
+    .slide-modal.open { opacity: 1; pointer-events: auto; }
     .slide-modal-overlay {
       position: absolute;
       inset: 0;
@@ -1241,17 +1238,18 @@
       z-index: 1;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;       /* left-align label */
       width: min(1100px, 92vw);
       transform: scale(0.95);
       transition: transform 0.35s cubic-bezier(0.34, 1.2, 0.64, 1);
     }
     .slide-modal.open .slide-modal-wrap { transform: scale(1); }
-    /* Label tab */
+    /* Label tab — left-aligned with 40px offset */
     .slide-modal-label {
       display: flex;
       align-items: flex-end;
       user-select: none;
+      margin-left: 40px;
     }
     .slide-modal-curve { display: block; flex-shrink: 0; }
     .slide-modal-label-frame {
@@ -1263,27 +1261,31 @@
       justify-content: center;
       font-family: 'Unbounded', sans-serif;
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 500;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: #111;
+      color: #929292;              /* dark gray, low visibility */
       white-space: nowrap;
     }
-    /* Modal body */
+    /* Modal body — 8px padding, 8px gap between nav and carousel */
     .slide-modal-body {
       width: 100%;
       background: #111;
-      border-radius: 0 0 16px 16px;
+      border-radius: 16px;
       overflow: hidden;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-sizing: border-box;
     }
     /* Nav row */
     .slide-modal-nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 24px;
-      height: 56px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 4px 8px;
+      height: 44px;
     }
     .slide-modal-tabs {
       display: flex;
@@ -1297,11 +1299,11 @@
       background: none;
       border: none;
       cursor: pointer;
-      padding: 6px 16px 6px 0;
+      padding: 6px 14px 6px 0;
       transition: color 0.2s;
       white-space: nowrap;
     }
-    .slide-modal-tab-btn + .slide-modal-tab-btn { padding-left: 16px; border-left: 1px solid rgba(255,255,255,0.12); }
+    .slide-modal-tab-btn + .slide-modal-tab-btn { padding-left: 14px; border-left: 1px solid rgba(255,255,255,0.12); }
     .slide-modal-tab-btn.active { color: #fff; font-weight: 600; }
     .slide-modal-info {
       display: flex;
@@ -1311,64 +1313,75 @@
       font-family: 'DM Sans', sans-serif;
       font-size: var(--text-size-ui);
     }
-    .slide-modal-info svg { flex-shrink: 0; }
+    .slide-modal-info img { width: 16px; height: 16px; flex-shrink: 0; opacity: 0.5; }
+    /* Close button — 8px radius */
     .slide-modal-close {
       background: rgba(255,255,255,0.08);
       border: none;
-      color: rgba(255,255,255,0.55);
-      font-size: 16px;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      transition: background 0.2s, color 0.2s;
-      line-height: 1;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      transition: background 0.2s;
+      padding: 0;
     }
-    .slide-modal-close:hover { background: rgba(255,255,255,0.16); color: #fff; }
-    /* Carousel */
+    .slide-modal-close img { width: 14px; height: 14px; opacity: 0.55; }
+    .slide-modal-close:hover { background: rgba(255,255,255,0.16); }
+    .slide-modal-close:hover img { opacity: 1; }
+    /* Carousel — image fills space, arrows overlaid */
     .slide-modal-carousel {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 20px;
+      position: relative;
+      line-height: 0;
     }
     .slide-carousel-track {
-      flex: 1;
+      width: 100%;
+      border-radius: 12px;
       overflow: hidden;
-      border-radius: 10px;
       background: #0a0a0a;
-      min-height: 420px;
+      aspect-ratio: 984 / 652;
       display: flex;
       align-items: center;
       justify-content: center;
     }
     .slide-carousel-img {
       width: 100%;
-      height: auto;
+      height: 100%;
+      object-fit: cover;
       display: none;
-      border-radius: 10px;
     }
     .slide-carousel-img.active { display: block; }
+    /* Arrow buttons — absolute, overlaid on image */
     .slide-carousel-btn {
-      background: rgba(255,255,255,0.07);
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(20,20,20,0.75);
       border: none;
-      color: rgba(255,255,255,0.45);
-      font-size: 22px;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
-      transition: background 0.2s, color 0.2s;
+      width: 40px;
+      height: 48px;
+      transition: background 0.2s;
+      z-index: 2;
+      padding: 0;
     }
-    .slide-carousel-btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
+    .slide-carousel-btn img { width: 16px; height: 16px; opacity: 0.7; }
+    .slide-carousel-btn:hover { background: rgba(20,20,20,0.95); }
+    .slide-carousel-btn:hover img { opacity: 1; }
+    .slide-carousel-btn--prev {
+      left: 0;
+      border-radius: 0 12px 12px 10px;
+    }
+    .slide-carousel-btn--next {
+      right: 0;
+      border-radius: 12px 0 0 12px;
+    }
   </style>
 </head>
 <script>document.documentElement.classList.add('js-intro');</script>
@@ -2063,14 +2076,14 @@
             <button class="slide-modal-tab-btn" data-deck="1">B2B AI CRM</button>
             <button class="slide-modal-tab-btn" data-deck="2">AI Revenue Engine</button>
           </div>
-          <button class="slide-modal-close" id="deckClose">×</button>
+          <button class="slide-modal-close" id="deckClose"><img src="images/Icons/IconCancel.png" alt="Close" /></button>
         </div>
         <div class="slide-modal-carousel">
-          <button class="slide-carousel-btn" id="deckPrev">&#8249;</button>
+          <button class="slide-carousel-btn slide-carousel-btn--prev" id="deckPrev"><img src="images/Icons/Iconleft.svg" alt="Previous" /></button>
           <div class="slide-carousel-track" id="deckTrack">
             <img class="slide-carousel-img active" src="images/Decks/Decks AI.webp" alt="Deck slide" />
           </div>
-          <button class="slide-carousel-btn" id="deckNext">&#8250;</button>
+          <button class="slide-carousel-btn slide-carousel-btn--next" id="deckNext"><img src="images/Icons/IconRight.svg" alt="Next" /></button>
         </div>
       </div>
     </div>
@@ -2088,23 +2101,19 @@
       <div class="slide-modal-body">
         <div class="slide-modal-nav">
           <div class="slide-modal-info">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-              <circle cx="9" cy="9" r="8" stroke="currentColor" stroke-width="1.4"/>
-              <circle cx="9" cy="6.5" r="1" fill="currentColor"/>
-              <rect x="8" y="8.5" width="2" height="4.5" rx="1" fill="currentColor"/>
-            </svg>
+            <img src="images/Icons/Icon_info.svg" alt="Info" />
             <span>I designed the storyboard that made these engaging videos possible.</span>
           </div>
-          <button class="slide-modal-close" id="storyClose">×</button>
+          <button class="slide-modal-close" id="storyClose"><img src="images/Icons/IconCancel.png" alt="Close" /></button>
         </div>
         <div class="slide-modal-carousel">
-          <button class="slide-carousel-btn" id="storyPrev">&#8249;</button>
+          <button class="slide-carousel-btn slide-carousel-btn--prev" id="storyPrev"><img src="images/Icons/Iconleft.svg" alt="Previous" /></button>
           <div class="slide-carousel-track" id="storyTrack">
             <img class="slide-carousel-img active" src="images/Decks/Stories Revwit.webp" alt="Storyboard" />
             <img class="slide-carousel-img" src="images/Decks/Kolme Stories.webp" alt="Storyboard" />
             <img class="slide-carousel-img" src="images/Decks/Migranium Stories.webp" alt="Storyboard" />
           </div>
-          <button class="slide-carousel-btn" id="storyNext">&#8250;</button>
+          <button class="slide-carousel-btn slide-carousel-btn--next" id="storyNext"><img src="images/Icons/IconRight.svg" alt="Next" /></button>
         </div>
       </div>
     </div>
