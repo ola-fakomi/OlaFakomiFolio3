@@ -626,6 +626,7 @@
       flex-direction: column;
       align-items: center;
       gap: 10px;
+      cursor: pointer;
       opacity: 0;
       transition: opacity 0.5s ease;
     }
@@ -1946,7 +1947,7 @@
     }, { passive: true });
 
     /* ─── Slide Modals ─── */
-    (function() {
+    document.addEventListener('DOMContentLoaded', function() {
       const deckModal  = document.getElementById('deckModal');
       const storyModal = document.getElementById('storyModal');
 
@@ -1959,14 +1960,14 @@
         document.body.style.overflow = '';
       }
 
-      // Triggers — deck items + word
-      document.querySelectorAll('.decks-item--deck').forEach(el =>
+      // Triggers — deck items, deck images + word
+      document.querySelectorAll('.decks-item--deck, .decks-item--deck .decks-img').forEach(el =>
         el.addEventListener('click', () => openModal(deckModal)));
       document.querySelector('.decks-word--decks')
         ?.addEventListener('click', () => openModal(deckModal));
 
-      // Triggers — story items + word
-      document.querySelectorAll('.decks-item--story').forEach(el =>
+      // Triggers — story items, story images + word
+      document.querySelectorAll('.decks-item--story, .decks-item--story .decks-img').forEach(el =>
         el.addEventListener('click', () => openModal(storyModal)));
       document.querySelector('.decks-word--stories')
         ?.addEventListener('click', () => openModal(storyModal));
@@ -2019,7 +2020,7 @@
 
       setupCarousel('deckPrev',  'deckNext',  'deckTrack');
       setupCarousel('storyPrev', 'storyNext', 'storyTrack');
-    })();
+    });
   </script>
 
   <!-- ─── DECK DESIGN MODAL ─── -->
