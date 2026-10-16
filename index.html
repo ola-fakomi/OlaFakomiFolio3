@@ -592,7 +592,7 @@
       letter-spacing: var(--text-track-ui);
       text-transform: uppercase;
       color: #929292;
-      margin-bottom: 20px;
+      margin-bottom: 4px;
     }
     .lp-heading {
       font-family: 'Unbounded', sans-serif;
@@ -615,14 +615,44 @@
     }
     .decks-row {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
-      padding: 0 60px;
-      gap: 24px;
+      padding: 0 40px;
+    }
+    .decks-item {
+      flex: 0 0 28%;
+      max-width: 360px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .decks-section.decks-scrolled .decks-item { opacity: 0.05; }
+    /* Individual image hover → full opacity + label */
+    .decks-section .decks-item:hover { opacity: 1; }
+    .decks-section .decks-item:hover .decks-item-label { opacity: 1; transform: translateY(0); }
+    /* Word hover → group reveal */
+    .decks-section:has(.decks-word--stories:hover) .decks-item--story { opacity: 1; }
+    .decks-section:has(.decks-word--decks:hover) .decks-item--deck { opacity: 1; }
+    .decks-section:has(.decks-word--stories:hover) .decks-item--story .decks-item-label,
+    .decks-section:has(.decks-word--decks:hover) .decks-item--deck .decks-item-label { opacity: 1; transform: translateY(0); }
+    .decks-item-label {
+      font-family: 'Unbounded', sans-serif;
+      font-size: var(--text-size-ui); font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
+      text-transform: uppercase;
+      color: #929292;
+      text-align: center;
+      line-height: 1.4;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      pointer-events: none;
     }
     .decks-img {
-      flex: 0 0 25%;
-      max-width: 340px;
+      width: 100%;
       transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
       cursor: pointer;
     }
@@ -642,7 +672,7 @@
       letter-spacing: var(--text-track-ui);
       text-transform: uppercase;
       color: #929292;
-      margin-bottom: 20px;
+      margin-bottom: 4px;
     }
     .decks-heading {
       font-family: 'Unbounded', sans-serif;
@@ -652,13 +682,19 @@
       letter-spacing: var(--text-track-heading);
       color: var(--text);
     }
-    .decks-heading em {
+    .decks-word {
       font-style: normal;
       color: #929292;
-      text-decoration: underline;
+      cursor: pointer;
+      text-decoration-line: underline;
       text-decoration-style: dotted;
-      text-underline-offset: 5px;
-      text-decoration-color: rgba(255,255,255,0.2);
+      text-decoration-color: transparent;
+      text-underline-offset: 6px;
+      transition: text-decoration-color 0.25s ease;
+    }
+    .decks-section:has(.decks-word--stories:hover) .decks-word--stories,
+    .decks-section:has(.decks-word--decks:hover) .decks-word--decks {
+      text-decoration-color: rgba(255, 121, 116, 0.85);
     }
     .decks-img--tl { transform: rotate(-8deg); }
     .decks-img--tc { transform: rotate(-3deg); }
@@ -672,6 +708,11 @@
     .decks-img--bl:hover { transform: rotate(5deg); }
     .decks-img--bc:hover { transform: rotate(13deg); }
     .decks-img--br:hover { transform: rotate(17deg); }
+    /* Staggered vertical offsets */
+    .decks-section > .decks-row:first-child .decks-item:nth-child(2) { position: relative; top: -24px; }
+    .decks-section > .decks-row:first-child .decks-item:nth-child(3) { position: relative; top: -20px; }
+    .decks-section > .decks-row:last-child  .decks-item:nth-child(2) { position: relative; top: -28px; }
+    .decks-section > .decks-row:last-child  .decks-item:nth-child(3) { position: relative; top: -16px; }
 
     /* Slide 1 — dark blue automation */
     .deck-slide--blue {
@@ -1327,31 +1368,49 @@
   <section class="decks-section">
     <!-- Top row: Visual Stories -->
     <div class="decks-row">
-      <div class="decks-img decks-img--tl">
-        <img src="images/Decks/Stories_Revwit.svg" alt="Revwit Visual Story" />
+      <div class="decks-item decks-item--story">
+        <span class="decks-item-label">Marketing<br>Storyboard</span>
+        <div class="decks-img decks-img--tl">
+          <img src="images/Decks/Stories Revwit.webp" alt="Revwit Visual Story" />
+        </div>
       </div>
-      <div class="decks-img decks-img--tc">
-        <img src="images/Decks/Stories_Kolme.svg" alt="Kolme Visual Story" />
+      <div class="decks-item decks-item--story">
+        <span class="decks-item-label">Web3<br>Storyboard</span>
+        <div class="decks-img decks-img--tc">
+          <img src="images/Decks/Kolme Stories.webp" alt="Kolme Visual Story" />
+        </div>
       </div>
-      <div class="decks-img decks-img--tr">
-        <img src="images/Decks/Stories_Migranium.svg" alt="Migranium Visual Story" />
+      <div class="decks-item decks-item--story">
+        <span class="decks-item-label">SaaS<br>Storyboard</span>
+        <div class="decks-img decks-img--tr">
+          <img src="images/Decks/Migranium Stories.webp" alt="Migranium Visual Story" />
+        </div>
       </div>
     </div>
     <!-- Heading -->
     <div class="decks-inner">
       <span class="decks-label">Beyond building products I help...</span>
-      <h2 class="decks-heading">Products scale with compelling<br>Visual <em>Stories</em> &amp; <em>Decks</em></h2>
+      <h2 class="decks-heading">Products scale with compelling<br>Visual <span class="decks-word decks-word--stories">Stories</span> &amp; <span class="decks-word decks-word--decks">Decks</span></h2>
     </div>
     <!-- Bottom row: Decks -->
     <div class="decks-row">
-      <div class="decks-img decks-img--bl">
-        <img src="images/Decks/Decks_Ecom.svg" alt="Ecom Deck" />
+      <div class="decks-item decks-item--deck">
+        <span class="decks-item-label">Pitch Deck</span>
+        <div class="decks-img decks-img--bl">
+          <img src="images/Decks/Decks Ecom.webp" alt="Ecom Deck" />
+        </div>
       </div>
-      <div class="decks-img decks-img--bc">
-        <img src="images/Decks/Decks_Sales.svg" alt="Sales Deck" />
+      <div class="decks-item decks-item--deck">
+        <span class="decks-item-label">Pitch Deck</span>
+        <div class="decks-img decks-img--bc">
+          <img src="images/Decks/Decks Sales.webp" alt="Sales Deck" />
+        </div>
       </div>
-      <div class="decks-img decks-img--br">
-        <img src="images/Decks/Decks_AI.svg" alt="AI Deck" />
+      <div class="decks-item decks-item--deck">
+        <span class="decks-item-label">Pitch Deck</span>
+        <div class="decks-img decks-img--br">
+          <img src="images/Decks/Decks AI.webp" alt="AI Deck" />
+        </div>
       </div>
     </div>
   </section>
@@ -1655,6 +1714,21 @@
     /* ─── AI build item hover sounds ─── */
     document.querySelectorAll('.ai-build-item').forEach(el => {
       el.addEventListener('mouseenter', () => playTick(750, 0.08, 0.055));
+    });
+
+    /* ─── Decks section scroll-in reveal ─── */
+    (function() {
+      const decksSec = document.querySelector('.decks-section');
+      if (!decksSec) return;
+      const obs = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) { decksSec.classList.add('decks-scrolled'); obs.disconnect(); }
+      }, { threshold: 0.1 });
+      obs.observe(decksSec);
+    })();
+
+    /* ─── Decks word hover sounds ─── */
+    document.querySelectorAll('.decks-word').forEach(el => {
+      el.addEventListener('mouseenter', () => playTick(750, 0.10, 0.055));
     });
 
     /* ─── Decks item hover sounds ─── */
