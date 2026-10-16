@@ -3,56 +3,68 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const GAP       = 160;          // px of scroll gap between each card
-const ROTATIONS = [2, -2, 2];  // degrees: card 1, 2, 3
+const ROTATIONS = [2, -2, 2];
 
 document.addEventListener('DOMContentLoaded', () => {
   const section = document.querySelector('.lp-section');
+  const wrapper = document.querySelector('.lp-wrapper');
   const cards   = [...document.querySelectorAll('.lp-card')];
-  if (!section || !cards.length) return;
+  if (!section || !wrapper || !cards.length) return;
 
   let ctx;
 
   function init() {
     ctx?.revert();
+    wrapper.style.height = ''; // reset before recalculating
 
     ctx = gsap.context(() => {
       const vh    = window.innerHeight;
       const cardH = cards[0].offsetHeight;
+      const GAP   = Math.round(vh / 2); // vh/2 gap between cards
 
-      // Distance each card travels: enters from bottom of vp, exits above section top
-      const singleTrip = vh + cardH;
-      // Total pinned scroll: 3 card trips + 2 x 160px gaps between them
-      const totalPin   = singleTrip * cards.length + GAP * (cards.length - 1);
-
-      // Park all cards off-screen below with their rotations
+      // Park cards in a chain below the viewport
       cards.forEach((card, i) => {
         gsap.set(card, {
           xPercent: -50,
           rotation: ROTATIONS[i],
-          y: vh + cardH + 20,
+          y: vh + 20 + i * (cardH + GAP),
         });
       });
 
-      // Build scrub timeline — each card occupies a proportional slice
-      const tl = gsap.timeline();
+      // All cards move this many pixels to clear card 3 off the top
+      const totalTravel = vh + 20 + 2 * (cardH + GAP) + cardH + 50;
 
-      cards.forEach((card, i) => {
-        const startAt = i === 0 ? 0 : (i * (singleTrip + GAP)) / totalPin;
+      // Text-only phase before cards start
+      const textPhase = Math.round(vh / 3);
+      const totalPin  = textPhase + totalTravel;
 
-        tl.to(card, {
-          y: -(cardH + 50),
-          ease: 'none',
-          duration: singleTrip / totalPin,
-        }, startAt);
-      });
+      // The wrapper height = totalPin + vh so that:
+      //   ScrollTrigger 'top top' → 'bottom bottom' covers exactly totalPin of scroll.
+      // When wrapper's bottom clears the viewport, the sticky section releases
+      // and the next section (decks) follows with zero gap.
+      wrapper.style.height = (totalPin + vh) + 'px';
 
+      const inner = section.querySelector('.lp-inner');
+      const bg    = section.querySelector('.lp-bg');
+      const tl    = gsap.timeline();
+
+      // All 3 cards move together by totalTravel — constant vh/2 gap maintained
+      tl.to(cards, {
+        y:        `-=${totalTravel}`,
+        ease:     'none',
+        duration: totalTravel / totalPin,
+      }, textPhase / totalPin);
+
+      // Fade text + bg as the last card is nearly gone
+      tl.to([inner, bg], { opacity: 0, ease: 'none', duration: 0.07 }, 0.93);
+
+      // No pin:true — sticky CSS handles the visual lock.
+      // When wrapper ends, section unsticks and decks appears immediately below.
       ScrollTrigger.create({
-        trigger:   section,
+        trigger:   wrapper,
         start:     'top top',
-        end:       `+=${totalPin}`,
-        pin:       true,
-        scrub:     1.5,
+        end:       'bottom bottom',
+        scrub:     0.8,
         animation: tl,
       });
     });
@@ -60,7 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   init();
 
-  // Recalculate on resize
   let resizeTimer;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);

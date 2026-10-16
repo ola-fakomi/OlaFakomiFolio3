@@ -574,21 +574,31 @@
     }
 
     /* ─── LANDING PAGES SECTION ─── */
+    .lp-wrapper {
+      /* height set dynamically by JS — provides scroll space */
+      position: relative;
+      z-index: 10;
+    }
     .lp-section {
       height: 100vh;
-      position: relative;
+      position: sticky;
+      top: 0;
       overflow: hidden;
-      background: url('images/Websites/Landing Page Background.webp') center/cover no-repeat;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding-top: 60px;
+      justify-content: center;
+    }
+    .lp-bg {
+      position: absolute;
+      inset: 0;
+      background: url('images/Websites/LandingPageBG.png') center/cover no-repeat;
+      z-index: 0;
     }
     .lp-inner {
       text-align: center;
       position: relative;
-      z-index: 4;
-      flex-shrink: 0;
+      z-index: 1;
     }
     .lp-card {
       position: absolute;
@@ -634,6 +644,9 @@
       background: #191919;
       overflow: hidden;
       padding: 80px 0;
+      position: relative;
+      z-index: 1;
+      margin-top: -100vh;
     }
     .decks-row {
       display: flex;
@@ -1214,6 +1227,11 @@
       z-index: 2;
     }
 
+    /* Hide nav when any modal is open */
+    body:has(.slide-modal.open) nav {
+      display: none;
+    }
+
     /* ─── SLIDE MODALS ─── */
     .slide-modal {
       position: fixed;
@@ -1550,15 +1568,18 @@
   </section>
 
   <!-- ─── LANDING PAGES & COLLABORATIONS ─── -->
-  <section class="lp-section">
-    <div class="lp-inner">
-      <span class="lp-label">Conversion Driving</span>
-      <h2 class="lp-heading">Landing Page<br><em>&</em> Collaborations</h2>
-    </div>
-    <div class="lp-card lp-card--1"><img src="images/Websites/Pneuma.png" alt="Pneuma Group" /></div>
-    <div class="lp-card lp-card--2"><img src="images/Websites/Ovasys.png" alt="Ovasys" /></div>
-    <div class="lp-card lp-card--3"><img src="images/Websites/Bluespectrum.png" alt="Bluespectrum" /></div>
-  </section>
+  <div class="lp-wrapper">
+    <section class="lp-section">
+      <div class="lp-bg"></div>
+      <div class="lp-inner">
+        <span class="lp-label">Conversion Driving</span>
+        <h2 class="lp-heading">Landing Page<br><em>&</em> Websites</h2>
+      </div>
+      <div class="lp-card lp-card--1"><img src="images/Websites/Pneuma.png" alt="Pneuma Group" /></div>
+      <div class="lp-card lp-card--2"><img src="images/Websites/Ovasys.png" alt="Ovasys" /></div>
+      <div class="lp-card lp-card--3"><img src="images/Websites/Bluespectrum.png" alt="Bluespectrum" /></div>
+    </section>
+  </div>
 
   <!-- ─── DECKS & VISUAL STORIES ─── -->
   <section class="decks-section">
