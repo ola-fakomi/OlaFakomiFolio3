@@ -188,7 +188,7 @@
 
     /* ─── PROJECTS WRAPPER ─── */
     .sp-wrapper {
-      max-width: 832px;
+      max-width: 896px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
@@ -196,28 +196,48 @@
     }
 
     /* ─── TABS ─── */
-    .sp-tabs { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .sp-tabs {
+      display: flex; align-items: center; gap: 0; flex-wrap: wrap;
+      border-bottom: 1px solid #262626;
+      padding-top: 16px;
+      padding-bottom: 12px;
+      padding-left: 12px;
+      padding-right: 12px;
+      margin-left: -12px;
+      margin-right: -12px;
+      /* Sticky */
+      position: sticky;
+      top: var(--nav-h);
+      z-index: 50;
+      background: #191919;
+    }
+    /* Fade below the sticky tab bar */
+    .sp-tabs::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: -40px; right: -40px;
+      height: 32px;
+      background: linear-gradient(to bottom, rgba(25,25,25,0.6), transparent);
+      pointer-events: none;
+    }
     .sp-tab {
       display: inline-flex; align-items: center;
-      height: 40px; padding: 0 18px;
-      border-radius: 100px;
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.08);
+      height: 40px; padding: 0 18px 0 0;
+      background: none;
+      border: none;
       font-family: 'Unbounded', sans-serif;
-      font-size: var(--text-size-ui); font-weight: var(--text-weight);
+      font-size: var(--text-size-ui); font-weight: 300;
       letter-spacing: var(--text-track-ui);
-      color: var(--muted);
+      color: rgba(255,255,255,0.35);
       cursor: pointer;
-      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      transition: color 0.2s;
       white-space: nowrap; user-select: none;
     }
-    .sp-tab:hover { border-color: rgba(255,255,255,0.15); color: #c0c0c0; }
-    .sp-tab.active {
-      background: #23232e;
-      border-color: rgba(255,255,255,0.12);
-      color: #fff;
-    }
-    .sp-tab.active::before { content: '/ '; opacity: 0.5; }
+    .sp-tabs .sp-tab:first-child { padding-left: 12px; }
+    .sp-tab + .sp-tab { padding-left: 18px; border-left: 1px solid #262626; }
+    .sp-tab:hover { color: #c0c0c0; }
+    .sp-tab.active { color: #fff; font-weight: 400; }
 
     /* ─── SECTION HEADER ─── */
     .sp-section-header {
@@ -231,25 +251,6 @@
       text-transform: uppercase;
       color: var(--muted);
       line-height: 1.2;
-    }
-    .sp-view-all {
-      display: inline-flex; align-items: center; gap: 8px;
-      height: 36px; padding: 0 14px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 100px;
-      font-family: 'Unbounded', sans-serif;
-      font-size: var(--text-size-ui); font-weight: var(--text-weight);
-      letter-spacing: var(--text-track-ui);
-      color: var(--text-dim); text-decoration: none;
-      transition: background 0.2s, border-color 0.2s;
-    }
-    .sp-view-all:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.14); }
-    .sp-view-all-icon {
-      width: 20px; height: 20px; border-radius: 50%;
-      background: rgba(255,255,255,0.08);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 11px; color: #fff;
     }
 
     /* ─── CATEGORY GROUPS ─── */
@@ -315,7 +316,7 @@
       height: 36px; padding: 0 12px 0 8px;
       background: #1d1d1d;
       border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 8px; overflow: hidden; flex-shrink: 1;
+      border-radius: 12px; overflow: hidden; flex-shrink: 1;
     }
     .sp-dots { display: flex; align-items: center; flex-shrink: 0; }
     .sp-dot {
@@ -338,7 +339,7 @@
       height: 36px; padding: 0 12px;
       background: #1d1d1d;
       border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 8px;
+      border-radius: 12px;
       font-family: 'Unbounded', sans-serif;
       font-size: var(--text-size-ui); font-weight: var(--text-weight);
       letter-spacing: var(--text-track-ui);
@@ -530,9 +531,6 @@
 
         <!-- ── UX / Product Design ── -->
         <div class="sp-category active" data-category="ux">
-          <div class="sp-section-header">
-            <h2 class="sp-section-title">Product Design</h2>
-          </div>
 
           <a class="sp-card" href="roots.html">
             <div class="sp-info">
@@ -630,9 +628,6 @@
 
         <!-- ── Builds / Product Builds ── -->
         <div class="sp-category" data-category="builds">
-          <div class="sp-section-header">
-            <h2 class="sp-section-title">Product Builds</h2>
-          </div>
 
           <a class="sp-card" href="https://www.loom.com/share/c4127f5148734a4da9f4aa2e5bb0e345" target="_blank" rel="noopener">
             <div class="sp-info">
@@ -724,10 +719,6 @@
 
         <!-- ── Websites ── -->
         <div class="sp-category" data-category="websites">
-          <div class="sp-section-header">
-            <h2 class="sp-section-title">Websites</h2>
-            <a href="#" class="sp-view-all">View all <span class="sp-view-all-icon">↗</span></a>
-          </div>
 
           <a class="sp-card" href="https://www.pneumagroup.org/" target="_blank" rel="noopener">
             <div class="sp-info">
