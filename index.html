@@ -621,17 +621,126 @@
       position: absolute;
       top: 0;
       left: 50%;
-      width: 85%;
-      aspect-ratio: 984 / 652;
-      border-radius: 16px;
-      overflow: hidden;
+      width: min(1100px, 92vw);
+      display: flex;
+      flex-direction: column;
       z-index: 3;
       will-change: transform;
     }
-    .lp-card img {
+    /* LP card — label tab */
+    .lp-card-label {
+      display: flex;
+      align-items: flex-end;
+      user-select: none;
+      margin-left: 40px;
+      margin-bottom: -1px;
+      position: relative;
+      z-index: 1;
+    }
+    .lp-card-curve { display: block; flex-shrink: 0; }
+    .lp-card-label-frame {
+      height: 44px;
+      padding: 0 28px;
+      background: #232323;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      white-space: nowrap;
+    }
+    /* LP card — body */
+    .lp-card-body {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      background: #232323;
+      border-radius: 24px;
+      overflow: hidden;
+      padding: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-sizing: border-box;
+    }
+    .lp-card-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #262626;
+      padding-bottom: 8px;
+    }
+    .lp-card-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .lp-card-logo {
+      width: 40px; height: 40px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(53,53,55,0.6) 0%, rgba(31,30,30,0.6) 100%);
+      box-shadow: 0 0 5.74px rgba(0,0,0,0.25),
+                  inset -1.4px -1.4px 0 rgba(255,255,255,0.02),
+                  inset 1.4px 1.4px 0 rgba(255,255,255,0.04);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .lp-card-logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .lp-card-company {
+      font-family: 'Unbounded', sans-serif;
+      font-size: var(--text-size-ui);
+      font-weight: 400;
+      color: #fff;
+      white-space: nowrap;
+    }
+    .lp-card-live-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 40px;
+      padding: 0 14px;
+      background: #1C1C1C;
+      border-radius: 12px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: var(--text-size-ui);
+      font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
+      color: #fff;
+      text-decoration: none;
+      white-space: nowrap;
+      position: relative;
+      overflow: hidden;
+      transition: opacity 0.2s, transform 0.2s;
+      flex-shrink: 0;
+    }
+    .lp-card-live-btn::after {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 12px;
+      box-shadow: inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      pointer-events: none;
+    }
+    .lp-card-live-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+    .lp-card-live-icon {
+      width: 20px; height: 20px;
+      position: relative; overflow: hidden; flex-shrink: 0;
+    }
+    .lp-card-live-icon img {
+      position: absolute; display: block;
+      top: -3.75%; left: -3.75%;
+      width: 107.5%; height: 107.5%;
+      object-fit: contain;
+    }
+    .lp-card-image {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
       display: block;
     }
     .lp-label {
@@ -1664,9 +1773,66 @@
         <span class="lp-label">Conversion Driving</span>
         <h2 class="lp-heading">Landing Page<br><em>&</em> Websites</h2>
       </div>
-      <div class="lp-card lp-card--1"><img src="images/Websites/Pneuma.png" alt="Pneuma Group" /></div>
-      <div class="lp-card lp-card--2"><img src="images/Websites/Ovasys.png" alt="Ovasys" /></div>
-      <div class="lp-card lp-card--3"><img src="images/Websites/Bluespectrum.png" alt="Bluespectrum" /></div>
+      <div class="lp-card lp-card--1">
+        <div class="lp-card-label">
+          <svg class="lp-card-curve" width="39" height="44" viewBox="0 0 39 44" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.8008 0.0100315L38.7942 29.0247V44H23.8155H-0.00131226C6.00459 44 11.4298 40.4126 13.7814 34.8863L24.7485 9.11373C27.1001 3.58737 32.5253 0 38.5312 0H38.7908C38.7963 0 38.8008 0.00449101 38.8008 0.0100315Z" fill="#232323"/></svg>
+          <div class="lp-card-label-frame">01</div>
+          <svg class="lp-card-curve" width="39" height="44" viewBox="0 0 39 44" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 0.0100315L0.0066157 29.0247V44H14.9853H38.8021C32.7962 44 27.371 40.4126 25.0194 34.8863L14.0523 9.11373C11.7007 3.58737 6.27549 0 0.269583 0H0.0100303C0.0044898 0 0 0.00449101 0 0.0100315Z" fill="#232323"/></svg>
+        </div>
+        <div class="lp-card-body">
+          <div class="lp-card-nav">
+            <div class="lp-card-brand">
+              <div class="lp-card-logo"><img src="images/Logos/Pneuma_LogoImg.png" alt="Pneuma Group" /></div>
+              <span class="lp-card-company">Pneuma Group</span>
+            </div>
+            <a href="https://pneumagroup.org" target="_blank" rel="noopener" class="lp-card-live-btn">
+              Live Site
+              <div class="lp-card-live-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.5" d="M7.9987 14.6663C11.6806 14.6663 14.6654 11.6816 14.6654 7.99967C14.6654 4.31778 11.6806 1.33301 7.9987 1.33301C4.3168 1.33301 1.33203 4.31778 1.33203 7.99967C1.33203 11.6816 4.3168 14.6663 7.9987 14.6663Z" stroke="#929292"/><path d="M6 10L10 6M10 6H7M10 6V9" stroke="#929292" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </a>
+          </div>
+          <img class="lp-card-image" src="images/Websites/Pneuma.png" alt="Pneuma Group website" />
+        </div>
+      </div>
+      <div class="lp-card lp-card--2">
+        <div class="lp-card-label">
+          <svg class="lp-card-curve" width="39" height="44" viewBox="0 0 39 44" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.8008 0.0100315L38.7942 29.0247V44H23.8155H-0.00131226C6.00459 44 11.4298 40.4126 13.7814 34.8863L24.7485 9.11373C27.1001 3.58737 32.5253 0 38.5312 0H38.7908C38.7963 0 38.8008 0.00449101 38.8008 0.0100315Z" fill="#232323"/></svg>
+          <div class="lp-card-label-frame">02</div>
+          <svg class="lp-card-curve" width="39" height="44" viewBox="0 0 39 44" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 0.0100315L0.0066157 29.0247V44H14.9853H38.8021C32.7962 44 27.371 40.4126 25.0194 34.8863L14.0523 9.11373C11.7007 3.58737 6.27549 0 0.269583 0H0.0100303C0.0044898 0 0 0.00449101 0 0.0100315Z" fill="#232323"/></svg>
+        </div>
+        <div class="lp-card-body">
+          <div class="lp-card-nav">
+            <div class="lp-card-brand">
+              <div class="lp-card-logo"><img src="images/Logos/Ovasys_LogoImg.png" alt="Ovasys" /></div>
+              <span class="lp-card-company">Ovasys</span>
+            </div>
+            <a href="https://ovasys.co" target="_blank" rel="noopener" class="lp-card-live-btn">
+              Live Site
+              <div class="lp-card-live-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.5" d="M7.9987 14.6663C11.6806 14.6663 14.6654 11.6816 14.6654 7.99967C14.6654 4.31778 11.6806 1.33301 7.9987 1.33301C4.3168 1.33301 1.33203 4.31778 1.33203 7.99967C1.33203 11.6816 4.3168 14.6663 7.9987 14.6663Z" stroke="#929292"/><path d="M6 10L10 6M10 6H7M10 6V9" stroke="#929292" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </a>
+          </div>
+          <img class="lp-card-image" src="images/Websites/Ovasys.png" alt="Ovasys website" />
+        </div>
+      </div>
+      <div class="lp-card lp-card--3">
+        <div class="lp-card-label">
+          <svg class="lp-card-curve" width="39" height="44" viewBox="0 0 39 44" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.8008 0.0100315L38.7942 29.0247V44H23.8155H-0.00131226C6.00459 44 11.4298 40.4126 13.7814 34.8863L24.7485 9.11373C27.1001 3.58737 32.5253 0 38.5312 0H38.7908C38.7963 0 38.8008 0.00449101 38.8008 0.0100315Z" fill="#232323"/></svg>
+          <div class="lp-card-label-frame">03</div>
+          <svg class="lp-card-curve" width="39" height="44" viewBox="0 0 39 44" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 0.0100315L0.0066157 29.0247V44H14.9853H38.8021C32.7962 44 27.371 40.4126 25.0194 34.8863L14.0523 9.11373C11.7007 3.58737 6.27549 0 0.269583 0H0.0100303C0.0044898 0 0 0.00449101 0 0.0100315Z" fill="#232323"/></svg>
+        </div>
+        <div class="lp-card-body">
+          <div class="lp-card-nav">
+            <div class="lp-card-brand">
+              <div class="lp-card-logo"><img src="images/Logos/Bluespectrum_LogoImg.png" alt="Bluespectrum" /></div>
+              <span class="lp-card-company">Bluespectrum Innovative</span>
+            </div>
+            <a href="https://bluespectruminnovative.com" target="_blank" rel="noopener" class="lp-card-live-btn">
+              Live Site
+              <div class="lp-card-live-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.5" d="M7.9987 14.6663C11.6806 14.6663 14.6654 11.6816 14.6654 7.99967C14.6654 4.31778 11.6806 1.33301 7.9987 1.33301C4.3168 1.33301 1.33203 4.31778 1.33203 7.99967C1.33203 11.6816 4.3168 14.6663 7.9987 14.6663Z" stroke="#929292"/><path d="M6 10L10 6M10 6H7M10 6V9" stroke="#929292" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </a>
+          </div>
+          <img class="lp-card-image" src="images/Websites/Bluespectrum.png" alt="Bluespectrum Innovative website" />
+        </div>
+      </div>
     </section>
   </div>
 
@@ -2014,7 +2180,7 @@
     });
 
     /* ─── Button hover sounds ─── */
-    document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta').forEach(el => {
+    document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta, .lp-card-live-btn').forEach(el => {
       el.addEventListener('mouseenter', () => playTick(900, 0.08, 0.05));
     });
 
