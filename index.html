@@ -358,8 +358,26 @@
     .hero-orange { color: var(--orange); }
     .hero-accent-blue { color: var(--text); }
     .hero-blue { color: #ffffff; }
-    .hero-link { color: var(--orange); text-decoration: underline; text-underline-offset: 3px; }
-    .hero-link:hover { opacity: 0.8; }
+    /* Global text link — dotted underline, reveals on hover */
+    .text-link {
+      color: inherit;
+      text-decoration-line: underline;
+      text-decoration-style: dotted;
+      text-decoration-color: transparent;
+      text-underline-offset: 4px;
+      transition: text-decoration-color 0.25s ease;
+    }
+    .text-link:hover { text-decoration-color: rgba(255, 121, 116, 0.85); }
+    .slide-modal-info .text-link {
+      color: #fff;
+      text-decoration-color: rgba(255,255,255,0.4);
+    }
+    .slide-modal-info .text-link:hover {
+      color: #FF7772;
+      text-decoration-color: #FF7772;
+    }
+    .hero-link { color: var(--orange); }
+    .hero-link:hover { text-decoration-color: rgba(255, 121, 116, 0.85); }
 
     .hero-ctas {
       display: flex; align-items: center; gap: 8px;
@@ -498,11 +516,10 @@
       border-radius: 16px;
       background: linear-gradient(135deg, #1E1E1E 0%, #191919 100%);
       text-decoration: none;
-      transition: background 1.2s ease;
+      transition: background 0.3s ease;
     }
-    /* Active item: blue gradient on hover */
-    .ai-build-item--active:hover {
-      background: linear-gradient(90deg, #1E1E1E 0%, #191919 50%, #1225FF 100%);
+    .ai-build-item:hover {
+      background: linear-gradient(135deg, #1E1E1E 0%, #1E1E1E 100%);
     }
     /* Locked (inactive) items: not clickable, no bg change */
     .ai-build-item--locked { cursor: default; }
@@ -592,7 +609,7 @@
     .lp-bg {
       position: absolute;
       inset: 0;
-      background: url('images/Websites/LandingPageBG.png') center/cover no-repeat;
+      background: #1E1E1E;
       z-index: 0;
     }
     .lp-inner {
@@ -645,7 +662,7 @@
       overflow: hidden;
       padding: 80px 0;
       position: relative;
-      z-index: 1;
+      z-index: 12;
       margin-top: -100vh;
     }
     .decks-row {
@@ -1077,20 +1094,6 @@
       transition: opacity 0.2s;
     }
     .footer-nav-links a:hover { opacity: 0.7; }
-    .footer-avatar {
-      width: 40px; height: 40px;
-      border-radius: 12px;
-      background: linear-gradient(180deg, #2a208d 0%, #4837f3 100%);
-      box-shadow: 0 0 4.92px rgba(0,0,0,0.25), inset -1.8px -1.8px 0 rgba(0,0,0,0.14), inset 1.8px 1.8px 0 rgba(0,0,0,0.08);
-      overflow: hidden; flex-shrink: 0; position: relative;
-    }
-    .footer-avatar img {
-      position: absolute;
-      left: -2.4px; top: -1.2px;
-      width: 55.2px; height: 55.2px;
-      object-fit: cover;
-      mix-blend-mode: lighten;
-    }
     .footer-bottom { display: flex; flex-direction: column; gap: 24px; }
     .footer-contact-bar {
       display: flex; align-items: center; justify-content: space-between;
@@ -1150,7 +1153,6 @@
       .nav-links a span { display: none; }
       .footer-inner { padding: 40px 20px 0; }
       .footer-top { flex-direction: column; gap: 40px; }
-      .footer-avatar { width: 72px; height: 72px; border-radius: 16px; }
       .footer-headline { font-size: 40px; }
       .footer-contact-bar { flex-direction: row; padding: 4px; }
       .footer-email { display: none; }
@@ -1248,7 +1250,7 @@
     .slide-modal-overlay {
       position: absolute;
       inset: 0;
-      background: rgba(6, 6, 6, 0.90);
+      background: rgba(25, 25, 25, 0.90);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
     }
@@ -1269,6 +1271,9 @@
       align-items: flex-end;
       user-select: none;
       margin-left: 40px;
+      margin-bottom: -1px;
+      position: relative;
+      z-index: 1;
     }
     .slide-modal-curve { display: block; flex-shrink: 0; }
     .slide-modal-label-frame {
@@ -1286,16 +1291,17 @@
       color: #929292;              /* dark gray, low visibility */
       white-space: nowrap;
     }
-    /* Modal body — 8px padding, 8px gap between nav and carousel */
+    /* Modal body — 12px padding across the board */
     .slide-modal-body {
       width: 100%;
-      background: #111;
-      border-radius: 16px;
+      background: #1C1C1C;
+      border-radius: 24px;
       overflow: hidden;
-      padding: 8px;
+      padding: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 12px;
       box-sizing: border-box;
     }
     /* Nav row */
@@ -1303,15 +1309,17 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 4px 8px;
+      padding: 4px 0;
       height: 44px;
+      border-bottom: 1px solid #272727;
+      padding-bottom: 12px;
     }
     .slide-modal-tabs {
       display: flex;
       align-items: center;
     }
     .slide-modal-tab-btn {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Unbounded', sans-serif;
       font-size: var(--text-size-ui);
       font-weight: 400;
       color: rgba(255,255,255,0.35);
@@ -1329,28 +1337,51 @@
       align-items: center;
       gap: 10px;
       color: rgba(255,255,255,0.5);
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Unbounded', sans-serif;
       font-size: var(--text-size-ui);
     }
-    .slide-modal-info img { width: 16px; height: 16px; flex-shrink: 0; opacity: 0.5; }
-    /* Close button — 8px radius */
+    /* Info icon frame */
+    .slide-modal-info-icon {
+      width: 36px; height: 36px;
+      border-radius: 1000px;
+      background: #191919;
+      border: 1px solid #272727;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .slide-modal-info-icon img { width: 16px; height: 16px; display: block; }
+    .slide-modal-info span { font-size: var(--text-size-body); }
+    /* Close button — nav-cta style, 32×32 */
     .slide-modal-close {
-      background: rgba(255,255,255,0.08);
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
       border: none;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
-      transition: background 0.2s;
-      padding: 0;
+      width: 32px;
+      height: 32px;
+      max-width: 32px;
+      max-height: 32px;
+      border-radius: 10px;
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25);
+      position: relative;
+      overflow: hidden;
+      padding: 6px;
+      transition: opacity 0.2s, transform 0.2s;
     }
-    .slide-modal-close img { width: 14px; height: 14px; opacity: 0.55; }
-    .slide-modal-close:hover { background: rgba(255,255,255,0.16); }
-    .slide-modal-close:hover img { opacity: 1; }
+    .slide-modal-close::after {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 10px;
+      box-shadow: inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      pointer-events: none;
+    }
+    .slide-modal-close img { width: 100%; height: 100%; opacity: 0.85; display: block; }
+    .slide-modal-close:hover { opacity: 0.85; transform: translateY(-1px); }
     /* Carousel — image fills space, arrows overlaid */
     .slide-modal-carousel {
       position: relative;
@@ -1378,7 +1409,6 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(20,20,20,0.75);
       border: none;
       cursor: pointer;
       display: flex;
@@ -1386,20 +1416,22 @@
       justify-content: center;
       width: 40px;
       height: 48px;
-      transition: background 0.2s;
+      transition: opacity 0.2s;
       z-index: 2;
       padding: 0;
     }
-    .slide-carousel-btn img { width: 16px; height: 16px; opacity: 0.7; }
-    .slide-carousel-btn:hover { background: rgba(20,20,20,0.95); }
+    .slide-carousel-btn img { width: 28px; height: 28px; opacity: 0.85; }
+    .slide-carousel-btn:hover { opacity: 0.75; }
     .slide-carousel-btn:hover img { opacity: 1; }
     .slide-carousel-btn--prev {
       left: 0;
-      border-radius: 0 12px 12px 10px;
+      border-radius: 0 12px 12px 0;
+      background: linear-gradient(to right, #1C1C1C, #353537);
     }
     .slide-carousel-btn--next {
       right: 0;
       border-radius: 12px 0 0 12px;
+      background: linear-gradient(to right, #353537, #1C1C1C);
     }
   </style>
 </head>
@@ -1495,7 +1527,7 @@
             </a>
             <div class="hero-subtext-ctas">
               <div class="hero-subtext-swap">
-                <p class="hero-subtext-bio">A <span class="hero-orange">Product Designer</span> &amp; <span class="hero-blue">Design Engineer</span>, with 5+ years designing and building products for startups &amp; enterprises. I combine product design, brand design &amp; AI expertise to create business solutions in form of products, internal tools and websites at <a href="https://www.ovasys.co/" class="hero-link" target="_blank" rel="noopener noreferrer">Ovasys.</a></p>
+                <p class="hero-subtext-bio">A <span class="hero-orange">Product Designer</span> &amp; <span class="hero-blue">Design Engineer</span>, with 5+ years designing and building products for startups &amp; enterprises. I combine product design, brand design &amp; AI expertise to create business solutions in form of products, internal tools and websites at <a href="https://www.ovasys.co/" class="hero-link text-link" target="_blank" rel="noopener noreferrer">Ovasys.</a></p>
                 <p class="hero-subtext-exp">
                   <span class="exp-line">Worked at <strong>3 Startups</strong></span>
                   <span class="exp-line">Serviced <strong>6+ Agencies &amp; Businesses</strong></span>
@@ -1672,9 +1704,10 @@
           <a href="blog.html">Blogs</a>
           <a href="about.html">About</a>
         </div>
-        <div class="footer-avatar">
-          <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi">
-        </div>
+        <a href="about.html" class="hero-avatar-wrap">
+          <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi" class="hero-avatar-illustrated" />
+          <img src="images/hero/OlaAvatar_realImg.png" alt="Ola Fakomi" class="hero-avatar-real" />
+        </a>
       </div>
       <div class="footer-bottom">
         <div class="footer-contact-bar">
@@ -2123,8 +2156,10 @@
       <div class="slide-modal-body">
         <div class="slide-modal-nav">
           <div class="slide-modal-info">
-            <img src="images/Icons/Icon_info.svg" alt="Info" />
-            <span>I designed the storyboard that made these engaging videos possible.</span>
+            <div class="slide-modal-info-icon">
+              <img src="images/Icons/Icon_info.svg" alt="Info" />
+            </div>
+            <span>These are just preview shots, check <a href="graphics.html" class="text-link">Graphics</a> for video previews</span>
           </div>
           <button class="slide-modal-close" id="storyClose"><img src="images/Icons/IconCancel.png" alt="Close" /></button>
         </div>

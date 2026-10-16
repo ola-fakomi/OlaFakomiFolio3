@@ -407,15 +407,19 @@
       line-height: 0.9; transition: opacity 0.2s;
     }
     .footer-nav-links a:hover { opacity: 0.7; }
-    .footer-avatar {
-      width: 40px; height: 40px; border-radius: 12px;
-      background: linear-gradient(180deg, #2a208d 0%, #4837f3 100%);
-      overflow: hidden; flex-shrink: 0; position: relative;
+    .hero-avatar-wrap { display: flex; flex-direction: row; flex-shrink: 0; }
+    .hero-avatar-illustrated {
+      width: 72px; height: 72px; border-radius: 20px; object-fit: cover;
+      flex-shrink: 0; z-index: 1; transform: rotate(0deg);
+      transition: transform 0.3s ease, margin-left 0.3s ease, z-index 0s;
     }
-    .footer-avatar img {
-      position: absolute; left: -2.4px; top: -1.2px;
-      width: 55.2px; height: 55.2px; object-fit: cover; mix-blend-mode: lighten;
+    .hero-avatar-real {
+      width: 72px; height: 72px; border-radius: 20px; object-fit: cover;
+      flex-shrink: 0; margin-left: -72px; z-index: 0; transform: rotate(0deg);
+      transition: transform 0.3s ease, margin-left 0.3s ease, z-index 0s;
     }
+    .hero-avatar-wrap:hover .hero-avatar-illustrated { z-index: 0; transform: rotate(0deg); }
+    .hero-avatar-wrap:hover .hero-avatar-real { margin-left: -68px; z-index: 1; transform: rotate(10deg); }
     .footer-bottom { display: flex; flex-direction: column; gap: 24px; }
     .footer-contact-bar {
       display: flex; align-items: center; justify-content: space-between;
@@ -455,7 +459,6 @@
     @media (max-width: 809px) {
       .footer-inner { padding: 40px 20px 0; }
       .footer-top { flex-direction: column; gap: 40px; }
-      .footer-avatar { width: 72px; height: 72px; border-radius: 16px; }
       .footer-headline { font-size: 40px; }
       .footer-contact-bar { flex-direction: row; padding: 4px; }
       .footer-email { display: none; }
@@ -781,9 +784,10 @@
           <a href="blog.html">Blogs</a>
           <a href="about.html">About</a>
         </div>
-        <div class="footer-avatar">
-          <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi">
-        </div>
+        <a href="about.html" class="hero-avatar-wrap">
+          <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi" class="hero-avatar-illustrated" />
+          <img src="images/hero/OlaAvatar_realImg.png" alt="Ola Fakomi" class="hero-avatar-real" />
+        </a>
       </div>
       <div class="footer-bottom">
         <div class="footer-contact-bar">
