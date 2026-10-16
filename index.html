@@ -1190,6 +1190,163 @@
       left: 0; right: 0;
       z-index: 2;
     }
+
+    /* ─── SLIDE MODALS ─── */
+    .slide-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .slide-modal.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .slide-modal-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(6, 6, 6, 0.90);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .slide-modal-wrap {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: min(1100px, 92vw);
+      transform: scale(0.95);
+      transition: transform 0.35s cubic-bezier(0.34, 1.2, 0.64, 1);
+    }
+    .slide-modal.open .slide-modal-wrap { transform: scale(1); }
+    /* Label tab */
+    .slide-modal-label {
+      display: flex;
+      align-items: flex-end;
+      user-select: none;
+    }
+    .slide-modal-curve { display: block; flex-shrink: 0; }
+    .slide-modal-label-frame {
+      height: 44px;
+      padding: 0 28px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #111;
+      white-space: nowrap;
+    }
+    /* Modal body */
+    .slide-modal-body {
+      width: 100%;
+      background: #111;
+      border-radius: 0 0 16px 16px;
+      overflow: hidden;
+    }
+    /* Nav row */
+    .slide-modal-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      height: 56px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .slide-modal-tabs {
+      display: flex;
+      align-items: center;
+    }
+    .slide-modal-tab-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: var(--text-size-ui);
+      font-weight: 400;
+      color: rgba(255,255,255,0.35);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px 16px 6px 0;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+    .slide-modal-tab-btn + .slide-modal-tab-btn { padding-left: 16px; border-left: 1px solid rgba(255,255,255,0.12); }
+    .slide-modal-tab-btn.active { color: #fff; font-weight: 600; }
+    .slide-modal-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255,255,255,0.5);
+      font-family: 'DM Sans', sans-serif;
+      font-size: var(--text-size-ui);
+    }
+    .slide-modal-info svg { flex-shrink: 0; }
+    .slide-modal-close {
+      background: rgba(255,255,255,0.08);
+      border: none;
+      color: rgba(255,255,255,0.55);
+      font-size: 16px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s, color 0.2s;
+      line-height: 1;
+    }
+    .slide-modal-close:hover { background: rgba(255,255,255,0.16); color: #fff; }
+    /* Carousel */
+    .slide-modal-carousel {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px;
+    }
+    .slide-carousel-track {
+      flex: 1;
+      overflow: hidden;
+      border-radius: 10px;
+      background: #0a0a0a;
+      min-height: 420px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .slide-carousel-img {
+      width: 100%;
+      height: auto;
+      display: none;
+      border-radius: 10px;
+    }
+    .slide-carousel-img.active { display: block; }
+    .slide-carousel-btn {
+      background: rgba(255,255,255,0.07);
+      border: none;
+      color: rgba(255,255,255,0.45);
+      font-size: 22px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s, color 0.2s;
+    }
+    .slide-carousel-btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
   </style>
 </head>
 <script>document.documentElement.classList.add('js-intro');</script>
@@ -1787,7 +1944,146 @@
     document.addEventListener('click', e => {
       if (e.target.closest('a, button')) playClick();
     }, { passive: true });
+
+    /* ─── Slide Modals ─── */
+    (function() {
+      const deckModal  = document.getElementById('deckModal');
+      const storyModal = document.getElementById('storyModal');
+
+      function openModal(modal) {
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeModal(modal) {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      // Triggers — deck items + word
+      document.querySelectorAll('.decks-item--deck').forEach(el =>
+        el.addEventListener('click', () => openModal(deckModal)));
+      document.querySelector('.decks-word--decks')
+        ?.addEventListener('click', () => openModal(deckModal));
+
+      // Triggers — story items + word
+      document.querySelectorAll('.decks-item--story').forEach(el =>
+        el.addEventListener('click', () => openModal(storyModal)));
+      document.querySelector('.decks-word--stories')
+        ?.addEventListener('click', () => openModal(storyModal));
+
+      // Close buttons + overlay + ESC
+      document.getElementById('deckClose').addEventListener('click', () => closeModal(deckModal));
+      document.getElementById('storyClose').addEventListener('click', () => closeModal(storyModal));
+      document.getElementById('deckOverlay').addEventListener('click', () => closeModal(deckModal));
+      document.getElementById('storyOverlay').addEventListener('click', () => closeModal(storyModal));
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') { closeModal(deckModal); closeModal(storyModal); }
+      });
+
+      // Deck tab switching
+      const deckSets = [
+        ['images/Decks/Decks AI.webp'],
+        ['images/Decks/Decks Ecom.webp'],
+        ['images/Decks/Decks Sales.webp'],
+      ];
+      document.querySelectorAll('.slide-modal-tab-btn').forEach((btn, i) => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.slide-modal-tab-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const track = document.getElementById('deckTrack');
+          track.innerHTML = '';
+          deckSets[i].forEach((src, j) => {
+            const img = document.createElement('img');
+            img.className = 'slide-carousel-img' + (j === 0 ? ' active' : '');
+            img.src = src; img.alt = 'Deck slide';
+            track.appendChild(img);
+          });
+        });
+      });
+
+      // Generic carousel setup
+      function setupCarousel(prevId, nextId, trackId) {
+        document.getElementById(prevId).addEventListener('click', () => {
+          const imgs = [...document.getElementById(trackId).querySelectorAll('.slide-carousel-img')];
+          const idx  = imgs.findIndex(i => i.classList.contains('active'));
+          imgs[idx].classList.remove('active');
+          imgs[(idx - 1 + imgs.length) % imgs.length].classList.add('active');
+        });
+        document.getElementById(nextId).addEventListener('click', () => {
+          const imgs = [...document.getElementById(trackId).querySelectorAll('.slide-carousel-img')];
+          const idx  = imgs.findIndex(i => i.classList.contains('active'));
+          imgs[idx].classList.remove('active');
+          imgs[(idx + 1) % imgs.length].classList.add('active');
+        });
+      }
+
+      setupCarousel('deckPrev',  'deckNext',  'deckTrack');
+      setupCarousel('storyPrev', 'storyNext', 'storyTrack');
+    })();
   </script>
+
+  <!-- ─── DECK DESIGN MODAL ─── -->
+  <div class="slide-modal" id="deckModal">
+    <div class="slide-modal-overlay" id="deckOverlay"></div>
+    <div class="slide-modal-wrap">
+      <div class="slide-modal-label">
+        <img class="slide-modal-curve" src="images/CustomeSVG/Curve_Left_direct.svg" alt="" />
+        <div class="slide-modal-label-frame">Deck Design</div>
+        <img class="slide-modal-curve" src="images/CustomeSVG/Curve_Right_direct.svg" alt="" />
+      </div>
+      <div class="slide-modal-body">
+        <div class="slide-modal-nav">
+          <div class="slide-modal-tabs">
+            <button class="slide-modal-tab-btn active" data-deck="0">Sustainability AI</button>
+            <button class="slide-modal-tab-btn" data-deck="1">B2B AI CRM</button>
+            <button class="slide-modal-tab-btn" data-deck="2">AI Revenue Engine</button>
+          </div>
+          <button class="slide-modal-close" id="deckClose">×</button>
+        </div>
+        <div class="slide-modal-carousel">
+          <button class="slide-carousel-btn" id="deckPrev">&#8249;</button>
+          <div class="slide-carousel-track" id="deckTrack">
+            <img class="slide-carousel-img active" src="images/Decks/Decks AI.webp" alt="Deck slide" />
+          </div>
+          <button class="slide-carousel-btn" id="deckNext">&#8250;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── STORYBOARD MODAL ─── -->
+  <div class="slide-modal" id="storyModal">
+    <div class="slide-modal-overlay" id="storyOverlay"></div>
+    <div class="slide-modal-wrap">
+      <div class="slide-modal-label">
+        <img class="slide-modal-curve" src="images/CustomeSVG/Curve_Left_direct.svg" alt="" />
+        <div class="slide-modal-label-frame">Story Board</div>
+        <img class="slide-modal-curve" src="images/CustomeSVG/Curve_Right_direct.svg" alt="" />
+      </div>
+      <div class="slide-modal-body">
+        <div class="slide-modal-nav">
+          <div class="slide-modal-info">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <circle cx="9" cy="9" r="8" stroke="currentColor" stroke-width="1.4"/>
+              <circle cx="9" cy="6.5" r="1" fill="currentColor"/>
+              <rect x="8" y="8.5" width="2" height="4.5" rx="1" fill="currentColor"/>
+            </svg>
+            <span>I designed the storyboard that made these engaging videos possible.</span>
+          </div>
+          <button class="slide-modal-close" id="storyClose">×</button>
+        </div>
+        <div class="slide-modal-carousel">
+          <button class="slide-carousel-btn" id="storyPrev">&#8249;</button>
+          <div class="slide-carousel-track" id="storyTrack">
+            <img class="slide-carousel-img active" src="images/Decks/Stories Revwit.webp" alt="Storyboard" />
+            <img class="slide-carousel-img" src="images/Decks/Kolme Stories.webp" alt="Storyboard" />
+            <img class="slide-carousel-img" src="images/Decks/Migranium Stories.webp" alt="Storyboard" />
+          </div>
+          <button class="slide-carousel-btn" id="storyNext">&#8250;</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Intro animation (GSAP + ScrollTrigger, bundled by Vite) -->
   <script type="module" src="src/intro.js"></script>
