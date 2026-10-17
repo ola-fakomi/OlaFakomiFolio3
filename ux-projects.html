@@ -473,6 +473,10 @@
       line-height: 0.9; padding-bottom: 60px;
     }
 
+    /* ─── Scroll reveal ─── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
     /* ─── Responsive ─── */
     @media (max-width: 860px) {
       .container { padding: 0 20px; }
@@ -548,7 +552,7 @@
         <!-- ── UX / Product Design ── -->
         <div class="sp-category active" data-category="ux">
 
-          <a class="sp-card" href="roots.html">
+          <a class="sp-card reveal" href="roots.html">
             <div class="sp-info">
               <div class="sp-top-row">
                 <div class="sp-icon-box">
@@ -579,7 +583,7 @@
             </div>
           </a>
 
-          <a class="sp-card" href="revwit.html">
+          <a class="sp-card reveal" href="revwit.html">
             <div class="sp-info">
               <div class="sp-top-row">
                 <div class="sp-icon-box">
@@ -610,7 +614,7 @@
             </div>
           </a>
 
-          <a class="sp-card" href="trib.html">
+          <a class="sp-card reveal" href="trib.html">
             <div class="sp-info">
               <div class="sp-top-row">
                 <div class="sp-icon-box">
@@ -645,7 +649,7 @@
         <!-- ── Builds / Product Builds ── -->
         <div class="sp-category" data-category="builds">
 
-          <a class="sp-card" href="https://www.loom.com/share/c4127f5148734a4da9f4aa2e5bb0e345" target="_blank" rel="noopener">
+          <a class="sp-card reveal" href="https://www.loom.com/share/c4127f5148734a4da9f4aa2e5bb0e345" target="_blank" rel="noopener">
             <div class="sp-info">
               <div class="sp-top-row">
                 <div class="sp-icon-box"><img src="images/Logos/Kelliworks_LogoImg.png" alt="Budget Efficiency App" /></div>
@@ -674,7 +678,7 @@
             </div>
           </a>
 
-          <a class="sp-card" href="https://www.loom.com/share/d580ae891e254c1aa9bc1008fbd4aba2" target="_blank" rel="noopener">
+          <a class="sp-card reveal" href="https://www.loom.com/share/d580ae891e254c1aa9bc1008fbd4aba2" target="_blank" rel="noopener">
             <div class="sp-info">
               <div class="sp-top-row">
                 <div class="sp-icon-box"><img src="images/Logos/Kelliworks_LogoImg.png" alt="Content Management Tool" /></div>
@@ -703,7 +707,7 @@
             </div>
           </a>
 
-          <a class="sp-card" href="https://x.com/Olafakomi/status/2032791976836268153?s=20" target="_blank" rel="noopener">
+          <a class="sp-card reveal" href="https://x.com/Olafakomi/status/2032791976836268153?s=20" target="_blank" rel="noopener">
             <div class="sp-info">
               <div class="sp-top-row">
                 <div class="sp-icon-box"><img src="images/Logos/LeftUnread_LogoImg.png" alt="Left Unread" /></div>
@@ -736,7 +740,7 @@
         <!-- ── Websites ── -->
         <div class="sp-category" data-category="websites">
 
-          <a class="sp-card" href="https://www.pneumagroup.org/" target="_blank" rel="noopener">
+          <a class="sp-card reveal" href="https://www.pneumagroup.org/" target="_blank" rel="noopener">
             <div class="sp-info">
               <div class="sp-top-row">
                 <div class="sp-icon-box"><img src="images/Logos/Pneuma_LogoImg.png" alt="Pneuma Group" /></div>
@@ -765,7 +769,7 @@
             </div>
           </a>
 
-          <a class="sp-card" href="https://ovasys.co/" target="_blank" rel="noopener">
+          <a class="sp-card reveal" href="https://ovasys.co/" target="_blank" rel="noopener">
             <div class="sp-info">
               <div class="sp-top-row">
                 <div class="sp-icon-box">
@@ -796,7 +800,7 @@
             </div>
           </a>
 
-          <a class="sp-card" href="https://bluespectruminnovative.com/" target="_blank" rel="noopener">
+          <a class="sp-card reveal" href="https://bluespectruminnovative.com/" target="_blank" rel="noopener">
             <div class="sp-info">
               <div class="sp-top-row">
                 <div class="sp-icon-box"><img src="images/Logos/Bluespectrum_LogoImg.png" alt="Bluespectrum Innovative" /></div>
@@ -896,6 +900,15 @@
       });
     }
 
+    /* ─── Scroll reveal ─── */
+    (function() {
+      const revEls = document.querySelectorAll('.reveal');
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.08 });
+      revEls.forEach(el => obs.observe(el));
+    })();
+
     /* ─── Tab Switching ─── */
     const tabs = document.querySelectorAll('.sp-tab');
     const categories = document.querySelectorAll('.sp-category');
@@ -907,7 +920,13 @@
         categories.forEach(c => c.classList.remove('active'));
         tab.classList.add('active');
         const cat = document.querySelector(`.sp-category[data-category="${target}"]`);
-        if (cat) cat.classList.add('active');
+        if (cat) {
+          cat.classList.add('active');
+          // Trigger reveal for cards in this tab that haven't been seen yet
+          cat.querySelectorAll('.reveal:not(.visible)').forEach((el, i) => {
+            setTimeout(() => el.classList.add('visible'), i * 80);
+          });
+        }
       });
     });
   </script>

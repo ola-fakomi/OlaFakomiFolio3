@@ -16,6 +16,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.27/dist/lenis.css">
+  <script src="https://unpkg.com/lenis@1.3.27/dist/lenis.min.js"></script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -23,7 +25,8 @@
     :root {
       --bg:        #191919;
       --bg-card:   #1f1f1f;
-      --blue:      #4837f3;
+      --blue:      #1225FF;
+      --text-size-hero: 24px;
       --red:       #ff7974;
       --text:      #f0f0f0;
       --text-dim:  #9a9aaa;
@@ -33,7 +36,7 @@
       --max-w:     1200px;
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: auto; } /* Lenis handles smooth scroll */
 
     body {
       background: var(--bg);
@@ -153,7 +156,7 @@
 
     /* ─── ABOUT SECTIONS (3 flat stacked sections) ─── */
     .ab-section {
-      padding: 100px 0 80px;
+      padding: calc(var(--nav-h) + 48px) 0 120px;
     }
     .ab-inner {
       max-width: 896px;
@@ -161,12 +164,13 @@
       padding: 0;
     }
     .ab-label {
-      font-size: 13px;
+      font-size: 11px;
       font-weight: 300;
       letter-spacing: 0.02em;
       text-transform: uppercase;
       color: var(--text);
-      margin-bottom: 32px;
+      margin-bottom: 16px;
+      padding: 0 4px;
     }
     .ab-label span { color: #929292; }
     .ab-text-row {
@@ -175,9 +179,10 @@
       gap: 24px;
       align-items: start;
       margin-bottom: 48px;
+      padding: 0 4px;
     }
     .ab-headline {
-      font-size: 28px;
+      font-size: var(--text-size-hero);
       font-weight: 300;
       line-height: 1.2;
       letter-spacing: 0.02em;
@@ -200,10 +205,11 @@
     }
     .ab-duo-img {
       flex: 1;
-      background: #fff;
       border-radius: 0;
       aspect-ratio: 3 / 4;
+      overflow: hidden;
     }
+    .ab-duo-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .ab-duo-img.offset { margin-top: 40px; }
     /* 3-col grid — state 3 */
     .ab-grid {
@@ -218,56 +224,23 @@
       gap: 12px;
     }
     .ab-grid-col.outer { margin-top: 80px; }
-    .ab-grid-card {
-      border-radius: 0;
-      overflow: hidden;
-      position: relative;
-      background: #141414;
-    }
-    .ab-grid-hdr {
-      display: flex;
-      justify-content: space-between;
-      padding: 6px 10px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      font-size: 8px;
-      font-weight: 400;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.3);
-    }
     .ab-grid-img {
-      background: #fff;
-      aspect-ratio: 3 / 4;
       width: 100%;
     }
-    .ab-grid-tag {
-      position: absolute;
-      bottom: 10px;
-      left: 10px;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      color: rgba(0,0,0,0.45);
-      text-transform: uppercase;
-    }
-    .ab-grid-empty { height: 72px; }
-    .ab-grid-caption {
-      font-size: 11px;
-      color: rgba(255,255,255,0.35);
-      line-height: 1.5;
-    }
-    .ab-wavy {
-      display: block;
-      margin: 4px auto;
-      opacity: 0.3;
-    }
+    .ab-grid-img img { width: 100%; height: auto; display: block; }
+
+    /* ─── Scroll reveal ─── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.22s; }
 
     /* ─── INFO SECTION — Experience / Tools / Skills ─── */
     /* ─── Info scroll wrapper ─── */
     .info-scroll {
       position: relative;
       z-index: 10;
-      height: 250vh;
+      height: 150vh;
     }
     .info-section {
       position: sticky;
@@ -279,14 +252,25 @@
       justify-content: center;
       padding: 0;
     }
-    /* BG photo layer — slides up first */
-    .info-bg-layer {
+    /* BG reveal layer — sits behind water BG */
+    .info-bg-reveal {
       position: absolute; inset: 0;
-      background-image: url('images/about/AboutBG.png');
+      background-image: url('images/about/SkillSection_WaterBGReveal.jpg');
       background-size: cover;
       background-position: center top;
-      transform: translateY(100%);
-      will-change: transform;
+      z-index: 0;
+    }
+    /* BG water layer — on top, masked by cursor */
+    .info-bg-layer {
+      position: absolute; inset: 0;
+      background-image: url('images/about/SkillSection_WaterBG.png');
+      background-size: cover;
+      background-position: center top;
+      z-index: 1;
+      --cx: -999px;
+      --cy: -999px;
+      -webkit-mask: radial-gradient(circle 400px at var(--cx) var(--cy), transparent 0%, black 100%);
+      mask: radial-gradient(circle 400px at var(--cx) var(--cy), transparent 0%, black 100%);
     }
     /* Card wrapper — centered over BG */
     .info-card-wrap {
@@ -559,14 +543,14 @@
   <!-- ─── SECTION 01: STRATEGIC DESIGNER ─── -->
   <section class="ab-section">
     <div class="ab-inner">
-      <p class="ab-label"><span>01.</span> STRATEGIC DESIGNER</p>
-      <div class="ab-text-row">
+      <p class="ab-label reveal"><span>01.</span> STRATEGIC DESIGNER</p>
+      <div class="ab-text-row reveal reveal-d1">
         <h2 class="ab-headline"><span class="ghost">To be a designer<br></span>is one with impact<br>in mind ...</h2>
         <p class="ab-subtext">I find the gaps between business goals and customer needs and use the design to close it.</p>
       </div>
-      <div class="ab-duo">
-        <div class="ab-duo-img"></div>
-        <div class="ab-duo-img offset"></div>
+      <div class="ab-duo reveal reveal-d2">
+        <div class="ab-duo-img"><img src="images/about/A_Stage1_Img1.png" alt="" /></div>
+        <div class="ab-duo-img offset"><img src="images/about/A_Stage1_Img2.png" alt="" /></div>
       </div>
     </div>
   </section>
@@ -574,14 +558,14 @@
   <!-- ─── SECTION 02: EXTROVERT BY FORCE ─── -->
   <section class="ab-section">
     <div class="ab-inner">
-      <p class="ab-label"><span>02.</span> EXTROVERT BY FORCE</p>
-      <div class="ab-text-row">
+      <p class="ab-label reveal"><span>02.</span> EXTROVERT BY FORCE</p>
+      <div class="ab-text-row reveal reveal-d1">
         <h2 class="ab-headline"><span class="ghost">Loves staying-in<br></span>but also loves<br>to go out ...</h2>
         <p class="ab-subtext">Things &amp; People around me inspire me to exceed my limits and that makes me 10x better.</p>
       </div>
-      <div class="ab-duo">
-        <div class="ab-duo-img"></div>
-        <div class="ab-duo-img offset"></div>
+      <div class="ab-duo reveal reveal-d2">
+        <div class="ab-duo-img"><img src="images/about/A_Stage1_Img1-1.png" alt="" /></div>
+        <div class="ab-duo-img offset"><img src="images/about/A_Stage1_Img2-1.png" alt="" /></div>
       </div>
     </div>
   </section>
@@ -589,59 +573,24 @@
   <!-- ─── SECTION 03: IMPACT DRIVEN ─── -->
   <section class="ab-section">
     <div class="ab-inner">
-      <p class="ab-label"><span>03.</span> IMPACT DRIVEN</p>
-      <div class="ab-text-row">
+      <p class="ab-label reveal"><span>03.</span> IMPACT DRIVEN</p>
+      <div class="ab-text-row reveal reveal-d1">
         <h2 class="ab-headline"><span class="ghost">Sometimes impact<br>happens </span>off the screen<br>and with great people.</h2>
         <p class="ab-subtext">Things &amp; People around me inspire me to exceed my limits and that makes me 10x better.</p>
       </div>
-      <div class="ab-grid">
-
-        <!-- Left outer column -->
+      <div class="ab-grid reveal reveal-d2">
         <div class="ab-grid-col outer">
-          <div class="ab-grid-card">
-            <div class="ab-grid-hdr"><span>#</span><span>DAY 9</span><span>THE BRIDGE</span></div>
-            <div class="ab-grid-img"></div>
-            <span class="ab-grid-tag">DAY 9</span>
-          </div>
-          <div class="ab-grid-card ab-grid-empty">
-            <div class="ab-grid-hdr"><span>#</span><span>DAY 4</span><span>THE BRIDGE</span></div>
-          </div>
-          <p class="ab-grid-caption">Training the next gen of designers through community and lived experience.</p>
-          <svg class="ab-wavy" width="24" height="80" viewBox="0 0 24 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 0 C20 13, 4 27, 12 40 C20 53, 4 67, 12 80" stroke="#ffffff" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-          </svg>
+          <div class="ab-grid-img"><img src="images/about/A_Stage3_Img1.png" alt="" /></div>
+          <div class="ab-grid-img"><img src="images/about/A_Stage3_Img2.png" alt="" /></div>
         </div>
-
-        <!-- Center column -->
         <div class="ab-grid-col">
-          <div class="ab-grid-card">
-            <div class="ab-grid-hdr"><span>#</span><span>DAY 12</span><span>THE BRIDGE</span></div>
-            <div class="ab-grid-img"></div>
-            <span class="ab-grid-tag">DAY 12</span>
-          </div>
-          <div class="ab-grid-card">
-            <div class="ab-grid-hdr"><span>#</span><span>DAY 7</span><span>THE BRIDGE</span></div>
-            <div class="ab-grid-img"></div>
-            <span class="ab-grid-tag">DAY 7</span>
-          </div>
+          <div class="ab-grid-img"><img src="images/about/A_Stage3_Img3.png" alt="" /></div>
+          <div class="ab-grid-img"><img src="images/about/A_Stage3_Img4.png" alt="" /></div>
         </div>
-
-        <!-- Right outer column -->
         <div class="ab-grid-col outer">
-          <div class="ab-grid-card">
-            <div class="ab-grid-hdr"><span>#</span><span>DAY 9</span><span>THE BRIDGE</span></div>
-            <div class="ab-grid-img"></div>
-            <span class="ab-grid-tag">DAY 9</span>
-          </div>
-          <div class="ab-grid-card ab-grid-empty">
-            <div class="ab-grid-hdr"><span>#</span><span>DAY 13</span><span>THE BRIDGE</span></div>
-          </div>
-          <p class="ab-grid-caption">Mentoring, workshops, and building bridges between creatives and opportunity.</p>
-          <svg class="ab-wavy" width="24" height="80" viewBox="0 0 24 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 0 C20 13, 4 27, 12 40 C20 53, 4 67, 12 80" stroke="#ffffff" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-          </svg>
+          <div class="ab-grid-img"><img src="images/about/A_Stage3_Img5.png" alt="" /></div>
+          <div class="ab-grid-img"><img src="images/about/A_Stage3_Img6.png" alt="" /></div>
         </div>
-
       </div>
     </div>
   </section>
@@ -649,6 +598,7 @@
   <!-- ─── INFO SECTION: Experience / Tools / Skills ─── -->
   <div class="info-scroll" id="info-scroll">
   <section class="info-section">
+    <div class="info-bg-reveal" id="info-bg-reveal"></div>
     <div class="info-bg-layer" id="info-bg-layer"></div>
     <div class="info-card-wrap">
     <div class="info-card" id="info-card-el">
@@ -918,11 +868,16 @@
     });
 
 
+    /* ─── Lenis smooth scroll ─── */
+    const lenis = new Lenis({ autoRaf: true, autoToggle: true });
+
     /* ─── Info section scroll driver ─── */
     (function () {
-      const infoScroll = document.getElementById('info-scroll');
-      const infoBg     = document.getElementById('info-bg-layer');
-      const infoCard   = document.getElementById('info-card-el');
+      const infoScroll   = document.getElementById('info-scroll');
+      const infoBg       = document.getElementById('info-bg-layer');
+      const infoBgReveal = document.getElementById('info-bg-reveal');
+      const infoCard     = document.getElementById('info-card-el');
+      const infoSec      = document.querySelector('.info-section');
 
       if (!infoScroll) return;
 
@@ -935,18 +890,25 @@
         const total = infoScroll.offsetHeight - window.innerHeight;
         const t     = Math.max(0, Math.min(1, -rect.top / total));
 
-        // Phase 0→0.45: BG layer slides up from below
-        const bgPhase = easeOut(Math.min(t / 0.45, 1));
-        infoBg.style.transform = `translateY(${lerp(100, 0, bgPhase)}%)`;
-
-        // Phase 0.35→0.85: card slides up + fades in
-        const cardRaw   = Math.max(0, Math.min((t - 0.35) / 0.5, 1));
-        const cardPhase = easeOut(cardRaw);
+        // Card slides up + fades in as you scroll
+        const cardPhase = easeOut(Math.min(t / 0.6, 1));
         infoCard.style.opacity   = cardPhase;
         infoCard.style.transform = `translateY(${lerp(80, 0, cardPhase)}px)`;
       }
 
-      window.addEventListener('scroll', onInfoScroll, { passive: true });
+      // Cursor reveal — punch a hole in the water BG to show the layer beneath
+      infoSec.addEventListener('mousemove', function(e) {
+        const rect = infoSec.getBoundingClientRect();
+        infoBg.style.setProperty('--cx', (e.clientX - rect.left) + 'px');
+        infoBg.style.setProperty('--cy', (e.clientY - rect.top)  + 'px');
+      });
+      infoSec.addEventListener('mouseleave', function() {
+        infoBg.style.setProperty('--cx', '-999px');
+        infoBg.style.setProperty('--cy', '-999px');
+      });
+
+      // Drive scroll animation off Lenis for frame-perfect sync
+      lenis.on('scroll', onInfoScroll);
       onInfoScroll();
     })();
 
@@ -1006,6 +968,15 @@
       el.addEventListener('mouseenter', () => playTick(750, 0.06, 0.05));
     });
   
+    /* ─── Scroll reveal ─── */
+    (function() {
+      const revEls = document.querySelectorAll('.reveal');
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.12 });
+      revEls.forEach(el => obs.observe(el));
+    })();
+
     /* ─── Footer social icon interactions ─── */
     (function() {
       var icons = document.querySelectorAll('.footer-social-icon');
@@ -1041,5 +1012,7 @@
       }
     })();
   </script>
+
+
 </body>
 </html>
