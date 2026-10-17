@@ -18,6 +18,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.27/dist/lenis.css">
   <script src="https://unpkg.com/lenis@1.3.27/dist/lenis.min.js"></script>
+  <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -294,46 +295,52 @@
       will-change: transform, opacity;
     }
 
-    /* Tab bar */
+    /* Tab bar — matches slide-modal-nav / UX Projects tab style */
     .info-tabs {
       display: flex;
       align-items: center;
-      gap: 0;
-      padding: 20px 28px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
+      padding: 12px 28px 12px 0;
+      border-bottom: 1px solid #262626;
     }
     .info-tab {
-      padding: 12px 20px 14px;
       font-family: 'Unbounded', sans-serif;
-      font-size: 13.5px; font-weight: 300;
+      font-size: 13px; font-weight: 300;
       color: rgba(255,255,255,0.35);
+      background: none; border: none;
       cursor: pointer;
-      border: none;
-      background: transparent;
-      border-bottom: 2px solid transparent;
-      margin-bottom: -1px;
-      transition: color .18s;
+      padding: 6px 14px 6px 0;
+      transition: color 0.2s;
+      white-space: nowrap;
     }
+    .info-tabs .info-tab:first-child { padding-left: 24px; }
+    .info-tab + .info-tab { padding-left: 14px; border-left: 1px solid #262626; }
     .info-tab:hover { color: rgba(255,255,255,0.7); }
-    .info-tab.active { color: var(--text); border-bottom-color: var(--text); }
+    .info-tab.active { color: #fff; font-weight: 400; }
+    /* Close button — matches slide-modal-close */
     .info-close {
       margin-left: auto;
-      width: 32px; height: 32px;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      border: none; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      color: rgba(255,255,255,0.5);
-      font-size: 15px;
-      transition: background .18s;
       flex-shrink: 0;
+      width: 32px; height: 32px;
+      border-radius: 10px;
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25);
+      position: relative; overflow: hidden;
+      padding: 6px;
+      transition: opacity 0.2s, transform 0.2s;
       text-decoration: none;
     }
-    .info-close:hover { background: rgba(255,255,255,0.12); }
+    .info-close::after {
+      content: ''; position: absolute; inset: 0; border-radius: 10px;
+      box-shadow: inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      pointer-events: none;
+    }
+    .info-close img { width: 100%; height: 100%; opacity: 0.85; display: block; }
+    .info-close:hover { opacity: 0.85; transform: translateY(-1px); }
 
     /* Tab panels */
-    .info-panel { display: none; padding: 32px 28px 36px; }
+    .info-panel { display: none; padding: 12px 28px 36px 24px; }
     .info-panel.active { display: block; }
 
     /* ── Experience ── */
@@ -341,18 +348,23 @@
     .exp-item {
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 16px 0;
+      gap: 12px;
+      padding: 12px 0;
       border-bottom: 1px solid rgba(255,255,255,0.05);
     }
+    .exp-item:first-child { padding-top: 0; }
     .exp-item:last-child { border-bottom: none; }
     .exp-logo {
-      width: 40px; height: 40px;
-      border-radius: 10px;
-      object-fit: cover;
-      flex-shrink: 0;
-      background: #2a2a2a;
+      width: 48px; height: 48px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(53,53,55,0.6) 0%, rgba(31,30,30,0.6) 100%);
+      box-shadow: 0 0 5.74px rgba(0,0,0,0.25),
+                  inset -1.4px -1.4px 0 rgba(255,255,255,0.02),
+                  inset 1.4px 1.4px 0 rgba(255,255,255,0.04);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; flex-shrink: 0;
     }
+    .exp-logo img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; padding: 2px; }
     .exp-info { flex: 1; min-width: 0; }
     .exp-company {
       font-family: 'Unbounded', sans-serif;
@@ -362,6 +374,7 @@
     .exp-role {
       font-size: 13px;
       color: rgba(255,255,255,0.4);
+      margin-top: -2px;
     }
     .exp-year {
       font-family: 'Unbounded', sans-serif;
@@ -379,47 +392,61 @@
       font-size: 12px; font-weight: 300;
       color: rgba(255,255,255,0.3);
       letter-spacing: 0.04em;
-      margin-bottom: 14px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
     }
     .tools-row { display: flex; flex-wrap: wrap; gap: 10px; }
+    /* Tool chip — matches client-pill style */
     .tool-chip {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 8px 16px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 10px;
+      padding: 8px 14px 8px 8px;
+      background: #1d1d1d;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
       font-family: 'Unbounded', sans-serif;
       font-size: 13px; font-weight: 300;
-      color: rgba(255,255,255,0.8);
-      transition: background .18s;
+      letter-spacing: 0.02em;
+      color: rgba(255,255,255,0.80);
+      white-space: nowrap;
+      transition: border-color 0.2s, transform 0.2s;
     }
-    .tool-chip:hover { background: rgba(255,255,255,0.09); }
-    .tool-chip img {
-      width: 18px; height: 18px;
-      border-radius: 4px;
-      object-fit: cover;
+    .tool-chip:hover { border-color: rgba(255,255,255,0.16); transform: translateY(-2px); }
+    /* Icon box inside chip — matches client-icon */
+    .tool-icon {
+      width: 28px; height: 28px;
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      border-radius: 7px;
+      box-shadow: 0 0 2.278px rgba(0,0,0,0.25),
+                  inset 0.556px 0.556px 0 rgba(255,255,255,0.08),
+                  inset -0.556px -0.556px 0 rgba(255,255,255,0.03);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; flex-shrink: 0;
     }
+    .tool-icon img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
 
-    /* ── Skills ── */
+    /* ── Skills — matches main branch comp-check / comp-item ── */
     .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      display: flex;
+      flex-direction: column;
       gap: 10px;
     }
     .skill-item {
-      display: flex; align-items: center; gap: 10px;
+      display: flex; align-items: center; gap: 8px;
       font-family: 'Unbounded', sans-serif;
-      font-size: 13.5px; font-weight: 300;
-      color: rgba(255,255,255,0.8);
+      font-size: 13px; font-weight: 300;
+      color: #e0e0e0;
     }
     .skill-check {
-      width: 20px; height: 20px;
-      border-radius: 5px;
-      background: var(--blue);
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(53,53,55,0.6) 0%, rgba(31,30,30,0.6) 100%);
+      box-shadow: 0 0 5.74px rgba(0,0,0,0.25),
+                  inset -1.4px -1.4px 0 rgba(255,255,255,0.02),
+                  inset 1.4px 1.4px 0 rgba(255,255,255,0.04);
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
     }
-    .skill-check svg { color: #fff; }
+    .skill-check img { width: 16px; height: 16px; display: block; filter: brightness(0) invert(1) opacity(0.45); }
 
     /* ─── FOOTER ─── */
     #contact {
@@ -608,14 +635,14 @@
         <button class="info-tab active" data-panel="experience">Experience</button>
         <button class="info-tab" data-panel="tools">Tools</button>
         <button class="info-tab" data-panel="skills">Skills &amp; Competence</button>
-        <a href="index.html" class="info-close" aria-label="Back to home">&#x2715;</a>
+        <a href="index.html" class="info-close" aria-label="Back to home"><img src="images/Icons/IconCancel.png" alt="Close" /></a>
       </div>
 
       <!-- Experience -->
       <div class="info-panel active" id="panel-experience">
         <div class="exp-list">
           <div class="exp-item">
-            <img src="images/Logos/Ovasys_LogoImg.png" alt="Ovasys" class="exp-logo" />
+            <div class="exp-logo"><img src="images/Logos/Ovasys_LogoImg.png" alt="Ovasys" style="padding: 3px;" /></div>
             <div class="exp-info">
               <div class="exp-company">Ovasys (Freelance)</div>
               <div class="exp-role">Product Designer</div>
@@ -623,7 +650,7 @@
             <span class="exp-year">2025</span>
           </div>
           <div class="exp-item">
-            <img src="images/Logos/CasestudyRevwit_logoImg.png" alt="Revwit" class="exp-logo" />
+            <div class="exp-logo"><img src="images/Logos/CasestudyRevwit_logoImg.png" alt="Revwit" style="padding: 0;" /></div>
             <div class="exp-info">
               <div class="exp-company">Revwit</div>
               <div class="exp-role">Product &amp; Brand Designer</div>
@@ -631,7 +658,7 @@
             <span class="exp-year">2024 · 25</span>
           </div>
           <div class="exp-item">
-            <img src="images/Logos/Insite_logoImg.png" alt="Insite Pro" class="exp-logo" />
+            <div class="exp-logo"><img src="images/Logos/Insite_logoImg.png" alt="Insite Pro" style="padding: 4px;" /></div>
             <div class="exp-info">
               <div class="exp-company">Insite Pro</div>
               <div class="exp-role">Product Designer</div>
@@ -639,7 +666,7 @@
             <span class="exp-year">2023 · 24</span>
           </div>
           <div class="exp-item">
-            <img src="images/Logos/Pretzl_LogoImg.png" alt="Pretzel" class="exp-logo" />
+            <div class="exp-logo"><img src="images/Logos/Pretzl_LogoImg.png" alt="Pretzel" /></div>
             <div class="exp-info">
               <div class="exp-company">Pretzel</div>
               <div class="exp-role">Product Designer</div>
@@ -647,7 +674,7 @@
             <span class="exp-year">2021 · 22</span>
           </div>
           <div class="exp-item">
-            <img src="images/Logos/NextHandle_LogoImg.png" alt="NextHandle" class="exp-logo" />
+            <div class="exp-logo"><img src="images/Logos/NextHandle_LogoImg.png" alt="NextHandle" /></div>
             <div class="exp-info">
               <div class="exp-company">NextHandle</div>
               <div class="exp-role">Product &amp; Brand Designer</div>
@@ -662,51 +689,21 @@
         <div class="tools-group">
           <div class="tools-group-label">Design &amp; Development</div>
           <div class="tools-row">
-            <div class="tool-chip">
-              <img src="images/Logos/Frame 1171275207.png" alt="Figma" />
-              Figma
-            </div>
-            <div class="tool-chip">
-              <img src="images/Logos/Framer_IconImg.png" alt="Framer" />
-              Framer
-            </div>
-            <div class="tool-chip">
-              <img src="images/Logos/Relume_IconImg.png" alt="Relume" />
-              Relume
-            </div>
-            <div class="tool-chip">
-              <img src="images/Logos/ImageFX_IconImg.png" alt="Image FX" />
-              Image FX
-            </div>
-            <div class="tool-chip">
-              <img src="images/Logos/Midjourney_IconImg.png" alt="Midjourney" />
-              Midjourney
-            </div>
-            <div class="tool-chip">
-              <img src="images/Logos/Jitter_IconImg.png" alt="Jitter" />
-              Jitter
-            </div>
-            <div class="tool-chip">
-              <img src="images/Logos/VSCode_IconImg.png" alt="VS Code" />
-              VS Code
-            </div>
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/Frame 1171275207.png" alt="Figma" /></div><span>Figma</span></div>
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/Framer_IconImg.png" alt="Framer" /></div><span>Framer</span></div>
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/Relume_IconImg.png" alt="Relume" /></div><span>Relume</span></div>
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/ImageFX_IconImg.png" alt="Image FX" /></div><span>Image FX</span></div>
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/Midjourney_IconImg.png" alt="Midjourney" /></div><span>Midjourney</span></div>
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/Jitter_IconImg.png" alt="Jitter" /></div><span>Jitter</span></div>
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/VSCode_IconImg.png" alt="VS Code" /></div><span>VS Code</span></div>
           </div>
         </div>
         <div class="tools-group">
           <div class="tools-group-label">Research &amp; Admin</div>
           <div class="tools-row">
-            <div class="tool-chip">
-              <img src="images/Logos/ChatGPT_IconImg.png" alt="GPT" />
-              GPT
-            </div>
-            <div class="tool-chip">
-              <img src="images/Logos/Claude_IconImg.png" alt="Claude" />
-              Claude
-            </div>
-            <div class="tool-chip">
-              <img src="images/Logos/Linear_IconImg.png" alt="Linear" />
-              Linear
-            </div>
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/ChatGPT_IconImg.png" alt="GPT" /></div><span>GPT</span></div>
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/Claude_IconImg.png" alt="Claude" /></div><span>Claude</span></div>
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/Linear_IconImg.png" alt="Linear" /></div><span>Linear</span></div>
           </div>
         </div>
       </div>
@@ -714,72 +711,17 @@
       <!-- Skills & Competence -->
       <div class="info-panel" id="panel-skills">
         <div class="skills-grid">
-          <div class="skill-item">
-            <div class="skill-check">
-              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-5"/></svg>
-            </div>
-            UI/UX Design
-          </div>
-          <div class="skill-item">
-            <div class="skill-check">
-              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-5"/></svg>
-            </div>
-            Design System Design
-          </div>
-          <div class="skill-item">
-            <div class="skill-check">
-              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-5"/></svg>
-            </div>
-            React
-          </div>
-          <div class="skill-item">
-            <div class="skill-check">
-              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-5"/></svg>
-            </div>
-            HTML &amp; CSS
-          </div>
-          <div class="skill-item">
-            <div class="skill-check">
-              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-5"/></svg>
-            </div>
-            No Code Development
-          </div>
-          <div class="skill-item">
-            <div class="skill-check">
-              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-5"/></svg>
-            </div>
-            Brand Design
-          </div>
-          <div class="skill-item">
-            <div class="skill-check">
-              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-5"/></svg>
-            </div>
-            Graphic Design
-          </div>
-          <div class="skill-item">
-            <div class="skill-check">
-              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-5"/></svg>
-            </div>
-            Motion Design
-          </div>
-          <div class="skill-item">
-            <div class="skill-check">
-              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-5"/></svg>
-            </div>
-            Presentation &amp; Deck Design
-          </div>
-          <div class="skill-item">
-            <div class="skill-check">
-              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-5"/></svg>
-            </div>
-            Product Strategy
-          </div>
-          <div class="skill-item">
-            <div class="skill-check">
-              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-5"/></svg>
-            </div>
-            User Research
-          </div>
+          <div class="skill-item"><div class="skill-check"><img src="images/Icons/IconCheck.svg" alt="" /></div>UI/UX Design</div>
+          <div class="skill-item"><div class="skill-check"><img src="images/Icons/IconCheck.svg" alt="" /></div>Brand Design</div>
+          <div class="skill-item"><div class="skill-check"><img src="images/Icons/IconCheck.svg" alt="" /></div>Design System Design</div>
+          <div class="skill-item"><div class="skill-check"><img src="images/Icons/IconCheck.svg" alt="" /></div>Graphic Design</div>
+          <div class="skill-item"><div class="skill-check"><img src="images/Icons/IconCheck.svg" alt="" /></div>Motion Design</div>
+          <div class="skill-item"><div class="skill-check"><img src="images/Icons/IconCheck.svg" alt="" /></div>Presentation &amp; Deck Design</div>
+          <div class="skill-item"><div class="skill-check"><img src="images/Icons/IconCheck.svg" alt="" /></div>No Code Development</div>
+          <div class="skill-item"><div class="skill-check"><img src="images/Icons/IconCheck.svg" alt="" /></div>HTML &amp; CSS</div>
+          <div class="skill-item"><div class="skill-check"><img src="images/Icons/IconCheck.svg" alt="" /></div>React</div>
+          <div class="skill-item"><div class="skill-check"><img src="images/Icons/IconCheck.svg" alt="" /></div>Product Strategy</div>
+          <div class="skill-item"><div class="skill-check"><img src="images/Icons/IconCheck.svg" alt="" /></div>User Research</div>
         </div>
       </div>
 
