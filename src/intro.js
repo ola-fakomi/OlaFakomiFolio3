@@ -99,7 +99,7 @@ function boot(frames, heroOffset) {
   // ─── Part 1: auto-play frames 1 → 2 → 3 ───────────────────────────────────
   const part1 = gsap.timeline({
     delay: 0.3,
-    onComplete() { startScrollPart(frames, heroOffset); },
+    onComplete() { startScrollPart(frames, heroOffset); heroCheckpoint(); },
   });
 
 
@@ -151,6 +151,23 @@ function startScrollPart(frames, heroOffset, scrub = 1) {
 
   // Fade the nav in near the end once items are mostly off-screen.
   tl.to('nav', { opacity: 1, duration: 0.4 }, 2.6);
+}
+
+// ─── Hero scroll checkpoint ───────────────────────────────────────────────────
+// After the intro animation completes, intercept the first scroll that overshoots
+// the hero position and snap back to it. The next deliberate scroll continues freely.
+function heroCheckpoint() {
+  const snapY = Math.round(window.innerHeight * 0.62);
+  let snapped = false;
+
+  function onScroll({ scroll }) {
+    if (snapped || scroll <= snapY + 5) return;
+    snapped = true;
+    lenis.off('scroll', onScroll);
+    lenis.scrollTo(snapY, { immediate: true });
+  }
+
+  lenis.on('scroll', onScroll);
 }
 
 // ─── Scroll lock helpers ──────────────────────────────────────────────────────

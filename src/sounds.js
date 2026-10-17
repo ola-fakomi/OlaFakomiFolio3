@@ -74,6 +74,11 @@ document.querySelectorAll('.sp-card').forEach(el => {
   el.addEventListener('mouseenter', () => playTick(680, 0.07, 0.06));
 });
 
+// Case study cards + CTA buttons
+document.querySelectorAll('.cs-case-btn').forEach(el => {
+  el.addEventListener('mouseenter', () => playTick(900, 0.07, 0.05));
+});
+
 // Tab buttons
 document.querySelectorAll('.sp-tab').forEach(el => {
   el.addEventListener('mouseenter', () => playTick(750, 0.07, 0.05));

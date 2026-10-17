@@ -397,7 +397,7 @@
     .footer-inner {
       position: relative; z-index: 1;
       display: flex; flex-direction: column; gap: 56px;
-      padding: 40px 0 0; max-width: 832px; margin: 0 auto;
+      padding: 40px 0 0; max-width: 896px; margin: 0 auto;
     }
     .footer-top { display: flex; gap: 9px; align-items: flex-start; }
     .footer-headline {
@@ -433,14 +433,32 @@
     }
     .footer-social-icons { display: flex; align-items: center; }
     .footer-social-icon {
-      width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
       flex-shrink: 0; text-decoration: none;
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
     }
-    .footer-social-icon.has-bg {
-      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%); border-radius: 10px;
-      box-shadow: 0 0 4.1px rgba(0,0,0,0.25), inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+    .footer-social-icon::after {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 10px;
+      box-shadow: inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
     }
-    .footer-social-icon img { display: block; }
+    .footer-social-icon:hover { transform: translateY(-1px); }
+    .footer-social-icon.active {
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25);
+    }
+    .footer-social-icon.active::after { opacity: 1; }
+    .footer-social-icon img { display: block; position: relative; z-index: 1; filter: brightness(0) invert(1) opacity(0.35); transition: filter 0.2s; }
+    .footer-social-icon.active img { filter: brightness(0) invert(1); }
     .footer-email {
       position: absolute; left: 50%; transform: translateX(-50%);
       font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 300;
@@ -903,21 +921,21 @@
       </div>
       <div class="footer-bottom">
         <div class="footer-contact-bar">
-          <div class="footer-social-icons">
-            <a href="mailto:Olarewajufakomi@gmail.com" class="footer-social-icon has-bg">
+          <div class="footer-social-icons" id="footer-icons">
+            <a href="#" class="footer-social-icon" data-label="olarewajufakomi@gmail.com" data-action="copy">
               <img src="images/Icons/Email_IconImg.svg" alt="Email" width="32" height="32">
             </a>
-            <a href="https://twitter.com/olafakomi" target="_blank" class="footer-social-icon">
+            <a href="https://x.com/olafakomi" target="_blank" class="footer-social-icon" data-label="x.com/olafakomi">
               <img src="images/Icons/TwitterX_IconImg.svg" alt="Twitter" width="32" height="32">
             </a>
-            <a href="https://olafakomi.substack.com/" target="_blank" class="footer-social-icon">
+            <a href="https://takesbyovasys.substack.com" target="_blank" class="footer-social-icon" data-label="takesbyovasys.substack.com">
               <img src="images/Icons/SubstackEmail_IconImg.svg" alt="Substack" width="32" height="32">
             </a>
-            <a href="https://linkedin.com/in/olafakomi" target="_blank" class="footer-social-icon">
+            <a href="https://www.linkedin.com/in/olafakomi" target="_blank" class="footer-social-icon" data-label="linkedin.com/in/olafakomi">
               <img src="images/Icons/LinkedInEmail_IconImg.svg" alt="LinkedIn" width="32" height="32">
             </a>
           </div>
-          <span class="footer-email">@Olarewajufakomi@gmail.com</span>
+          <span class="footer-email" id="footer-contact-label">olarewajufakomi@gmail.com</span>
           <div class="footer-cta">
             <a href="mailto:Olarewajufakomi@gmail.com" class="footer-cta-btn">Let's talk</a>
           </div>
@@ -1006,6 +1024,41 @@
     document.querySelectorAll('.footer-social-icon, .footer-nav-links a, .footer-cta-btn').forEach(el => {
       el.addEventListener('mouseenter', () => playTick(750, 0.06, 0.05));
     });
+  
+    /* ─── Footer social icon interactions ─── */
+    (function() {
+      var icons = document.querySelectorAll('.footer-social-icon');
+      var label = document.getElementById('footer-contact-label');
+      var emailIcon = document.querySelector('.footer-social-icon[data-action="copy"]');
+      var defaultLabel = 'olarewajufakomi@gmail.com';
+      if (!icons.length || !label) return;
+      function setActive(icon) {
+        icons.forEach(function(i) { i.classList.remove('active'); });
+        icon.classList.add('active');
+        label.textContent = icon.dataset.label || defaultLabel;
+      }
+      function resetDefault() {
+        icons.forEach(function(i) { i.classList.remove('active'); });
+        if (emailIcon) emailIcon.classList.add('active');
+        label.textContent = defaultLabel;
+      }
+      resetDefault();
+      icons.forEach(function(icon) {
+        icon.addEventListener('mouseenter', function() { setActive(icon); });
+      });
+      var container = document.querySelector('.footer-social-icons');
+      if (container) container.addEventListener('mouseleave', resetDefault);
+      if (emailIcon) {
+        emailIcon.addEventListener('click', function(e) {
+          e.preventDefault();
+          navigator.clipboard.writeText('olarewajufakomi@gmail.com').then(function() {
+            var prev = label.textContent;
+            label.textContent = 'Copied!';
+            setTimeout(function() { label.textContent = prev; }, 2000);
+          });
+        });
+      }
+    })();
   </script>
 </body>
 </html>
