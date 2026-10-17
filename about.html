@@ -151,124 +151,115 @@
     .mobile-menu a:hover { color: var(--text); }
     .mobile-menu a:last-child { border-bottom: none; }
 
-    /* ─── ABOUT SCROLL SECTION ─── */
-    .about-scroll {
-      position: relative;
-      height: 270vh;
+    /* ─── ABOUT SECTIONS (3 flat stacked sections) ─── */
+    .ab-section {
+      padding: 100px 0 80px;
     }
-    .about-sticky {
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Text row */
-    .as-text {
-      padding-top: calc(20px + 64px + 56px);
-      padding-bottom: 36px;
-      flex-shrink: 0;
-    }
-    .as-text-inner {
-      max-width: var(--max-w);
+    .ab-inner {
+      max-width: 896px;
       margin: 0 auto;
-      padding: 0 40px;
+      padding: 0;
+    }
+    .ab-label {
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 32px;
+    }
+    .ab-label span { color: #929292; }
+    .ab-text-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 24px;
       align-items: start;
+      margin-bottom: 48px;
     }
-
-    /* Label pair */
-    .as-label-wrap {
-      position: relative;
-      height: 20px;
+    .ab-headline {
+      font-size: 28px;
+      font-weight: 300;
+      line-height: 1.2;
+      letter-spacing: 0.02em;
+      color: var(--text);
+    }
+    .ab-headline .ghost { color: rgba(255,255,255,0.4); }
+    .ab-subtext {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.7;
+      letter-spacing: 0.02em;
+      color: rgba(255,255,255,0.58);
       padding-top: 6px;
     }
-    .as-label {
-      position: absolute;
-      top: 0; left: 0;
-      font-size: 11px; font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      white-space: nowrap;
-      transition: none;
-    }
-    .as-label span { color: var(--blue); }
-    .as-label.s02 { opacity: 0; transform: translateY(14px); }
-
-    /* Headline pair */
-    .as-content-wrap { position: relative; }
-    .as-state { }
-    .as-state.s02 {
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    .as-headline {
-      font-size: clamp(24px, 3.6vw, 48px);
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      color: var(--text);
-      margin-bottom: 16px;
-    }
-    .as-headline .ghost { color: rgba(255,255,255,0.28); }
-    .as-subtext {
-      font-size: 13px; line-height: 1.65;
-      color: rgba(255,255,255,0.48);
-      max-width: 400px;
-    }
-
-    /* Photo area */
-    .as-photo {
-      flex: 1;
-      position: relative;
-      overflow: hidden;
-      margin: 0 40px;
-      border-radius: 16px 16px 0 0;
-    }
-    .as-headshot {
-      position: absolute; inset: 0;
-      background-image: url('V3_WebImages/Image 1 Abt.png');
-      background-size: cover;
-      background-position: center top;
-      filter: grayscale(100%);
-    }
-    .as-portraits {
-      position: absolute; inset: 0;
+    /* Duo images — states 1 & 2 */
+    .ab-duo {
       display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      gap: 24px;
-      padding: 40px 60px 0;
+      gap: 12px;
+      align-items: flex-start;
     }
-    .as-portrait {
-      border-radius: 12px;
+    .ab-duo-img {
+      flex: 1;
+      background: #fff;
+      border-radius: 0;
+      aspect-ratio: 3 / 4;
+    }
+    .ab-duo-img.offset { margin-top: 40px; }
+    /* 3-col grid — state 3 */
+    .ab-grid {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .ab-grid-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .ab-grid-col.outer { margin-top: 80px; }
+    .ab-grid-card {
+      border-radius: 0;
       overflow: hidden;
-      filter: grayscale(100%);
-      will-change: transform;
-      flex-shrink: 0;
+      position: relative;
+      background: #141414;
     }
-    .as-portrait img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center top;
+    .ab-grid-hdr {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-size: 8px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+    .ab-grid-img {
+      background: #fff;
+      aspect-ratio: 3 / 4;
+      width: 100%;
+    }
+    .ab-grid-tag {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: rgba(0,0,0,0.45);
+      text-transform: uppercase;
+    }
+    .ab-grid-empty { height: 72px; }
+    .ab-grid-caption {
+      font-size: 11px;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.5;
+    }
+    .ab-wavy {
       display: block;
-    }
-    .as-portrait.beach {
-      width: 42%; max-width: 380px;
-      align-self: flex-end;
-      height: 75%;
-    }
-    .as-portrait.park {
-      width: 36%; max-width: 320px;
-      align-self: flex-start;
-      height: 68%;
-      margin-top: 8%;
+      margin: 4px auto;
+      opacity: 0.3;
     }
 
     /* ─── INFO SECTION — Experience / Tools / Skills ─── */
@@ -277,7 +268,6 @@
       position: relative;
       z-index: 10;
       height: 250vh;
-      margin-top: -100vh; /* overlap portrait section */
     }
     .info-section {
       position: sticky;
@@ -292,7 +282,7 @@
     /* BG photo layer — slides up first */
     .info-bg-layer {
       position: absolute; inset: 0;
-      background-image: url('V3_WebImages/About BG.png');
+      background-image: url('images/about/AboutBG.png');
       background-size: cover;
       background-position: center top;
       transform: translateY(100%);
@@ -522,11 +512,10 @@
     }
 
     /* ─── Responsive ─── */
-    @media (max-width: 860px) { .nav-toggle { display:flex; } .nav-inner { padding: 0 20px; max-width: 100%; } }
+    @media (max-width: 860px) { .nav-toggle { display:flex; } .nav-inner { padding: 0 20px; max-width: 100%; } .ab-inner { padding: 0 20px; max-width: 100%; } }
     @media (max-width: 760px) {
-      .as-text-inner { grid-template-columns: 1fr; gap: 12px; padding: 0 20px; }
-      .as-portrait.beach { width: 52%; }
-      .as-portrait.park { width: 44%; }
+      .ab-text-row { grid-template-columns: 1fr; gap: 12px; }
+      .ab-grid-col.outer { margin-top: 40px; }
       .skills-grid { grid-template-columns: 1fr 1fr; }
       .info-card { height: 520px; }
       .info-card-wrap { padding: 16px; }
@@ -567,55 +556,95 @@
     <a href="about.html">About</a>
   </div>
 
-  <!-- ─── SCROLL SECTIONS 01 & 02 ─── -->
-  <div class="about-scroll" id="about-scroll">
-    <div class="about-sticky">
-
-      <!-- Text row -->
-      <div class="as-text">
-        <div class="as-text-inner">
-          <!-- Left: label crossfade -->
-          <div class="as-label-wrap">
-            <p class="as-label s01"><span>01. STRATEGIC DESIGNER</span></p>
-            <p class="as-label s02"><span>02. EXTROVERT BY FORCE</span></p>
-          </div>
-          <!-- Right: headline + subtext crossfade -->
-          <div class="as-content-wrap">
-            <div class="as-state s01">
-              <h2 class="as-headline">
-                <span class="ghost">THINK OF<br>ME AS A </span>DESIGN<br>MERCENARY...
-              </h2>
-              <p class="as-subtext">I find the gaps between business goals and design and I make that connection.</p>
-            </div>
-            <div class="as-state s02">
-              <h2 class="as-headline">
-                <span class="ghost">LOVES<br>STAYING-IN </span>BUT<br>FORCED TO<br>GO OUT...
-              </h2>
-              <p class="as-subtext">Things &amp; People around me inspire me to exceed my limits and that makes me 10x better.</p>
-            </div>
-          </div>
-        </div>
+  <!-- ─── SECTION 01: STRATEGIC DESIGNER ─── -->
+  <section class="ab-section">
+    <div class="ab-inner">
+      <p class="ab-label"><span>01.</span> STRATEGIC DESIGNER</p>
+      <div class="ab-text-row">
+        <h2 class="ab-headline"><span class="ghost">To be a designer<br></span>is one with impact<br>in mind ...</h2>
+        <p class="ab-subtext">I find the gaps between business goals and customer needs and use the design to close it.</p>
       </div>
-
-      <!-- Photo area -->
-      <div class="as-photo">
-        <!-- Background headshot — fades to 10% opacity on scroll -->
-        <div class="as-headshot" id="as-headshot"></div>
-
-        <!-- Two portrait cards slide up from below -->
-        <div class="as-portraits" id="as-portraits">
-          <div class="as-portrait beach">
-            <img src="V3_WebImages/Image 2 Abt.png" alt="Ola at the beach" />
-          </div>
-
-          <div class="as-portrait park">
-            <img src="V3_WebImages/Image 3 Abt.png" alt="Ola at the park" />
-          </div>
-        </div>
+      <div class="ab-duo">
+        <div class="ab-duo-img"></div>
+        <div class="ab-duo-img offset"></div>
       </div>
-
     </div>
-  </div>
+  </section>
+
+  <!-- ─── SECTION 02: EXTROVERT BY FORCE ─── -->
+  <section class="ab-section">
+    <div class="ab-inner">
+      <p class="ab-label"><span>02.</span> EXTROVERT BY FORCE</p>
+      <div class="ab-text-row">
+        <h2 class="ab-headline"><span class="ghost">Loves staying-in<br></span>but also loves<br>to go out ...</h2>
+        <p class="ab-subtext">Things &amp; People around me inspire me to exceed my limits and that makes me 10x better.</p>
+      </div>
+      <div class="ab-duo">
+        <div class="ab-duo-img"></div>
+        <div class="ab-duo-img offset"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 03: IMPACT DRIVEN ─── -->
+  <section class="ab-section">
+    <div class="ab-inner">
+      <p class="ab-label"><span>03.</span> IMPACT DRIVEN</p>
+      <div class="ab-text-row">
+        <h2 class="ab-headline"><span class="ghost">Sometimes impact<br>happens </span>off the screen<br>and with great people.</h2>
+        <p class="ab-subtext">Things &amp; People around me inspire me to exceed my limits and that makes me 10x better.</p>
+      </div>
+      <div class="ab-grid">
+
+        <!-- Left outer column -->
+        <div class="ab-grid-col outer">
+          <div class="ab-grid-card">
+            <div class="ab-grid-hdr"><span>#</span><span>DAY 9</span><span>THE BRIDGE</span></div>
+            <div class="ab-grid-img"></div>
+            <span class="ab-grid-tag">DAY 9</span>
+          </div>
+          <div class="ab-grid-card ab-grid-empty">
+            <div class="ab-grid-hdr"><span>#</span><span>DAY 4</span><span>THE BRIDGE</span></div>
+          </div>
+          <p class="ab-grid-caption">Training the next gen of designers through community and lived experience.</p>
+          <svg class="ab-wavy" width="24" height="80" viewBox="0 0 24 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 0 C20 13, 4 27, 12 40 C20 53, 4 67, 12 80" stroke="#ffffff" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+
+        <!-- Center column -->
+        <div class="ab-grid-col">
+          <div class="ab-grid-card">
+            <div class="ab-grid-hdr"><span>#</span><span>DAY 12</span><span>THE BRIDGE</span></div>
+            <div class="ab-grid-img"></div>
+            <span class="ab-grid-tag">DAY 12</span>
+          </div>
+          <div class="ab-grid-card">
+            <div class="ab-grid-hdr"><span>#</span><span>DAY 7</span><span>THE BRIDGE</span></div>
+            <div class="ab-grid-img"></div>
+            <span class="ab-grid-tag">DAY 7</span>
+          </div>
+        </div>
+
+        <!-- Right outer column -->
+        <div class="ab-grid-col outer">
+          <div class="ab-grid-card">
+            <div class="ab-grid-hdr"><span>#</span><span>DAY 9</span><span>THE BRIDGE</span></div>
+            <div class="ab-grid-img"></div>
+            <span class="ab-grid-tag">DAY 9</span>
+          </div>
+          <div class="ab-grid-card ab-grid-empty">
+            <div class="ab-grid-hdr"><span>#</span><span>DAY 13</span><span>THE BRIDGE</span></div>
+          </div>
+          <p class="ab-grid-caption">Mentoring, workshops, and building bridges between creatives and opportunity.</p>
+          <svg class="ab-wavy" width="24" height="80" viewBox="0 0 24 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 0 C20 13, 4 27, 12 40 C20 53, 4 67, 12 80" stroke="#ffffff" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+
+      </div>
+    </div>
+  </section>
 
   <!-- ─── INFO SECTION: Experience / Tools / Skills ─── -->
   <div class="info-scroll" id="info-scroll">
@@ -888,70 +917,6 @@
       });
     });
 
-    /* ─── Scroll-driven about section ─── */
-    (function () {
-      const scrollEl   = document.getElementById('about-scroll');
-      const headshot   = document.getElementById('as-headshot');
-      const portraits  = document.getElementById('as-portraits');
-      const label01    = document.querySelector('.as-label.s01');
-      const label02    = document.querySelector('.as-label.s02');
-      const state01    = document.querySelector('.as-state.s01');
-      const state02    = document.querySelector('.as-state.s02');
-
-      if (!scrollEl) return;
-
-      // portrait cards start off-screen below
-      portraits.style.transform = 'translateY(110%)';
-      portraits.style.transition = 'none';
-      headshot.style.transition  = 'none';
-
-      function lerp(a, b, t) { return a + (b - a) * t; }
-
-      function onScroll() {
-        const rect     = scrollEl.getBoundingClientRect();
-        const total    = scrollEl.offsetHeight - window.innerHeight;
-        // progress 0→1 over the full scroll range of the container
-        const raw      = -rect.top / total;
-        const t        = Math.max(0, Math.min(1, raw));
-
-        // --- headshot opacity: 1 → 0.1 during first 50% of scroll
-        const hsOpacity = lerp(1, 0.1, Math.min(t / 0.5, 1));
-        headshot.style.opacity = hsOpacity;
-
-        // --- portraits slide up: translateY 110% → 0% during first 60% of scroll
-        const pct = Math.min(t / 0.6, 1);
-        const tY  = lerp(110, 0, pct);
-        portraits.style.transform = `translateY(${tY}%)`;
-
-        // --- text crossfade: switch at 45%
-        const switched = t > 0.45;
-
-        // label crossfade
-        label01.style.opacity   = switched ? '0' : '1';
-        label01.style.transform = switched ? 'translateY(-14px)' : 'translateY(0)';
-        label02.style.opacity   = switched ? '1' : '0';
-        label02.style.transform = switched ? 'translateY(0)' : 'translateY(14px)';
-
-        // headline crossfade
-        state01.style.opacity   = switched ? '0'    : '1';
-        state01.style.transform = switched ? 'translateY(-20px)' : 'translateY(0)';
-        state02.style.opacity   = switched ? '1'    : '0';
-        state02.style.transform = switched ? 'translateY(0)'     : 'translateY(20px)';
-      }
-
-      // add transitions once JS is running
-      requestAnimationFrame(() => {
-        headshot.style.transition  = 'opacity 0.08s linear';
-        portraits.style.transition = 'transform 0.08s linear';
-        label01.style.transition   = 'opacity 0.3s ease, transform 0.3s ease';
-        label02.style.transition   = 'opacity 0.3s ease, transform 0.3s ease';
-        state01.style.transition   = 'opacity 0.35s ease, transform 0.35s ease';
-        state02.style.transition   = 'opacity 0.35s ease, transform 0.35s ease';
-      });
-
-      window.addEventListener('scroll', onScroll, { passive: true });
-      onScroll(); // run once on load
-    })();
 
     /* ─── Info section scroll driver ─── */
     (function () {

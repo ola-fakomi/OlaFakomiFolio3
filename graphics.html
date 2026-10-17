@@ -491,7 +491,7 @@
     .seq { display: grid; gap: 8px; }
     .seq--2  { grid-template-columns: 1fr 1fr; }
     .seq--3  { grid-template-columns: 1fr 1fr 1fr; }
-    .seq--4  { grid-template-columns: repeat(4, 1fr); }
+    .seq--4  { grid-template-columns: repeat(4, 1fr); max-width: min(1100px, 92vw); margin-left: auto; margin-right: auto; }
     .seq--main-side { grid-template-columns: 1.6fr 1fr; }
     .seq-gap { margin-bottom: 8px; }
 
@@ -534,6 +534,9 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 8px;
+      max-width: min(1100px, 92vw);
+      margin-left: auto;
+      margin-right: auto;
     }
     .frame--video-large {
       grid-column: 2 / span 2;
@@ -869,6 +872,10 @@
     .added-visuals {
       padding: 80px 0;
       border-top: 1px solid var(--border);
+    }
+    .added-visuals .container {
+      max-width: min(1100px, 92vw);
+      padding: 0;
     }
     .av-grid {
       display: grid;
