@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V1S9EH9HZ5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-V1S9EH9HZ5');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Lab — Ola Fakomi</title>
+  <link rel="icon" type="image/png" href="images/hero/OlaAvatar_Img.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="The Lab — Ola Fakomi" />
+  <meta property="og:description" content="Experiments & Explorations by Ola Fakomi" />
+  <meta property="og:image" content="https://olafakomi.vercel.app/images/OG_image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="src/nav.js" defer></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:             #191919;
+      --bg-card:        #1f1f1f;
+      --text:           #f0f0f0;
+      --text-dim:       #9a9aaa;
+      --border:         rgba(255,255,255,0.07);
+      --nav-h:          72px;
+      --max-w:          1200px;
+      --text-size-ui:       13px;
+      --text-size-body:     15px;
+      --text-size-heading:  36px;
+      --text-weight:        300;
+      --text-track-ui:      0.02em;
+      --text-track-heading: -0.02em;
+      --text-lh-ui:         1.6;
+    }
+
+    html { scroll-behavior: auto; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Unbounded', sans-serif;
+      font-size: var(--text-size-body);
+      font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
+      line-height: var(--text-lh-ui);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* Noise */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.35; pointer-events: none; z-index: 9000;
+    }
+
+    /* ─── Cursor ─── */
+    .cursor-svg {
+      position: fixed; pointer-events: none;
+      transform: translate(-4px, -4px);
+      z-index: 9999; width: 32px; height: 32px;
+      transition: width 0.2s, height 0.2s;
+    }
+    .cursor-svg img { width: 100%; height: 100%; display: block; }
+    body:has(a:hover) .cursor-svg,
+    body:has(button:hover) .cursor-svg { width: 40px; height: 40px; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 9500; background: transparent;
+      padding-top: 20px; padding-bottom: 12px;
+    }
+    .nav-inner { max-width: 896px; margin: 0 auto; padding: 0; }
+    .nav-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(25,25,25,0.65); border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 16px; padding: 5px 5px 5px 8px;
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+    }
+    .nav-links { display: flex; align-items: center; gap: 0; list-style: none; margin: 0; padding: 0 8px; }
+    .nav-links a {
+      display: flex; align-items: center; gap: 4px; padding: 4px 4px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: var(--text-size-ui); font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
+      color: rgba(255,255,255,0.45); text-decoration: none;
+      border-radius: 10px; transition: color 0.2s;
+    }
+    .nav-links a .nav-icon {
+      display: flex; align-items: center; justify-content: center;
+      width: 0; height: 13px; overflow: hidden; opacity: 0;
+      flex-shrink: 0; transition: width 0.2s, opacity 0.2s;
+    }
+    .nav-links a .nav-icon img { width: 13px; height: 13px; flex-shrink: 0; display: block; opacity: 0.45; transition: opacity 0.2s; }
+    .nav-links li.active > a .nav-icon img,
+    .nav-links a:hover .nav-icon img { opacity: 1; }
+    .nav-links li.active > a .nav-icon,
+    .nav-links a:hover .nav-icon { width: 13px; opacity: 1; }
+    .nav-links li.active > a { color: #fff; }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta {
+      padding: 13px 22px;
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      border: none; color: #fff; font-family: 'Unbounded', sans-serif;
+      font-size: var(--text-size-ui); font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
+      border-radius: 12px; text-decoration: none; white-space: nowrap;
+      position: relative; overflow: hidden;
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25);
+      transition: opacity 0.2s, transform 0.2s; flex-shrink: 0;
+    }
+    .nav-cta::after {
+      content: ''; position: absolute; inset: 0; border-radius: 10px;
+      box-shadow: inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      pointer-events: none;
+    }
+    .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+    .nav-toggle {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .nav-toggle span {
+      display: block; width: 22px; height: 1.5px;
+      background: var(--text); border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .mobile-menu { display: none; }
+    @media (max-width: 860px) {
+      .mobile-menu {
+        position: fixed; top: var(--nav-h); left: 0; right: 0;
+        background: rgba(20,20,20,0.98); backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border); z-index: 99;
+        padding: 24px 20px 32px;
+        transform: translateY(-110%);
+        transition: transform 0.35s cubic-bezier(0.32,0,0,1);
+        display: flex; flex-direction: column; gap: 4px;
+      }
+      .mobile-menu.open { transform: translateY(0); }
+    }
+    .mobile-menu a {
+      display: block; padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      font-family: 'Unbounded', sans-serif;
+      font-size: var(--text-size-ui); font-weight: var(--text-weight);
+      color: var(--text-dim); text-decoration: none; transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--text); }
+    .mobile-menu a:last-child { border-bottom: none; }
+
+    /* ─── PAGE ─── */
+    .lab-page {
+      padding-top: calc(var(--nav-h) + 48px);
+      padding-bottom: 100px;
+    }
+    .lab-inner {
+      max-width: 896px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ─── HEADER ─── */
+    .lab-label {
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 10px;
+    }
+    /* 24px hero-name style */
+    .lab-title {
+      font-size: 24px;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+      margin-bottom: 48px;
+    }
+    .lab-title .dim { color: rgba(255,255,255,0.38); }
+
+    /* ─── GRID ─── */
+    .lab-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    /* ─── CARD ─── */
+    .lab-card {
+      /* outer container — 8px padding all around */
+      background: #141414;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* top layer: number + label — 4px padding */
+    .lab-card-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 4px;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      line-height: 1;
+    }
+    .lab-card-num  { color: var(--text-dim); }
+    .lab-card-name { color: var(--text); }
+
+    /* experiment floats inside */
+    .lab-card-content {
+      border-radius: 14px;
+      overflow: hidden;
+      aspect-ratio: 4 / 5;
+      background: #0e0e0e;
+      flex: 1;
+    }
+    .lab-card-content iframe {
+      width: 100%; height: 100%;
+      border: none; display: block;
+    }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ─── FOOTER (exact match to ux-projects) ─── */
+    #contact {
+      background: url('images/footer/Footer Background.webp') center center / cover no-repeat;
+      padding: 0; overflow: hidden; position: relative;
+    }
+    .footer-inner {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; gap: 56px;
+      padding: 40px 0 0;
+      max-width: 896px; margin: 0 auto;
+    }
+    .footer-top { display: flex; gap: 9px; align-items: flex-start; }
+    .footer-headline {
+      flex: 1; font-family: 'Unbounded', sans-serif;
+      font-size: var(--text-size-heading); font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-heading);
+      line-height: 0.9; color: #fff;
+      mix-blend-mode: overlay; white-space: pre-wrap;
+    }
+    .footer-nav-links { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+    .footer-nav-links a {
+      font-family: 'Unbounded', sans-serif;
+      font-size: var(--text-size-body); font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
+      color: #fff; mix-blend-mode: overlay; text-decoration: none;
+      line-height: 0.9; transition: opacity 0.2s;
+    }
+    .footer-nav-links a:hover { opacity: 0.7; }
+    .hero-avatar-wrap { display: flex; flex-direction: row; flex-shrink: 0; }
+    .hero-avatar-illustrated {
+      width: 72px; height: 72px; border-radius: 20px; object-fit: cover;
+      flex-shrink: 0; z-index: 1;
+      transition: transform 0.3s ease, margin-left 0.3s ease;
+    }
+    .hero-avatar-real {
+      width: 72px; height: 72px; border-radius: 20px; object-fit: cover;
+      flex-shrink: 0; margin-left: -72px; z-index: 0;
+      transition: transform 0.3s ease, margin-left 0.3s ease;
+    }
+    .hero-avatar-wrap:hover .hero-avatar-illustrated { z-index: 0; }
+    .hero-avatar-wrap:hover .hero-avatar-real { margin-left: -68px; z-index: 1; transform: rotate(10deg); }
+    .footer-bottom { display: flex; flex-direction: column; gap: 24px; }
+    .footer-contact-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      position: relative; padding: 4px;
+      background: #191919; border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+    }
+    .footer-social-icons { display: flex; align-items: center; }
+    .footer-social-icon {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; text-decoration: none;
+      border-radius: 10px; position: relative; overflow: hidden;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+    }
+    .footer-social-icon::after {
+      content: ''; position: absolute; inset: 0; border-radius: 10px;
+      box-shadow: inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      opacity: 0; pointer-events: none; transition: opacity 0.2s;
+    }
+    .footer-social-icon:hover { transform: translateY(-1px); }
+    .footer-social-icon.active {
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25);
+    }
+    .footer-social-icon.active::after { opacity: 1; }
+    .footer-social-icon img { display: block; position: relative; z-index: 1; filter: brightness(0) invert(1) opacity(0.35); transition: filter 0.2s; }
+    .footer-social-icon.active img { filter: brightness(0) invert(1); }
+    .footer-email {
+      position: absolute; left: 50%; transform: translateX(-50%);
+      font-family: 'Unbounded', sans-serif;
+      font-size: var(--text-size-ui); font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
+      color: #dadada; white-space: nowrap; line-height: 0.9;
+    }
+    .footer-cta { display: flex; align-items: center; justify-content: flex-end; flex: 1; }
+    .footer-cta-btn {
+      height: 36px; display: flex; align-items: center; padding: 0 12px;
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      border-radius: 10px;
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25), inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      font-family: 'Unbounded', sans-serif;
+      font-size: var(--text-size-ui); font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
+      color: #fff; text-decoration: none; white-space: nowrap;
+    }
+    .footer-copyright {
+      font-family: 'Unbounded', sans-serif;
+      font-size: var(--text-size-ui); font-weight: var(--text-weight);
+      color: #fff; mix-blend-mode: overlay; text-align: center;
+      line-height: 0.9; padding-bottom: 60px;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 860px) {
+      .nav-toggle { display: flex; }
+      .nav-inner { padding: 0 20px; max-width: 100%; }
+      .nav-links { display: none; }
+      .footer-inner { padding: 40px 20px 0; }
+    }
+    @media (max-width: 640px) {
+      .lab-grid { grid-template-columns: 1fr; }
+      .footer-top { flex-direction: column; gap: 40px; }
+      .footer-headline { font-size: 40px; }
+      .footer-email { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor-svg" id="cursor-svg">
+    <img src="images/Icons/Icon_Cursor.svg" alt="" />
+  </div>
+
+  <site-nav active="lab"></site-nav>
+
+  <!-- ─── MAIN ─── -->
+  <main class="lab-page">
+    <div class="lab-inner">
+
+      <!-- Header -->
+      <p class="lab-label reveal">The Lab</p>
+      <h1 class="lab-title reveal">
+        <span class="dim">Experiment</span> &amp; Explorations
+      </h1>
+
+      <!-- Grid -->
+      <div class="lab-grid">
+
+        <!-- 01 — Adora the Artist Art Display -->
+        <div class="lab-card reveal">
+          <div class="lab-card-label">
+            <span class="lab-card-num">01.</span>
+            <span class="lab-card-name">Adora the Artist Art Display</span>
+          </div>
+          <div class="lab-card-content">
+            <iframe src="images/3d-paper.html" allowfullscreen loading="lazy" title="Adora the Artist Art Display"></iframe>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ─── FOOTER ─── -->
+  <section id="contact">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-headline">Get in&#10;touch now...</div>
+        <div class="footer-nav-links">
+          <a href="index.html">Home</a>
+          <a href="ux-projects.html">UX Projects</a>
+          <a href="graphics.html">Graphics</a>
+          <a href="blog.html">Blogs</a>
+          <a href="about.html">About</a>
+          <a href="lab.html">Lab</a>
+        </div>
+        <a href="about.html" class="hero-avatar-wrap">
+          <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi" class="hero-avatar-illustrated" />
+          <img src="images/hero/OlaAvatar_realImg.png" alt="Ola Fakomi" class="hero-avatar-real" />
+        </a>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-contact-bar">
+          <div class="footer-social-icons" id="footer-icons">
+            <a href="#" class="footer-social-icon active" data-label="olarewajufakomi@gmail.com" data-action="copy">
+              <img src="images/Icons/Email_IconImg.svg" alt="Email" width="20" height="20">
+            </a>
+            <a href="https://x.com/olafakomi" target="_blank" class="footer-social-icon" data-label="x.com/olafakomi">
+              <img src="images/Icons/TwitterX_IconImg.svg" alt="Twitter" width="20" height="20">
+            </a>
+            <a href="https://takesbyovasys.substack.com" target="_blank" class="footer-social-icon" data-label="takesbyovasys.substack.com">
+              <img src="images/Icons/SubstackEmail_IconImg.svg" alt="Substack" width="20" height="20">
+            </a>
+            <a href="https://www.linkedin.com/in/olafakomi" target="_blank" class="footer-social-icon" data-label="linkedin.com/in/olafakomi">
+              <img src="images/Icons/LinkedInEmail_IconImg.svg" alt="LinkedIn" width="20" height="20">
+            </a>
+          </div>
+          <span class="footer-email" id="footer-contact-label">olarewajufakomi@gmail.com</span>
+          <div class="footer-cta">
+            <a href="mailto:Olarewajufakomi@gmail.com" class="footer-cta-btn">Let's talk</a>
+          </div>
+        </div>
+        <p class="footer-copyright">© 2026 — Copyright</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    /* ─── Custom Cursor ─── */
+    const cursorSvg = document.getElementById('cursor-svg');
+    document.addEventListener('mousemove', e => {
+      cursorSvg.style.left = e.clientX + 'px';
+      cursorSvg.style.top  = e.clientY + 'px';
+    });
+
+
+    /* ─── Scroll reveal ─── */
+    (function() {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.08 });
+      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    })();
+
+    /* ─── Footer social icons ─── */
+    (function() {
+      const icons = document.querySelectorAll('.footer-social-icon');
+      const label = document.getElementById('footer-contact-label');
+      const emailIcon = document.querySelector('.footer-social-icon[data-action="copy"]');
+      const defaultLabel = 'olarewajufakomi@gmail.com';
+      if (!icons.length || !label) return;
+      function resetDefault() {
+        icons.forEach(i => i.classList.remove('active'));
+        if (emailIcon) emailIcon.classList.add('active');
+        label.textContent = defaultLabel;
+      }
+      resetDefault();
+      icons.forEach(icon => {
+        icon.addEventListener('mouseenter', () => {
+          icons.forEach(i => i.classList.remove('active'));
+          icon.classList.add('active');
+          label.textContent = icon.dataset.label || defaultLabel;
+        });
+      });
+      const container = document.querySelector('.footer-social-icons');
+      if (container) container.addEventListener('mouseleave', resetDefault);
+      if (emailIcon) {
+        emailIcon.addEventListener('click', e => {
+          e.preventDefault();
+          navigator.clipboard.writeText('olarewajufakomi@gmail.com').then(() => {
+            label.textContent = 'Copied!';
+            setTimeout(resetDefault, 2000);
+          });
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>

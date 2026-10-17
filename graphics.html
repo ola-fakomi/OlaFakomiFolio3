@@ -27,6 +27,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="src/nav.js" defer></script>
 
   <style>
     /* ─── Reset ─────────────────────────────────────────────── */
@@ -961,41 +962,7 @@
     <img src="images/Icons/Icon_Cursor.svg" alt="" />
   </div>
 
-  <!-- ─── NAV ─────────────────────────────────────────────── -->
-  <nav>
-    <div class="nav-inner">
-      <div class="nav-bar">
-        <ul class="nav-links">
-          <li>
-            <a href="index.html"><span class="nav-icon"><img src="images/Icons/navIcon_Home.svg" alt="" /></span>Home</a>
-          </li>
-          <li>
-            <a href="ux-projects.html"><span class="nav-icon"><img src="images/Icons/navIcon_UXProjects.svg" alt="" /></span>UX Projects</a>
-          </li>
-          <li class="active">
-            <a href="graphics.html"><span class="nav-icon"><img src="images/Icons/navIcon_Graphics.svg" alt="" /></span>Graphics</a>
-          </li>
-          <li>
-            <a href="blog.html"><span class="nav-icon"><img src="images/Icons/navIcon_Blog.svg" alt="" /></span>Blogs</a>
-          </li>
-          <li>
-            <a href="about.html"><span class="nav-icon"><img src="images/Icons/navIcon_About.svg" alt="" /></span>About</a>
-          </li>
-        </ul>
-        <a href="mailto:olarewajufakomi@gmail.com" class="nav-cta">Let's talk</a>
-        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </div>
-  </nav>
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="index.html">Home</a>
-    <a href="ux-projects.html">UX Projects</a>
-    <a href="graphics.html">Graphics</a>
-    <a href="blog.html">Blogs</a>
-    <a href="about.html">About</a>
-  </div>
+  <site-nav active="graphics"></site-nav>
 
   <!-- ─── HERO ─────────────────────────────────────────────── -->
   <section id="home">
@@ -1268,21 +1235,6 @@
       });
     })();
 
-    /* ─── Mobile Nav ─── */
-    const navToggle = document.getElementById('navToggle');
-    const mobileMenu = document.getElementById('mobileMenu');
-    if (navToggle && mobileMenu) {
-      navToggle.addEventListener('click', () => {
-        navToggle.classList.toggle('open');
-        mobileMenu.classList.toggle('open');
-      });
-      mobileMenu.querySelectorAll('a').forEach(a => {
-        a.addEventListener('click', () => {
-          navToggle.classList.remove('open');
-          mobileMenu.classList.remove('open');
-        });
-      });
-    }
   </script>
   <script type="module" src="src/sounds.js">
     /* ─── Footer social icon interactions ─── */
