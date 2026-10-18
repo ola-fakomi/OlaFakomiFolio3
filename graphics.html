@@ -462,7 +462,7 @@
     }
 
     /* ─── WORK / CASE STUDIES ───────────────────────────────── */
-    .work { padding: 100px 0; }
+    .work { padding: calc(var(--nav-h) + 48px) 0 100px; }
 
     .cs {
       padding-bottom: 96px;
@@ -965,7 +965,7 @@
   <site-nav active="graphics"></site-nav>
 
   <!-- ─── HERO ─────────────────────────────────────────────── -->
-  <section id="home">
+  <section id="home" style="display:none;">
     <div class="gfx-hero">
       <div class="gfx-hero-frame gfx-hero-frame--proxidize">
         <img src="images/Graphics/Proxidize.webp" alt="Proxidize" />
