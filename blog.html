@@ -12,6 +12,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Blog — Ola Fakomi</title>
   <link rel="icon" type="image/png" href="images/hero/OlaAvatar_Img.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Blog — Ola Fakomi" />
+  <meta property="og:description" content="Takes by Ovasys & Full Steam and HardLeft — newsletters by Ola Fakomi" />
+  <meta property="og:image" content="https://olafakomi.com/images/OG_image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -22,16 +27,13 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #191919;
-      --bg-card:   #1f1f1f;
-      --blue:      #4837f3;
-      --red:       #ff7974;
-      --text:      #f0f0f0;
-      --text-dim:  #9a9aaa;
-      --muted:     #7581a6;
-      --border:    rgba(255,255,255,0.07);
-      --nav-h:     72px;
-      --max-w:     960px;
+      --bg:      #191919;
+      --text:    #f0f0f0;
+      --text-dim:#9a9aaa;
+      --border:  rgba(255,255,255,0.07);
+      --nav-h:   72px;
+      --blue:    #4837f3;
+      --red:     #ff7974;
     }
 
     html { scroll-behavior: smooth; }
@@ -40,13 +42,13 @@
       background: var(--bg);
       color: var(--text);
       font-family: 'Unbounded', sans-serif;
-      font-size: 16px;
-      font-weight: 300;
-      line-height: 1.6;
+      font-size: 15px; font-weight: 300;
+      line-height: 1.7;
       overflow-x: hidden;
       cursor: none;
     }
 
+    /* Noise */
     body::before {
       content: '';
       position: fixed; inset: 0;
@@ -59,391 +61,317 @@
       position: fixed; pointer-events: none;
       transform: translate(-4px, -4px);
       z-index: 9999; width: 32px; height: 32px;
-      transition: transform 0.15s ease, width 0.2s, height 0.2s;
+      transition: width 0.2s, height 0.2s;
     }
     .cursor-svg img { width: 100%; height: 100%; display: block; }
     body:has(a:hover) .cursor-svg,
     body:has(button:hover) .cursor-svg { width: 40px; height: 40px; }
 
-    /* ─── NAV ─── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0;
-      z-index: 9500; background: transparent;
-      padding-top: 20px; padding-bottom: 12px;
+    /* ─── PAGE ─── */
+    .blog-page {
+      max-width: 896px;
+      margin: 0 auto;
+      padding: calc(var(--nav-h) + 48px) 0 120px;
     }
-    .nav-inner { max-width: 896px; margin: 0 auto; padding: 0; }
-    .nav-bar {
-      display: flex; align-items: center; justify-content: space-between;
-      background: rgba(25,25,25,0.65); border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 16px; padding: 5px 5px 5px 8px;
-      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-      box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+
+    /* ─── SECTION ─── */
+    .nl-section {
+      padding-bottom: 80px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 80px;
     }
-    .nav-links { display: flex; align-items: center; gap: 0; list-style: none; margin: 0; padding: 0 8px; }
-    .nav-links a {
-      display: flex; align-items: center; gap: 4px; padding: 4px 4px;
-      font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 300;
-      letter-spacing: 0.02em; color: rgba(255,255,255,0.45);
-      text-decoration: none; border-radius: 10px;
-      transition: color 0.2s, background 0.2s;
+    .nl-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+    /* ─── CAROUSEL ─── */
+    .nl-carousel {
+      width: 100%;
+      overflow: hidden;
+      border-radius: 14px;
+      margin-bottom: 48px;
+      position: relative;
     }
-    .nav-links a .nav-icon {
-      display: flex; align-items: center; justify-content: center;
-      width: 0; height: 13px; overflow: hidden; opacity: 0;
-      flex-shrink: 0; transition: width 0.2s, opacity 0.2s;
+    .nl-carousel::before,
+    .nl-carousel::after {
+      content: '';
+      position: absolute; top: 0; bottom: 0; width: 60px;
+      z-index: 2; pointer-events: none;
     }
-    .nav-links a .nav-icon img { width: 13px; height: 13px; flex-shrink: 0; display: block; opacity: 0.45; transition: opacity 0.2s; }
-    .nav-links li.active > a .nav-icon img,
-    .nav-links a:hover .nav-icon img { opacity: 1; }
-    .nav-links li.active > a .nav-icon,
-    .nav-links a:hover .nav-icon { width: 13px; opacity: 1; }
-    .nav-links li.active > a { color: #fff; font-weight: 300; }
-    .nav-links a:hover { color: #fff; }
-    .nav-cta {
-      padding: 13px 22px;
+    .nl-carousel::before { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
+    .nl-carousel::after  { right: 0; background: linear-gradient(to left, var(--bg), transparent); }
+
+    .nl-carousel-track {
+      display: flex;
+      gap: 10px;
+      width: max-content;
+      animation: nl-marquee 24s linear infinite;
+    }
+    .nl-carousel-track:hover { animation-play-state: paused; }
+
+    @keyframes nl-marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .nl-carousel-img {
+      height: 160px;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 10px;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    /* ─── FSHL CARD CAROUSEL (right column) ─── */
+    .fshl-carousel {
+      overflow: hidden;
+      align-self: center;
+      position: relative;
+    }
+    .fshl-carousel::before,
+    .fshl-carousel::after {
+      content: '';
+      position: absolute; top: 0; bottom: 0; width: 60px;
+      z-index: 2; pointer-events: none;
+    }
+    .fshl-carousel::before { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
+    .fshl-carousel::after  { right: 0; background: linear-gradient(to left, var(--bg), transparent); }
+    .fshl-carousel-track {
+      display: flex;
+      gap: 10px;
+      width: max-content;
+      animation: nl-marquee 40s linear infinite;
+    }
+    .fshl-carousel-track:hover { animation-play-state: paused; }
+    .fshl-card-img {
+      height: 260px;
+      width: auto;
+      border-radius: 10px;
+      display: block;
+      flex-shrink: 0;
+      object-fit: cover;
+    }
+
+    /* ─── ROW (2-col) ─── */
+    .nl-row {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* ─── IDENTITY (left col) ─── */
+    .nl-identity { padding-top: 2px; }
+
+    .nl-heading {
+      font-size: 24px; font-weight: 300;
+      letter-spacing: 0.02em; line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .nl-desc {
+      font-size: 15px; font-weight: 300;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.58);
+      margin-bottom: 32px;
+    }
+
+    /* Button — matches nav "Let's talk" exactly */
+    .btn-substack {
+      display: inline-flex; align-items: center; gap: 4px;
+      height: 40px; padding: 0 16px 0 8px;
       background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
-      border: none; color: #fff; font-family: 'Unbounded', sans-serif;
+      border: none; color: #fff;
+      font-family: 'Unbounded', sans-serif;
       font-size: 11px; font-weight: 300; letter-spacing: 0.02em;
       border-radius: 12px; text-decoration: none; white-space: nowrap;
       position: relative; overflow: hidden;
       box-shadow: 0 0 4.1px rgba(0,0,0,0.25);
-      transition: opacity 0.2s, transform 0.2s; flex-shrink: 0;
+      transition: opacity 0.2s, transform 0.2s;
+      flex-shrink: 0; cursor: none;
     }
-    .nav-cta::after {
+    .btn-substack::after {
       content: ''; position: absolute; inset: 0; border-radius: 10px;
       box-shadow: inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
       pointer-events: none;
     }
-    .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
-    .nav-toggle {
-      display: none; flex-direction: column; gap: 5px;
-      background: none; border: none; cursor: pointer; padding: 4px;
-    }
-    .nav-toggle span {
-      display: block; width: 22px; height: 1.5px;
-      background: var(--text); border-radius: 2px;
-      transition: transform 0.3s, opacity 0.3s;
-    }
-    .nav-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-    .nav-toggle.open span:nth-child(2) { opacity: 0; }
-    .nav-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-    .mobile-menu { display: none; }
-    @media (max-width: 860px) {
-      .mobile-menu {
-        position: fixed; top: var(--nav-h); left: 0; right: 0;
-        background: rgba(20,20,20,0.98); backdrop-filter: blur(20px);
-        border-bottom: 1px solid var(--border); z-index: 99;
-        padding: 24px 20px 32px;
-        transform: translateY(-110%);
-        transition: transform 0.35s cubic-bezier(0.32,0,0,1);
-        display: flex; flex-direction: column; gap: 4px;
-      }
-      .mobile-menu.open { transform: translateY(0); }
-    }
-    .mobile-menu a {
-      display: block; padding: 14px 0;
-      border-bottom: 1px solid var(--border);
-      font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 300;
-      color: var(--text-dim); text-decoration: none; transition: color 0.2s;
-    }
-    .mobile-menu a:hover { color: var(--text); }
-    .mobile-menu a:last-child { border-bottom: none; }
+    .btn-substack:hover { opacity: 0.85; transform: translateY(-1px); }
+    .btn-substack img { width: 32px; height: 32px; display: block; position: relative; z-index: 1; filter: brightness(0) invert(1); }
 
-    /* ─── PAGE WRAPPER ─── */
-    .blog-page {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: calc(var(--nav-h) + 48px) 40px 100px;
+    /* ─── EPISODE LIST — Quick Preview style ─── */
+    .ep-list { display: flex; flex-direction: column; }
+
+    .ep-list-label {
+      font-size: 11px; font-weight: 300;
+      letter-spacing: 0.08em;
+      color: var(--blue);
+      margin-bottom: 20px;
     }
 
-    /* ─── NEWSLETTER SECTION ─── */
-    .newsletter-section {
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 48px;
-      margin-bottom: 96px;
-    }
-    .newsletter-section:last-child { margin-bottom: 0; }
-
-    /* Left column */
-    .nl-identity { padding-top: 4px; }
-
-    .nl-heading {
-      font-family: 'Unbounded', sans-serif;
-      font-size: 20px; font-weight: 700;
-      line-height: 1.2;
-      letter-spacing: -0.01em;
-      color: var(--text);
-      margin-bottom: 16px;
-    }
-    .nl-desc {
-      font-size: 13.5px; line-height: 1.7;
-      color: rgba(255,255,255,0.48);
-      margin-bottom: 32px;
-    }
-    .btn-substack {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 10px 18px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 10px;
-      font-family: 'Unbounded', sans-serif;
-      font-size: 13px; font-weight: 400;
-      color: var(--text);
+    /* Featured (top) episode — expanded with excerpt */
+    .ep-featured {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 2px;
       text-decoration: none;
-      transition: background .18s;
+      display: block;
+      transition: background 0.18s;
     }
-    .btn-substack:hover { background: rgba(255,255,255,0.1); }
-    .btn-substack img { width: 18px; height: 18px; }
+    .ep-featured:hover { background: rgba(255,255,255,0.05); }
 
-    /* Right column: posts layout */
-    .nl-content {
-      display: flex;
-      gap: 20px;
-      align-items: flex-start;
-    }
-
-    /* Optional post thumbnail (left of post stack) */
-    .post-thumb {
-      width: 240px;
-      flex-shrink: 0;
-      border-radius: 12px;
-      overflow: hidden;
-      align-self: stretch;
-    }
-
-    /* Arc Browser thumbnail — purple gradient with compass icon */
-    .post-thumb--arc {
-      background: linear-gradient(135deg, #6644cc 0%, #9966ee 40%, #bb88ff 70%, #8844bb 100%);
-      display: flex; align-items: center; justify-content: center;
-      min-height: 220px;
-    }
-    .arc-icon {
-      width: 64px; height: 64px;
-      background: rgba(255,255,255,0.18);
-      border-radius: 18px;
-      display: flex; align-items: center; justify-content: center;
-      backdrop-filter: blur(10px);
-    }
-    .arc-icon svg { color: #fff; }
-
-    /* Posts stack */
-    .posts-stack { flex: 1; }
-
-    .post-preview {
-      display: flex;
-      flex-direction: column;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-      padding: 20px 0;
-      transition: opacity .2s;
-    }
-    .post-preview:first-child { padding-top: 0; }
-    .post-preview:last-child { border-bottom: none; }
-
-    /* Stacked depth — progressively ghost */
-    .post-preview.depth-1 { opacity: 1; }
-    .post-preview.depth-2 { opacity: 0.42; pointer-events: none; }
-    .post-preview.depth-3 { opacity: 0.20; pointer-events: none; }
-
-    .post-meta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .ep-featured-top {
+      display: flex; align-items: center; justify-content: space-between;
       gap: 12px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
-    .post-ep {
-      font-family: 'Unbounded', sans-serif;
-      font-size: 12.5px; font-weight: 300;
-      color: rgba(255,255,255,0.45);
-    }
-    .post-ep strong {
-      color: rgba(255,255,255,0.75);
-      font-weight: 400;
-    }
-    .post-arrow {
-      display: flex; align-items: center; justify-content: center;
-      width: 28px; height: 28px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.06);
-      flex-shrink: 0;
-      text-decoration: none;
-      color: rgba(255,255,255,0.5);
-      transition: background .18s, color .18s;
-    }
-    .post-arrow:hover { background: rgba(255,255,255,0.12); color: var(--text); }
-    .post-excerpt {
-      font-family: 'Unbounded', sans-serif;
-      font-size: 17px; font-weight: 300;
-      line-height: 1.55;
-      color: rgba(255,255,255,0.82);
-    }
-
-    /* ─── NEWSLETTER TILES (Full Steam) ─── */
-    .nl-tiles {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-    }
-
-    /* Cover tile */
-    .cover-tile {
-      background: #0d0d0d;
-      border-radius: 6px;
-      overflow: hidden;
-      aspect-ratio: 4/3;
-      padding: 10px 12px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: transform .2s;
-    }
-    .cover-tile:hover { transform: scale(1.02); }
-    .tile-top {
-      display: flex;
-      justify-content: space-between;
+    .ep-featured-body {
+      display: flex; justify-content: space-between; gap: 24px;
       align-items: flex-start;
-      margin-bottom: 4px;
     }
-    .tile-issue {
-      font-family: 'Unbounded', sans-serif;
-      font-size: 7px; font-weight: 400;
-      color: rgba(255,255,255,0.35);
-      letter-spacing: 0.04em;
-    }
-    .tile-brand {
-      font-family: 'Unbounded', sans-serif;
-      font-size: 6px; font-weight: 700;
-      color: rgba(255,255,255,0.25);
-      letter-spacing: 0.06em;
-      text-align: right;
-      line-height: 1.3;
-    }
-    .tile-label {
-      font-family: 'Unbounded', sans-serif;
-      font-size: 7px; font-weight: 300;
-      color: rgba(255,255,255,0.2);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-    .tile-body {
+    .ep-excerpt {
+      font-size: 15px; font-weight: 300; line-height: 1.6;
+      color: rgba(255,255,255,0.85);
       flex: 1;
-      display: flex;
-      align-items: flex-end;
-      padding-bottom: 2px;
     }
-    .tile-headline {
-      font-family: 'Unbounded', sans-serif;
-      font-size: clamp(8px, 1.1vw, 11px);
-      font-weight: 700;
-      line-height: 1.3;
-      color: var(--text);
+    .ep-meta {
+      font-size: 11px; font-weight: 300; letter-spacing: 0.02em;
+      color: rgba(255,255,255,0.4);
+      text-align: right; flex-shrink: 0;
+      display: flex; flex-direction: column; gap: 3px;
+      padding-top: 2px;
     }
-    .tile-headline .accent { color: #ff5533; }
+    .ep-meta strong { color: rgba(255,255,255,0.72); font-weight: 400; }
 
-    /* Pattern tile (bottom row) */
-    .pattern-tile {
-      border-radius: 6px;
-      overflow: hidden;
-      aspect-ratio: 4/3;
-      background:
-        repeating-linear-gradient(
-          60deg,
-          rgba(255,255,255,0.08) 0px,
-          rgba(255,255,255,0.08) 2px,
-          transparent 2px,
-          transparent 12px
-        ),
-        repeating-linear-gradient(
-          -60deg,
-          rgba(255,255,255,0.08) 0px,
-          rgba(255,255,255,0.08) 2px,
-          transparent 2px,
-          transparent 12px
-        ),
-        #0d0d0d;
+    /* Compact episode rows */
+    .ep-row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      transition: opacity 0.18s;
     }
+    .ep-row:last-of-type { border-bottom: none; }
+    .ep-row:hover { opacity: 0.75; }
+
+    .ep-row-label {
+      font-size: 13px; font-weight: 300; letter-spacing: 0.02em;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.4;
+    }
+    .ep-row-label strong {
+      color: rgba(255,255,255,0.82);
+      font-weight: 300;
+    }
+    .ep-arrow {
+      color: var(--red);
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
 
     /* ─── FOOTER ─── */
     #contact {
-      background:url('images/footer/Footer Background.webp') center center/cover no-repeat;
-      padding:0; overflow:hidden; position:relative;
+      background: url('images/footer/Footer Background.webp') center center / cover no-repeat;
+      padding: 0; overflow: hidden; position: relative;
     }
     .footer-inner {
-      position:relative; z-index:1; display:flex; flex-direction:column; gap:56px;
-      padding:40px 0 0; max-width:896px; margin:0 auto;
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; gap: 56px;
+      padding: 40px 0 0; max-width: 896px; margin: 0 auto;
     }
-    .footer-top { display:flex; gap:9px; align-items:flex-start; }
+    .footer-top { display: flex; gap: 9px; align-items: flex-start; }
     .footer-headline {
-      flex:1; font-family:'Unbounded',sans-serif;
-      font-size:48px; font-weight:300; letter-spacing:-0.04em;
-      line-height:0.9; color:#fff; mix-blend-mode:overlay; white-space:pre-wrap;
+      flex: 1; font-family: 'Unbounded', sans-serif;
+      font-size: 48px; font-weight: 300; letter-spacing: -0.04em;
+      line-height: 0.9; color: #fff; mix-blend-mode: overlay; white-space: pre-wrap;
     }
-    .footer-nav-links { flex:1; display:flex; flex-direction:column; gap:12px; }
+    .footer-nav-links { flex: 1; display: flex; flex-direction: column; gap: 12px; }
     .footer-nav-links a {
-      font-family:'Unbounded',sans-serif; font-size:16px; font-weight:300;
-      color:#fff; mix-blend-mode:overlay; text-decoration:none; line-height:0.9; transition:opacity .2s;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 15px; font-weight: 300;
+      color: #fff; mix-blend-mode: overlay; text-decoration: none;
+      line-height: 0.9; transition: opacity 0.2s;
     }
-    .footer-nav-links a:hover { opacity:0.7; }
+    .footer-nav-links a:hover { opacity: 0.7; }
     .hero-avatar-wrap { display: flex; flex-direction: row; flex-shrink: 0; }
     .hero-avatar-illustrated {
       width: 72px; height: 72px; border-radius: 20px; object-fit: cover;
-      flex-shrink: 0; z-index: 1; transform: rotate(0deg);
-      transition: transform 0.3s ease, margin-left 0.3s ease, z-index 0s;
+      flex-shrink: 0; z-index: 1;
+      transition: transform 0.3s ease, margin-left 0.3s ease;
     }
     .hero-avatar-real {
       width: 72px; height: 72px; border-radius: 20px; object-fit: cover;
-      flex-shrink: 0; margin-left: -72px; z-index: 0; transform: rotate(0deg);
-      transition: transform 0.3s ease, margin-left 0.3s ease, z-index 0s;
+      flex-shrink: 0; margin-left: -72px; z-index: 0;
+      transition: transform 0.3s ease, margin-left 0.3s ease;
     }
-    .hero-avatar-wrap:hover .hero-avatar-illustrated { z-index: 0; transform: rotate(0deg); }
+    .hero-avatar-wrap:hover .hero-avatar-illustrated { z-index: 0; }
     .hero-avatar-wrap:hover .hero-avatar-real { margin-left: -68px; z-index: 1; transform: rotate(10deg); }
-    .footer-bottom { display:flex; flex-direction:column; gap:24px; }
+    .footer-bottom { display: flex; flex-direction: column; gap: 24px; }
     .footer-contact-bar {
-      display:flex; align-items:center; justify-content:space-between;
-      position:relative; padding:4px;
-      background:#191919; border:1px solid rgba(255,255,255,0.05); border-radius:12px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: relative; padding: 4px;
+      background: #191919; border: 1px solid rgba(255,255,255,0.05); border-radius: 12px;
     }
-    .footer-social-icons { display:flex; align-items:center; }
+    .footer-social-icons { display: flex; align-items: center; }
     .footer-social-icon {
-      width:36px; height:36px; display:flex; align-items:center; justify-content:center;
-      flex-shrink:0; text-decoration:none; border-radius:10px; position:relative; overflow:hidden;
-      cursor:pointer; transition:background 0.2s,box-shadow 0.2s,transform 0.15s;
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; text-decoration: none;
+      border-radius: 10px; position: relative; overflow: hidden;
+      cursor: pointer; transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
     }
-    .footer-social-icon:hover { transform:translateY(-1px); }
+    .footer-social-icon:hover { transform: translateY(-1px); }
     .footer-social-icon.active {
-      background:linear-gradient(180deg,#353537 0%,#1f1e1e 100%); border-radius:10px;
-      box-shadow:0 0 4.1px rgba(0,0,0,0.25),inset -1px -1px 0 rgba(255,255,255,0.03),inset 1px 1px 0 rgba(255,255,255,0.08);
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25);
     }
-    .footer-social-icon img { display:block; position:relative; z-index:1; filter:brightness(0) invert(1) opacity(0.35); transition:filter 0.2s; }
-    .footer-social-icon.active img { filter:brightness(0) invert(1); }
+    .footer-social-icon::after {
+      content: ''; position: absolute; inset: 0; border-radius: 10px;
+      box-shadow: inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      opacity: 0; pointer-events: none; transition: opacity 0.2s;
+    }
+    .footer-social-icon.active::after { opacity: 1; }
+    .footer-social-icon img { display: block; position: relative; z-index: 1; filter: brightness(0) invert(1) opacity(0.35); transition: filter 0.2s; }
+    .footer-social-icon.active img { filter: brightness(0) invert(1); }
     .footer-email {
-      position:absolute; left:50%; transform:translateX(-50%);
-      font-family:'Unbounded',sans-serif; font-size:13px; font-weight:300;
-      color:#dadada; white-space:nowrap; line-height:0.9;
+      position: absolute; left: 50%; transform: translateX(-50%);
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px; font-weight: 300; letter-spacing: 0.02em;
+      color: #dadada; white-space: nowrap; line-height: 0.9;
     }
-    .footer-cta { display:flex; align-items:center; justify-content:flex-end; flex:1; }
+    .footer-cta { display: flex; align-items: center; justify-content: flex-end; flex: 1; }
     .footer-cta-btn {
-      height:36px; display:flex; align-items:center; padding:0 12px;
-      background:linear-gradient(180deg,#353537 0%,#1f1e1e 100%); border-radius:10px;
-      box-shadow:0 0 4.1px rgba(0,0,0,0.25),inset -1px -1px 0 rgba(255,255,255,0.03),inset 1px 1px 0 rgba(255,255,255,0.08);
-      font-family:'Unbounded',sans-serif; font-size:11px; font-weight:300;
-      color:#fff; text-decoration:none; white-space:nowrap;
+      height: 36px; display: flex; align-items: center; padding: 0 12px;
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      border-radius: 10px;
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25), inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      font-family: 'Unbounded', sans-serif;
+      font-size: 11px; font-weight: 300; letter-spacing: 0.02em;
+      color: #fff; text-decoration: none; white-space: nowrap;
     }
     .footer-copyright {
-      font-family:'Unbounded',sans-serif; font-size:13px; font-weight:300;
-      color:#fff; mix-blend-mode:overlay; text-align:center; line-height:0.9; padding-bottom:60px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px; font-weight: 300;
+      color: #fff; mix-blend-mode: overlay; text-align: center;
+      line-height: 0.9; padding-bottom: 60px;
     }
 
-    /* ─── Responsive ─── */
-    @media (max-width: 860px) { .nav-toggle { display:flex; } .nav-inner { padding: 0 20px; max-width: 100%; } }
-    @media (max-width: 780px) {
-      .blog-page { padding-left: 24px; padding-right: 24px; }
-      .newsletter-section { grid-template-columns: 1fr; gap: 32px; }
-      .nl-content { flex-direction: column; }
-      .post-thumb { width: 100%; min-height: 180px; }
-      .nl-tiles { grid-template-columns: repeat(3, 1fr); gap: 4px; }
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 860px) {
+      .blog-page { padding-left: 20px; padding-right: 20px; }
       .footer-inner { padding: 40px 20px 0; }
+    }
+    @media (max-width: 640px) {
+      .nl-row { grid-template-columns: 1fr; gap: 32px; }
+      .nl-carousel-img { height: 120px; }
+      .ep-featured-body { flex-direction: column; gap: 12px; }
+      .ep-meta { text-align: left; }
       .footer-top { flex-direction: column; gap: 40px; }
       .footer-headline { font-size: 40px; }
       .footer-email { display: none; }
@@ -452,227 +380,131 @@
 </head>
 
 <body>
-  <div class="cursor-svg" id="cursor-svg"><img src="images/Icons/Icon_Cursor.svg" alt="" /></div>
+  <div class="cursor-svg" id="cursor-svg">
+    <img src="images/Icons/Icon_Cursor.svg" alt="" />
+  </div>
 
   <site-nav active="blog"></site-nav>
 
   <!-- ─── BLOG CONTENT ─── -->
   <main class="blog-page">
 
-    <!-- ── Newsletter 1: TAKES BY OVASYS ── -->
-    <section class="newsletter-section">
+    <!-- ── Section 1: Takes by Ovasys ── -->
+    <section class="nl-section reveal">
 
-      <!-- Left: Identity -->
-      <div class="nl-identity">
-        <h2 class="nl-heading">TAKES<br>BY OVASYS</h2>
-        <p class="nl-desc">This newsletter helps founders, designers, PMs, and developers save time, cut costs, and build better with AI. There's a thought process to optimally using AI to build, and you need to know it.</p>
-        <a href="https://substack.com/@olarewajufakomi" class="btn-substack" target="_blank" rel="noopener">
-          <img src="images/Icons/SubstackEmail_IconImg.svg" alt="" />
-          View in Substack
-        </a>
+      <!-- Auto-scrolling carousel — Takes by Ovasys covers -->
+      <div class="nl-carousel">
+        <div class="nl-carousel-track">
+          <!-- Set 1 -->
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/s2%20e11.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/s2%20e6.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/s2%20e7.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e10.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e3.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e4.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e8.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e9.png" alt="" />
+          <!-- Set 2 (duplicate for seamless loop) -->
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/s2%20e11.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/s2%20e6.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/s2%20e7.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e10.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e3.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e4.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e8.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e9.png" alt="" />
+        </div>
       </div>
 
-      <!-- Right: Thumbnail + post stack -->
-      <div class="nl-content">
+      <!-- Content row -->
+      <div class="nl-row">
 
-        <!-- Featured post thumbnail -->
-        <div class="post-thumb post-thumb--arc">
-          <div class="arc-icon">
-            <!-- Arc Browser compass/navigation icon -->
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-              <path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4z" stroke="white" stroke-width="1.5"/>
-              <path d="M22 10l-4.5 11L14 16l-4 1.5 11-4.5-2-3z" fill="white" opacity="0.9"/>
-              <path d="M14 16l3.5 5.5" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
-            </svg>
-          </div>
+        <!-- Left: Identity -->
+        <div class="nl-identity">
+          <h2 class="nl-heading">Takes<br>By Ovasys</h2>
+          <p class="nl-desc">This newsletter helps founders, designers, PMs, and developers save time, cut costs, and build better with AI.</p>
+          <a href="https://takesbyovasys.substack.com" class="btn-substack" target="_blank" rel="noopener">
+            <img src="images/Icons/SubstackEmail_IconImg.svg" alt="" />
+            View in Substack
+          </a>
         </div>
 
-        <!-- Posts stacked with depth -->
-        <div class="posts-stack">
+        <!-- Right: Quick Preview episode list -->
+        <div class="ep-list">
 
-          <div class="post-preview depth-1">
-            <div class="post-meta">
-              <span class="post-ep">EP 3: <strong>AI Browsers and why they matter</strong></span>
-              <a href="https://substack.com/@olarewajufakomi" class="post-arrow" target="_blank" rel="noopener" aria-label="Read post">
-                <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11L11 3M11 3H5M11 3v6"/></svg>
-              </a>
-            </div>
-            <p class="post-excerpt">Later, I discovered Arc Browser, which offered a better experience and a more exciting workflow (there's a chance I downloaded it for the hype but the UX is pretty good regardless)...</p>
-          </div>
 
-          <div class="post-preview depth-2">
-            <div class="post-meta">
-              <span class="post-ep">EP 3: <strong>AI Browsers and why they matter</strong></span>
-              <span class="post-arrow" aria-hidden="true">
-                <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11L11 3M11 3H5M11 3v6"/></svg>
-              </span>
-            </div>
-            <p class="post-excerpt">Later, I discovered Arc Browser, which offered a better experience and a more exciting workflow (there's a chance I downloaded it for the hype but the UX is pretty good regardless)...</p>
-          </div>
+          <!-- Compact rows -->
+          <a href="https://takesbyovasys.substack.com/p/build-usable-products-with-ai-tbo-s2e11" class="ep-row" target="_blank" rel="noopener">
+            <span class="ep-row-label"><strong>AI Built It Fast, But Now Users Are Confused</strong></span>
+            <span class="ep-arrow">→</span>
+          </a>
+          <a href="https://takesbyovasys.substack.com/p/reliable-mvp-validation-ai-tbo-s2e10" class="ep-row" target="_blank" rel="noopener">
+            <span class="ep-row-label"><strong>Boring Systems Beat Impressive Ones, Every Time</strong></span>
+            <span class="ep-arrow">→</span>
+          </a>
+          <a href="https://takesbyovasys.substack.com/p/productize-service-business-tbo-s2e9" class="ep-row" target="_blank" rel="noopener">
+            <span class="ep-row-label"><strong>Your Service Business Already Has a Product Inside It</strong></span>
+            <span class="ep-arrow">→</span>
+          </a>
+          <a href="https://takesbyovasys.substack.com/p/ai-bank-statement-data-extraction-tbo-s2e8" class="ep-row" target="_blank" rel="noopener">
+            <span class="ep-row-label"><strong>What Actually Happened When I Put AI Into a Real Client Workflow</strong></span>
+            <span class="ep-arrow">→</span>
+          </a>
+          <a href="https://takesbyovasys.substack.com/p/choose-what-to-automate-tbo-s2e7" class="ep-row" target="_blank" rel="noopener">
+            <span class="ep-row-label"><strong>Your Business is a Brain. Find the Tumour</strong></span>
+            <span class="ep-arrow">→</span>
+          </a>
+          <a href="https://takesbyovasys.substack.com/p/fix-workflow-before-automation-tbo-s2e6" class="ep-row" target="_blank" rel="noopener">
+            <span class="ep-row-label"><strong>You Don't Have an AI Problem. You Have a Workflow Problem.</strong></span>
+            <span class="ep-arrow">→</span>
+          </a>
+          <a href="https://takesbyovasys.substack.com/p/tbo-s2e5" class="ep-row" target="_blank" rel="noopener">
+            <span class="ep-row-label"><strong>The best vibe coders are already coders</strong></span>
+            <span class="ep-arrow">→</span>
+          </a>
 
-          <div class="post-preview depth-3">
-            <div class="post-meta">
-              <span class="post-ep">EP 3: <strong>AI Browsers and why they matter</strong></span>
-              <span class="post-arrow" aria-hidden="true">
-                <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11L11 3M11 3H5M11 3v6"/></svg>
-              </span>
-            </div>
-            <p class="post-excerpt">Later, I discovered Arc Browser, which offered a better experience and a more exciting workflow (there's a chance I downloaded it for the hype but the UX is pretty good regardless)...</p>
-          </div>
 
         </div>
       </div>
     </section>
 
-    <!-- ── Newsletter 2: FULL STEAM & HARD LEFT ── -->
-    <section class="newsletter-section">
+    <!-- ── Section 2: Full Steam & HardLeft ── -->
+    <section class="nl-section reveal">
+      <div class="nl-row">
 
-      <!-- Left: Identity -->
-      <div class="nl-identity">
-        <h2 class="nl-heading">FULL STEAM<br>&amp; HARD LEFT</h2>
-        <p class="nl-desc">I'm a guy in my 20s with goals &amp; ambitions, as I am sure you have. I write because of you. So that when you get stuck or confused, you can relate to a problem I've had and solved and find the strength to keep going.</p>
-        <a href="https://substack.com/@olarewajufakomi" class="btn-substack" target="_blank" rel="noopener">
-          <img src="images/Icons/SubstackEmail_IconImg.svg" alt="" />
-          View in Substack
-        </a>
-      </div>
-
-      <!-- Right: Newsletter cover tiles -->
-      <div class="nl-tiles">
-
-        <!-- Row 1 -->
-        <div class="cover-tile">
-          <div class="tile-top">
-            <span class="tile-issue">#130</span>
-            <div>
-              <div class="tile-brand">Full steam</div>
-              <div class="tile-brand">Hard left</div>
-            </div>
-          </div>
-          <div class="tile-label">FSHL #130</div>
-          <div class="tile-body">
-            <p class="tile-headline">Your determination will be tested. <span class="accent">Don't lose.</span></p>
-          </div>
+        <!-- Left: Identity -->
+        <div class="nl-identity">
+          <h2 class="nl-heading">Full Steam<br>&amp; HardLeft</h2>
+          <p class="nl-desc">I'm a guy in my 20s with goals &amp; ambitions, as I am sure you have. I write for those who need help and can relate.</p>
+          <a href="https://olafakomi.substack.com" class="btn-substack" target="_blank" rel="noopener">
+            <img src="images/Icons/SubstackEmail_IconImg.svg" alt="" />
+            View in Substack
+          </a>
         </div>
 
-        <div class="cover-tile">
-          <div class="tile-top">
-            <span class="tile-issue">#130</span>
-            <div>
-              <div class="tile-brand">Full steam</div>
-              <div class="tile-brand">Hard left</div>
-            </div>
-          </div>
-          <div class="tile-label">FSHL #130</div>
-          <div class="tile-body">
-            <p class="tile-headline">Your determination will be tested. <span class="accent">Don't lose.</span></p>
-          </div>
-        </div>
-
-        <div class="cover-tile">
-          <div class="tile-top">
-            <span class="tile-issue">#130</span>
-            <div>
-              <div class="tile-brand">Full steam</div>
-              <div class="tile-brand">Hard left</div>
-            </div>
-          </div>
-          <div class="tile-label">FSHL #130</div>
-          <div class="tile-body">
-            <p class="tile-headline">Your determination will be tested. <span class="accent">Don't lose.</span></p>
+        <!-- Right: FSHL card carousel -->
+        <div class="fshl-carousel">
+          <div class="fshl-carousel-track">
+            <!-- Set 1 -->
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E26.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E27.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E28.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E29.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E30.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E31.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E32.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E33.png" alt="" />
+            <!-- Set 2 (duplicate for seamless loop) -->
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E26.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E27.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E28.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E29.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E30.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E31.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E32.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E33.png" alt="" />
           </div>
         </div>
-
-        <!-- Row 2 -->
-        <div class="cover-tile">
-          <div class="tile-top">
-            <span class="tile-issue">#130</span>
-            <div>
-              <div class="tile-brand">Full steam</div>
-              <div class="tile-brand">Hard left</div>
-            </div>
-          </div>
-          <div class="tile-label">FSHL #130</div>
-          <div class="tile-body">
-            <p class="tile-headline">Your determination will be tested. <span class="accent">Don't lose.</span></p>
-          </div>
-        </div>
-
-        <div class="cover-tile">
-          <div class="tile-top">
-            <span class="tile-issue">#130</span>
-            <div>
-              <div class="tile-brand">Full steam</div>
-              <div class="tile-brand">Hard left</div>
-            </div>
-          </div>
-          <div class="tile-label">FSHL #130</div>
-          <div class="tile-body">
-            <p class="tile-headline">Your determination will be tested. <span class="accent">Don't lose.</span></p>
-          </div>
-        </div>
-
-        <div class="cover-tile">
-          <div class="tile-top">
-            <span class="tile-issue">#130</span>
-            <div>
-              <div class="tile-brand">Full steam</div>
-              <div class="tile-brand">Hard left</div>
-            </div>
-          </div>
-          <div class="tile-label">FSHL #130</div>
-          <div class="tile-body">
-            <p class="tile-headline">Your determination will be tested. <span class="accent">Don't lose.</span></p>
-          </div>
-        </div>
-
-        <!-- Row 3 -->
-        <div class="cover-tile">
-          <div class="tile-top">
-            <span class="tile-issue">#130</span>
-            <div>
-              <div class="tile-brand">Full steam</div>
-              <div class="tile-brand">Hard left</div>
-            </div>
-          </div>
-          <div class="tile-label">FSHL #130</div>
-          <div class="tile-body">
-            <p class="tile-headline">Your determination will be tested. <span class="accent">Don't lose.</span></p>
-          </div>
-        </div>
-
-        <div class="cover-tile">
-          <div class="tile-top">
-            <span class="tile-issue">#130</span>
-            <div>
-              <div class="tile-brand">Full steam</div>
-              <div class="tile-brand">Hard left</div>
-            </div>
-          </div>
-          <div class="tile-label">FSHL #130</div>
-          <div class="tile-body">
-            <p class="tile-headline">Your determination will be tested. <span class="accent">Don't lose.</span></p>
-          </div>
-        </div>
-
-        <div class="cover-tile">
-          <div class="tile-top">
-            <span class="tile-issue">#130</span>
-            <div>
-              <div class="tile-brand">Full steam</div>
-              <div class="tile-brand">Hard left</div>
-            </div>
-          </div>
-          <div class="tile-label">FSHL #130</div>
-          <div class="tile-body">
-            <p class="tile-headline">Your determination will be tested. <span class="accent">Don't lose.</span></p>
-          </div>
-        </div>
-
-        <!-- Row 4: Pattern tiles -->
-        <div class="pattern-tile"></div>
-        <div class="pattern-tile"></div>
-        <div class="pattern-tile"></div>
 
       </div>
     </section>
@@ -688,6 +520,7 @@
           <a href="index.html">Home</a>
           <a href="ux-projects.html">UX Projects</a>
           <a href="graphics.html">Graphics</a>
+          <a href="lab.html">Lab</a>
           <a href="blog.html">Blogs</a>
           <a href="about.html">About</a>
         </div>
@@ -699,17 +532,17 @@
       <div class="footer-bottom">
         <div class="footer-contact-bar">
           <div class="footer-social-icons" id="footer-icons">
-            <a href="#" class="footer-social-icon" data-label="olarewajufakomi@gmail.com" data-action="copy">
-              <img src="images/Icons/Email_IconImg.svg" alt="Email" width="32" height="32">
+            <a href="#" class="footer-social-icon active" data-label="olarewajufakomi@gmail.com" data-action="copy">
+              <img src="images/Icons/Email_IconImg.svg" alt="Email" width="20" height="20">
             </a>
             <a href="https://x.com/olafakomi" target="_blank" class="footer-social-icon" data-label="x.com/olafakomi">
-              <img src="images/Icons/TwitterX_IconImg.svg" alt="Twitter" width="32" height="32">
+              <img src="images/Icons/TwitterX_IconImg.svg" alt="Twitter" width="20" height="20">
             </a>
             <a href="https://takesbyovasys.substack.com" target="_blank" class="footer-social-icon" data-label="takesbyovasys.substack.com">
-              <img src="images/Icons/SubstackEmail_IconImg.svg" alt="Substack" width="32" height="32">
+              <img src="images/Icons/SubstackEmail_IconImg.svg" alt="Substack" width="20" height="20">
             </a>
             <a href="https://www.linkedin.com/in/olafakomi" target="_blank" class="footer-social-icon" data-label="linkedin.com/in/olafakomi">
-              <img src="images/Icons/LinkedInEmail_IconImg.svg" alt="LinkedIn" width="32" height="32">
+              <img src="images/Icons/LinkedInEmail_IconImg.svg" alt="LinkedIn" width="20" height="20">
             </a>
           </div>
           <span class="footer-email" id="footer-contact-label">olarewajufakomi@gmail.com</span>
@@ -730,96 +563,47 @@
       cursorSvg.style.top  = e.clientY + 'px';
     });
 
-    /* ─── Tick sounds ─── */
-    let _audioCtx;
-    function getAudioCtx() {
-      if (!_audioCtx) _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      if (_audioCtx.state === 'suspended') _audioCtx.resume();
-      return _audioCtx;
-    }
-    function playTick(freq, vol, dur) {
-      const ctx = getAudioCtx();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.connect(gain); gain.connect(ctx.destination);
-      osc.type = 'sine'; osc.frequency.value = freq;
-      gain.gain.setValueAtTime(vol, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur);
-      osc.start(ctx.currentTime); osc.stop(ctx.currentTime + dur);
-    }
-    function playClick() {
-      const ctx = getAudioCtx();
-      const dur = 0.018;
-      const buf = ctx.createBuffer(1, Math.floor(ctx.sampleRate * dur), ctx.sampleRate);
-      const data = buf.getChannelData(0);
-      for (let i = 0; i < data.length; i++) {
-        data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / data.length, 4);
-      }
-      const src = ctx.createBufferSource();
-      src.buffer = buf;
-      const filter = ctx.createBiquadFilter();
-      filter.type = 'bandpass';
-      filter.frequency.value = 1800;
-      filter.Q.value = 1.0;
-      const gain = ctx.createGain();
-      gain.gain.setValueAtTime(0.09, ctx.currentTime);
-      src.connect(filter);
-      filter.connect(gain);
-      gain.connect(ctx.destination);
-      src.start();
-      src.stop(ctx.currentTime + dur);
-    }
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('mouseenter', () => playTick(750, 0.10, 0.055));
-    });
-
-    /* ─── Global click sound ─── */
-    document.addEventListener('click', e => {
-      if (e.target.closest('a, button')) playClick();
-    }, { passive: true });
-
-    /* ─── Button & footer hover sounds ─── */
-    document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta').forEach(el => {
-      el.addEventListener('mouseenter', () => playTick(900, 0.08, 0.05));
-    });
-    document.querySelectorAll('.footer-social-icon, .footer-nav-links a, .footer-cta-btn').forEach(el => {
-      el.addEventListener('mouseenter', () => playTick(750, 0.06, 0.05));
-    });
-  
-    /* ─── Footer social icon interactions ─── */
+    /* ─── Scroll reveal ─── */
     (function() {
-      var icons = document.querySelectorAll('.footer-social-icon');
-      var label = document.getElementById('footer-contact-label');
-      var emailIcon = document.querySelector('.footer-social-icon[data-action="copy"]');
-      var defaultLabel = 'olarewajufakomi@gmail.com';
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.08 });
+      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    })();
+
+    /* ─── Footer social icons ─── */
+    (function() {
+      const icons = document.querySelectorAll('.footer-social-icon');
+      const label = document.getElementById('footer-contact-label');
+      const emailIcon = document.querySelector('.footer-social-icon[data-action="copy"]');
+      const defaultLabel = 'olarewajufakomi@gmail.com';
       if (!icons.length || !label) return;
-      function setActive(icon) {
-        icons.forEach(function(i) { i.classList.remove('active'); });
-        icon.classList.add('active');
-        label.textContent = icon.dataset.label || defaultLabel;
-      }
       function resetDefault() {
-        icons.forEach(function(i) { i.classList.remove('active'); });
+        icons.forEach(i => i.classList.remove('active'));
         if (emailIcon) emailIcon.classList.add('active');
         label.textContent = defaultLabel;
       }
       resetDefault();
-      icons.forEach(function(icon) {
-        icon.addEventListener('mouseenter', function() { setActive(icon); });
+      icons.forEach(icon => {
+        icon.addEventListener('mouseenter', () => {
+          icons.forEach(i => i.classList.remove('active'));
+          icon.classList.add('active');
+          label.textContent = icon.dataset.label || defaultLabel;
+        });
       });
-      var container = document.querySelector('.footer-social-icons');
+      const container = document.querySelector('.footer-social-icons');
       if (container) container.addEventListener('mouseleave', resetDefault);
       if (emailIcon) {
-        emailIcon.addEventListener('click', function(e) {
+        emailIcon.addEventListener('click', e => {
           e.preventDefault();
-          navigator.clipboard.writeText('olarewajufakomi@gmail.com').then(function() {
-            var prev = label.textContent;
+          navigator.clipboard.writeText('olarewajufakomi@gmail.com').then(() => {
             label.textContent = 'Copied!';
-            setTimeout(function() { label.textContent = prev; }, 2000);
+            setTimeout(resetDefault, 2000);
           });
         });
       }
     })();
   </script>
+
 </body>
 </html>
