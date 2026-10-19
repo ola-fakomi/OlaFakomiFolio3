@@ -26,19 +26,11 @@ const selectors = Object.keys(FRAMES);
 const fromInternal = true;
 
 if (fromInternal) {
-  // ─── Skip intro entirely — place items at frame 6, show hero at y:0 ──────
+  // ─── Intro removed — show hero immediately ────────────────────────────────
   document.documentElement.classList.remove('js-intro');
-
-  // Place all floating items at their final off-screen positions (frame 6)
-  selectors.forEach(sel =>
-    gsap.set(sel, { xPercent: -50, yPercent: -50, ...posNow(FRAMES[sel][5]) })
-  );
-  gsap.set('.intro-copy', { y: 0 });
   gsap.set('nav', { opacity: 1 });
-  document.querySelectorAll('.intro-item, .intro-copy').forEach(el => {
-    el.style.visibility = 'visible';
-  });
-  // No scroll trigger, no scroll jump — hero is visible immediately at top.
+  gsap.set('.intro-copy', { y: 0 });
+  document.querySelector('.intro-copy')?.style.setProperty('visibility', 'visible');
 
 } else {
 

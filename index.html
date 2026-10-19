@@ -1429,8 +1429,7 @@
     @media (max-width: 860px) {
       /* Hero / Intro */
       #intro { height: auto; overflow: hidden; }
-      .intro-copy { position: relative; top: 110px; }
-      .intro-item { display: none; }
+      .intro-copy { padding-top: calc(var(--nav-h) + 32px); }
       .hero-bio-row { flex-direction: column; gap: 16px; }
       .hero-subtext-ctas { gap: 12px; }
       .greeting { font-size: 36px; line-height: 1; }
@@ -1578,7 +1577,7 @@
 
     #intro {
       position: relative;
-      height: 80vh;
+      height: auto;
       background: var(--bg);
     }
 
@@ -1629,13 +1628,9 @@
     .intro-phone     { left: 36.67%;  width: 13vw; }
     .intro-coin      { left: 84.17%;  width: 10vw; }
 
-    /* Hero copy container — positioned at its frame-6 resting place.
-       GSAP translates it on Y; top: 160px matches the real hero's padding-top. */
     .intro-copy {
-      position: absolute;
-      top: 160px;
-      left: 0; right: 0;
-      z-index: 2;
+      position: relative;
+      padding-top: calc(var(--nav-h) + 48px);
     }
 
     /* Hide nav when any modal is open */
@@ -1973,21 +1968,7 @@
   -->
   <section id="intro">
 
-    <!-- "hello" and unclipped items sit outside the stage -->
-    <div class="intro-item intro-hello"><span class="intro-letter">k</span><span class="intro-letter">a</span><span class="intro-letter">a</span><span class="intro-letter">b</span><span class="intro-letter">o</span></div>
-    <img class="intro-item intro-cloud-r" src="images/intro/Small Cloud Hero.webp" alt="" draggable="false" />
-
-    <!-- Stage: floating items animated by GSAP, clipped to viewport -->
-    <div class="intro-stage">
-      <img class="intro-item intro-cloud-l"   src="images/intro/BigCloud Hero.webp"    alt="" draggable="false" />
-      <img class="intro-item intro-keyboard"  src="images/intro/Keyboard Hero.webp"    alt="" draggable="false" />
-      <img class="intro-item intro-character" src="images/intro/Avatar Hero.webp"      alt="" draggable="false" />
-      <img class="intro-item intro-trib"      src="images/intro/Logo Hero.webp"        alt="" draggable="false" />
-      <img class="intro-item intro-phone"     src="images/intro/Phone Hero.webp"       alt="" draggable="false" />
-      <img class="intro-item intro-coin"      src="images/intro/Coin Hero.webp"        alt="" draggable="false" />
-    </div>
-
-    <!-- Hero copy: rises into view during scroll frames 4 → 5 → 6. -->
+    <!-- Hero copy -->
     <div class="intro-copy">
       <div class="hero-inner">
 
