@@ -25,8 +25,8 @@
       --blue:      #818cf8;
       --green:     #4ade80;
       --text:      #f0f0f0;
-      --text-dim:  #9a9aaa;
-      --text-mute: #7581a6;
+      --text-dim:  rgba(255,255,255,0.58);
+      --text-mute: rgba(255,255,255,0.35);
       --border:    rgba(255,255,255,0.07);
       --nav-bg:    #191919;
       --r-sm:      10px;
@@ -171,16 +171,16 @@
     .cs-eyebrow {
       font-family: 'Unbounded', sans-serif;
       font-size: 10px; font-weight: 300;
-      color: var(--accent); letter-spacing: 0.1em;
+      color: var(--text-mute); letter-spacing: 0.1em;
       text-transform: uppercase; margin-bottom: 12px;
     }
     .cs-title {
       font-family: 'Unbounded', sans-serif;
-      font-size: var(--text-size-hero); font-weight: 700;
+      font-size: var(--text-size-hero); font-weight: 300;
       line-height: 1.3; margin-bottom: 20px;
-      color: var(--text);
+      color: var(--text); letter-spacing: 0.02em;
     }
-    .cs-title span { color: var(--accent); }
+    .cs-title span { color: var(--text); }
     .cs-subtitle {
       font-size: 16px; color: var(--text-dim);
       max-width: 680px; margin-bottom: 48px; line-height: 1.8;
@@ -198,10 +198,10 @@
     .cs-section { margin-bottom: 56px; }
     .cs-section-title {
       font-family: 'Unbounded', sans-serif;
-      font-size: 18px; font-weight: 700;
-      margin-bottom: 16px; color: var(--accent);
+      font-size: 13px; font-weight: 300;
+      margin-bottom: 16px; color: rgba(255,255,255,0.35);
+      text-transform: uppercase; letter-spacing: 0.06em;
     }
-    .cs-section-title.dark { color: var(--text); }
     .cs-body {
       font-size: 15px; color: var(--text-dim);
       line-height: 1.8; margin-bottom: 20px;
@@ -220,21 +220,12 @@
       background: rgba(255,255,255,0.05);
       border: 1px solid var(--border); color: var(--text-mute);
     }
-    .pill-blue {
-      background: rgba(129,140,248,0.08);
-      border: 1px solid rgba(129,140,248,0.2); color: #818cf8;
-    }
-    .pill-green {
-      background: rgba(74,222,128,0.08);
-      border: 1px solid rgba(74,222,128,0.2); color: #4ade80;
-    }
-    .pill-purple {
-      background: rgba(139,92,246,0.08);
-      border: 1px solid rgba(139,92,246,0.2); color: #c084fc;
-    }
+    .pill-blue,
+    .pill-green,
+    .pill-purple,
     .pill-orange {
-      background: rgba(234,88,12,0.08);
-      border: 1px solid rgba(234,88,12,0.2); color: #fb923c;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border); color: rgba(255,255,255,0.35);
     }
 
     /* ── CHECK LIST ──────────────────────────────────────── */
@@ -244,13 +235,19 @@
       margin-bottom: 20px;
     }
     .check-list li {
-      display: flex; align-items: flex-start; gap: 10px;
+      display: flex; align-items: center; gap: 12px;
       font-size: 15px; color: var(--text-dim); line-height: 1.65;
     }
     .check-list li::before {
       content: '';
-      width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px;
-      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='18' height='18' rx='5' fill='%234ade80' fill-opacity='0.12'/%3E%3Cpath d='M5 9.5l2.5 2.5 5.5-5.5' stroke='%234ade80' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain;
+      width: 32px; height: 32px; flex-shrink: 0;
+      border-radius: 8px;
+      background:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 8l2.5 2.5 5.5-5.5' stroke='white' stroke-opacity='0.45' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 16px 16px no-repeat,
+        linear-gradient(180deg, rgba(53,53,55,0.6) 0%, rgba(31,30,30,0.6) 100%);
+      box-shadow: 0 0 5.74px rgba(0,0,0,0.25),
+                  inset -1.4px -1.4px 0 rgba(255,255,255,0.02),
+                  inset 1.4px 1.4px 0 rgba(255,255,255,0.04);
     }
     .check-list li strong { color: var(--text); font-weight: 400; }
 
@@ -264,22 +261,18 @@
       border-radius: var(--r-sm);
       font-size: 13px; color: var(--text-dim);
     }
-    .role-badge::before {
-      content: '';
-      width: 16px; height: 16px;
-      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='16' height='16' rx='4' fill='%234ade80' fill-opacity='0.12'/%3E%3Cpath d='M4 8.5l2.5 2L12 5.5' stroke='%234ade80' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain;
-    }
+    .role-badge::before { display: none; }
 
     /* ── TLDR ────────────────────────────────────────────── */
     .tldr {
       padding: 20px 24px;
-      border-left: 3px solid var(--accent);
-      background: var(--accent-lt);
-      border-radius: 0 var(--r-sm) var(--r-sm) 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
       margin-bottom: 32px;
     }
     .tldr p { font-size: 15px; color: var(--text-dim); line-height: 1.8; }
-    .tldr a { color: var(--accent); text-decoration: underline; }
+    .tldr a { color: var(--text-dim); text-decoration: underline; }
 
     /* ── TWO-COL ─────────────────────────────────────────── */
     .two-col {
@@ -310,12 +303,12 @@
     .feature-tag {
       font-family: 'Unbounded', sans-serif;
       font-size: 10px; font-weight: 300;
-      color: var(--accent); letter-spacing: 0.08em;
+      color: var(--text-mute); letter-spacing: 0.08em;
       text-transform: uppercase; margin-bottom: 8px;
     }
     .feature-title {
       font-family: 'Unbounded', sans-serif;
-      font-size: 17px; font-weight: 400; margin-bottom: 10px;
+      font-size: 15px; font-weight: 300; margin-bottom: 10px;
       color: var(--text);
     }
     .feature-desc {
@@ -331,14 +324,14 @@
       gap: 12px; margin: 32px 0;
     }
     .stat-card {
-      background: var(--accent-lt);
-      border: 1px solid rgba(129,140,248,0.2);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
       border-radius: var(--r-md); padding: 20px; text-align: center;
     }
     .stat-num {
       font-family: 'Unbounded', sans-serif;
-      font-size: 26px; font-weight: 700;
-      color: var(--accent); display: block; margin-bottom: 4px;
+      font-size: 26px; font-weight: 300;
+      color: var(--text); display: block; margin-bottom: 4px;
     }
     .stat-label { font-size: 12px; color: var(--text-mute); }
 
@@ -352,8 +345,8 @@
     /* ── QUOTE ───────────────────────────────────────────── */
     .closing-quote {
       padding: 24px 28px;
-      background: var(--accent-lt);
-      border: 1px solid rgba(129,140,248,0.2);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
       border-radius: var(--r-md); margin-top: 24px;
     }
     .closing-quote p {
@@ -473,7 +466,7 @@
     @media (max-width: 860px) {
       .page { padding-left: 20px; padding-right: 20px; }
       .cs-title { font-size: 20px; }
-      .cs-section-title { font-size: 15px; }
+      .cs-section-title { font-size: 11px; }
       .cs-subtitle { font-size: 13px; }
       .cs-body { font-size: 13px; }
       .check-list li { font-size: 13px; }
@@ -551,7 +544,7 @@
       </div>
       <div class="pill pill-default">TL;DR</div>
       <div class="tldr" style="margin-top:12px;">
-        <p>I led the entire design process from <span style="color:var(--accent)">rebrand</span> and <span style="color:var(--accent)">website design to product (WebApp &amp; DApp)</span> UI/UX. Transforming a Base hackathon prototype into a scalable platform with AI-powered question generation, gamification features, and multi-wallet support.</p>
+        <p>I led the entire design process from <span style="color:var(--text)">rebrand</span> and <span style="color:var(--text)">website design to product (WebApp &amp; DApp)</span> UI/UX. Transforming a Base hackathon prototype into a scalable platform with AI-powered question generation, gamification features, and multi-wallet support.</p>
       </div>
     </section>
 
