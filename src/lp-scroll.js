@@ -73,6 +73,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   init();
 
+  // Re-init after images/fonts finish loading so card heights are accurate.
+  // DOMContentLoaded can fire before images are rendered, causing wrong cardH
+  // and stale y-positions that produce visible overlaps until page refresh.
+  window.addEventListener('load', () => {
+    init();
+    ScrollTrigger.refresh();
+  });
+
   let resizeTimer;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
