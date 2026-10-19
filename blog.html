@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V1S9EH9HZ5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-V1S9EH9HZ5');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Ola Fakomi</title>
+  <link rel="icon" type="image/png" href="images/hero/OlaAvatar_Img.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Blog — Ola Fakomi" />
+  <meta property="og:description" content="Takes by Ovasys & Full Steam and HardLeft — newsletters by Ola Fakomi" />
+  <meta property="og:image" content="https://olafakomi.com/images/OG_image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bitcount+Single:wght@100..900&family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script type="module" src="src/nav.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #191919;
+      --text:    #f0f0f0;
+      --text-dim:#9a9aaa;
+      --border:  rgba(255,255,255,0.07);
+      --nav-h:   72px;
+      --blue:    #4837f3;
+      --red:     #ff7974;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Unbounded', sans-serif;
+      font-size: 15px; font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* Noise */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.35; pointer-events: none; z-index: 9000;
+    }
+
+    @media (pointer: coarse), (max-width: 860px) { body { cursor: auto; } .cursor-svg { display: none; } }
+
+    /* ─── Cursor ─── */
+    .cursor-svg {
+      position: fixed; pointer-events: none;
+      transform: translate(-4px, -4px);
+      z-index: 9999; width: 32px; height: 32px;
+      transition: width 0.2s, height 0.2s;
+    }
+    .cursor-svg img { width: 100%; height: 100%; display: block; }
+    body:has(a:hover) .cursor-svg,
+    body:has(button:hover) .cursor-svg { width: 40px; height: 40px; }
+
+    /* ─── PAGE ─── */
+    .blog-page {
+      max-width: 896px;
+      margin: 0 auto;
+      padding: calc(var(--nav-h) + 48px) 0 120px;
+    }
+
+    /* ─── SECTION ─── */
+    .nl-section {
+      padding-bottom: 80px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 80px;
+    }
+    .nl-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+    /* ─── CAROUSEL ─── */
+    .nl-carousel {
+      width: 100%;
+      overflow: hidden;
+      border-radius: 14px;
+      margin-bottom: 48px;
+      position: relative;
+    }
+    .nl-carousel::before,
+    .nl-carousel::after {
+      content: '';
+      position: absolute; top: 0; bottom: 0; width: 60px;
+      z-index: 2; pointer-events: none;
+    }
+    .nl-carousel::before { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
+    .nl-carousel::after  { right: 0; background: linear-gradient(to left, var(--bg), transparent); }
+
+    .nl-carousel-track {
+      display: flex;
+      gap: 10px;
+      width: max-content;
+      animation: nl-marquee 24s linear infinite;
+    }
+    .nl-carousel-track:hover { animation-play-state: paused; }
+
+    @keyframes nl-marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .nl-carousel-img {
+      height: 160px;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 10px;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    /* ─── FSHL CARD CAROUSEL (right column) ─── */
+    .fshl-carousel {
+      overflow: hidden;
+      align-self: center;
+      position: relative;
+    }
+    .fshl-carousel::before,
+    .fshl-carousel::after {
+      content: '';
+      position: absolute; top: 0; bottom: 0; width: 60px;
+      z-index: 2; pointer-events: none;
+    }
+    .fshl-carousel::before { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
+    .fshl-carousel::after  { right: 0; background: linear-gradient(to left, var(--bg), transparent); }
+    .fshl-carousel-track {
+      display: flex;
+      gap: 10px;
+      width: max-content;
+      animation: nl-marquee 40s linear infinite;
+    }
+    .fshl-carousel-track:hover { animation-play-state: paused; }
+    .fshl-card-img {
+      height: 260px;
+      width: auto;
+      border-radius: 10px;
+      display: block;
+      flex-shrink: 0;
+      object-fit: cover;
+    }
+
+    /* ─── ROW (2-col) ─── */
+    .nl-row {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* ─── IDENTITY (left col) ─── */
+    .nl-identity { padding-top: 2px; }
+
+    .nl-heading {
+      font-size: 24px; font-weight: 300;
+      letter-spacing: 0.02em; line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .nl-desc {
+      font-size: 15px; font-weight: 300;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.58);
+      margin-bottom: 32px;
+    }
+
+    /* Button — matches nav "Let's talk" exactly */
+    .btn-substack {
+      display: inline-flex; align-items: center; gap: 4px;
+      height: 40px; padding: 0 16px 0 8px;
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      border: none; color: #fff;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 11px; font-weight: 300; letter-spacing: 0.02em;
+      border-radius: 12px; text-decoration: none; white-space: nowrap;
+      position: relative; overflow: hidden;
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25);
+      transition: opacity 0.2s, transform 0.2s;
+      flex-shrink: 0; cursor: none;
+    }
+    .btn-substack::after {
+      content: ''; position: absolute; inset: 0; border-radius: 10px;
+      box-shadow: inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      pointer-events: none;
+    }
+    .btn-substack:hover { opacity: 0.85; transform: translateY(-1px); }
+    .btn-substack img { width: 32px; height: 32px; display: block; position: relative; z-index: 1; filter: brightness(0) invert(1); }
+
+    /* ─── EPISODE LIST — Quick Preview style ─── */
+    .ep-list { display: flex; flex-direction: column; }
+
+    .ep-list-label {
+      font-size: 11px; font-weight: 300;
+      letter-spacing: 0.08em;
+      color: var(--blue);
+      margin-bottom: 20px;
+    }
+
+    /* Featured (top) episode — expanded with excerpt */
+    .ep-featured {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 2px;
+      text-decoration: none;
+      display: block;
+      transition: background 0.18s;
+    }
+    .ep-featured:hover { background: rgba(255,255,255,0.05); }
+
+    .ep-featured-top {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .ep-featured-body {
+      display: flex; justify-content: space-between; gap: 24px;
+      align-items: flex-start;
+    }
+    .ep-excerpt {
+      font-size: 15px; font-weight: 300; line-height: 1.6;
+      color: rgba(255,255,255,0.85);
+      flex: 1;
+    }
+    .ep-meta {
+      font-size: 11px; font-weight: 300; letter-spacing: 0.02em;
+      color: rgba(255,255,255,0.4);
+      text-align: right; flex-shrink: 0;
+      display: flex; flex-direction: column; gap: 3px;
+      padding-top: 2px;
+    }
+    .ep-meta strong { color: rgba(255,255,255,0.72); font-weight: 400; }
+
+    /* Compact episode rows */
+    .ep-row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      transition: opacity 0.18s;
+    }
+    .ep-row:last-of-type { border-bottom: none; }
+    .ep-row:hover { opacity: 0.75; }
+
+    .ep-row-label {
+      font-size: 13px; font-weight: 300; letter-spacing: 0.02em;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.4;
+    }
+    .ep-row-label strong {
+      color: rgba(255,255,255,0.82);
+      font-weight: 300;
+    }
+    .ep-arrow {
+      color: var(--red);
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ─── FOOTER ─── */
+    #contact {
+      background: url('images/footer/Footer Background.webp') center center / cover no-repeat;
+      padding: 0; overflow: hidden; position: relative;
+    }
+    .footer-inner {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; gap: 56px;
+      padding: 40px 0 0; max-width: 896px; margin: 0 auto;
+    }
+    .footer-top { display: flex; gap: 9px; align-items: flex-start; }
+    .footer-headline {
+      flex: 1; font-family: 'Bitcount Single', system-ui;
+      font-size: 40px; font-weight: 400; letter-spacing: -0.03em;
+      line-height: 0.9; color: #fff; mix-blend-mode: overlay; white-space: pre-wrap;
+    }
+    .footer-nav-links { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+    .footer-nav-links a {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 15px; font-weight: 300;
+      color: #fff; mix-blend-mode: overlay; text-decoration: none;
+      line-height: 0.9; transition: opacity 0.2s;
+    }
+    .footer-nav-links a:hover { opacity: 0.7; }
+    .hero-avatar-wrap { display: flex; flex-direction: row; flex-shrink: 0; }
+    .hero-avatar-illustrated {
+      width: 72px; height: 72px; border-radius: 20px; object-fit: cover;
+      flex-shrink: 0; z-index: 1;
+      transition: transform 0.3s ease, margin-left 0.3s ease;
+    }
+    .hero-avatar-real {
+      width: 72px; height: 72px; border-radius: 20px; object-fit: cover;
+      flex-shrink: 0; margin-left: -72px; z-index: 0;
+      transition: transform 0.3s ease, margin-left 0.3s ease;
+    }
+    .hero-avatar-wrap:hover .hero-avatar-illustrated { z-index: 0; }
+    .hero-avatar-wrap:hover .hero-avatar-real { margin-left: -68px; z-index: 1; transform: rotate(10deg); }
+    .footer-bottom { display: flex; flex-direction: column; gap: 24px; }
+    .footer-contact-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      position: relative; padding: 4px;
+      background: #191919; border: 1px solid rgba(255,255,255,0.05); border-radius: 12px;
+    }
+    .footer-social-icons { display: flex; align-items: center; }
+    .footer-social-icon {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; text-decoration: none;
+      border-radius: 10px; position: relative; overflow: hidden;
+      cursor: pointer; transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+    }
+    .footer-social-icon:hover { transform: translateY(-1px); }
+    .footer-social-icon.active {
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25);
+    }
+    .footer-social-icon::after {
+      content: ''; position: absolute; inset: 0; border-radius: 10px;
+      box-shadow: inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      opacity: 0; pointer-events: none; transition: opacity 0.2s;
+    }
+    .footer-social-icon.active::after { opacity: 1; }
+    .footer-social-icon img { display: block; position: relative; z-index: 1; filter: brightness(0) invert(1) opacity(0.35); transition: filter 0.2s; }
+    .footer-social-icon.active img { filter: brightness(0) invert(1); }
+    .footer-email {
+      position: absolute; left: 50%; transform: translateX(-50%);
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px; font-weight: 300; letter-spacing: 0.02em;
+      color: #dadada; white-space: nowrap; line-height: 0.9;
+    }
+    .footer-cta { display: flex; align-items: center; justify-content: flex-end; flex: 1; }
+    .footer-cta-btn {
+      height: 36px; display: flex; align-items: center; padding: 0 12px;
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      border-radius: 10px;
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25), inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      font-family: 'Unbounded', sans-serif;
+      font-size: 11px; font-weight: 300; letter-spacing: 0.02em;
+      color: #fff; text-decoration: none; white-space: nowrap;
+    }
+    .footer-copyright {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px; font-weight: 300;
+      color: #fff; mix-blend-mode: overlay; text-align: center;
+      line-height: 0.9; padding-bottom: 60px;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 860px) {
+      .blog-page { padding-left: 20px; padding-right: 20px; }
+      .nl-heading { font-size: 18px; }
+      .nl-desc { font-size: 13px; }
+      .ep-excerpt { font-size: 13px; }
+      .footer-inner { padding: 40px 20px 0; }
+      .footer-top { flex-direction: column; gap: 32px; }
+      .footer-top > .hero-avatar-wrap { order: -2; }
+      .footer-headline { order: -1; font-size: 36px; line-height: 1; }
+      .footer-nav-links { order: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 0; width: 100%; }
+      .footer-nav-links a { font-size: 13px; font-weight: 300; }
+      .footer-contact-bar { flex-direction: row; padding: 4px; }
+      .footer-email { display: none; }
+    }
+    @media (max-width: 640px) {
+      .nl-row { grid-template-columns: 1fr; gap: 32px; }
+      .nl-carousel-img { height: 120px; }
+      .ep-featured-body { flex-direction: column; gap: 12px; }
+      .ep-meta { text-align: left; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="cursor-svg" id="cursor-svg">
+    <img src="images/Icons/Icon_Cursor.svg" alt="" />
+  </div>
+
+  <site-nav active="blog"></site-nav>
+
+  <!-- ─── BLOG CONTENT ─── -->
+  <main class="blog-page">
+
+    <!-- ── Section 1: Takes by Ovasys ── -->
+    <section class="nl-section reveal">
+
+      <!-- Auto-scrolling carousel — Takes by Ovasys covers -->
+      <div class="nl-carousel">
+        <div class="nl-carousel-track">
+          <!-- Set 1 -->
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/s2%20e11.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/s2%20e6.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/s2%20e7.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e10.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e3.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e4.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e8.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e9.png" alt="" />
+          <!-- Set 2 (duplicate for seamless loop) -->
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/s2%20e11.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/s2%20e6.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/s2%20e7.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e10.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e3.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e4.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e8.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e9.png" alt="" />
+        </div>
+      </div>
+
+      <!-- Content row -->
+      <div class="nl-row">
+
+        <!-- Left: Identity -->
+        <div class="nl-identity">
+          <h2 class="nl-heading">Takes<br>By Ovasys</h2>
+          <p class="nl-desc">This newsletter helps founders, designers, PMs, and developers save time, cut costs, and build better with AI.</p>
+          <a href="https://takesbyovasys.substack.com" class="btn-substack" target="_blank" rel="noopener">
+            <img src="images/Icons/SubstackEmail_IconImg.svg" alt="" />
+            View in Substack
+          </a>
+        </div>
+
+        <!-- Right: Quick Preview episode list -->
+        <div class="ep-list">
+
+
+          <!-- Compact rows -->
+          <a href="https://takesbyovasys.substack.com/p/build-usable-products-with-ai-tbo-s2e11" class="ep-row" target="_blank" rel="noopener">
+            <span class="ep-row-label"><strong>AI Built It Fast, But Now Users Are Confused</strong></span>
+            <span class="ep-arrow">→</span>
+          </a>
+          <a href="https://takesbyovasys.substack.com/p/reliable-mvp-validation-ai-tbo-s2e10" class="ep-row" target="_blank" rel="noopener">
+            <span class="ep-row-label"><strong>Boring Systems Beat Impressive Ones, Every Time</strong></span>
+            <span class="ep-arrow">→</span>
+          </a>
+          <a href="https://takesbyovasys.substack.com/p/productize-service-business-tbo-s2e9" class="ep-row" target="_blank" rel="noopener">
+            <span class="ep-row-label"><strong>Your Service Business Already Has a Product Inside It</strong></span>
+            <span class="ep-arrow">→</span>
+          </a>
+          <a href="https://takesbyovasys.substack.com/p/ai-bank-statement-data-extraction-tbo-s2e8" class="ep-row" target="_blank" rel="noopener">
+            <span class="ep-row-label"><strong>What Actually Happened When I Put AI Into a Real Client Workflow</strong></span>
+            <span class="ep-arrow">→</span>
+          </a>
+          <a href="https://takesbyovasys.substack.com/p/choose-what-to-automate-tbo-s2e7" class="ep-row" target="_blank" rel="noopener">
+            <span class="ep-row-label"><strong>Your Business is a Brain. Find the Tumour</strong></span>
+            <span class="ep-arrow">→</span>
+          </a>
+          <a href="https://takesbyovasys.substack.com/p/fix-workflow-before-automation-tbo-s2e6" class="ep-row" target="_blank" rel="noopener">
+            <span class="ep-row-label"><strong>You Don't Have an AI Problem. You Have a Workflow Problem.</strong></span>
+            <span class="ep-arrow">→</span>
+          </a>
+          <a href="https://takesbyovasys.substack.com/p/tbo-s2e5" class="ep-row" target="_blank" rel="noopener">
+            <span class="ep-row-label"><strong>The best vibe coders are already coders</strong></span>
+            <span class="ep-arrow">→</span>
+          </a>
+
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Section 2: Full Steam & HardLeft ── -->
+    <section class="nl-section reveal">
+      <div class="nl-row">
+
+        <!-- Left: Identity -->
+        <div class="nl-identity">
+          <h2 class="nl-heading">Full Steam<br>&amp; HardLeft</h2>
+          <p class="nl-desc">I'm a guy in my 20s with goals &amp; ambitions, as I am sure you have. I write for those who need help and can relate.</p>
+          <a href="https://olafakomi.substack.com" class="btn-substack" target="_blank" rel="noopener">
+            <img src="images/Icons/SubstackEmail_IconImg.svg" alt="" />
+            View in Substack
+          </a>
+        </div>
+
+        <!-- Right: FSHL card carousel -->
+        <div class="fshl-carousel">
+          <div class="fshl-carousel-track">
+            <!-- Set 1 -->
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E26.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E27.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E28.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E29.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E30.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E31.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E32.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E33.png" alt="" />
+            <!-- Set 2 (duplicate for seamless loop) -->
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E26.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E27.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E28.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E29.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E30.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E31.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E32.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E33.png" alt="" />
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ─── FOOTER ─── -->
+  <section id="contact">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-headline">Get in&#10;touch now...</div>
+        <div class="footer-nav-links">
+          <a href="index.html">Home</a>
+          <a href="ux-projects.html">UX Projects</a>
+          <a href="graphics.html">Graphics</a>
+          <a href="lab.html">Lab</a>
+          <a href="blog.html">Blogs</a>
+          <a href="about.html">About</a>
+        </div>
+        <a href="about.html" class="hero-avatar-wrap">
+          <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi" class="hero-avatar-illustrated" />
+          <img src="images/hero/OlaAvatar_realImg.png" alt="Ola Fakomi" class="hero-avatar-real" />
+        </a>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-contact-bar">
+          <div class="footer-social-icons" id="footer-icons">
+            <a href="#" class="footer-social-icon" data-label="olarewajufakomi@gmail.com" data-action="copy">
+              <img src="images/Icons/Email_IconImg.svg" alt="Email" width="32" height="32">
+            </a>
+            <a href="https://x.com/olafakomi" target="_blank" class="footer-social-icon" data-label="x.com/olafakomi">
+              <img src="images/Icons/TwitterX_IconImg.svg" alt="Twitter" width="32" height="32">
+            </a>
+            <a href="https://takesbyovasys.substack.com" target="_blank" class="footer-social-icon" data-label="takesbyovasys.substack.com">
+              <img src="images/Icons/SubstackEmail_IconImg.svg" alt="Substack" width="32" height="32">
+            </a>
+            <a href="https://www.linkedin.com/in/olafakomi" target="_blank" class="footer-social-icon" data-label="linkedin.com/in/olafakomi">
+              <img src="images/Icons/LinkedInEmail_IconImg.svg" alt="LinkedIn" width="32" height="32">
+            </a>
+          </div>
+          <span class="footer-email" id="footer-contact-label">olarewajufakomi@gmail.com</span>
+          <div class="footer-cta">
+            <a href="mailto:Olarewajufakomi@gmail.com" class="footer-cta-btn">Let's talk</a>
+          </div>
+        </div>
+        <p class="footer-copyright">© 2026 — Copyright</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    /* ─── Custom Cursor ─── */
+    const cursorSvg = document.getElementById('cursor-svg');
+    document.addEventListener('mousemove', e => {
+      cursorSvg.style.left = e.clientX + 'px';
+      cursorSvg.style.top  = e.clientY + 'px';
+    });
+
+    /* ─── Scroll reveal ─── */
+    (function() {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.08 });
+      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    })();
+
+    /* ─── Footer social icons ─── */
+    (function() {
+      const icons = document.querySelectorAll('.footer-social-icon');
+      const label = document.getElementById('footer-contact-label');
+      const emailIcon = document.querySelector('.footer-social-icon[data-action="copy"]');
+      const defaultLabel = 'olarewajufakomi@gmail.com';
+      if (!icons.length || !label) return;
+      function resetDefault() {
+        icons.forEach(i => i.classList.remove('active'));
+        if (emailIcon) emailIcon.classList.add('active');
+        label.textContent = defaultLabel;
+      }
+      resetDefault();
+      icons.forEach(icon => {
+        icon.addEventListener('mouseenter', () => {
+          icons.forEach(i => i.classList.remove('active'));
+          icon.classList.add('active');
+          label.textContent = icon.dataset.label || defaultLabel;
+        });
+      });
+      const container = document.querySelector('.footer-social-icons');
+      if (container) container.addEventListener('mouseleave', resetDefault);
+      if (emailIcon) {
+        emailIcon.addEventListener('click', e => {
+          e.preventDefault();
+          navigator.clipboard.writeText('olarewajufakomi@gmail.com').then(() => {
+            label.textContent = 'Copied!';
+            setTimeout(resetDefault, 2000);
+          });
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>

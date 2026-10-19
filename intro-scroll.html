@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio Intro</title>
+<style>
+  :root { --bg: #191919; --muted: #9a9a9a; --accent: #ff6b6b; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html.locked, html.locked body { overflow: hidden; }
+  body { background: var(--bg); color: #fff; font-family: "Lexend", system-ui, sans-serif; }
+
+  /* ---------- INTRO (pinned section) ---------- */
+  .intro { position: relative; height: 100vh; overflow: hidden; }
+  .stage { position: absolute; inset: 0; pointer-events: none; }
+  .item  { position: absolute; left: 0; top: 0; will-change: transform; }
+
+  /* Placeholders: replace each with your <img> exports from Figma */
+  .hello { font-size: 30vw; font-weight: 800; line-height: .8; letter-spacing: -.05em;
+           color: #222; white-space: nowrap; }
+  .cloud { width: 26vw; aspect-ratio: 2 / 1; border-radius: 50%;
+           background: radial-gradient(circle at 40% 40%, #fff, #bbb 60%, transparent 72%);
+           filter: blur(2px); }
+  .cloud-r { width: 11vw; }
+  .box { display: grid; place-items: center; font-size: 12px; color: #ccc;
+         border: 1px solid #555; border-radius: 12px; background: #222; }
+  .keyboard  { width: 13vw; aspect-ratio: 1; }
+  .character { width: 10vw; aspect-ratio: 3 / 4; }
+  .trib      { width: 10vw; aspect-ratio: 2 / 1; }
+  .phone     { width: 13vw; aspect-ratio: 1; }
+  .coin      { width: 10vw; aspect-ratio: 1; border-radius: 50%; }
+
+  .nav { position: absolute; top: 24px; left: 50%; translate: -50% 0;
+         width: min(930px, 90vw); display: flex; justify-content: space-between; align-items: center;
+         padding: 10px 16px; border: 1px solid #2c2c2c; border-radius: 14px; background: #1d1d1d;
+         opacity: 0; z-index: 3; }
+  .nav a { color: var(--muted); text-decoration: none; margin-right: 20px; font-size: 14px; }
+  .nav a.active { color: #fff; }
+  .btn { padding: 12px 20px; border-radius: 12px; background: #2a2a2a; border: 1px solid #3a3a3a; color: #fff; }
+
+  .hero { position: absolute; left: 11%; top: 27%; max-width: 640px; z-index: 2; }
+  .hero h2 { font-weight: 300; font-size: clamp(28px, 3vw, 40px); color: #aaa; }
+  .hero h1 { font-size: clamp(32px, 3.4vw, 46px); letter-spacing: .01em; }
+  .hero p  { margin: 24px 0; line-height: 1.6; color: #ddd; }
+  .hero b  { color: var(--accent); }
+
+  /* ---------- REST OF THE SITE ---------- */
+  .next { min-height: 150vh; margin: 0 3%; padding: 48px; border-radius: 24px 24px 0 0;
+          background: #e3e0fb; color: #111; }
+</style>
+</head>
+<body>
+
+<section class="intro">
+  <nav class="nav">
+    <div><a class="active" href="#">Home</a><a href="#">Projects</a><a href="#">About</a><a href="#">Blog</a></div>
+    <a class="btn" href="#">Let's talk</a>
+  </nav>
+
+  <div class="stage">
+    <div class="item hello">hello</div>
+    <div class="item cloud cloud-l"></div>
+    <div class="item cloud cloud-r"></div>
+    <div class="item box keyboard">keyboard</div>
+    <div class="item box character">character</div>
+    <div class="item box trib">trib</div>
+    <div class="item box phone">phone</div>
+    <div class="item box coin">$</div>
+  </div>
+
+  <div class="hero">
+    <h2>Hi, I'm</h2>
+    <h1>OLA FAKOMI</h1>
+    <p>A <b>product designer,</b> with 5 years experience designing and building products for startups and enterprises.</p>
+    <a class="btn" href="#">Let's talk</a>
+  </div>
+</section>
+
+<section class="next">
+  <h2>Case studies</h2>
+  <p>The website carries on normally from here.</p>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* ------------------------------------------------------------------
+   FRAME DATA, taken straight from Figma.
+   Each row = the element's CENTER [x, y, rotation] in frames 1..6,
+   measured on the 1200 x 800 artboard. Replace with your exact values.
+------------------------------------------------------------------- */
+const W = 1200, H = 800;
+const F = {
+  '.hello':     [[640,1000],[640,700],[640,640],[640,355],[640,205],[640,-320]],
+  '.cloud-l':   [[150,730],[150,590],[150,410],[150,600],[150,485],[130,-30]],
+  '.cloud-r':   [[1130,930],[1110,750],[1140,750],[1140,720],[1140,570],[1120,-30]],
+  '.keyboard':  [[450,670,10],[450,505,10],[320,185,10],[220,175,10],[220,40,10],[220,-180,10]],
+  '.character': [[655,740],[655,600],[655,330],[655,175],[655,40],[655,-180]],
+  '.trib':      [[905,675,8],[905,510,8],[927,230,8],[957,150,8],[957,10,8],[957,-140,8]],
+  '.phone':     [[455,980,-12],[455,700,-12],[455,510,-12],[455,355,-12],[455,210,-12],[455,-180,-12]],
+  '.coin':      [[965,980],[950,665],[985,545],[985,385],[985,245],[985,-140]],
+};
+// Hero copy: vertical offset from its final resting place, per frame.
+const HERO = [600, 600, 600, 600, 505, 0];
+
+const sx = v => v / W * window.innerWidth;
+const sy = v => v / H * window.innerHeight;
+const items = Object.keys(F);
+
+// numeric values (for the one-shot intro) and live values (for scroll, recalculated on resize)
+const posNow  = f => ({ x: sx(f[0]), y: sy(f[1]), rotation: f[2] || 0 });
+const posLive = f => ({ x: () => sx(f[0]), y: () => sy(f[1]), rotation: f[2] || 0 });
+
+// Always start at the top
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+
+// Place everything at FRAME 1
+items.forEach(s => gsap.set(s, { xPercent: -50, yPercent: -50, ...posNow(F[s][0]) }));
+gsap.set('.hero', { y: sy(HERO[0]) });
+
+// Respect reduced motion: jump straight to FRAME 6
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  items.forEach(s => gsap.set(s, posNow(F[s][5])));
+  gsap.set('.hero', { y: 0 });
+  gsap.set('.nav', { opacity: 1 });
+} else {
+  playIntro();
+}
+
+/* ---------- PART 1: auto-play FRAME 1 -> 2 -> 3 on load ---------- */
+function playIntro() {
+  lockScroll(true);
+  const tl = gsap.timeline({ delay: 0.3, onComplete: startScrollPart });
+  items.forEach(s => {
+    tl.to(s, {
+      keyframes: { '45%': posNow(F[s][1]), '100%': posNow(F[s][2]), easeEach: 'none' },
+      duration: 2.2,
+      ease: 'power3.inOut'
+    }, 0);
+  });
+}
+
+/* ---------- PART 2: scroll-scrubbed FRAME 3 -> 4 -> 5 -> 6 ---------- */
+function startScrollPart() {
+  lockScroll(false);
+
+  const tl = gsap.timeline({
+    defaults: { ease: 'none', duration: 1 },
+    scrollTrigger: {
+      trigger: '.intro',
+      start: 'top top',
+      end: '+=250%',          // how much scrolling the 3 -> 6 journey takes
+      pin: true,              // hold the section in place while it animates
+      scrub: 1,               // tie progress to the scrollbar, with 1s smoothing
+      invalidateOnRefresh: true
+      // snap: { snapTo: 'labelsDirectional', duration: 0.5 }  // uncomment to settle on each frame
+    }
+  });
+
+  [3, 4, 5].forEach((frame, i) => {
+    tl.addLabel('frame' + (frame + 1), i + 1);
+    items.forEach(s => tl.to(s, posLive(F[s][frame]), i));
+    tl.to('.hero', { y: () => sy(HERO[frame]) }, i);
+  });
+  tl.to('.nav', { opacity: 1, duration: 0.4 }, 2.6);
+}
+
+/* Block scrolling while the intro plays (overflow alone is not enough on iOS) */
+function stop(e) { e.preventDefault(); }
+function lockScroll(on) {
+  document.documentElement.classList.toggle('locked', on);
+  const fn = on ? 'addEventListener' : 'removeEventListener';
+  ['wheel', 'touchmove'].forEach(evt => window[fn](evt, stop, { passive: false }));
+}
+
+// Recalculate once images and fonts have loaded
+window.addEventListener('load', () => ScrollTrigger.refresh());
+</script>
+</body>
+</html>

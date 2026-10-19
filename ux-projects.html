@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V1S9EH9HZ5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-V1S9EH9HZ5');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UX Projects — Ola Fakomi</title>
+  <link rel="icon" type="image/png" href="images/hero/OlaAvatar_Img.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="UX Projects — Ola Fakomi" />
+  <meta property="og:description" content="Product design, builds & websites by Ola Fakomi" />
+  <meta property="og:image" content="https://olafakomi.vercel.app/images/OG_image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bitcount+Single:wght@100..900&family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script type="module" src="src/nav.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #191919;
+      --bg-card:   #1f1f1f;
+      --bg-glass:  rgba(25,25,25,0.72);
+      --blue:      #4837f3;
+      --blue-deep: #291f8d;
+      --red:       #ff7974;
+      --orange:    #ff7772;
+      --accent:    #7b72ff;
+      --text:      #f0f0f0;
+      --text-dim:  #9a9aaa;
+      --muted:     #7581a6;
+      --border:    rgba(255,255,255,0.07);
+      --r-sm:      8px;
+      --r-md:      16px;
+      --r-lg:      24px;
+      --nav-h:     72px;
+      --max-w:     1200px;
+
+      /* ── Typography ── */
+      --text-size-ui:       13px;
+      --text-size-body:     15px;
+      --text-size-hero:     28px;
+      --text-size-heading:  36px;
+      --text-weight:        300;
+      --text-track-ui:      0.02em;
+      --text-track-heading: -0.02em;
+      --text-lh-ui:         1.6;
+      --text-lh-hero:       1.2;
+      --text-lh-heading:    1.1;
+    }
+
+    html { scroll-behavior: auto; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Unbounded', sans-serif;
+      font-size: var(--text-size-body);
+      font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
+      line-height: var(--text-lh-ui);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* Noise */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: 9000;
+    }
+
+    @media (pointer: coarse), (max-width: 860px) { body { cursor: auto; } .cursor-svg { display: none; } }
+
+    /* ─── Cursor ─── */
+    .cursor-svg {
+      position: fixed; pointer-events: none;
+      transform: translate(-4px, -4px);
+      z-index: 9999; width: 32px; height: 32px;
+      transition: transform 0.15s ease, width 0.2s, height 0.2s;
+    }
+    .cursor-svg img { width: 100%; height: 100%; display: block; }
+    body:has(a:hover) .cursor-svg,
+    body:has(button:hover) .cursor-svg { width: 40px; height: 40px; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 9500; background: transparent;
+      padding-top: 20px; padding-bottom: 12px;
+    }
+    .nav-inner { max-width: 896px; margin: 0 auto; padding: 0; }
+    .nav-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(25,25,25,0.65); border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 16px; padding: 5px 5px 5px 8px;
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+    }
+    .nav-links { display: flex; align-items: center; gap: 0; list-style: none; margin: 0; padding: 0 8px; }
+    .nav-links a {
+      display: flex; align-items: center; gap: 4px; padding: 4px 4px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: var(--text-size-ui); font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
+      color: rgba(255,255,255,0.45); text-decoration: none;
+      border-radius: 10px; transition: color 0.2s;
+    }
+    .nav-links a .nav-icon {
+      display: flex; align-items: center; justify-content: center;
+      width: 0; height: 13px; overflow: hidden; opacity: 0;
+      flex-shrink: 0; transition: width 0.2s, opacity 0.2s;
+    }
+    .nav-links a .nav-icon img { width: 13px; height: 13px; flex-shrink: 0; display: block; opacity: 0.45; transition: opacity 0.2s; }
+    .nav-links li.active > a .nav-icon img,
+    .nav-links a:hover .nav-icon img { opacity: 1; }
+    .nav-links li.active > a .nav-icon,
+    .nav-links a:hover .nav-icon { width: 13px; opacity: 1; }
+    .nav-links li.active > a { color: #fff; }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta {
+      padding: 13px 22px;
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      border: none; color: #fff; font-family: 'Unbounded', sans-serif;
+      font-size: var(--text-size-ui); font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
+      border-radius: 12px; text-decoration: none; white-space: nowrap;
+      position: relative; overflow: hidden;
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25);
+      transition: opacity 0.2s, transform 0.2s; flex-shrink: 0;
+    }
+    .nav-cta::after {
+      content: ''; position: absolute; inset: 0; border-radius: 10px;
+      box-shadow: inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      pointer-events: none;
+    }
+    .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+    .nav-toggle {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .nav-toggle span {
+      display: block; width: 22px; height: 1.5px;
+      background: var(--text); border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .mobile-menu { display: none; }
+    @media (max-width: 860px) {
+      .mobile-menu {
+        position: fixed; top: 0; left: 0; right: 0;
+        background: rgba(20,20,20,0.98); backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border); z-index: 9490;
+        padding: 96px 20px 32px; min-height: 50vh;
+        transform: translateY(-110%);
+        visibility: hidden;
+        transition: transform 0.35s cubic-bezier(0.32,0,0,1), visibility 0s linear 0.35s;
+        display: flex; flex-direction: column; gap: 4px;
+      }
+      .mobile-menu.open { transform: translateY(0); visibility: visible; transition: transform 0.35s cubic-bezier(0.32,0,0,1), visibility 0s; }
+      .nav-toggle { display: flex; }
+      .nav-inner { padding: 0 20px; max-width: 100%; }
+      .nav-links { display: none; }
+    }
+    .mobile-menu a {
+      display: block; padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      font-family: 'Unbounded', sans-serif;
+      font-size: var(--text-size-ui); font-weight: var(--text-weight);
+      color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--text); }
+    .mobile-menu a:last-child { border-bottom: none; }
+
+    /* ─── PAGE LAYOUT ─── */
+    .projects-page {
+      padding-top: calc(var(--nav-h) + 48px);
+      padding-bottom: 80px;
+    }
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 40px; }
+
+    /* ─── PROJECTS WRAPPER ─── */
+    .sp-wrapper {
+      max-width: 896px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    /* ─── TABS ─── */
+    .sp-tabs {
+      display: flex; align-items: center; gap: 0; flex-wrap: wrap;
+      border-bottom: 1px solid #262626;
+      padding-top: 16px;
+      padding-bottom: 12px;
+      padding-left: 12px;
+      padding-right: 12px;
+      margin-left: -12px;
+      margin-right: -12px;
+      /* Sticky */
+      position: sticky;
+      top: var(--nav-h);
+      z-index: 50;
+      background: #191919;
+    }
+    /* Fade below the sticky tab bar */
+    .sp-tabs::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: -40px; right: -40px;
+      height: 32px;
+      background: linear-gradient(to bottom, rgba(25,25,25,0.6), transparent);
+      pointer-events: none;
+    }
+    .sp-tab {
+      display: inline-flex; align-items: center;
+      height: 40px; padding: 0 18px 0 0;
+      background: none;
+      border: none;
+      font-family: 'Unbounded', sans-serif;
+      font-size: var(--text-size-ui); font-weight: 300;
+      letter-spacing: var(--text-track-ui);
+      color: rgba(255,255,255,0.35);
+      cursor: pointer;
+      transition: color 0.2s;
+      white-space: nowrap; user-select: none;
+    }
+    .sp-tabs .sp-tab:first-child { padding-left: 12px; }
+    .sp-tab + .sp-tab { padding-left: 18px; border-left: 1px solid #262626; }
+    .sp-tab:hover { color: #c0c0c0; }
+    .sp-tab.active { color: #fff; font-weight: 400; }
+
+    /* ─── SECTION HEADER ─── */
+    .sp-section-header {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .sp-section-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: var(--text-size-ui);
+      font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
+      text-transform: uppercase;
+      color: var(--muted);
+      line-height: 1.2;
+    }
+
+    /* ─── CATEGORY GROUPS ─── */
+    .sp-category { display: none; flex-direction: column; gap: 20px; }
+    .sp-category.active { display: flex; }
+
+    /* ─── PROJECT CARD ─── */
+    .sp-card {
+      display: flex; flex-direction: column; gap: 12px;
+      padding: 12px;
+      border-radius: 24px;
+      background: #1e1e1e;
+      overflow: hidden;
+      position: relative;
+      text-decoration: none; color: inherit;
+      transition: opacity 0.2s;
+    }
+    .sp-card:hover { opacity: 0.88; }
+
+    .sp-info { display: flex; flex-direction: column; gap: 14px; padding: 0 4px; }
+
+    .sp-top-row {
+      display: flex; align-items: center; gap: 12px;
+      padding-right: 12px; min-height: 56px;
+    }
+    .sp-icon-box {
+      width: 56px; height: 56px; border-radius: 18px;
+      background: linear-gradient(180deg, rgba(53,53,55,0.6) 0%, rgba(31,30,30,0.6) 100%);
+      box-shadow: 0 0 5.74px rgba(0,0,0,0.25),
+                  inset -1.4px -1.4px 0 rgba(255,255,255,0.02),
+                  inset 1.4px 1.4px 0 rgba(255,255,255,0.04);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; flex-shrink: 0;
+    }
+    .sp-icon-box img { width: 100%; height: 100%; object-fit: contain; }
+
+    .sp-text-col {
+      flex: 1; min-width: 0;
+      display: flex; flex-direction: column; gap: 5px;
+      padding: 4px 0;
+    }
+    .sp-name {
+      font-family: 'Unbounded', sans-serif;
+      font-size: var(--text-size-body);
+      font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
+      color: #fff; line-height: 1.3;
+    }
+    .sp-sub {
+      font-family: 'Unbounded', sans-serif;
+      font-size: var(--text-size-ui);
+      font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
+      color: #ababab; line-height: 1.5;
+    }
+
+    .sp-roles-row {
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 8px;
+    }
+    .sp-roles-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      height: 36px; padding: 0 12px 0 8px;
+      background: #1d1d1d;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px; overflow: hidden; flex-shrink: 1;
+    }
+    .sp-dots { display: flex; align-items: center; flex-shrink: 0; }
+    .sp-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      border: 2px solid #1d1d1d; flex-shrink: 0;
+    }
+    .sp-dot + .sp-dot { margin-left: -2px; }
+    .sp-dot-blue   { background: #4837f3; }
+    .sp-dot-orange { background: #ff7772; }
+    .sp-dot-gray   { background: #7581a6; }
+    .sp-role-text {
+      font-family: 'Unbounded', sans-serif;
+      font-size: var(--text-size-ui); font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
+      color: #dadada; white-space: nowrap; line-height: 1.5;
+    }
+
+    .sp-case-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      height: 36px; padding: 0 12px;
+      background: #1d1d1d;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: var(--text-size-ui); font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
+      color: #dadada; white-space: nowrap; flex-shrink: 0;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .sp-case-pill:hover {
+      background: rgba(72,55,243,0.12);
+      border-color: rgba(72,55,243,0.35); color: #fff;
+    }
+    .sp-arrow-icon {
+      width: 20px; height: 20px;
+      position: relative; overflow: hidden; flex-shrink: 0;
+    }
+    .sp-arrow-icon img {
+      position: absolute; display: block;
+      top: -3.75%; left: -3.75%;
+      width: 107.5%; height: 107.5%;
+    }
+
+    .sp-preview {
+      width: 100%; height: 400px;
+      border-radius: 12px; overflow: hidden;
+      position: relative; flex-shrink: 0;
+      background: #161616;
+    }
+    .sp-preview img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top;
+      display: block;
+    }
+
+    /* ─── FOOTER ─── */
+    #contact {
+      background: url('images/footer/Footer Background.webp') center center / cover no-repeat;
+      padding: 0; overflow: hidden; position: relative;
+    }
+    .footer-inner {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; gap: 56px;
+      padding: 40px 0 0;
+      max-width: 896px; margin: 0 auto;
+    }
+    .footer-top { display: flex; gap: 9px; align-items: flex-start; }
+    .footer-headline {
+      flex: 1; font-family: 'Bitcount Single', system-ui;
+      font-size: 40px; font-weight: 400;
+      letter-spacing: -0.03em;
+      line-height: 0.9; color: #fff;
+      mix-blend-mode: overlay; white-space: pre-wrap;
+    }
+    .footer-nav-links { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+    .footer-nav-links a {
+      font-family: 'Unbounded', sans-serif;
+      font-size: var(--text-size-body); font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
+      color: #fff; mix-blend-mode: overlay; text-decoration: none;
+      line-height: 0.9; transition: opacity 0.2s;
+    }
+    .footer-nav-links a:hover { opacity: 0.7; }
+    .hero-avatar-wrap { display: flex; flex-direction: row; flex-shrink: 0; }
+    .hero-avatar-illustrated {
+      width: 72px; height: 72px; border-radius: 20px; object-fit: cover;
+      flex-shrink: 0; z-index: 1; transform: rotate(0deg);
+      transition: transform 0.3s ease, margin-left 0.3s ease, z-index 0s;
+    }
+    .hero-avatar-real {
+      width: 72px; height: 72px; border-radius: 20px; object-fit: cover;
+      flex-shrink: 0; margin-left: -72px; z-index: 0; transform: rotate(0deg);
+      transition: transform 0.3s ease, margin-left 0.3s ease, z-index 0s;
+    }
+    .hero-avatar-wrap:hover .hero-avatar-illustrated { z-index: 0; transform: rotate(0deg); }
+    .hero-avatar-wrap:hover .hero-avatar-real { margin-left: -68px; z-index: 1; transform: rotate(10deg); }
+    .footer-bottom { display: flex; flex-direction: column; gap: 24px; }
+    .footer-contact-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      position: relative; padding: 4px;
+      background: #191919; border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+    }
+    .footer-social-icons { display: flex; align-items: center; }
+    .footer-social-icon {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; text-decoration: none;
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+    }
+    .footer-social-icon::after {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 10px;
+      box-shadow: inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .footer-social-icon:hover { transform: translateY(-1px); }
+    .footer-social-icon.active {
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25);
+    }
+    .footer-social-icon.active::after { opacity: 1; }
+    .footer-social-icon img { display: block; position: relative; z-index: 1; filter: brightness(0) invert(1) opacity(0.35); transition: filter 0.2s; }
+    .footer-social-icon.active img { filter: brightness(0) invert(1); }
+    .footer-email {
+      position: absolute; left: 50%; transform: translateX(-50%);
+      font-family: 'Unbounded', sans-serif;
+      font-size: var(--text-size-ui); font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
+      color: #dadada; white-space: nowrap; line-height: 0.9;
+    }
+    .footer-cta { display: flex; align-items: center; justify-content: flex-end; flex: 1; }
+    .footer-cta-btn {
+      height: 36px; display: flex; align-items: center; padding: 0 12px;
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      border-radius: 10px;
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25), inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      font-family: 'Unbounded', sans-serif;
+      font-size: var(--text-size-ui); font-weight: var(--text-weight);
+      letter-spacing: var(--text-track-ui);
+      color: #fff; text-decoration: none; white-space: nowrap;
+    }
+    .footer-copyright {
+      font-family: 'Unbounded', sans-serif;
+      font-size: var(--text-size-ui); font-weight: var(--text-weight);
+      color: #fff; mix-blend-mode: overlay; text-align: center;
+      line-height: 0.9; padding-bottom: 60px;
+    }
+
+    /* ─── Scroll reveal ─── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 860px) {
+      .container { padding: 0 20px; }
+      .sp-tabs {
+        margin-left: -20px;
+        margin-right: -20px;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      .sp-tabs::after { left: 0; right: 0; }
+      .sp-preview { height: 260px; }
+      .sp-roles-row { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .sp-tab { height: 34px; padding: 0 14px; }
+      .sp-name { font-size: 13px; }
+      .sp-top-row { flex-direction: column; align-items: flex-start; gap: 12px; min-height: unset; }
+      .footer-inner { padding: 40px 20px 0; }
+      .footer-top { flex-direction: column; gap: 32px; }
+      .footer-top > .hero-avatar-wrap { order: -2; }
+      .footer-headline { order: -1; font-size: 36px; line-height: 1; }
+      .footer-nav-links { order: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 0; width: 100%; }
+      .footer-nav-links a { font-size: 13px; font-weight: 300; }
+      .footer-contact-bar { flex-direction: row; padding: 4px; }
+      .footer-email { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="cursor-svg" id="cursor-svg">
+    <img src="images/Icons/Icon_Cursor.svg" alt="" />
+  </div>
+
+  <site-nav active="ux-projects"></site-nav>
+
+  <!-- ─── PROJECTS ─── -->
+  <main class="projects-page">
+    <div class="container">
+      <div class="sp-wrapper">
+
+        <!-- Tab bar -->
+        <div class="sp-tabs">
+          <button class="sp-tab active" data-tab="ux">UX</button>
+          <button class="sp-tab" data-tab="builds">Builds</button>
+          <button class="sp-tab" data-tab="websites">Websites</button>
+        </div>
+
+        <!-- ── UX / Product Design ── -->
+        <div class="sp-category active" data-category="ux">
+
+          <a class="sp-card reveal" href="roots.html">
+            <div class="sp-info">
+              <div class="sp-top-row">
+                <div class="sp-icon-box">
+                  <img src="images/Logos/TheRoots_logoImg.png" alt="The Roots" />
+                </div>
+                <div class="sp-text-col">
+                  <span class="sp-name">The Roots</span>
+                  <span class="sp-sub">Indigenous Language learning for African languages</span>
+                </div>
+              </div>
+              <div class="sp-roles-row">
+                <div class="sp-roles-pill">
+                  <div class="sp-dots">
+                    <div class="sp-dot sp-dot-blue"></div>
+                    <div class="sp-dot sp-dot-orange"></div>
+                    <div class="sp-dot sp-dot-gray"></div>
+                  </div>
+                  <span class="sp-role-text">Product, Brand &amp; Frontend</span>
+                </div>
+                <div class="sp-case-pill">
+                  Case study
+                  <div class="sp-arrow-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.5" d="M7.9987 14.6663C11.6806 14.6663 14.6654 11.6816 14.6654 7.99967C14.6654 4.31778 11.6806 1.33301 7.9987 1.33301C4.3168 1.33301 1.33203 4.31778 1.33203 7.99967C1.33203 11.6816 4.3168 14.6663 7.9987 14.6663Z" stroke="#929292"/><path d="M6 10L10 6M10 6H7M10 6V9" stroke="#929292" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                </div>
+              </div>
+            </div>
+            <div class="sp-preview">
+              <img src="images/projects/Roots_displayImage.png" alt="The Roots" />
+            </div>
+          </a>
+
+          <a class="sp-card reveal" href="revwit.html">
+            <div class="sp-info">
+              <div class="sp-top-row">
+                <div class="sp-icon-box">
+                  <img src="images/Logos/CasestudyRevwit_logoImg.png" alt="Revwit" />
+                </div>
+                <div class="sp-text-col">
+                  <span class="sp-name">Revwit</span>
+                  <span class="sp-sub">Africa's top B2B Sales Assistant with a custom CRM.</span>
+                </div>
+              </div>
+              <div class="sp-roles-row">
+                <div class="sp-roles-pill">
+                  <div class="sp-dots">
+                    <div class="sp-dot sp-dot-blue"></div>
+                    <div class="sp-dot sp-dot-orange"></div>
+                    <div class="sp-dot sp-dot-gray"></div>
+                  </div>
+                  <span class="sp-role-text">Product &amp; Brand designer</span>
+                </div>
+                <div class="sp-case-pill">
+                  Case study
+                  <div class="sp-arrow-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.5" d="M7.9987 14.6663C11.6806 14.6663 14.6654 11.6816 14.6654 7.99967C14.6654 4.31778 11.6806 1.33301 7.9987 1.33301C4.3168 1.33301 1.33203 4.31778 1.33203 7.99967C1.33203 11.6816 4.3168 14.6663 7.9987 14.6663Z" stroke="#929292"/><path d="M6 10L10 6M10 6H7M10 6V9" stroke="#929292" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                </div>
+              </div>
+            </div>
+            <div class="sp-preview">
+              <img src="images/projects/Revwit_displayImage.png" alt="Revwit" />
+            </div>
+          </a>
+
+          <a class="sp-card reveal" href="trib.html">
+            <div class="sp-info">
+              <div class="sp-top-row">
+                <div class="sp-icon-box">
+                  <img src="images/Logos/caseStudyTrib_logoImg.png" alt="Trib" />
+                </div>
+                <div class="sp-text-col">
+                  <span class="sp-name">Trib</span>
+                  <span class="sp-sub">A web3 Q&amp;A game built on Base network wallet &amp; rewards integration.</span>
+                </div>
+              </div>
+              <div class="sp-roles-row">
+                <div class="sp-roles-pill">
+                  <div class="sp-dots">
+                    <div class="sp-dot sp-dot-blue"></div>
+                    <div class="sp-dot sp-dot-orange"></div>
+                    <div class="sp-dot sp-dot-gray"></div>
+                  </div>
+                  <span class="sp-role-text">Product &amp; Brand designer</span>
+                </div>
+                <div class="sp-case-pill">
+                  Case study
+                  <div class="sp-arrow-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.5" d="M7.9987 14.6663C11.6806 14.6663 14.6654 11.6816 14.6654 7.99967C14.6654 4.31778 11.6806 1.33301 7.9987 1.33301C4.3168 1.33301 1.33203 4.31778 1.33203 7.99967C1.33203 11.6816 4.3168 14.6663 7.9987 14.6663Z" stroke="#929292"/><path d="M6 10L10 6M10 6H7M10 6V9" stroke="#929292" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                </div>
+              </div>
+            </div>
+            <div class="sp-preview">
+              <img src="images/projects/Trib_displayImage.png" alt="Trib" />
+            </div>
+          </a>
+        </div><!-- /ux -->
+
+        <!-- ── Builds / Product Builds ── -->
+        <div class="sp-category" data-category="builds">
+
+          <a class="sp-card reveal" href="https://www.loom.com/share/c4127f5148734a4da9f4aa2e5bb0e345" target="_blank" rel="noopener">
+            <div class="sp-info">
+              <div class="sp-top-row">
+                <div class="sp-icon-box"><img src="images/Logos/Kelliworks_LogoImg.png" alt="Budget Efficiency App" /></div>
+                <div class="sp-text-col">
+                  <span class="sp-name">Budget Efficiency App</span>
+                  <span class="sp-sub">For an accounting firm to manage client budget &amp; transactions</span>
+                </div>
+              </div>
+              <div class="sp-roles-row">
+                <div class="sp-roles-pill">
+                  <div class="sp-dots">
+                    <div class="sp-dot sp-dot-blue"></div>
+                    <div class="sp-dot sp-dot-orange"></div>
+                    <div class="sp-dot sp-dot-gray"></div>
+                  </div>
+                  <span class="sp-role-text">AI Builds &amp; Coding</span>
+                </div>
+                <div class="sp-case-pill">
+                  Watch Demo
+                  <div class="sp-arrow-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.5" d="M7.9987 14.6663C11.6806 14.6663 14.6654 11.6816 14.6654 7.99967C14.6654 4.31778 11.6806 1.33301 7.9987 1.33301C4.3168 1.33301 1.33203 4.31778 1.33203 7.99967C1.33203 11.6816 4.3168 14.6663 7.9987 14.6663Z" stroke="#929292"/><path d="M6 10L10 6M10 6H7M10 6V9" stroke="#929292" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                </div>
+              </div>
+            </div>
+            <div class="sp-preview">
+              <img src="images/Builds/Budget Efficiency App.webp" alt="Budget Efficiency App" />
+            </div>
+          </a>
+
+          <a class="sp-card reveal" href="https://www.loom.com/share/d580ae891e254c1aa9bc1008fbd4aba2" target="_blank" rel="noopener">
+            <div class="sp-info">
+              <div class="sp-top-row">
+                <div class="sp-icon-box"><img src="images/Logos/Kelliworks_LogoImg.png" alt="Content Management Tool" /></div>
+                <div class="sp-text-col">
+                  <span class="sp-name">Content Management Tool</span>
+                  <span class="sp-sub">Built to speed up content review process + Metricool</span>
+                </div>
+              </div>
+              <div class="sp-roles-row">
+                <div class="sp-roles-pill">
+                  <div class="sp-dots">
+                    <div class="sp-dot sp-dot-blue"></div>
+                    <div class="sp-dot sp-dot-orange"></div>
+                    <div class="sp-dot sp-dot-gray"></div>
+                  </div>
+                  <span class="sp-role-text">AI Builds &amp; Coding</span>
+                </div>
+                <div class="sp-case-pill">
+                  Watch Demo
+                  <div class="sp-arrow-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.5" d="M7.9987 14.6663C11.6806 14.6663 14.6654 11.6816 14.6654 7.99967C14.6654 4.31778 11.6806 1.33301 7.9987 1.33301C4.3168 1.33301 1.33203 4.31778 1.33203 7.99967C1.33203 11.6816 4.3168 14.6663 7.9987 14.6663Z" stroke="#929292"/><path d="M6 10L10 6M10 6H7M10 6V9" stroke="#929292" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                </div>
+              </div>
+            </div>
+            <div class="sp-preview">
+              <img src="images/Builds/Content Management App.webp" alt="Content Management Tool" />
+            </div>
+          </a>
+
+          <a class="sp-card reveal" href="https://x.com/Olafakomi/status/2032791976836268153?s=20" target="_blank" rel="noopener">
+            <div class="sp-info">
+              <div class="sp-top-row">
+                <div class="sp-icon-box"><img src="images/Logos/LeftUnread_LogoImg.png" alt="Left Unread" /></div>
+                <div class="sp-text-col">
+                  <span class="sp-name">Left Unread</span>
+                  <span class="sp-sub">Bookclub Management app close friends &amp; lovers</span>
+                </div>
+              </div>
+              <div class="sp-roles-row">
+                <div class="sp-roles-pill">
+                  <div class="sp-dots">
+                    <div class="sp-dot sp-dot-blue"></div>
+                    <div class="sp-dot sp-dot-orange"></div>
+                    <div class="sp-dot sp-dot-gray"></div>
+                  </div>
+                  <span class="sp-role-text">AI Builds &amp; Coding</span>
+                </div>
+                <div class="sp-case-pill">
+                  Watch Demo
+                  <div class="sp-arrow-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.5" d="M7.9987 14.6663C11.6806 14.6663 14.6654 11.6816 14.6654 7.99967C14.6654 4.31778 11.6806 1.33301 7.9987 1.33301C4.3168 1.33301 1.33203 4.31778 1.33203 7.99967C1.33203 11.6816 4.3168 14.6663 7.9987 14.6663Z" stroke="#929292"/><path d="M6 10L10 6M10 6H7M10 6V9" stroke="#929292" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                </div>
+              </div>
+            </div>
+            <div class="sp-preview">
+              <img src="images/Builds/Left Unread.webp" alt="Left Unread" />
+            </div>
+          </a>
+        </div><!-- /builds -->
+
+        <!-- ── Websites ── -->
+        <div class="sp-category" data-category="websites">
+
+          <a class="sp-card reveal" href="https://www.pneumagroup.org/" target="_blank" rel="noopener">
+            <div class="sp-info">
+              <div class="sp-top-row">
+                <div class="sp-icon-box"><img src="images/Logos/Pneuma_LogoImg.png" alt="Pneuma Group" /></div>
+                <div class="sp-text-col">
+                  <span class="sp-name">Pneuma Group</span>
+                  <span class="sp-sub">Built for an accounting firm to manages client budget &amp; transactions</span>
+                </div>
+              </div>
+              <div class="sp-roles-row">
+                <div class="sp-roles-pill">
+                  <div class="sp-dots">
+                    <div class="sp-dot sp-dot-blue"></div>
+                    <div class="sp-dot sp-dot-orange"></div>
+                    <div class="sp-dot sp-dot-gray"></div>
+                  </div>
+                  <span class="sp-role-text">Framer &amp; Figma</span>
+                </div>
+                <div class="sp-case-pill">
+                  Live site
+                  <div class="sp-arrow-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.5" d="M7.9987 14.6663C11.6806 14.6663 14.6654 11.6816 14.6654 7.99967C14.6654 4.31778 11.6806 1.33301 7.9987 1.33301C4.3168 1.33301 1.33203 4.31778 1.33203 7.99967C1.33203 11.6816 4.3168 14.6663 7.9987 14.6663Z" stroke="#929292"/><path d="M6 10L10 6M10 6H7M10 6V9" stroke="#929292" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                </div>
+              </div>
+            </div>
+            <div class="sp-preview">
+              <img src="images/Websites/Pneuma.png" alt="Pneuma Group" />
+            </div>
+          </a>
+
+          <a class="sp-card reveal" href="https://ovasys.co/" target="_blank" rel="noopener">
+            <div class="sp-info">
+              <div class="sp-top-row">
+                <div class="sp-icon-box">
+                  <img src="images/Logos/Ovasys_LogoImg.png" alt="Ovasys" />
+                </div>
+                <div class="sp-text-col">
+                  <span class="sp-name">Ovasys.co</span>
+                  <span class="sp-sub">Built to speed up content review process</span>
+                </div>
+              </div>
+              <div class="sp-roles-row">
+                <div class="sp-roles-pill">
+                  <div class="sp-dots">
+                    <div class="sp-dot sp-dot-blue"></div>
+                    <div class="sp-dot sp-dot-orange"></div>
+                    <div class="sp-dot sp-dot-gray"></div>
+                  </div>
+                  <span class="sp-role-text">Custom Code</span>
+                </div>
+                <div class="sp-case-pill">
+                  Live site
+                  <div class="sp-arrow-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.5" d="M7.9987 14.6663C11.6806 14.6663 14.6654 11.6816 14.6654 7.99967C14.6654 4.31778 11.6806 1.33301 7.9987 1.33301C4.3168 1.33301 1.33203 4.31778 1.33203 7.99967C1.33203 11.6816 4.3168 14.6663 7.9987 14.6663Z" stroke="#929292"/><path d="M6 10L10 6M10 6H7M10 6V9" stroke="#929292" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                </div>
+              </div>
+            </div>
+            <div class="sp-preview">
+              <img src="images/Websites/Ovasys.png" alt="Ovasys.co" />
+            </div>
+          </a>
+
+          <a class="sp-card reveal" href="https://bluespectruminnovative.com/" target="_blank" rel="noopener">
+            <div class="sp-info">
+              <div class="sp-top-row">
+                <div class="sp-icon-box"><img src="images/Logos/Bluespectrum_LogoImg.png" alt="Bluespectrum Innovative" /></div>
+                <div class="sp-text-col">
+                  <span class="sp-name">Bluespectrum Innovative</span>
+                  <span class="sp-sub">Bookclub Management app close friends</span>
+                </div>
+              </div>
+              <div class="sp-roles-row">
+                <div class="sp-roles-pill">
+                  <div class="sp-dots">
+                    <div class="sp-dot sp-dot-blue"></div>
+                    <div class="sp-dot sp-dot-orange"></div>
+                    <div class="sp-dot sp-dot-gray"></div>
+                  </div>
+                  <span class="sp-role-text">Framer &amp; Figma</span>
+                </div>
+                <div class="sp-case-pill">
+                  Live site
+                  <div class="sp-arrow-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.5" d="M7.9987 14.6663C11.6806 14.6663 14.6654 11.6816 14.6654 7.99967C14.6654 4.31778 11.6806 1.33301 7.9987 1.33301C4.3168 1.33301 1.33203 4.31778 1.33203 7.99967C1.33203 11.6816 4.3168 14.6663 7.9987 14.6663Z" stroke="#929292"/><path d="M6 10L10 6M10 6H7M10 6V9" stroke="#929292" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                </div>
+              </div>
+            </div>
+            <div class="sp-preview">
+              <img src="images/Websites/Bluespectrum.png" alt="Bluespectrum Innovative" />
+            </div>
+          </a>
+        </div><!-- /websites -->
+
+      </div><!-- /sp-wrapper -->
+    </div>
+  </main>
+
+  <!-- ─── FOOTER ─── -->
+  <section id="contact">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-headline">Get in&#10;touch now...</div>
+        <div class="footer-nav-links">
+          <a href="index.html">Home</a>
+          <a href="ux-projects.html">UX Projects</a>
+          <a href="graphics.html">Graphics</a>
+          <a href="lab.html">Lab</a>
+          <a href="blog.html">Blogs</a>
+          <a href="about.html">About</a>
+        </div>
+        <a href="about.html" class="hero-avatar-wrap">
+          <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi" class="hero-avatar-illustrated" />
+          <img src="images/hero/OlaAvatar_realImg.png" alt="Ola Fakomi" class="hero-avatar-real" />
+        </a>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-contact-bar">
+          <div class="footer-social-icons" id="footer-icons">
+            <a href="#" class="footer-social-icon" data-label="olarewajufakomi@gmail.com" data-action="copy">
+              <img src="images/Icons/Email_IconImg.svg" alt="Email" width="32" height="32">
+            </a>
+            <a href="https://x.com/olafakomi" target="_blank" class="footer-social-icon" data-label="x.com/olafakomi">
+              <img src="images/Icons/TwitterX_IconImg.svg" alt="Twitter" width="32" height="32">
+            </a>
+            <a href="https://takesbyovasys.substack.com" target="_blank" class="footer-social-icon" data-label="takesbyovasys.substack.com">
+              <img src="images/Icons/SubstackEmail_IconImg.svg" alt="Substack" width="32" height="32">
+            </a>
+            <a href="https://www.linkedin.com/in/olafakomi" target="_blank" class="footer-social-icon" data-label="linkedin.com/in/olafakomi">
+              <img src="images/Icons/LinkedInEmail_IconImg.svg" alt="LinkedIn" width="32" height="32">
+            </a>
+          </div>
+          <span class="footer-email" id="footer-contact-label">olarewajufakomi@gmail.com</span>
+          <div class="footer-cta">
+            <a href="mailto:Olarewajufakomi@gmail.com" class="footer-cta-btn">Let's talk</a>
+          </div>
+        </div>
+        <p class="footer-copyright">© 2026 — Copyright</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    /* ─── Custom Cursor ─── */
+    const cursorSvg = document.getElementById('cursor-svg');
+    document.addEventListener('mousemove', e => {
+      cursorSvg.style.left = e.clientX + 'px';
+      cursorSvg.style.top  = e.clientY + 'px';
+    });
+
+
+    /* ─── Scroll reveal ─── */
+    (function() {
+      const revEls = document.querySelectorAll('.reveal');
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.08 });
+      revEls.forEach(el => obs.observe(el));
+    })();
+
+    /* ─── Tab Switching ─── */
+    const tabs = document.querySelectorAll('.sp-tab');
+    const categories = document.querySelectorAll('.sp-category');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+        tabs.forEach(t => t.classList.remove('active'));
+        categories.forEach(c => c.classList.remove('active'));
+        tab.classList.add('active');
+        const cat = document.querySelector(`.sp-category[data-category="${target}"]`);
+        if (cat) {
+          cat.classList.add('active');
+          // Trigger reveal for cards in this tab that haven't been seen yet
+          cat.querySelectorAll('.reveal:not(.visible)').forEach((el, i) => {
+            setTimeout(() => el.classList.add('visible'), i * 80);
+          });
+        }
+      });
+    });
+  </script>
+  <script type="module" src="src/sounds.js"></script>
+  <script>
+    /* ─── Footer social icon interactions ─── */
+    (function() {
+      var icons = document.querySelectorAll('.footer-social-icon');
+      var label = document.getElementById('footer-contact-label');
+      var emailIcon = document.querySelector('.footer-social-icon[data-action="copy"]');
+      var defaultLabel = 'olarewajufakomi@gmail.com';
+      if (!icons.length || !label) return;
+      function setActive(icon) {
+        icons.forEach(function(i) { i.classList.remove('active'); });
+        icon.classList.add('active');
+        label.textContent = icon.dataset.label || defaultLabel;
+      }
+      function resetDefault() {
+        icons.forEach(function(i) { i.classList.remove('active'); });
+        if (emailIcon) emailIcon.classList.add('active');
+        label.textContent = defaultLabel;
+      }
+      resetDefault();
+      icons.forEach(function(icon) {
+        icon.addEventListener('mouseenter', function() { setActive(icon); });
+      });
+      var container = document.querySelector('.footer-social-icons');
+      if (container) container.addEventListener('mouseleave', resetDefault);
+      if (emailIcon) {
+        emailIcon.addEventListener('click', function(e) {
+          e.preventDefault();
+          navigator.clipboard.writeText('olarewajufakomi@gmail.com').then(function() {
+            var prev = label.textContent;
+            label.textContent = 'Copied!';
+            setTimeout(function() { label.textContent = prev; }, 2000);
+          });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

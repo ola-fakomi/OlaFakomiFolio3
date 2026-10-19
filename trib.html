@@ -11,27 +11,29 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trib Case Study — Ola Fakomi</title>
+  <title>Trib Case Study - Ola Fakomi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bitcount+Single:wght@100..900&family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:        #ffffff;
-      --bg-card:   #FBFAFA;
-      --bg-card2:  #f7f6f5;
-      --accent:    #4837f3;
-      --accent-lt: #eeeeff;
-      --green:     #16a34a;
-      --text:      #111111;
-      --text-dim:  #555555;
-      --text-mute: #888888;
-      --border:    rgba(0,0,0,0.08);
-      --nav-bg:    #111111;
+      --bg:        #191919;
+      --bg-card:   #1f1f1f;
+      --bg-card2:  #262626;
+      --accent:    #818cf8;
+      --accent-lt: rgba(129,140,248,0.1);
+      --blue:      #818cf8;
+      --green:     #4ade80;
+      --text:      #f0f0f0;
+      --text-dim:  rgba(255,255,255,0.58);
+      --text-mute: rgba(255,255,255,0.35);
+      --border:    rgba(255,255,255,0.07);
+      --nav-bg:    #191919;
       --r-sm:      10px;
       --r-md:      16px;
       --r-lg:      24px;
-      --max-w:     832px;
+      --max-w:     960px;
+      --text-size-hero: 24px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -41,74 +43,124 @@
       background: var(--bg);
       color: var(--text);
       font-family: 'Unbounded', sans-serif;
-      font-size: 16px;
+      font-size: 15px;
+      font-weight: 300;
       line-height: 1.7;
       overflow-x: hidden;
+      cursor: none;
     }
+
+    /* ─── Cursor ─── */
+    .cursor-svg {
+      position: fixed; pointer-events: none;
+      transform: translate(-4px, -4px);
+      z-index: 9999; width: 32px; height: 32px;
+      transition: transform 0.15s ease, width 0.2s, height 0.2s;
+    }
+    .cursor-svg img { width: 100%; height: 100%; display: block; }
+    body:has(a:hover) .cursor-svg,
+    body:has(button:hover) .cursor-svg { width: 40px; height: 40px; }
 
     /* ── NAV ─────────────────────────────────────────────── */
     nav {
-      position: sticky; top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: var(--bg);
-      padding-top: 16px;
-      padding-bottom: 12px;
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 9500; background: transparent;
+      padding-top: 20px; padding-bottom: 12px;
     }
-    .nav-inner {
-      max-width: 896px;
-      margin: 0 auto;
-      padding: 0 32px;
-      width: 100%;
-    }
+    .nav-inner { max-width: 896px; margin: 0 auto; padding: 0; }
     .nav-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: #191919;
-      border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 14px;
-      padding: 5px 5px 5px 16px;
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(25,25,25,0.65); border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 16px; padding: 5px 5px 5px 8px;
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
       box-shadow: 0 4px 24px rgba(0,0,0,0.35);
     }
-    .nav-back {
-      display: flex; align-items: center; gap: 8px;
-      font-family: 'Unbounded', sans-serif;
-      font-size: 11px; font-weight: 500;
-      color: rgba(255,255,255,0.65);
-      text-decoration: none;
-      transition: color 0.2s;
+    .nav-links { display: flex; align-items: center; gap: 0; list-style: none; margin: 0; padding: 0 8px; }
+    .nav-links a {
+      display: flex; align-items: center; gap: 4px; padding: 4px 4px;
+      font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 300;
+      letter-spacing: 0.02em; color: rgba(255,255,255,0.45);
+      text-decoration: none; border-radius: 10px;
+      transition: color 0.2s, background 0.2s;
     }
-    .nav-back:hover { color: #ffffff; }
-    .nav-back svg { width: 14px; height: 14px; }
+    .nav-links a .nav-icon {
+      display: flex; align-items: center; justify-content: center;
+      width: 0; height: 13px; overflow: hidden; opacity: 0;
+      flex-shrink: 0; transition: width 0.2s, opacity 0.2s;
+    }
+    .nav-links a .nav-icon img { width: 13px; height: 13px; flex-shrink: 0; display: block; opacity: 0.45; transition: opacity 0.2s; }
+    .nav-links li.active > a .nav-icon img,
+    .nav-links a:hover .nav-icon img { opacity: 1; }
+    .nav-links li.active > a .nav-icon,
+    .nav-links a:hover .nav-icon { width: 13px; opacity: 1; }
+    .nav-links li.active > a { color: #fff; font-weight: 300; }
+    .nav-links a:hover { color: #fff; }
     .nav-cta {
-      font-family: 'Unbounded', sans-serif;
-      font-size: 11px; font-weight: 500;
-      color: #ffffff; text-decoration: none;
       padding: 13px 22px;
-      background: linear-gradient(180deg, rgba(53,53,55,0.6) 0%, rgba(31,30,30,0.6) 100%);
-      border-radius: 10px;
-      box-shadow: 0 0 5.74px rgba(0,0,0,0.25),
-                  inset -1.4px -1.4px 0 rgba(255,255,255,0.02),
-                  inset 1.4px 1.4px 0 rgba(255,255,255,0.04);
-      transition: opacity 0.2s;
-      white-space: nowrap;
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      border: none; color: #fff; font-family: 'Unbounded', sans-serif;
+      font-size: 11px; font-weight: 300; letter-spacing: 0.02em;
+      border-radius: 12px; text-decoration: none; white-space: nowrap;
+      position: relative; overflow: hidden;
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25);
+      transition: opacity 0.2s, transform 0.2s; flex-shrink: 0;
     }
-    .nav-cta:hover { opacity: 0.85; }
+    .nav-cta::after {
+      content: ''; position: absolute; inset: 0; border-radius: 10px;
+      box-shadow: inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      pointer-events: none;
+    }
+    .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+    .nav-toggle {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .nav-toggle span {
+      display: block; width: 22px; height: 1.5px;
+      background: #f0f0f0; border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .mobile-menu { display: none; }
+    @media (max-width: 860px) {
+      .mobile-menu {
+        position: fixed; top: 0; left: 0; right: 0;
+        background: rgba(20,20,20,0.98); backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255,255,255,0.07); z-index: 9490;
+        padding: 96px 20px 32px; min-height: 50vh;
+        transform: translateY(-110%);
+        visibility: hidden;
+        transition: transform 0.35s cubic-bezier(0.32,0,0,1), visibility 0s linear 0.35s;
+        display: flex; flex-direction: column; gap: 4px;
+      }
+      .mobile-menu.open { transform: translateY(0); visibility: visible; transition: transform 0.35s cubic-bezier(0.32,0,0,1), visibility 0s; }
+      .nav-toggle { display: flex; }
+      .nav-inner { padding: 0 20px; max-width: 100%; }
+      .nav-links { display: none; }
+    }
+    .mobile-menu a {
+      display: block; padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 300;
+      color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: #f0f0f0; }
+    .mobile-menu a:last-child { border-bottom: none; }
 
     /* ── LAYOUT ─────────────────────────────────────────── */
     .page {
       max-width: var(--max-w);
       margin: 0 auto;
-      padding: 0 32px;
+      padding: 80px 32px 0;
     }
 
     /* ── HERO ────────────────────────────────────────────── */
     .cs-hero { padding-top: 72px; padding-bottom: 56px; }
     .cs-logo {
-      width: 52px; height: 52px;
-      border-radius: 14px; overflow: hidden;
+      width: 56px; height: 56px;
+      border-radius: 18px; overflow: hidden;
       margin-bottom: 24px;
       background: #191919;
       box-shadow: 0 0 5.74px rgba(0,0,0,0.25),
@@ -118,20 +170,20 @@
     .cs-logo img { width: 100%; height: 100%; object-fit: cover; }
     .cs-eyebrow {
       font-family: 'Unbounded', sans-serif;
-      font-size: 10px; font-weight: 500;
-      color: var(--accent); letter-spacing: 0.1em;
+      font-size: 10px; font-weight: 300;
+      color: var(--text-mute); letter-spacing: 0.1em;
       text-transform: uppercase; margin-bottom: 12px;
     }
     .cs-title {
-      font-family: 'Unbounded', sans-serif;
-      font-size: 28px; font-weight: 700;
-      line-height: 1.3; margin-bottom: 20px;
-      color: var(--text);
+      font-family: 'Bitcount Single', system-ui;
+      font-size: 40px; font-weight: 400;
+      line-height: 0.9; margin-bottom: 20px;
+      color: var(--text); letter-spacing: -0.03em;
     }
-    .cs-title span { color: var(--accent); }
+    .cs-title span { color: var(--text); }
     .cs-subtitle {
-      font-size: 16px; color: var(--text-dim);
-      max-width: 680px; margin-bottom: 48px; line-height: 1.8;
+      font-size: 15px; color: var(--text-dim);
+      margin-bottom: 48px; line-height: 1.8;
     }
     .cs-hero-img {
       width: 100%; border-radius: var(--r-lg);
@@ -146,43 +198,34 @@
     .cs-section { margin-bottom: 56px; }
     .cs-section-title {
       font-family: 'Unbounded', sans-serif;
-      font-size: 18px; font-weight: 700;
-      margin-bottom: 16px; color: var(--accent);
+      font-size: 13px; font-weight: 300;
+      margin-bottom: 16px; color: rgba(255,255,255,0.35);
+      text-transform: uppercase; letter-spacing: 0.06em;
     }
-    .cs-section-title.dark { color: var(--text); }
     .cs-body {
       font-size: 15px; color: var(--text-dim);
       line-height: 1.8; margin-bottom: 20px;
     }
-    .cs-body strong { color: var(--text); font-weight: 600; }
+    .cs-body strong { color: var(--text); font-weight: 300; }
 
     /* ── PILL LABELS ─────────────────────────────────────── */
     .pill {
       display: inline-flex; align-items: center;
       padding: 5px 12px; border-radius: 999px;
       font-family: 'Unbounded', sans-serif;
-      font-size: 10px; font-weight: 500;
+      font-size: 10px; font-weight: 300;
       letter-spacing: 0.04em; margin-bottom: 12px;
     }
     .pill-default {
-      background: rgba(0,0,0,0.05);
+      background: rgba(255,255,255,0.05);
       border: 1px solid var(--border); color: var(--text-mute);
     }
-    .pill-blue {
-      background: rgba(72,55,243,0.08);
-      border: 1px solid rgba(72,55,243,0.2); color: #3829c4;
-    }
-    .pill-green {
-      background: rgba(22,163,74,0.08);
-      border: 1px solid rgba(22,163,74,0.2); color: #15803d;
-    }
-    .pill-purple {
-      background: rgba(139,92,246,0.08);
-      border: 1px solid rgba(139,92,246,0.2); color: #7c3aed;
-    }
+    .pill-blue,
+    .pill-green,
+    .pill-purple,
     .pill-orange {
-      background: rgba(234,88,12,0.08);
-      border: 1px solid rgba(234,88,12,0.2); color: #c2410c;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border); color: rgba(255,255,255,0.35);
     }
 
     /* ── CHECK LIST ──────────────────────────────────────── */
@@ -192,15 +235,21 @@
       margin-bottom: 20px;
     }
     .check-list li {
-      display: flex; align-items: flex-start; gap: 10px;
+      display: flex; align-items: center; gap: 12px;
       font-size: 15px; color: var(--text-dim); line-height: 1.65;
     }
     .check-list li::before {
       content: '';
-      width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px;
-      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='18' height='18' rx='5' fill='%2316a34a' fill-opacity='0.12'/%3E%3Cpath d='M5 9.5l2.5 2.5 5.5-5.5' stroke='%2316a34a' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain;
+      width: 32px; height: 32px; flex-shrink: 0;
+      border-radius: 8px;
+      background:
+        url("data:image/svg+xml,%3Csvg width='15' height='15' viewBox='0 0 15 15' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.6959 1.88175C11.8288 1.80178 11.9876 1.77641 12.1388 1.81098C12.2901 1.84555 12.4221 1.93736 12.5071 2.06715L13.1011 2.97315C13.1785 3.09151 13.2116 3.23342 13.1946 3.37383C13.1776 3.51424 13.1115 3.64412 13.0081 3.74055L13.0063 3.74295L12.9979 3.75075L12.9637 3.78255L12.8287 3.91155C12.0817 4.63615 11.3574 5.38371 10.6567 6.15315C9.33847 7.60275 7.77307 9.49995 6.71947 11.3408C6.42547 11.8544 5.70727 11.9648 5.28127 11.5214L1.39027 7.47855C1.33451 7.4206 1.29097 7.35202 1.26224 7.2769C1.23351 7.20178 1.22018 7.12165 1.22303 7.04127C1.22589 6.96089 1.24487 6.88191 1.27886 6.80902C1.31285 6.73613 1.36114 6.67081 1.42087 6.61695L2.59687 5.55615C2.70022 5.46298 2.83273 5.40862 2.97174 5.40238C3.11075 5.39614 3.2476 5.43841 3.35887 5.52195L5.34427 7.01055C8.44567 3.95235 10.2043 2.77875 11.6959 1.88175Z' fill='white' fill-opacity='0.45' fill-rule='evenodd' clip-rule='evenodd'/%3E%3C/svg%3E") center / 15px 15px no-repeat,
+        linear-gradient(180deg, rgba(53,53,55,0.6) 0%, rgba(31,30,30,0.6) 100%);
+      box-shadow: 0 0 5.74px rgba(0,0,0,0.25),
+                  inset -1.4px -1.4px 0 rgba(255,255,255,0.02),
+                  inset 1.4px 1.4px 0 rgba(255,255,255,0.04);
     }
-    .check-list li strong { color: var(--text); font-weight: 600; }
+    .check-list li strong { color: var(--text); font-weight: 300; }
 
     /* ── ROLE ROW ────────────────────────────────────────── */
     .role-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 32px; }
@@ -212,30 +261,27 @@
       border-radius: var(--r-sm);
       font-size: 13px; color: var(--text-dim);
     }
-    .role-badge::before {
-      content: '';
-      width: 16px; height: 16px;
-      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='16' height='16' rx='4' fill='%2316a34a' fill-opacity='0.12'/%3E%3Cpath d='M4 8.5l2.5 2L12 5.5' stroke='%2316a34a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain;
-    }
+    .role-badge::before { display: none; }
 
     /* ── TLDR ────────────────────────────────────────────── */
     .tldr {
       padding: 20px 24px;
-      border-left: 3px solid var(--accent);
-      background: var(--accent-lt);
-      border-radius: 0 var(--r-sm) var(--r-sm) 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
       margin-bottom: 32px;
     }
     .tldr p { font-size: 15px; color: var(--text-dim); line-height: 1.8; }
-    .tldr a { color: var(--accent); text-decoration: underline; }
+    .tldr a { color: var(--text-dim); text-decoration: underline; }
 
     /* ── TWO-COL ─────────────────────────────────────────── */
     .two-col {
       display: grid; grid-template-columns: 1fr 1fr;
       gap: 20px; margin-bottom: 20px;
     }
-    @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
-
+    .stack-col {
+      display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px;
+    }
     /* ── INFO CARD ───────────────────────────────────────── */
     .info-card {
       background: var(--bg-card);
@@ -244,7 +290,7 @@
     }
     .info-card-title {
       font-family: 'Unbounded', sans-serif;
-      font-size: 12px; font-weight: 500;
+      font-size: 12px; font-weight: 300;
       color: var(--text-mute); letter-spacing: 0.06em;
       text-transform: uppercase; margin-bottom: 14px;
     }
@@ -259,19 +305,20 @@
     .feature-body { padding: 28px 28px 24px; }
     .feature-tag {
       font-family: 'Unbounded', sans-serif;
-      font-size: 10px; font-weight: 500;
-      color: var(--accent); letter-spacing: 0.08em;
+      font-size: 10px; font-weight: 300;
+      color: var(--text-mute); letter-spacing: 0.08em;
       text-transform: uppercase; margin-bottom: 8px;
     }
     .feature-title {
       font-family: 'Unbounded', sans-serif;
-      font-size: 17px; font-weight: 600; margin-bottom: 10px;
+      font-size: 15px; font-weight: 300; margin-bottom: 10px;
       color: var(--text);
     }
     .feature-desc {
       font-size: 14px; color: var(--text-dim);
-      margin-bottom: 0; line-height: 1.75;
+      margin-bottom: 12px; line-height: 1.75;
     }
+    .feature-desc strong { color: var(--text); font-weight: 300; }
     .feature-img { width: 100%; border-top: 1px solid var(--border); }
     .feature-img img { width: 100%; display: block; }
 
@@ -280,16 +327,15 @@
       display: grid; grid-template-columns: repeat(3, 1fr);
       gap: 12px; margin: 32px 0;
     }
-    @media (max-width: 600px) { .stats-row { grid-template-columns: 1fr 1fr; } }
     .stat-card {
-      background: var(--accent-lt);
-      border: 1px solid rgba(72,55,243,0.15);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
       border-radius: var(--r-md); padding: 20px; text-align: center;
     }
     .stat-num {
       font-family: 'Unbounded', sans-serif;
-      font-size: 26px; font-weight: 700;
-      color: var(--accent); display: block; margin-bottom: 4px;
+      font-size: 26px; font-weight: 300;
+      color: var(--text); display: block; margin-bottom: 4px;
     }
     .stat-label { font-size: 12px; color: var(--text-mute); }
 
@@ -303,8 +349,8 @@
     /* ── QUOTE ───────────────────────────────────────────── */
     .closing-quote {
       padding: 24px 28px;
-      background: var(--accent-lt);
-      border: 1px solid rgba(72,55,243,0.18);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
       border-radius: var(--r-md); margin-top: 24px;
     }
     .closing-quote p {
@@ -321,8 +367,8 @@
     .back-home, .next-cs {
       display: inline-flex; align-items: center; gap: 8px;
       font-family: 'Unbounded', sans-serif;
-      font-size: 11px; font-weight: 500;
-      color: #111111; text-decoration: none;
+      font-size: 11px; font-weight: 300;
+      color: #f0f0f0; text-decoration: none;
       padding: 12px 20px;
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -330,13 +376,6 @@
       transition: opacity 0.2s, transform 0.2s;
     }
     .back-home:hover, .next-cs:hover { opacity: 0.7; transform: translateY(-1px); }
-
-    @media (max-width: 809px) {
-      .page { padding: 0 20px; }
-      .nav-inner { padding: 0 20px; }
-      .cs-title { font-size: 22px; }
-      .stats-row { grid-template-columns: 1fr 1fr; }
-    }
 
     /* ── PAGE FOOTER ─────────────────────────────────────── */
     .cs-page-footer {
@@ -346,30 +385,34 @@
     .footer-inner {
       position: relative; z-index: 1;
       display: flex; flex-direction: column; gap: 56px;
-      padding: 40px 0 0; max-width: 832px; margin: 0 auto;
+      padding: 40px 0 0; max-width: 896px; margin: 0 auto;
     }
     .footer-top { display: flex; gap: 9px; align-items: flex-start; }
     .footer-headline {
-      flex: 1; font-family: 'Unbounded', sans-serif;
-      font-size: 48px; font-weight: 400; letter-spacing: -0.04em;
+      flex: 1; font-family: 'Bitcount Single', system-ui;
+      font-size: 40px; font-weight: 400; letter-spacing: -0.03em;
       line-height: 0.9; color: #fff; mix-blend-mode: overlay; white-space: pre-wrap;
     }
     .footer-nav-links { flex: 1; display: flex; flex-direction: column; gap: 12px; }
     .footer-nav-links a {
-      font-family: 'Unbounded', sans-serif; font-size: 16px; font-weight: 400;
+      font-family: 'Unbounded', sans-serif; font-size: 15px; font-weight: 300;
       color: #fff; mix-blend-mode: overlay; text-decoration: none;
       line-height: 0.9; transition: opacity 0.2s;
     }
     .footer-nav-links a:hover { opacity: 0.7; }
-    .footer-avatar {
-      width: 40px; height: 40px; border-radius: 12px;
-      background: linear-gradient(180deg, #2a208d 0%, #4837f3 100%);
-      overflow: hidden; flex-shrink: 0; position: relative;
+    .hero-avatar-wrap { display: flex; flex-direction: row; flex-shrink: 0; }
+    .hero-avatar-illustrated {
+      width: 72px; height: 72px; border-radius: 20px; object-fit: cover;
+      flex-shrink: 0; z-index: 1; transform: rotate(0deg);
+      transition: transform 0.3s ease, margin-left 0.3s ease, z-index 0s;
     }
-    .footer-avatar img {
-      position: absolute; left: -2.4px; top: -1.2px;
-      width: 55.2px; height: 55.2px; object-fit: cover; mix-blend-mode: lighten;
+    .hero-avatar-real {
+      width: 72px; height: 72px; border-radius: 20px; object-fit: cover;
+      flex-shrink: 0; margin-left: -72px; z-index: 0; transform: rotate(0deg);
+      transition: transform 0.3s ease, margin-left 0.3s ease, z-index 0s;
     }
+    .hero-avatar-wrap:hover .hero-avatar-illustrated { z-index: 0; transform: rotate(0deg); }
+    .hero-avatar-wrap:hover .hero-avatar-real { margin-left: -68px; z-index: 1; transform: rotate(10deg); }
     .footer-bottom { display: flex; flex-direction: column; gap: 24px; }
     .footer-contact-bar {
       display: flex; align-items: center; justify-content: space-between;
@@ -378,17 +421,35 @@
     }
     .footer-social-icons { display: flex; align-items: center; }
     .footer-social-icon {
-      width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
       flex-shrink: 0; text-decoration: none;
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
     }
-    .footer-social-icon.has-bg {
-      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%); border-radius: 10px;
-      box-shadow: 0 0 4.1px rgba(0,0,0,0.25), inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+    .footer-social-icon::after {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 10px;
+      box-shadow: inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
     }
-    .footer-social-icon img { display: block; }
+    .footer-social-icon:hover { transform: translateY(-1px); }
+    .footer-social-icon.active {
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25);
+    }
+    .footer-social-icon.active::after { opacity: 1; }
+    .footer-social-icon img { display: block; position: relative; z-index: 1; filter: brightness(0) invert(1) opacity(0.35); transition: filter 0.2s; }
+    .footer-social-icon.active img { filter: brightness(0) invert(1); }
     .footer-email {
       position: absolute; left: 50%; transform: translateX(-50%);
-      font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 400;
+      font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 300;
       color: #dadada; white-space: nowrap; line-height: 0.9;
     }
     .footer-cta { display: flex; align-items: center; justify-content: flex-end; flex: 1; }
@@ -398,41 +459,68 @@
       box-shadow: 0 0 5.74px rgba(0,0,0,0.25),
                   inset -1.4px -1.4px 0 rgba(255,255,255,0.02),
                   inset 1.4px 1.4px 0 rgba(255,255,255,0.04);
-      font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 400;
+      font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 300;
       color: #fff; text-decoration: none; white-space: nowrap;
     }
     .footer-copyright {
-      font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 400;
+      font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 300;
       color: #fff; mix-blend-mode: overlay; text-align: center;
       line-height: 0.9; padding-bottom: 60px;
     }
-    @media (max-width: 809px) {
+    @media (max-width: 860px) {
+      .page { padding-left: 20px; padding-right: 20px; }
+      .cs-title { font-size: 36px; line-height: 1; }
+      .cs-section-title { font-size: 11px; }
+      .cs-subtitle { font-size: 13px; }
+      .cs-body { font-size: 13px; }
+      .check-list li { font-size: 13px; }
+      .tldr p { font-size: 13px; }
+      .role-badge { font-size: 11px; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      /* Footer — matches homepage mobile style */
       .footer-inner { padding: 40px 20px 0; }
-      .footer-top { flex-direction: column; gap: 40px; }
-      .footer-avatar { width: 72px; height: 72px; border-radius: 16px; }
-      .footer-headline { font-size: 40px; }
+      .footer-top { flex-direction: column; gap: 32px; }
+      .footer-top > .hero-avatar-wrap { order: -2; }
+      .footer-headline { order: -1; font-size: 36px; line-height: 1; }
+      .footer-nav-links { order: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 0; width: 100%; }
+      .footer-nav-links a { font-size: 13px; font-weight: 300; }
       .footer-contact-bar { flex-direction: row; padding: 4px; }
       .footer-email { display: none; }
     }
-
+    @media (max-width: 600px) {
+      .two-col { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
+  <div class="cursor-svg" id="cursor-svg"><img src="images/Icons/Icon_Cursor.svg" alt="" /></div>
+
+  <!-- ─── NAV ─── -->
   <nav>
     <div class="nav-inner">
       <div class="nav-bar">
-        <a href="index.html" class="nav-back">
-          <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M9 2.5L5 7L9 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Back
-        </a>
-        <a href="mailto:Olarewajufakomi@gmail.com" class="nav-cta">Let's talk</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links">
+          <li><a href="index.html"><span class="nav-icon"><img src="images/Icons/navIcon_Home.svg" alt="" /></span>Home</a></li>
+          <li><a href="ux-projects.html"><span class="nav-icon"><img src="images/Icons/navIcon_UXProjects.svg" alt="" /></span>UX Projects</a></li>
+          <li><a href="graphics.html"><span class="nav-icon"><img src="images/Icons/navIcon_Graphics.svg" alt="" /></span>Graphics</a></li>
+          <li><a href="blog.html"><span class="nav-icon"><img src="images/Icons/navIcon_Blog.svg" alt="" /></span>Blogs</a></li>
+          <li><a href="about.html"><span class="nav-icon"><img src="images/Icons/navIcon_About.svg" alt="" /></span>About</a></li>
+        </ul>
+        <a href="mailto:olarewajufakomi@gmail.com" class="nav-cta">Let's talk</a>
       </div>
     </div>
   </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="ux-projects.html">UX Projects</a>
+    <a href="graphics.html">Graphics</a>
+    <a href="blog.html">Blogs</a>
+    <a href="about.html">About</a>
+  </div>
 
   <div class="page">
 
@@ -442,7 +530,7 @@
         <img src="images/Logos/caseStudyTrib_logoImg.png" alt="Trib">
       </div>
       <div class="cs-eyebrow">Case Study</div>
-      <h1 class="cs-title"><span>Trib</span> — Redefining Community Engagement Through Web3 Gaming</h1>
+      <h1 class="cs-title"><span>Trib:</span> Redefining Community Engagement Through Web3 Gaming</h1>
       <p class="cs-subtitle">Trib (formerly TriviaBase) is a Web3-powered Q&A gaming platform that enhances community engagement through interactive quizzes, tournaments, and rewards. Originally launched as a Hackathon submission for the Base Network, the project has since evolved into a full-fledged product with an upgraded brand, multi-wallet support, and gamified features.</p>
       <div class="cs-hero-img">
         <img src="images/projects/TribCasestudy/Trib Hero.png" alt="Trib Platform Interface">
@@ -460,7 +548,7 @@
       </div>
       <div class="pill pill-default">TL;DR</div>
       <div class="tldr" style="margin-top:12px;">
-        <p>I led the entire design process from <span style="color:var(--accent)">rebrand</span> and <span style="color:var(--accent)">website design to product (WebApp &amp; DApp)</span> UI/UX. Transforming a Base hackathon prototype into a scalable platform with AI-powered question generation, gamification features, and multi-wallet support.</p>
+        <p>I led the entire design process from <span style="color:var(--text)">rebrand</span> and <span style="color:var(--text)">website design to product (WebApp &amp; DApp)</span> UI/UX. Transforming a Base hackathon prototype into a scalable platform with AI-powered question generation, gamification features, and multi-wallet support.</p>
       </div>
     </section>
 
@@ -469,12 +557,10 @@
     <!-- KEY WINS -->
     <section class="cs-section">
       <h2 class="cs-section-title">Key wins</h2>
-      <ul class="check-list">
-        <li><strong>Rebrand:</strong> TriviaBase → Trib with a bold, community-first identity.</li>
-        <li><strong>Product Growth:</strong> Redesigned sleek WebApp + DApp, wallet integrations, and gamified features.</li>
-        <li><strong>Community Engagement:</strong> Demoed in communities across Nigeria, the U.S., and Africa.</li>
-        <li><strong>Partnerships:</strong> Powered trivia games for BitcoinPizzaDay, proving value in Web3 cultural events.</li>
-      </ul>
+      <p class="cs-body"><strong>Rebrand:</strong> TriviaBase → Trib with a bold, community-first identity.</p>
+      <p class="cs-body"><strong>Product Growth:</strong> Redesigned WebApp + DApp with wallet integrations and gamified features.</p>
+      <p class="cs-body"><strong>Community Engagement:</strong> Demoed in communities across Nigeria, the U.S., and Africa.</p>
+      <p class="cs-body"><strong>Partnerships:</strong> Powered trivia games for BitcoinPizzaDay, proving value in Web3 cultural events.</p>
     </section>
 
     <div class="divider"></div>
@@ -494,7 +580,7 @@
         <li>Redesign the product UI for clarity, usability, and scalability.</li>
         <li>Support multi-wallet payouts beyond Base Network.</li>
         <li>Add gamified layers like badges, tournaments, and AI-powered question generation.</li>
-        <li>Simplify the onboarding process more — especially for Web2 users.</li>
+        <li>Simplify the onboarding process more, especially for Web2 users.</li>
       </ul>
     </section>
 
@@ -539,10 +625,8 @@
         <div class="feature-body">
           <div class="feature-tag">Gamification &amp; Auto Q&A Generation</div>
           <h3 class="feature-title">Tournament Badges &amp; AI Questions</h3>
-          <ul class="check-list" style="margin-bottom:0;">
-            <li><strong>Tournament Badges:</strong> Custom designs for different milestones (e.g., Champion, Runner-Up, Top 10).</li>
-            <li><strong>AI Question Generation:</strong> Integrated AI to auto-generate questions for hosts, reducing friction.</li>
-          </ul>
+          <p class="feature-desc"><strong>Tournament Badges:</strong> Custom designs for different milestones (e.g., Champion, Runner-Up, Top 10).</p>
+          <p class="feature-desc" style="margin-bottom:0;"><strong>AI Question Generation:</strong> Integrated AI to auto-generate questions for hosts, reducing friction.</p>
         </div>
         <div class="feature-img">
           <img src="images/projects/TribCasestudy/Frame 1538228311.png" alt="Trib Gamification">
@@ -636,9 +720,9 @@
           <div class="feature-tag">Partnerships &amp; Collaborations</div>
           <h3 class="feature-title">BitcoinPizzaDay Collaboration</h3>
           <ul class="check-list" style="margin-bottom:0;">
-            <li><strong>BitcoinPizzaDay Collaboration:</strong> Partnered with the community to celebrate the iconic BitcoinPizzaDay with Trib-powered trivia games.</li>
-            <li>Showcased Trib's ability to integrate seamlessly into Web3 cultural events, strengthening visibility and adoption.</li>
-            <li>Positioned Trib as a community-first engagement tool in the broader Web3 ecosystem.</li>
+            <li><strong>BitcoinPizzaDay:</strong> Partnered with the community to celebrate the iconic BitcoinPizzaDay with Trib-powered trivia games.</li>
+            <li><strong>Visibility:</strong> Showcased Trib's ability to integrate seamlessly into Web3 cultural events, strengthening adoption.</li>
+            <li><strong>Positioning:</strong> Trib as a community-first engagement tool in the broader Web3 ecosystem.</li>
           </ul>
         </div>
         <div class="feature-img">
@@ -668,7 +752,7 @@
     <section class="cs-section">
       <h2 class="cs-section-title dark">What I Learned &amp; Next Steps</h2>
 
-      <div class="two-col">
+      <div class="stack-col">
         <div class="info-card">
           <div class="pill pill-default" style="margin-bottom:14px;">Lessons</div>
           <ul class="check-list" style="margin-bottom:0;">
@@ -689,23 +773,19 @@
       </div>
 
       <div class="closing-quote">
-        <p>"Trib showed me that great design isn't just about aesthetics — it's about making complex, unfamiliar technology feel approachable, fun, and genuinely rewarding for real communities."</p>
+        <p>"Trib showed me that great design isn't just about aesthetics, it's about making complex, unfamiliar technology feel approachable, fun, and genuinely rewarding for real communities."</p>
       </div>
     </section>
 
     <!-- FOOTER -->
     <div class="cs-footer">
       <a href="index.html" class="back-home">
-        <svg width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M9 2.5L5 7L9 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <img src="images/Icons/Iconleft.svg" alt="" width="16" height="16" style="filter:brightness(0) invert(1) opacity(0.7);">
         Back to Home
       </a>
       <a href="roots.html" class="next-cs">
         The Roots
-        <svg width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M5 2.5L9 7L5 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <img src="images/Icons/IconRight.svg" alt="" width="16" height="16" style="filter:brightness(0) invert(1) opacity(0.7);">
       </a>
     </div>
 
@@ -717,40 +797,158 @@
       <div class="footer-top">
         <div class="footer-headline">Get in&#10;touch now...</div>
         <div class="footer-nav-links">
-          <a href="index.html#home">Home</a>
-          <a href="index.html#work">Work</a>
-          <a href="index.html#clients">Clients</a>
-          <a href="index.html#about">About</a>
+          <a href="index.html">Home</a>
+          <a href="ux-projects.html">UX Projects</a>
+          <a href="graphics.html">Graphics</a>
+          <a href="lab.html">Lab</a>
+          <a href="blog.html">Blogs</a>
+          <a href="about.html">About</a>
         </div>
-        <div class="footer-avatar">
-          <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi">
-        </div>
+        <a href="about.html" class="hero-avatar-wrap">
+          <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi" class="hero-avatar-illustrated" />
+          <img src="images/hero/OlaAvatar_realImg.png" alt="Ola Fakomi" class="hero-avatar-real" />
+        </a>
       </div>
       <div class="footer-bottom">
         <div class="footer-contact-bar">
-          <div class="footer-social-icons">
-            <a href="mailto:Olarewajufakomi@gmail.com" class="footer-social-icon has-bg">
+          <div class="footer-social-icons" id="footer-icons">
+            <a href="#" class="footer-social-icon" data-label="olarewajufakomi@gmail.com" data-action="copy">
               <img src="images/Icons/Email_IconImg.svg" alt="Email" width="32" height="32">
             </a>
-            <a href="https://twitter.com/olafakomi" target="_blank" class="footer-social-icon">
+            <a href="https://x.com/olafakomi" target="_blank" class="footer-social-icon" data-label="x.com/olafakomi">
               <img src="images/Icons/TwitterX_IconImg.svg" alt="Twitter" width="32" height="32">
             </a>
-            <a href="https://olafakomi.substack.com/" target="_blank" class="footer-social-icon">
+            <a href="https://takesbyovasys.substack.com" target="_blank" class="footer-social-icon" data-label="takesbyovasys.substack.com">
               <img src="images/Icons/SubstackEmail_IconImg.svg" alt="Substack" width="32" height="32">
             </a>
-            <a href="https://linkedin.com/in/olafakomi" target="_blank" class="footer-social-icon">
+            <a href="https://www.linkedin.com/in/olafakomi" target="_blank" class="footer-social-icon" data-label="linkedin.com/in/olafakomi">
               <img src="images/Icons/LinkedInEmail_IconImg.svg" alt="LinkedIn" width="32" height="32">
             </a>
           </div>
-          <span class="footer-email">@Olarewajufakomi@gmail.com</span>
+          <span class="footer-email" id="footer-contact-label">olarewajufakomi@gmail.com</span>
           <div class="footer-cta">
             <a href="mailto:Olarewajufakomi@gmail.com" class="footer-cta-btn">Let's talk</a>
           </div>
         </div>
-        <p class="footer-copyright">© 2026 — Copyright</p>
+        <p class="footer-copyright">© 2026 Copyright</p>
       </div>
     </div>
   </section>
 
+  <script>
+    /* ─── Custom Cursor ─── */
+    const cursorSvg = document.getElementById('cursor-svg');
+    document.addEventListener('mousemove', e => {
+      cursorSvg.style.left = e.clientX + 'px';
+      cursorSvg.style.top  = e.clientY + 'px';
+    });
+
+    /* ─── Mobile Nav ─── */
+    const navToggle = document.getElementById('navToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (navToggle && mobileMenu) {
+      navToggle.addEventListener('click', () => {
+        navToggle.classList.toggle('open');
+        mobileMenu.classList.toggle('open');
+      });
+      mobileMenu.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          navToggle.classList.remove('open');
+          mobileMenu.classList.remove('open');
+        });
+      });
+    }
+
+    /* ─── Tick sounds ─── */
+    let _audioCtx;
+    function getAudioCtx() {
+      if (!_audioCtx) _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (_audioCtx.state === 'suspended') _audioCtx.resume();
+      return _audioCtx;
+    }
+    function playTick(freq, vol, dur) {
+      const ctx = getAudioCtx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.type = 'sine'; osc.frequency.value = freq;
+      gain.gain.setValueAtTime(vol, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur);
+      osc.start(ctx.currentTime); osc.stop(ctx.currentTime + dur);
+    }
+    function playClick() {
+      const ctx = getAudioCtx();
+      const dur = 0.018;
+      const buf = ctx.createBuffer(1, Math.floor(ctx.sampleRate * dur), ctx.sampleRate);
+      const data = buf.getChannelData(0);
+      for (let i = 0; i < data.length; i++) {
+        data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / data.length, 4);
+      }
+      const src = ctx.createBufferSource();
+      src.buffer = buf;
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.value = 1800;
+      filter.Q.value = 1.0;
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.09, ctx.currentTime);
+      src.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      src.start();
+      src.stop(ctx.currentTime + dur);
+    }
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('mouseenter', () => playTick(750, 0.10, 0.055));
+    });
+
+    /* ─── Global click sound ─── */
+    document.addEventListener('click', e => {
+      if (e.target.closest('a, button')) playClick();
+    }, { passive: true });
+
+    /* ─── Button & footer hover sounds ─── */
+    document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta').forEach(el => {
+      el.addEventListener('mouseenter', () => playTick(900, 0.08, 0.05));
+    });
+    document.querySelectorAll('.footer-social-icon, .footer-nav-links a, .footer-cta-btn').forEach(el => {
+      el.addEventListener('mouseenter', () => playTick(750, 0.06, 0.05));
+    });
+  
+    /* ─── Footer social icon interactions ─── */
+    (function() {
+      var icons = document.querySelectorAll('.footer-social-icon');
+      var label = document.getElementById('footer-contact-label');
+      var emailIcon = document.querySelector('.footer-social-icon[data-action="copy"]');
+      var defaultLabel = 'olarewajufakomi@gmail.com';
+      if (!icons.length || !label) return;
+      function setActive(icon) {
+        icons.forEach(function(i) { i.classList.remove('active'); });
+        icon.classList.add('active');
+        label.textContent = icon.dataset.label || defaultLabel;
+      }
+      function resetDefault() {
+        icons.forEach(function(i) { i.classList.remove('active'); });
+        if (emailIcon) emailIcon.classList.add('active');
+        label.textContent = defaultLabel;
+      }
+      resetDefault();
+      icons.forEach(function(icon) {
+        icon.addEventListener('mouseenter', function() { setActive(icon); });
+      });
+      var container = document.querySelector('.footer-social-icons');
+      if (container) container.addEventListener('mouseleave', resetDefault);
+      if (emailIcon) {
+        emailIcon.addEventListener('click', function(e) {
+          e.preventDefault();
+          navigator.clipboard.writeText('olarewajufakomi@gmail.com').then(function() {
+            var prev = label.textContent;
+            label.textContent = 'Copied!';
+            setTimeout(function() { label.textContent = prev; }, 2000);
+          });
+        });
+      }
+    })();
+  </script>
 </body>
 </html>

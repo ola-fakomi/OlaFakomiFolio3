@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V1S9EH9HZ5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-V1S9EH9HZ5');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Ola Fakomi</title>
+  <link rel="icon" type="image/png" href="images/hero/OlaAvatar_Img.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bitcount+Single:wght@100..900&family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script type="module" src="src/nav.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.27/dist/lenis.css">
+  <script src="https://unpkg.com/lenis@1.3.27/dist/lenis.min.js"></script>
+  <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #191919;
+      --bg-card:   #1f1f1f;
+      --blue:      #1225FF;
+      --text-size-hero: 24px;
+      --red:       #ff7974;
+      --text:      #f0f0f0;
+      --text-dim:  #9a9aaa;
+      --muted:     #7581a6;
+      --border:    rgba(255,255,255,0.07);
+      --nav-h:     72px;
+      --max-w:     1200px;
+    }
+
+    html { scroll-behavior: auto; } /* Lenis handles smooth scroll */
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Unbounded', sans-serif;
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* Noise */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: 9000;
+    }
+
+    @media (pointer: coarse), (max-width: 860px) { body { cursor: auto; } .cursor-svg { display: none; } }
+
+    /* ─── Cursor ─── */
+    .cursor-svg {
+      position: fixed; pointer-events: none;
+      transform: translate(-4px, -4px);
+      z-index: 9999; width: 32px; height: 32px;
+      transition: transform 0.15s ease, width 0.2s, height 0.2s;
+    }
+    .cursor-svg img { width: 100%; height: 100%; display: block; }
+    body:has(a:hover) .cursor-svg,
+    body:has(button:hover) .cursor-svg { width: 40px; height: 40px; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 9500; background: transparent;
+      padding-top: 20px; padding-bottom: 12px;
+    }
+    .nav-inner { max-width: 896px; margin: 0 auto; padding: 0; }
+    .nav-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(25,25,25,0.65); border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 16px; padding: 5px 5px 5px 8px;
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+    }
+    .nav-links { display: flex; align-items: center; gap: 0; list-style: none; margin: 0; padding: 0 8px; }
+    .nav-links a {
+      display: flex; align-items: center; gap: 4px; padding: 4px 4px;
+      font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 300;
+      letter-spacing: 0.02em; color: rgba(255,255,255,0.45);
+      text-decoration: none; border-radius: 10px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a .nav-icon {
+      display: flex; align-items: center; justify-content: center;
+      width: 0; height: 13px; overflow: hidden; opacity: 0;
+      flex-shrink: 0; transition: width 0.2s, opacity 0.2s;
+    }
+    .nav-links a .nav-icon img { width: 13px; height: 13px; flex-shrink: 0; display: block; opacity: 0.45; transition: opacity 0.2s; }
+    .nav-links li.active > a .nav-icon img,
+    .nav-links a:hover .nav-icon img { opacity: 1; }
+    .nav-links li.active > a .nav-icon,
+    .nav-links a:hover .nav-icon { width: 13px; opacity: 1; }
+    .nav-links li.active > a { color: #fff; font-weight: 300; }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta {
+      padding: 13px 22px;
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      border: none; color: #fff; font-family: 'Unbounded', sans-serif;
+      font-size: 11px; font-weight: 300; letter-spacing: 0.02em;
+      border-radius: 12px; text-decoration: none; white-space: nowrap;
+      position: relative; overflow: hidden;
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25);
+      transition: opacity 0.2s, transform 0.2s; flex-shrink: 0;
+    }
+    .nav-cta::after {
+      content: ''; position: absolute; inset: 0; border-radius: 10px;
+      box-shadow: inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      pointer-events: none;
+    }
+    .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+    .nav-toggle {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .nav-toggle span {
+      display: block; width: 22px; height: 1.5px;
+      background: var(--text); border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .mobile-menu { display: none; }
+    @media (max-width: 860px) {
+      .mobile-menu {
+        position: fixed; top: 0; left: 0; right: 0;
+        background: rgba(20,20,20,0.98); backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border); z-index: 9490;
+        padding: 96px 20px 32px; min-height: 50vh;
+        transform: translateY(-110%);
+        visibility: hidden;
+        transition: transform 0.35s cubic-bezier(0.32,0,0,1), visibility 0s linear 0.35s;
+        display: flex; flex-direction: column; gap: 4px;
+      }
+      .mobile-menu.open { transform: translateY(0); visibility: visible; transition: transform 0.35s cubic-bezier(0.32,0,0,1), visibility 0s; }
+      .nav-toggle { display: flex; }
+      .nav-inner { padding: 0 20px; max-width: 100%; }
+      .nav-links { display: none; }
+    }
+    .mobile-menu a {
+      display: block; padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 300;
+      color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--text); }
+    .mobile-menu a:last-child { border-bottom: none; }
+
+    /* ─── ABOUT SECTIONS (3 flat stacked sections) ─── */
+    .ab-section {
+      padding: calc(var(--nav-h) + 48px) 0 120px;
+    }
+    .ab-inner {
+      max-width: 896px;
+      margin: 0 auto;
+      padding: 0;
+    }
+    .ab-label {
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 16px;
+      padding: 0 4px;
+    }
+    .ab-label span { color: #929292; }
+    .ab-text-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+      margin-bottom: 48px;
+      padding: 0 4px;
+    }
+    .ab-headline {
+      font-size: var(--text-size-hero);
+      font-weight: 300;
+      line-height: 1.2;
+      letter-spacing: 0.02em;
+      color: var(--text);
+    }
+    .ab-headline .ghost { color: rgba(255,255,255,0.4); }
+    .ab-subtext {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.7;
+      letter-spacing: 0.02em;
+      color: rgba(255,255,255,0.58);
+      padding-top: 6px;
+    }
+    /* Duo images — states 1 & 2 */
+    .ab-duo {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .ab-duo-img {
+      flex: 1;
+      border-radius: 0;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+    }
+    .ab-duo-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .ab-duo-img.offset { margin-top: 40px; }
+    /* 3-col grid — state 3 */
+    .ab-grid {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .ab-grid-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .ab-grid-col.outer { margin-top: 80px; }
+    .ab-grid-img {
+      width: 100%;
+    }
+    .ab-grid-img img { width: 100%; height: auto; display: block; }
+
+    /* ─── Scroll reveal ─── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.22s; }
+
+    /* ─── INFO SECTION — Experience / Tools / Skills ─── */
+    /* ─── Info scroll wrapper ─── */
+    .info-scroll {
+      position: relative;
+      z-index: 10;
+      height: 150vh;
+    }
+    .info-section {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+    /* BG reveal layer — sits behind water BG */
+    .info-bg-reveal {
+      position: absolute; inset: 0;
+      background-image: url('images/about/SkillSection_WaterBGReveal.jpg');
+      background-size: cover;
+      background-position: center top;
+      z-index: 0;
+    }
+    /* BG water layer — on top, masked by cursor */
+    .info-bg-layer {
+      position: absolute; inset: 0;
+      background-image: url('images/about/SkillSection_WaterBG.png');
+      background-size: cover;
+      background-position: center top;
+      z-index: 1;
+      --cx: -999px;
+      --cy: -999px;
+      -webkit-mask: radial-gradient(circle 400px at var(--cx) var(--cy), transparent 0%, black 100%);
+      mask: radial-gradient(circle 400px at var(--cx) var(--cy), transparent 0%, black 100%);
+    }
+    /* Card wrapper — centered over BG */
+    .info-card-wrap {
+      position: absolute; inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 2;
+    }
+    .info-card {
+      width: 100%; max-width: 900px;
+      background: rgba(14,14,14,0.96);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      overflow: hidden;
+      backdrop-filter: blur(2px);
+      transform: translateY(80px);
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+
+    /* Tab bar — matches slide-modal-nav / UX Projects tab style */
+    .info-tabs {
+      display: flex;
+      align-items: center;
+      padding: 12px 28px 12px 0;
+      border-bottom: 1px solid #262626;
+    }
+    .info-tab {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 11px; font-weight: 300;
+      color: rgba(255,255,255,0.35);
+      background: none; border: none;
+      cursor: pointer;
+      padding: 6px 14px 6px 0;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+    .info-tabs .info-tab:first-child { padding-left: 24px; }
+    .info-tab + .info-tab { padding-left: 14px; border-left: 1px solid #262626; }
+    .info-tab:hover { color: rgba(255,255,255,0.7); }
+    .info-tab.active { color: #fff; font-weight: 400; }
+
+    /* Tab panels */
+    .info-panel { display: none; padding: 12px 28px 36px 24px; }
+    .info-panel.active { display: block; }
+
+    /* ── Experience ── */
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+    .exp-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .exp-item:first-child { padding-top: 0; }
+    .exp-item:last-child { border-bottom: none; }
+    .exp-logo {
+      width: 48px; height: 48px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(53,53,55,0.6) 0%, rgba(31,30,30,0.6) 100%);
+      box-shadow: 0 0 5.74px rgba(0,0,0,0.25),
+                  inset -1.4px -1.4px 0 rgba(255,255,255,0.02),
+                  inset 1.4px 1.4px 0 rgba(255,255,255,0.04);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; flex-shrink: 0;
+    }
+    .exp-logo img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; padding: 2px; }
+    .exp-info { flex: 1; min-width: 0; }
+    .exp-company {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 11px; font-weight: 400;
+      color: var(--text);
+    }
+    .exp-role {
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      margin-top: -2px;
+    }
+    .exp-year {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 11px; font-weight: 300;
+      color: rgba(255,255,255,0.32);
+      letter-spacing: 0.04em;
+      flex-shrink: 0;
+    }
+
+    /* ── Tools ── */
+    .tools-group { margin-bottom: 28px; }
+    .tools-group:last-child { margin-bottom: 0; }
+    .tools-group-label {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 11px; font-weight: 300;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .tools-row { display: flex; flex-wrap: wrap; gap: 10px; }
+    /* Tool chip — matches client-pill style */
+    .tool-chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 14px 8px 8px;
+      background: #1d1d1d;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 11px; font-weight: 300;
+      letter-spacing: 0.02em;
+      color: rgba(255,255,255,0.80);
+      white-space: nowrap;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .tool-chip:hover { border-color: rgba(255,255,255,0.16); transform: translateY(-2px); }
+    /* Icon box inside chip — matches client-icon */
+    .tool-icon {
+      width: 28px; height: 28px;
+      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
+      border-radius: 7px;
+      box-shadow: 0 0 2.278px rgba(0,0,0,0.25),
+                  inset 0.556px 0.556px 0 rgba(255,255,255,0.08),
+                  inset -0.556px -0.556px 0 rgba(255,255,255,0.03);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; flex-shrink: 0;
+    }
+    .tool-icon img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
+
+    /* ── Skills — matches main branch comp-check / comp-item ── */
+    .skills-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .skill-item {
+      display: flex; align-items: center; gap: 8px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 11px; font-weight: 300;
+      color: #e0e0e0;
+    }
+    .skill-check {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(53,53,55,0.6) 0%, rgba(31,30,30,0.6) 100%);
+      box-shadow: 0 0 5.74px rgba(0,0,0,0.25),
+                  inset -1.4px -1.4px 0 rgba(255,255,255,0.02),
+                  inset 1.4px 1.4px 0 rgba(255,255,255,0.04);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .skill-check img { width: 16px; height: 16px; display: block; filter: brightness(0) invert(1) opacity(0.45); }
+
+    /* ─── FOOTER ─── */
+    #contact {
+      background:url('images/footer/Footer Background.webp') center center/cover no-repeat;
+      padding:0; overflow:hidden; position:relative;
+    }
+    .footer-inner {
+      position:relative; z-index:1;
+      display:flex; flex-direction:column; gap:56px;
+      padding:40px 0 0; max-width:896px; margin:0 auto;
+    }
+    .footer-top { display:flex; gap:9px; align-items:flex-start; }
+    .footer-headline {
+      flex:1; font-family:'Bitcount Single',system-ui;
+      font-size:40px; font-weight:400; letter-spacing:-0.03em;
+      line-height:0.9; color:#fff; mix-blend-mode:overlay; white-space:pre-wrap;
+    }
+    .footer-nav-links { flex:1; display:flex; flex-direction:column; gap:12px; }
+    .footer-nav-links a {
+      font-family:'Unbounded',sans-serif; font-size:16px; font-weight:300;
+      color:#fff; mix-blend-mode:overlay; text-decoration:none;
+      line-height:0.9; transition:opacity 0.2s;
+    }
+    .footer-nav-links a:hover { opacity:0.7; }
+    .hero-avatar-wrap { display: flex; flex-direction: row; flex-shrink: 0; }
+    .hero-avatar-illustrated {
+      width: 72px; height: 72px; border-radius: 20px; object-fit: cover;
+      flex-shrink: 0; z-index: 1; transform: rotate(0deg);
+      transition: transform 0.3s ease, margin-left 0.3s ease, z-index 0s;
+    }
+    .hero-avatar-real {
+      width: 72px; height: 72px; border-radius: 20px; object-fit: cover;
+      flex-shrink: 0; margin-left: -72px; z-index: 0; transform: rotate(0deg);
+      transition: transform 0.3s ease, margin-left 0.3s ease, z-index 0s;
+    }
+    .hero-avatar-wrap:hover .hero-avatar-illustrated { z-index: 0; transform: rotate(0deg); }
+    .hero-avatar-wrap:hover .hero-avatar-real { margin-left: -68px; z-index: 1; transform: rotate(10deg); }
+    .footer-bottom { display:flex; flex-direction:column; gap:24px; }
+    .footer-contact-bar {
+      display:flex; align-items:center; justify-content:space-between;
+      position:relative; padding:4px;
+      background:#191919; border:1px solid rgba(255,255,255,0.05); border-radius:12px;
+    }
+    .footer-social-icons { display:flex; align-items:center; }
+    .footer-social-icon {
+      width:36px; height:36px; display:flex; align-items:center; justify-content:center;
+      flex-shrink:0; text-decoration:none; border-radius:10px; position:relative; overflow:hidden;
+      cursor:pointer; transition:background 0.2s,box-shadow 0.2s,transform 0.15s;
+    }
+    .footer-social-icon:hover { transform:translateY(-1px); }
+    .footer-social-icon.active {
+      background:linear-gradient(180deg,#353537 0%,#1f1e1e 100%); border-radius:10px;
+      box-shadow:0 0 4.1px rgba(0,0,0,0.25),inset -1px -1px 0 rgba(255,255,255,0.03),inset 1px 1px 0 rgba(255,255,255,0.08);
+    }
+    .footer-social-icon img { display:block; position:relative; z-index:1; filter:brightness(0) invert(1) opacity(0.35); transition:filter 0.2s; }
+    .footer-social-icon.active img { filter:brightness(0) invert(1); }
+    .footer-email {
+      position:absolute; left:50%; transform:translateX(-50%);
+      font-family:'Unbounded',sans-serif; font-size:13px; font-weight:300;
+      color:#dadada; white-space:nowrap; line-height:0.9;
+    }
+    .footer-cta { display:flex; align-items:center; justify-content:flex-end; flex:1; }
+    .footer-cta-btn {
+      height:36px; display:flex; align-items:center; padding:0 12px;
+      background:linear-gradient(180deg,#353537 0%,#1f1e1e 100%); border-radius:10px;
+      box-shadow:0 0 4.1px rgba(0,0,0,0.25),inset -1px -1px 0 rgba(255,255,255,0.03),inset 1px 1px 0 rgba(255,255,255,0.08);
+      font-family:'Unbounded',sans-serif; font-size:11px; font-weight:300;
+      color:#fff; text-decoration:none; white-space:nowrap;
+    }
+    .footer-copyright {
+      font-family:'Unbounded',sans-serif; font-size:13px; font-weight:300;
+      color:#fff; mix-blend-mode:overlay; text-align:center;
+      line-height:0.9; padding-bottom:60px;
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 860px) {
+      .nav-toggle { display: flex; }
+      .nav-inner { padding: 0 20px; max-width: 100%; }
+      .ab-inner { padding: 0 20px; max-width: 100%; }
+      .ab-headline { font-size: 18px; }
+      .ab-subtext { font-size: 13px; }
+      .ab-duo { flex-direction: column; }
+      .ab-duo-img.offset { margin-top: 0; }
+      .ab-grid { flex-direction: column; }
+      .ab-grid-col.outer { margin-top: 0; }
+      .footer-inner { padding: 40px 20px 0; }
+      .footer-top { flex-direction: column; gap: 32px; }
+      .footer-top > .hero-avatar-wrap { order: -2; }
+      .footer-headline { order: -1; font-size: 36px; line-height: 1; }
+      .footer-nav-links { order: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 0; width: 100%; }
+      .footer-nav-links a { font-size: 13px; font-weight: 300; }
+      .footer-contact-bar { flex-direction: row; padding: 4px; }
+      .footer-email { display: none; }
+    }
+    @media (max-width: 760px) {
+      .ab-text-row { grid-template-columns: 1fr; gap: 12px; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .info-card-wrap { padding: 16px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="cursor-svg" id="cursor-svg"><img src="images/Icons/Icon_Cursor.svg" alt="" /></div>
+
+  <site-nav active="about"></site-nav>
+
+  <!-- ─── SECTION 01: STRATEGIC DESIGNER ─── -->
+  <section class="ab-section">
+    <div class="ab-inner">
+      <p class="ab-label reveal"><span>01.</span> STRATEGIC DESIGNER</p>
+      <div class="ab-text-row reveal reveal-d1">
+        <h2 class="ab-headline"><span class="ghost">To be a designer<br></span>is one with impact<br>in mind ...</h2>
+        <p class="ab-subtext">I find the gaps between business goals and customer needs and use the design to close it.</p>
+      </div>
+      <div class="ab-duo reveal reveal-d2">
+        <div class="ab-duo-img"><img src="images/about/A_Stage1_Img1.png" alt="" /></div>
+        <div class="ab-duo-img offset"><img src="images/about/A_Stage1_Img2.png" alt="" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 02: EXTROVERT BY FORCE ─── -->
+  <section class="ab-section">
+    <div class="ab-inner">
+      <p class="ab-label reveal"><span>02.</span> EXTROVERT BY FORCE</p>
+      <div class="ab-text-row reveal reveal-d1">
+        <h2 class="ab-headline"><span class="ghost">Loves staying-in<br></span>but also loves<br>to go out ...</h2>
+        <p class="ab-subtext">Things &amp; People around me inspire me to exceed my limits and that makes me 10x better.</p>
+      </div>
+      <div class="ab-duo reveal reveal-d2">
+        <div class="ab-duo-img"><img src="images/about/A_Stage1_Img1-1.png" alt="" /></div>
+        <div class="ab-duo-img offset"><img src="images/about/A_Stage1_Img2-1.png" alt="" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 03: IMPACT DRIVEN ─── -->
+  <section class="ab-section">
+    <div class="ab-inner">
+      <p class="ab-label reveal"><span>03.</span> IMPACT DRIVEN</p>
+      <div class="ab-text-row reveal reveal-d1">
+        <h2 class="ab-headline"><span class="ghost">Sometimes impact<br>happens </span>off the screen<br>and with great people.</h2>
+        <p class="ab-subtext">Things &amp; People around me inspire me to exceed my limits and that makes me 10x better.</p>
+      </div>
+      <div class="ab-grid reveal reveal-d2">
+        <div class="ab-grid-col outer">
+          <div class="ab-grid-img"><img src="images/about/A_Stage3_Img1.png" alt="" /></div>
+          <div class="ab-grid-img"><img src="images/about/A_Stage3_Img2.png" alt="" /></div>
+        </div>
+        <div class="ab-grid-col">
+          <div class="ab-grid-img"><img src="images/about/A_Stage3_Img3.png" alt="" /></div>
+          <div class="ab-grid-img"><img src="images/about/A_Stage3_Img4.png" alt="" /></div>
+        </div>
+        <div class="ab-grid-col outer">
+          <div class="ab-grid-img"><img src="images/about/A_Stage3_Img5.png" alt="" /></div>
+          <div class="ab-grid-img"><img src="images/about/A_Stage3_Img6.png" alt="" /></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── INFO SECTION: Experience / Tools / Skills ─── -->
+  <div class="info-scroll" id="info-scroll">
+  <section class="info-section">
+    <div class="info-bg-reveal" id="info-bg-reveal"></div>
+    <div class="info-bg-layer" id="info-bg-layer"></div>
+    <div class="info-card-wrap">
+    <div class="info-card" id="info-card-el">
+
+      <!-- Tab nav -->
+      <div class="info-tabs">
+        <button class="info-tab active" data-panel="experience">Experience</button>
+        <button class="info-tab" data-panel="tools">Tools</button>
+        <button class="info-tab" data-panel="skills">Skills &amp; Competence</button>
+      </div>
+
+      <!-- Experience -->
+      <div class="info-panel active" id="panel-experience">
+        <div class="exp-list">
+          <div class="exp-item">
+            <div class="exp-logo"><img src="images/Logos/Ovasys_LogoImg.png" alt="Ovasys" style="padding: 3px;" /></div>
+            <div class="exp-info">
+              <div class="exp-company">Ovasys (Freelance)</div>
+              <div class="exp-role">Product Designer</div>
+            </div>
+            <span class="exp-year">2025</span>
+          </div>
+          <div class="exp-item">
+            <div class="exp-logo"><img src="images/Logos/CasestudyRevwit_logoImg.png" alt="Revwit" style="padding: 0;" /></div>
+            <div class="exp-info">
+              <div class="exp-company">Revwit</div>
+              <div class="exp-role">Product &amp; Brand Designer</div>
+            </div>
+            <span class="exp-year">2024 · 25</span>
+          </div>
+          <div class="exp-item">
+            <div class="exp-logo"><img src="images/Logos/Insite_logoImg.png" alt="Insite Pro" style="padding: 4px;" /></div>
+            <div class="exp-info">
+              <div class="exp-company">Insite Pro</div>
+              <div class="exp-role">Product Designer</div>
+            </div>
+            <span class="exp-year">2023 · 24</span>
+          </div>
+          <div class="exp-item">
+            <div class="exp-logo"><img src="images/Logos/Pretzl_LogoImg.png" alt="Pretzel" /></div>
+            <div class="exp-info">
+              <div class="exp-company">Pretzel</div>
+              <div class="exp-role">Product Designer</div>
+            </div>
+            <span class="exp-year">2021 · 22</span>
+          </div>
+          <div class="exp-item">
+            <div class="exp-logo"><img src="images/Logos/NextHandle_LogoImg.png" alt="NextHandle" /></div>
+            <div class="exp-info">
+              <div class="exp-company">NextHandle</div>
+              <div class="exp-role">Product &amp; Brand Designer</div>
+            </div>
+            <span class="exp-year">2021 · 22</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tools -->
+      <div class="info-panel" id="panel-tools">
+        <div class="tools-group">
+          <div class="tools-group-label">Design &amp; Development</div>
+          <div class="tools-row">
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/Frame 1171275207.png" alt="Figma" /></div><span>Figma</span></div>
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/Framer_IconImg.png" alt="Framer" /></div><span>Framer</span></div>
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/Relume_IconImg.png" alt="Relume" /></div><span>Relume</span></div>
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/ImageFX_IconImg.png" alt="Image FX" /></div><span>Image FX</span></div>
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/Midjourney_IconImg.png" alt="Midjourney" /></div><span>Midjourney</span></div>
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/Jitter_IconImg.png" alt="Jitter" /></div><span>Jitter</span></div>
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/VSCode_IconImg.png" alt="VS Code" /></div><span>VS Code</span></div>
+          </div>
+        </div>
+        <div class="tools-group">
+          <div class="tools-group-label">Research &amp; Admin</div>
+          <div class="tools-row">
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/ChatGPT_IconImg.png" alt="GPT" /></div><span>GPT</span></div>
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/Claude_IconImg.png" alt="Claude" /></div><span>Claude</span></div>
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/Linear_IconImg.png" alt="Linear" /></div><span>Linear</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills & Competence -->
+      <div class="info-panel" id="panel-skills">
+        <div class="skills-grid">
+          <div class="skill-item"><div class="skill-check"><img src="images/Icons/IconCheck.svg" alt="" /></div>UI/UX Design</div>
+          <div class="skill-item"><div class="skill-check"><img src="images/Icons/IconCheck.svg" alt="" /></div>Brand Design</div>
+          <div class="skill-item"><div class="skill-check"><img src="images/Icons/IconCheck.svg" alt="" /></div>Design System Design</div>
+          <div class="skill-item"><div class="skill-check"><img src="images/Icons/IconCheck.svg" alt="" /></div>Graphic Design</div>
+          <div class="skill-item"><div class="skill-check"><img src="images/Icons/IconCheck.svg" alt="" /></div>Motion Design</div>
+          <div class="skill-item"><div class="skill-check"><img src="images/Icons/IconCheck.svg" alt="" /></div>Presentation &amp; Deck Design</div>
+          <div class="skill-item"><div class="skill-check"><img src="images/Icons/IconCheck.svg" alt="" /></div>No Code Development</div>
+          <div class="skill-item"><div class="skill-check"><img src="images/Icons/IconCheck.svg" alt="" /></div>HTML &amp; CSS</div>
+          <div class="skill-item"><div class="skill-check"><img src="images/Icons/IconCheck.svg" alt="" /></div>React</div>
+          <div class="skill-item"><div class="skill-check"><img src="images/Icons/IconCheck.svg" alt="" /></div>Product Strategy</div>
+          <div class="skill-item"><div class="skill-check"><img src="images/Icons/IconCheck.svg" alt="" /></div>User Research</div>
+        </div>
+      </div>
+
+    </div>
+    </div><!-- /.info-card-wrap -->
+  </section>
+  </div><!-- /.info-scroll -->
+
+  <!-- ─── FOOTER ─── -->
+  <section id="contact">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-headline">Get in&#10;touch now...</div>
+        <div class="footer-nav-links">
+          <a href="index.html">Home</a>
+          <a href="ux-projects.html">UX Projects</a>
+          <a href="graphics.html">Graphics</a>
+          <a href="lab.html">Lab</a>
+          <a href="blog.html">Blogs</a>
+          <a href="about.html">About</a>
+        </div>
+        <a href="about.html" class="hero-avatar-wrap">
+          <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi" class="hero-avatar-illustrated" />
+          <img src="images/hero/OlaAvatar_realImg.png" alt="Ola Fakomi" class="hero-avatar-real" />
+        </a>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-contact-bar">
+          <div class="footer-social-icons" id="footer-icons">
+            <a href="#" class="footer-social-icon" data-label="olarewajufakomi@gmail.com" data-action="copy">
+              <img src="images/Icons/Email_IconImg.svg" alt="Email" width="32" height="32">
+            </a>
+            <a href="https://x.com/olafakomi" target="_blank" class="footer-social-icon" data-label="x.com/olafakomi">
+              <img src="images/Icons/TwitterX_IconImg.svg" alt="Twitter" width="32" height="32">
+            </a>
+            <a href="https://takesbyovasys.substack.com" target="_blank" class="footer-social-icon" data-label="takesbyovasys.substack.com">
+              <img src="images/Icons/SubstackEmail_IconImg.svg" alt="Substack" width="32" height="32">
+            </a>
+            <a href="https://www.linkedin.com/in/olafakomi" target="_blank" class="footer-social-icon" data-label="linkedin.com/in/olafakomi">
+              <img src="images/Icons/LinkedInEmail_IconImg.svg" alt="LinkedIn" width="32" height="32">
+            </a>
+          </div>
+          <span class="footer-email" id="footer-contact-label">olarewajufakomi@gmail.com</span>
+          <div class="footer-cta">
+            <a href="mailto:Olarewajufakomi@gmail.com" class="footer-cta-btn">Let's talk</a>
+          </div>
+        </div>
+        <p class="footer-copyright">© 2026 — Copyright</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    /* ─── Custom Cursor ─── */
+    const cursorSvg = document.getElementById('cursor-svg');
+    document.addEventListener('mousemove', e => {
+      cursorSvg.style.left = e.clientX + 'px';
+      cursorSvg.style.top  = e.clientY + 'px';
+    });
+
+
+    /* ─── Info Tabs ─── */
+    const infoTabs   = document.querySelectorAll('.info-tab');
+    const infoPanels = document.querySelectorAll('.info-panel');
+
+    infoTabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const p = btn.dataset.panel;
+        infoTabs.forEach(t => t.classList.toggle('active', t.dataset.panel === p));
+        infoPanels.forEach(panel => panel.classList.toggle('active', panel.id === 'panel-' + p));
+      });
+    });
+
+
+    /* ─── Lenis smooth scroll ─── */
+    const lenis = new Lenis({ autoRaf: true, autoToggle: true });
+
+    /* ─── Info section scroll driver ─── */
+    (function () {
+      const infoScroll   = document.getElementById('info-scroll');
+      const infoBg       = document.getElementById('info-bg-layer');
+      const infoBgReveal = document.getElementById('info-bg-reveal');
+      const infoCard     = document.getElementById('info-card-el');
+      const infoSec      = document.querySelector('.info-section');
+
+      if (!infoScroll) return;
+
+      function lerp(a, b, t) { return a + (b - a) * t; }
+
+      function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+      function onInfoScroll() {
+        const rect  = infoScroll.getBoundingClientRect();
+        const total = infoScroll.offsetHeight - window.innerHeight;
+        const t     = Math.max(0, Math.min(1, -rect.top / total));
+
+        // Card slides up + fades in as you scroll
+        const cardPhase = easeOut(Math.min(t / 0.6, 1));
+        infoCard.style.opacity   = cardPhase;
+        infoCard.style.transform = `translateY(${lerp(80, 0, cardPhase)}px)`;
+      }
+
+      // Cursor reveal — punch a hole in the water BG to show the layer beneath
+      infoSec.addEventListener('mousemove', function(e) {
+        const rect = infoSec.getBoundingClientRect();
+        infoBg.style.setProperty('--cx', (e.clientX - rect.left) + 'px');
+        infoBg.style.setProperty('--cy', (e.clientY - rect.top)  + 'px');
+      });
+      infoSec.addEventListener('mouseleave', function() {
+        infoBg.style.setProperty('--cx', '-999px');
+        infoBg.style.setProperty('--cy', '-999px');
+      });
+
+      // Drive scroll animation off Lenis for frame-perfect sync
+      lenis.on('scroll', onInfoScroll);
+      onInfoScroll();
+    })();
+
+    /* ─── Tick sounds ─── */
+    let _audioCtx;
+    function getAudioCtx() {
+      if (!_audioCtx) _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (_audioCtx.state === 'suspended') _audioCtx.resume();
+      return _audioCtx;
+    }
+    function playTick(freq, vol, dur) {
+      const ctx = getAudioCtx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.type = 'sine'; osc.frequency.value = freq;
+      gain.gain.setValueAtTime(vol, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur);
+      osc.start(ctx.currentTime); osc.stop(ctx.currentTime + dur);
+    }
+    function playClick() {
+      const ctx = getAudioCtx();
+      const dur = 0.018;
+      const buf = ctx.createBuffer(1, Math.floor(ctx.sampleRate * dur), ctx.sampleRate);
+      const data = buf.getChannelData(0);
+      for (let i = 0; i < data.length; i++) {
+        data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / data.length, 4);
+      }
+      const src = ctx.createBufferSource();
+      src.buffer = buf;
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.value = 1800;
+      filter.Q.value = 1.0;
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.09, ctx.currentTime);
+      src.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      src.start();
+      src.stop(ctx.currentTime + dur);
+    }
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('mouseenter', () => playTick(750, 0.10, 0.055));
+    });
+
+    /* ─── Global click sound ─── */
+    document.addEventListener('click', e => {
+      if (e.target.closest('a, button')) playClick();
+    }, { passive: true });
+
+    /* ─── Button & footer hover sounds ─── */
+    document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta').forEach(el => {
+      el.addEventListener('mouseenter', () => playTick(900, 0.08, 0.05));
+    });
+    document.querySelectorAll('.footer-social-icon, .footer-nav-links a, .footer-cta-btn').forEach(el => {
+      el.addEventListener('mouseenter', () => playTick(750, 0.06, 0.05));
+    });
+  
+    /* ─── Scroll reveal ─── */
+    (function() {
+      const revEls = document.querySelectorAll('.reveal');
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.12 });
+      revEls.forEach(el => obs.observe(el));
+    })();
+
+    /* ─── Footer social icon interactions ─── */
+    (function() {
+      var icons = document.querySelectorAll('.footer-social-icon');
+      var label = document.getElementById('footer-contact-label');
+      var emailIcon = document.querySelector('.footer-social-icon[data-action="copy"]');
+      var defaultLabel = 'olarewajufakomi@gmail.com';
+      if (!icons.length || !label) return;
+      function setActive(icon) {
+        icons.forEach(function(i) { i.classList.remove('active'); });
+        icon.classList.add('active');
+        label.textContent = icon.dataset.label || defaultLabel;
+      }
+      function resetDefault() {
+        icons.forEach(function(i) { i.classList.remove('active'); });
+        if (emailIcon) emailIcon.classList.add('active');
+        label.textContent = defaultLabel;
+      }
+      resetDefault();
+      icons.forEach(function(icon) {
+        icon.addEventListener('mouseenter', function() { setActive(icon); });
+      });
+      var container = document.querySelector('.footer-social-icons');
+      if (container) container.addEventListener('mouseleave', resetDefault);
+      if (emailIcon) {
+        emailIcon.addEventListener('click', function(e) {
+          e.preventDefault();
+          navigator.clipboard.writeText('olarewajufakomi@gmail.com').then(function() {
+            var prev = label.textContent;
+            label.textContent = 'Copied!';
+            setTimeout(function() { label.textContent = prev; }, 2000);
+          });
+        });
+      }
+    })();
+  </script>
+
+
+</body>
+</html>
