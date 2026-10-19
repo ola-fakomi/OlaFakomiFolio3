@@ -26,36 +26,19 @@ const selectors = Object.keys(FRAMES);
 const fromInternal = true;
 
 if (fromInternal) {
-  // ─── Internal navigation: start at hero, keep intro scrollable upward ────
+  // ─── Skip intro entirely — place items at frame 6, show hero at y:0 ──────
   document.documentElement.classList.remove('js-intro');
 
-  if (window.innerWidth <= 809) {
-    // Mobile: just reveal hero content, no scroll animation
-    gsap.set('.intro-copy', { y: 0 });
-    gsap.set('nav', { opacity: 1 });
-    document.querySelectorAll('.intro-item, .intro-copy').forEach(el => {
-      el.style.visibility = 'visible';
-    });
-  } else {
-    // Desktop: place items at frame 3 so the scrub owns their state.
-    selectors.forEach(sel =>
-      gsap.set(sel, { xPercent: -50, yPercent: -50, ...posNow(FRAMES[sel][2]) })
-    );
-    gsap.set('.intro-copy', { y: sy(HERO_OFFSET[2]) });
-    gsap.set('nav', { opacity: 0 });
-    document.querySelectorAll('.intro-item, .intro-copy').forEach(el => {
-      el.style.visibility = 'visible';
-    });
-
-    // scrub:true = no lag, so jumping to the end snaps the animation to frame 6 instantly.
-    startScrollPart(FRAMES, HERO_OFFSET, true);
-
-    // Jump to the end of the pin (62% vh → 100% progress → frame 6 / hero fully visible).
-    requestAnimationFrame(() => {
-      lenis.scrollTo(Math.round(window.innerHeight * 0.62), { immediate: true });
-    });
-  }
-  // No ScrollTrigger.refresh() on load — it would snap the scroll back after assets load.
+  // Place all floating items at their final off-screen positions (frame 6)
+  selectors.forEach(sel =>
+    gsap.set(sel, { xPercent: -50, yPercent: -50, ...posNow(FRAMES[sel][5]) })
+  );
+  gsap.set('.intro-copy', { y: 0 });
+  gsap.set('nav', { opacity: 1 });
+  document.querySelectorAll('.intro-item, .intro-copy').forEach(el => {
+    el.style.visibility = 'visible';
+  });
+  // No scroll trigger, no scroll jump — hero is visible immediately at top.
 
 } else {
 
