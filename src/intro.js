@@ -22,17 +22,8 @@ const posNow  = ([_x, y, r = 0]) => ({ y: sy(y), rotation: r });
 const posLive = ([_x, y, r = 0]) => ({ y: () => sy(y), rotation: r });
 const selectors = Object.keys(FRAMES);
 
-// ─── Skip intro when navigating from within the site ─────────────────────────
-// Only skip if the user arrived via an internal link (referrer is same origin).
-// Fresh loads, direct URL visits, and page refreshes all play the full intro.
-const fromInternal = (() => {
-  try {
-    const ref = new URL(document.referrer);
-    // Same origin but different page — genuine internal navigation (not a reload)
-    return ref.origin === location.origin && ref.pathname !== location.pathname;
-  }
-  catch (e) { return false; }
-})();
+// ─── Always start at hero — intro animation disabled ─────────────────────────
+const fromInternal = true;
 
 if (fromInternal) {
   // ─── Internal navigation: start at hero, keep intro scrollable upward ────
