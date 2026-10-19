@@ -35,7 +35,7 @@
       --r-sm:      10px;
       --r-md:      16px;
       --r-lg:      20px;
-      --max-w:     832px;
+      --max-w:     896px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -46,6 +46,7 @@
       color: var(--text);
       font-family: 'Unbounded', sans-serif;
       font-size: 15px;
+      font-weight: 300;
       line-height: 1.7;
       overflow-x: hidden;
       cursor: none;
@@ -164,8 +165,8 @@
       border-bottom: 1px solid var(--border);
     }
     .cs-logo {
-      width: 40px; height: 40px;
-      border-radius: 10px; overflow: hidden;
+      width: 56px; height: 56px;
+      border-radius: 18px; overflow: hidden;
       margin-bottom: 20px;
       background: #191919;
       box-shadow: 0 0 5.74px rgba(0,0,0,0.25),
@@ -246,7 +247,7 @@
       width: 32px; height: 32px; flex-shrink: 0;
       border-radius: 8px;
       background:
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 8l2.5 2.5 5.5-5.5' stroke='white' stroke-opacity='0.45' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 16px 16px no-repeat,
+        url("data:image/svg+xml,%3Csvg width='15' height='15' viewBox='0 0 15 15' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.6959 1.88175C11.8288 1.80178 11.9876 1.77641 12.1388 1.81098C12.2901 1.84555 12.4221 1.93736 12.5071 2.06715L13.1011 2.97315C13.1785 3.09151 13.2116 3.23342 13.1946 3.37383C13.1776 3.51424 13.1115 3.64412 13.0081 3.74055L13.0063 3.74295L12.9979 3.75075L12.9637 3.78255L12.8287 3.91155C12.0817 4.63615 11.3574 5.38371 10.6567 6.15315C9.33847 7.60275 7.77307 9.49995 6.71947 11.3408C6.42547 11.8544 5.70727 11.9648 5.28127 11.5214L1.39027 7.47855C1.33451 7.4206 1.29097 7.35202 1.26224 7.2769C1.23351 7.20178 1.22018 7.12165 1.22303 7.04127C1.22589 6.96089 1.24487 6.88191 1.27886 6.80902C1.31285 6.73613 1.36114 6.67081 1.42087 6.61695L2.59687 5.55615C2.70022 5.46298 2.83273 5.40862 2.97174 5.40238C3.11075 5.39614 3.2476 5.43841 3.35887 5.52195L5.34427 7.01055C8.44567 3.95235 10.2043 2.77875 11.6959 1.88175Z' fill='white' fill-opacity='0.45' fill-rule='evenodd' clip-rule='evenodd'/%3E%3C/svg%3E") center / 15px 15px no-repeat,
         linear-gradient(180deg, rgba(53,53,55,0.6) 0%, rgba(31,30,30,0.6) 100%);
       box-shadow: 0 0 5.74px rgba(0,0,0,0.25),
                   inset -1.4px -1.4px 0 rgba(255,255,255,0.02),
@@ -313,6 +314,7 @@
       font-size: 14px; color: var(--text-dim);
       line-height: 1.7; margin-bottom: 20px;
     }
+    .feature-desc strong { color: var(--text); font-weight: 300; }
     .feature-cols {
       display: grid; grid-template-columns: 1fr 1fr 1fr;
       gap: 14px; margin-bottom: 4px;
@@ -536,7 +538,7 @@
       <div class="cs-logo">
         <img src="images/Logos/CasestudyRevwit_logoImg.png" alt="Revwit">
       </div>
-      <h1 class="cs-title"><span class="accent">Revwit</span> — AI-enabled B2B Sales CRM</h1>
+      <h1 class="cs-title"><span class="accent">Revwit:</span> AI-enabled B2B Sales CRM</h1>
       <p class="cs-subtitle">Revwit is a Sales CRM designed for B2B Sales teams to help capture leads, optimise sales processes, manage client relationships and close more deals, faster and more efficiently.</p>
       <div class="cs-hero-img">
         <img src="images/projects/RevwitCasestudy/Revwit Hero.png" alt="Revwit CRM Interface">
@@ -904,12 +906,12 @@
 
   <div class="cs-footer">
     <a href="index.html" class="back-home">
-      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M8 2.5L4.5 6.5L8 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <img src="images/Icons/Iconleft.svg" alt="" width="16" height="16" style="filter:brightness(0) invert(1) opacity(0.7);">
       Back to Home
     </a>
     <a href="trib.html" class="next-cs">
       Trib
-      <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M5 2.5L9 7L5 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <img src="images/Icons/IconRight.svg" alt="" width="16" height="16" style="filter:brightness(0) invert(1) opacity(0.7);">
     </a>
   </div>
 
