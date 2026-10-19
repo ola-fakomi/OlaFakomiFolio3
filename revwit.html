@@ -11,7 +11,7 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Revwit Case Study — Ola Fakomi</title>
+  <title>Revwit Case Study - Ola Fakomi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -35,7 +35,7 @@
       --r-sm:      10px;
       --r-md:      16px;
       --r-lg:      20px;
-      --max-w:     896px;
+      --max-w:     960px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -284,6 +284,9 @@
       gap: 16px; margin-bottom: 16px;
     }
     @media (max-width: 560px) { .two-col { grid-template-columns: 1fr; } }
+    .stack-col {
+      display: flex; flex-direction: column; gap: 16px; margin-bottom: 16px;
+    }
 
     /* ── INFO CARD ───────────────────────────────────────── */
     .info-card {
@@ -316,10 +319,9 @@
     }
     .feature-desc strong { color: var(--text); font-weight: 300; }
     .feature-cols {
-      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      display: flex; flex-direction: column;
       gap: 14px; margin-bottom: 4px;
     }
-    @media (max-width: 560px) { .feature-cols { grid-template-columns: 1fr; } }
     .feature-img {
       width: 100%; border-top: 1px solid var(--border);
       background: #f0f7f2;
@@ -554,7 +556,7 @@
       </div>
       <div class="pill pill-default">TL;DR</div>
       <div class="tldr">
-        <p>I led product and brand design for Revwit, a B2B sales CRM that uses AI to optimise the sales process by capturing leads, tracking deals and building stronger client relationships. Leading to the acquisition of 200+ users in the first week of launch and a special feature in multiple tech publications — including Lagos Startup Expo, African Startup Festival and an interview on Silverbird.</p>
+        <p>I led product and brand design for Revwit, a B2B sales CRM that uses AI to optimise the sales process by capturing leads, tracking deals and building stronger client relationships. Leading to the acquisition of 200+ users in the first week of launch and a special feature in multiple tech publications, including Lagos Startup Expo, African Startup Festival and an interview on Silverbird.</p>
       </div>
     </section>
 
@@ -562,7 +564,7 @@
     <section class="cs-section">
       <h2 class="cs-section-title">Business Context &amp; Problem</h2>
       <p class="cs-body">Revwit helps B2B teams capture leads, auto-enrich missing data, and optimise communication and deal tracking amongst teams. The product was functional but adoption and retention were low; the website and marketing had different messaging.</p>
-      <div class="two-col">
+      <div class="stack-col">
         <div class="info-card">
           <div class="pill pill-default" style="margin-bottom:12px;">Business goals</div>
           <ul class="check-list">
@@ -590,7 +592,7 @@
         <li>Redesigned brand identity and marketing assets (website, landing pages, hero videos, pitch decks).</li>
         <li>Ran usability tests in collaboration with customer support and iterated on onboarding copy/flows.</li>
         <li>Created motion specs and handed off to engineers and motion designers to implement on website and marketing campaigns.</li>
-        <li>Coordinated Ops — A/B tests with Growth, Support, and Sales team to measure impact and seamlessly onboard clients.</li>
+        <li>Coordinated Ops: A/B tests with Growth, Support, and Sales team to measure impact and seamlessly onboard clients.</li>
       </ul>
     </section>
 
@@ -601,8 +603,8 @@
         <div class="info-card">
           <div class="pill pill-blue" style="margin-bottom:12px;">Primary users</div>
           <ul class="check-list">
-            <li>Sales Managers (use the product daily) — goals: reduce manual work, increase pipeline.</li>
-            <li>Revenue Ops — goals: accurate data and predictable forecasting.</li>
+            <li>Sales Managers (use the product daily): reduce manual work, increase pipeline.</li>
+            <li>Revenue Ops: accurate data and predictable forecasting.</li>
           </ul>
         </div>
         <div class="info-card">
@@ -632,7 +634,7 @@
         <ul class="check-list">
           <li>Sales teams would be willing to migrate to a cheaper, less cumbersome tool over Zoho, Pipedrive and Salesforce.</li>
           <li>Onboarding for competitors was a point of friction due to too many technical steps tailored to experienced sales teams.</li>
-          <li>Revwit onboarding required 3 separate configuration steps — many dropped at step 2.</li>
+          <li>Revwit onboarding required 3 separate configuration steps, many dropped at step 2.</li>
           <li>Website messaging used product jargon and failed to communicate ROI clearly.</li>
         </ul>
       </div>
@@ -641,13 +643,13 @@
     <!-- DESIGN PRINCIPLES -->
     <section class="cs-section">
       <h2 class="cs-section-title">Design Principles &amp; Hypothesis</h2>
-      <div class="two-col" style="margin-top:12px;">
+      <div class="stack-col" style="margin-top:12px;">
         <div class="info-card">
           <div class="pill pill-blue" style="margin-bottom:12px;">Principles</div>
           <ul class="check-list">
-            <li>Make terms simple — make the CRM easily understandable.</li>
-            <li>Remove friction — fewer decisions up-front and automated onboarding for data import.</li>
-            <li>Surface value quickly — show measurable ROI within first session.</li>
+            <li>Make terms simple, make the CRM easily understandable.</li>
+            <li>Remove friction: fewer decisions up-front and automated onboarding for data import.</li>
+            <li>Surface value quickly: show measurable ROI within first session.</li>
           </ul>
         </div>
         <div class="info-card">
@@ -699,7 +701,7 @@
         <div class="feature-body">
           <div class="feature-num">Feature 2</div>
           <div class="feature-title">Single Source of Truth</div>
-          <p class="feature-desc">All of your leads, interactions and insight in one place — viewed as a table or Kanban view categorised by deal status. Deals can also be viewed in multiple currencies.</p>
+          <p class="feature-desc">All of your leads, interactions and insight in one place, viewed as a table or Kanban view categorised by deal status. Deals can also be viewed in multiple currencies.</p>
           <div class="feature-cols">
             <div>
               <div class="pill pill-red">Problem</div>
@@ -836,7 +838,7 @@
     <section class="cs-section">
       <h2 class="cs-section-title">Marketing Materials</h2>
       <p class="cs-body">The rebrand had to be universal and across all platforms. It was necessary to produce both physical and online marketing materials.</p>
-      <div class="two-col">
+      <div class="stack-col">
         <div class="info-card">
           <div class="pill pill-default" style="margin-bottom:12px;">Deliverable</div>
           <ul class="check-list">
@@ -954,7 +956,7 @@
             <a href="mailto:Olarewajufakomi@gmail.com" class="footer-cta-btn">Let's talk</a>
           </div>
         </div>
-        <p class="footer-copyright">© 2026 — Copyright</p>
+        <p class="footer-copyright">© 2026 Copyright</p>
       </div>
     </div>
   </section>
