@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <script src="src/nav.js" defer></script>
+  <script type="module" src="src/nav.js"></script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -64,6 +64,8 @@
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
       opacity: 0.35; pointer-events: none; z-index: 9000;
     }
+
+    @media (pointer: coarse), (max-width: 860px) { body { cursor: auto; } .cursor-svg { display: none; } }
 
     /* ─── Cursor ─── */
     .cursor-svg {
@@ -143,22 +145,26 @@
     .mobile-menu { display: none; }
     @media (max-width: 860px) {
       .mobile-menu {
-        position: fixed; top: var(--nav-h); left: 0; right: 0;
+        position: fixed; top: 0; left: 0; right: 0;
         background: rgba(20,20,20,0.98); backdrop-filter: blur(20px);
-        border-bottom: 1px solid var(--border); z-index: 99;
-        padding: 24px 20px 32px;
+        border-bottom: 1px solid var(--border); z-index: 9490;
+        padding: 96px 20px 32px; min-height: 50vh;
         transform: translateY(-110%);
-        transition: transform 0.35s cubic-bezier(0.32,0,0,1);
+        visibility: hidden;
+        transition: transform 0.35s cubic-bezier(0.32,0,0,1), visibility 0s linear 0.35s;
         display: flex; flex-direction: column; gap: 4px;
       }
-      .mobile-menu.open { transform: translateY(0); }
+      .mobile-menu.open { transform: translateY(0); visibility: visible; transition: transform 0.35s cubic-bezier(0.32,0,0,1), visibility 0s; }
+      .nav-toggle { display: flex; }
+      .nav-inner { padding: 0 20px; max-width: 100%; }
+      .nav-links { display: none; }
     }
     .mobile-menu a {
       display: block; padding: 14px 0;
       border-bottom: 1px solid var(--border);
       font-family: 'Unbounded', sans-serif;
       font-size: var(--text-size-ui); font-weight: var(--text-weight);
-      color: var(--text-dim); text-decoration: none; transition: color 0.2s;
+      color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s;
     }
     .mobile-menu a:hover { color: var(--text); }
     .mobile-menu a:last-child { border-bottom: none; }
@@ -337,11 +343,16 @@
       .nav-toggle { display: flex; }
       .nav-inner { padding: 0 20px; max-width: 100%; }
       .nav-links { display: none; }
+      .lab-inner { padding: 0 20px; }
+      .section-label { font-size: 11px; }
+      .cs-title { font-size: 18px; }
       .footer-inner { padding: 40px 20px 0; }
-    }
-    @media (max-width: 640px) {
-.footer-top { flex-direction: column; gap: 40px; }
-      .footer-headline { font-size: 40px; }
+      .footer-top { flex-direction: column; gap: 32px; }
+      .footer-top > .hero-avatar-wrap { order: -2; }
+      .footer-headline { order: -1; font-size: 24px; }
+      .footer-nav-links { order: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 0; width: 100%; }
+      .footer-nav-links a { font-size: 13px; font-weight: 300; }
+      .footer-contact-bar { flex-direction: row; padding: 4px; }
       .footer-email { display: none; }
     }
   </style>
@@ -396,17 +407,17 @@
       <div class="footer-bottom">
         <div class="footer-contact-bar">
           <div class="footer-social-icons" id="footer-icons">
-            <a href="#" class="footer-social-icon active" data-label="olarewajufakomi@gmail.com" data-action="copy">
-              <img src="images/Icons/Email_IconImg.svg" alt="Email" width="20" height="20">
+            <a href="#" class="footer-social-icon" data-label="olarewajufakomi@gmail.com" data-action="copy">
+              <img src="images/Icons/Email_IconImg.svg" alt="Email" width="32" height="32">
             </a>
             <a href="https://x.com/olafakomi" target="_blank" class="footer-social-icon" data-label="x.com/olafakomi">
-              <img src="images/Icons/TwitterX_IconImg.svg" alt="Twitter" width="20" height="20">
+              <img src="images/Icons/TwitterX_IconImg.svg" alt="Twitter" width="32" height="32">
             </a>
             <a href="https://takesbyovasys.substack.com" target="_blank" class="footer-social-icon" data-label="takesbyovasys.substack.com">
-              <img src="images/Icons/SubstackEmail_IconImg.svg" alt="Substack" width="20" height="20">
+              <img src="images/Icons/SubstackEmail_IconImg.svg" alt="Substack" width="32" height="32">
             </a>
             <a href="https://www.linkedin.com/in/olafakomi" target="_blank" class="footer-social-icon" data-label="linkedin.com/in/olafakomi">
-              <img src="images/Icons/LinkedInEmail_IconImg.svg" alt="LinkedIn" width="20" height="20">
+              <img src="images/Icons/LinkedInEmail_IconImg.svg" alt="LinkedIn" width="32" height="32">
             </a>
           </div>
           <span class="footer-email" id="footer-contact-label">olarewajufakomi@gmail.com</span>

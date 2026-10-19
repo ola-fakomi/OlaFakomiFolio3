@@ -18,9 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
     wrapper.style.height = ''; // reset before recalculating
 
     ctx = gsap.context(() => {
-      const vh    = window.innerHeight;
-      const cardH = cards[0].offsetHeight;
-      const GAP   = Math.round(vh / 2); // vh/2 gap between cards
+      const vh       = window.innerHeight;
+      const cardH    = cards[0].offsetHeight;
+      const isMobile = window.innerWidth <= 860;
+      const GAP      = isMobile ? Math.round(vh / 4) : Math.round(vh / 2);
 
       // Park cards in a chain below the viewport
       cards.forEach((card, i) => {
@@ -34,8 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
       // All cards move this many pixels to clear card 3 off the top
       const totalTravel = vh + 20 + 2 * (cardH + GAP) + cardH + 50;
 
-      // Text-only phase before cards start
-      const textPhase = Math.round(vh / 3);
+      // Text-only phase before cards start (0 on mobile — first card enters immediately)
+      const textPhase = isMobile ? 0 : Math.round(vh / 3);
       const totalPin  = textPhase + totalTravel;
 
       // The wrapper height = totalPin + vh so that:

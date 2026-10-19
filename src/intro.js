@@ -36,24 +36,34 @@ const fromInternal = (() => {
 
 if (fromInternal) {
   // ─── Internal navigation: start at hero, keep intro scrollable upward ────
-  // Place items at frame 3 (start of scroll phase) so the scrub owns their state.
-  selectors.forEach(sel =>
-    gsap.set(sel, { xPercent: -50, yPercent: -50, ...posNow(FRAMES[sel][2]) })
-  );
-  gsap.set('.intro-copy', { y: sy(HERO_OFFSET[2]) });
-  gsap.set('nav', { opacity: 0 });
-  document.querySelectorAll('.intro-item, .intro-copy').forEach(el => {
-    el.style.visibility = 'visible';
-  });
   document.documentElement.classList.remove('js-intro');
 
-  // scrub:true = no lag, so jumping to the end snaps the animation to frame 6 instantly.
-  startScrollPart(FRAMES, HERO_OFFSET, true);
+  if (window.innerWidth <= 809) {
+    // Mobile: just reveal hero content, no scroll animation
+    gsap.set('.intro-copy', { y: 0 });
+    gsap.set('nav', { opacity: 1 });
+    document.querySelectorAll('.intro-item, .intro-copy').forEach(el => {
+      el.style.visibility = 'visible';
+    });
+  } else {
+    // Desktop: place items at frame 3 so the scrub owns their state.
+    selectors.forEach(sel =>
+      gsap.set(sel, { xPercent: -50, yPercent: -50, ...posNow(FRAMES[sel][2]) })
+    );
+    gsap.set('.intro-copy', { y: sy(HERO_OFFSET[2]) });
+    gsap.set('nav', { opacity: 0 });
+    document.querySelectorAll('.intro-item, .intro-copy').forEach(el => {
+      el.style.visibility = 'visible';
+    });
 
-  // Jump to the end of the pin (62% vh → 100% progress → frame 6 / hero fully visible).
-  requestAnimationFrame(() => {
-    lenis.scrollTo(Math.round(window.innerHeight * 0.62), { immediate: true });
-  });
+    // scrub:true = no lag, so jumping to the end snaps the animation to frame 6 instantly.
+    startScrollPart(FRAMES, HERO_OFFSET, true);
+
+    // Jump to the end of the pin (62% vh → 100% progress → frame 6 / hero fully visible).
+    requestAnimationFrame(() => {
+      lenis.scrollTo(Math.round(window.innerHeight * 0.62), { immediate: true });
+    });
+  }
   // No ScrollTrigger.refresh() on load — it would snap the scroll back after assets load.
 
 } else {
@@ -73,7 +83,15 @@ if (fromInternal) {
     // ─── gsap.matchMedia: desktop vs mobile ──────────────────────────────────
     const mm = gsap.matchMedia();
     mm.add('(min-width: 810px)', () => boot(FRAMES, HERO_OFFSET));
-    mm.add('(max-width: 809px)', () => boot(FRAMES, HERO_OFFSET)); // TODO: mobile frames
+    mm.add('(max-width: 809px)', () => {
+      // Mobile: skip intro animation — jump straight to hero state
+      gsap.set('.intro-copy', { y: 0 });
+      gsap.set('nav', { opacity: 1 });
+      document.querySelectorAll('.intro-item, .intro-copy').forEach(el => {
+        el.style.visibility = 'visible';
+      });
+      document.documentElement.classList.remove('js-intro');
+    });
   }
 
   // Recalculate once all images and fonts have loaded.

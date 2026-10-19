@@ -27,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <script src="src/nav.js" defer></script>
+  <script type="module" src="src/nav.js"></script>
 
   <style>
     /* ─── Reset ─────────────────────────────────────────────── */
@@ -196,17 +196,18 @@
     .mobile-menu { display: none; }
     @media (max-width: 860px) {
       .mobile-menu {
-        position: fixed; top: var(--nav-h); left: 0; right: 0;
+        position: fixed; top: 0; left: 0; right: 0;
         background: rgba(20,20,20,0.98);
         backdrop-filter: blur(20px);
         border-bottom: 1px solid var(--border);
-        z-index: 99;
-        padding: 24px 20px 32px;
+        z-index: 9490;
+        padding: 96px 20px 32px; min-height: 50vh;
         transform: translateY(-110%);
-        transition: transform 0.35s cubic-bezier(0.32,0,0,1);
+        visibility: hidden;
+        transition: transform 0.35s cubic-bezier(0.32,0,0,1), visibility 0s linear 0.35s;
         display: flex; flex-direction: column; gap: 4px;
       }
-      .mobile-menu.open { transform: translateY(0); }
+      .mobile-menu.open { transform: translateY(0); visibility: visible; transition: transform 0.35s cubic-bezier(0.32,0,0,1), visibility 0s; }
       .nav-toggle { display: flex; }
       .nav-inner { padding: 0 20px; max-width: 100%; }
       .nav-links { display: none; }
@@ -216,7 +217,7 @@
       border-bottom: 1px solid var(--border);
       font-family: 'Unbounded', sans-serif;
       font-size: 13px; font-weight: 300;
-      color: var(--text-dim); text-decoration: none;
+      color: rgba(255,255,255,0.4); text-decoration: none;
       transition: color 0.2s;
     }
     .mobile-menu a:hover { color: var(--text); }
@@ -915,11 +916,23 @@
       .secondary-block { flex-direction: column; align-items: flex-start; }
       .av-grid { grid-template-columns: repeat(2, 1fr); }
     }
-    @media (max-width: 640px) {
+    @media (max-width: 860px) {
       .container { padding: 0 20px; }
-      .mob-br { display: block; }
       .vd-hero-headline { font-size: 20px; line-height: 1.2; }
-      .vd-hero-pre, .vd-hero-body { font-size: 14px; }
+      .vd-hero-pre, .vd-hero-body { font-size: 13px; }
+      .section-label { font-size: 11px; }
+      .cs-title { font-size: 18px; }
+      .footer-inner { padding: 40px 20px 0; }
+      .footer-top { flex-direction: column; gap: 32px; }
+      .footer-top > .hero-avatar-wrap { order: -2; }
+      .footer-headline { order: -1; font-size: 24px; }
+      .footer-nav-links { order: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 0; width: 100%; }
+      .footer-nav-links a { font-size: 13px; font-weight: 300; }
+      .footer-contact-bar { flex-direction: row; padding: 4px; }
+      .footer-email { display: none; }
+    }
+    @media (max-width: 640px) {
+      .mob-br { display: block; }
       .seq--2, .seq--3 { grid-template-columns: 1fr; }
       .seq--4 { grid-template-columns: 1fr 1fr; }
       .cs-video-row { grid-template-columns: 1fr; }
@@ -927,8 +940,6 @@
       .vd-hero-frames { grid-template-columns: 1fr 1fr; }
       .vd-hero-frame:last-child { display: none; }
       .secondary-block { padding: 28px 24px; }
-      .footer-headline { font-size: 32px; }
-      .footer-email { display: none; }
       .av-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
@@ -1161,10 +1172,12 @@
         <div class="footer-top">
           <div class="footer-headline">Get in&#10;touch now...</div>
           <div class="footer-nav-links">
-            <a href="/">Home</a>
-            <a href="#work">Work</a>
-            <a href="/#clients">Clients</a>
-            <a href="/#about">About</a>
+            <a href="index.html">Home</a>
+            <a href="ux-projects.html">UX Projects</a>
+            <a href="graphics.html">Graphics</a>
+            <a href="lab.html">Lab</a>
+            <a href="blog.html">Blogs</a>
+            <a href="about.html">About</a>
           </div>
           <a href="about.html" class="hero-avatar-wrap">
             <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi" class="hero-avatar-illustrated" loading="lazy" />

@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <script src="src/nav.js" defer></script>
+  <script type="module" src="src/nav.js"></script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -82,6 +82,8 @@
       z-index: 9000;
     }
 
+    @media (pointer: coarse), (max-width: 860px) { body { cursor: auto; } .cursor-svg { display: none; } }
+
     /* ─── Cursor ─── */
     .cursor-svg {
       position: fixed; pointer-events: none;
@@ -114,7 +116,7 @@
       font-size: var(--text-size-ui); font-weight: var(--text-weight);
       letter-spacing: var(--text-track-ui);
       color: rgba(255,255,255,0.45); text-decoration: none;
-      border-radius: 10px; transition: color 0.2s, background 0.2s;
+      border-radius: 10px; transition: color 0.2s;
     }
     .nav-links a .nav-icon {
       display: flex; align-items: center; justify-content: center;
@@ -126,7 +128,7 @@
     .nav-links a:hover .nav-icon img { opacity: 1; }
     .nav-links li.active > a .nav-icon,
     .nav-links a:hover .nav-icon { width: 13px; opacity: 1; }
-    .nav-links li.active > a { color: #fff; font-weight: var(--text-weight); }
+    .nav-links li.active > a { color: #fff; }
     .nav-links a:hover { color: #fff; }
     .nav-cta {
       padding: 13px 22px;
@@ -160,22 +162,26 @@
     .mobile-menu { display: none; }
     @media (max-width: 860px) {
       .mobile-menu {
-        position: fixed; top: var(--nav-h); left: 0; right: 0;
+        position: fixed; top: 0; left: 0; right: 0;
         background: rgba(20,20,20,0.98); backdrop-filter: blur(20px);
-        border-bottom: 1px solid var(--border); z-index: 99;
-        padding: 24px 20px 32px;
+        border-bottom: 1px solid var(--border); z-index: 9490;
+        padding: 96px 20px 32px; min-height: 50vh;
         transform: translateY(-110%);
-        transition: transform 0.35s cubic-bezier(0.32,0,0,1);
+        visibility: hidden;
+        transition: transform 0.35s cubic-bezier(0.32,0,0,1), visibility 0s linear 0.35s;
         display: flex; flex-direction: column; gap: 4px;
       }
-      .mobile-menu.open { transform: translateY(0); }
+      .mobile-menu.open { transform: translateY(0); visibility: visible; transition: transform 0.35s cubic-bezier(0.32,0,0,1), visibility 0s; }
+      .nav-toggle { display: flex; }
+      .nav-inner { padding: 0 20px; max-width: 100%; }
+      .nav-links { display: none; }
     }
     .mobile-menu a {
       display: block; padding: 14px 0;
       border-bottom: 1px solid var(--border);
       font-family: 'Unbounded', sans-serif;
       font-size: var(--text-size-ui); font-weight: var(--text-weight);
-      color: var(--text-dim); text-decoration: none; transition: color 0.2s;
+      color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s;
     }
     .mobile-menu a:hover { color: var(--text); }
     .mobile-menu a:last-child { border-bottom: none; }
@@ -481,18 +487,26 @@
     /* ─── Responsive ─── */
     @media (max-width: 860px) {
       .container { padding: 0 20px; }
-      .nav-toggle { display: flex; }
-      .nav-inner { padding: 0 20px; max-width: 100%; }
+      .sp-tabs {
+        margin-left: -20px;
+        margin-right: -20px;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      .sp-tabs::after { left: 0; right: 0; }
       .sp-preview { height: 260px; }
       .sp-roles-row { flex-direction: column; align-items: flex-start; gap: 10px; }
       .sp-tab { height: 34px; padding: 0 14px; }
-    }
-    @media (max-width: 700px) {
-      .footer-inner { padding: 40px 20px 0; }
-      .footer-top { flex-direction: column; gap: 40px; }
-      .footer-headline { font-size: 40px; }
-      .footer-email { display: none; }
+      .sp-name { font-size: 13px; }
       .sp-top-row { flex-direction: column; align-items: flex-start; gap: 12px; min-height: unset; }
+      .footer-inner { padding: 40px 20px 0; }
+      .footer-top { flex-direction: column; gap: 32px; }
+      .footer-top > .hero-avatar-wrap { order: -2; }
+      .footer-headline { order: -1; font-size: 24px; }
+      .footer-nav-links { order: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 0; width: 100%; }
+      .footer-nav-links a { font-size: 13px; font-weight: 300; }
+      .footer-contact-bar { flex-direction: row; padding: 4px; }
+      .footer-email { display: none; }
     }
   </style>
 </head>
@@ -807,10 +821,12 @@
       <div class="footer-top">
         <div class="footer-headline">Get in&#10;touch now...</div>
         <div class="footer-nav-links">
-          <a href="index.html">Homepage</a>
-          <a href="ux-projects.html">Projects</a>
-          <a href="graphics.html">Explorations</a>
-          <a href="blog.html">Blog</a>
+          <a href="index.html">Home</a>
+          <a href="ux-projects.html">UX Projects</a>
+          <a href="graphics.html">Graphics</a>
+          <a href="lab.html">Lab</a>
+          <a href="blog.html">Blogs</a>
+          <a href="about.html">About</a>
         </div>
         <a href="about.html" class="hero-avatar-wrap">
           <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi" class="hero-avatar-illustrated" />
@@ -882,7 +898,8 @@
       });
     });
   </script>
-  <script type="module" src="src/sounds.js">
+  <script type="module" src="src/sounds.js"></script>
+  <script>
     /* ─── Footer social icon interactions ─── */
     (function() {
       var icons = document.querySelectorAll('.footer-social-icon');

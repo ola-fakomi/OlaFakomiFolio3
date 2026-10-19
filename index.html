@@ -27,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <script src="src/nav.js" defer></script>
+  <script type="module" src="src/nav.js"></script>
 
   <style>
     /* ─── Reset ─── */
@@ -95,6 +95,8 @@
       z-index: 9000;
     }
 
+    @media (pointer: coarse), (max-width: 860px) { body { cursor: auto; } .cursor-svg { display: none; } }
+
     /* ─── Cursor ─── */
     .cursor-svg {
       position: fixed;
@@ -114,89 +116,57 @@
     /* ─── NAV ─── */
     nav {
       position: fixed; top: 0; left: 0; right: 0;
-      z-index: 9500;
-      background: transparent;
-      padding-top: 20px;
-      padding-bottom: 12px;
+      z-index: 9500; background: transparent;
+      padding-top: 20px; padding-bottom: 12px;
     }
-    .nav-inner {
-      max-width: 896px;
-      margin: 0 auto;
-      padding: 0;
-    }
+    .nav-inner { max-width: 896px; margin: 0 auto; padding: 0; }
     .nav-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(25,25,25,0.65);
-      border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 16px;
-      padding: 5px 5px 5px 8px;
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(25,25,25,0.65); border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 16px; padding: 5px 5px 5px 8px;
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
       box-shadow: 0 4px 24px rgba(0,0,0,0.35);
     }
-    .nav-links {
-      display: flex; align-items: center; gap: 0;
-      list-style: none;
-      margin: 0; padding: 0 8px;
-    }
+    .nav-links { display: flex; align-items: center; gap: 0; list-style: none; margin: 0; padding: 0 8px; }
     .nav-links a {
-      display: flex; align-items: center; gap: 4px;
-      padding: 4px 4px;
+      display: flex; align-items: center; gap: 4px; padding: 4px 4px;
       font-family: 'Unbounded', sans-serif;
-      font-size: var(--text-size-ui);
-      font-weight: var(--text-weight);
+      font-size: var(--text-size-ui); font-weight: var(--text-weight);
       letter-spacing: var(--text-track-ui);
-      color: rgba(255,255,255,0.45);
-      text-decoration: none;
-      border-radius: 10px;
-      transition: color 0.2s, background 0.2s;
+      color: rgba(255,255,255,0.45); text-decoration: none;
+      border-radius: 10px; transition: color 0.2s;
     }
     .nav-links a .nav-icon {
       display: flex; align-items: center; justify-content: center;
-      width: 0; height: 13px;
-      overflow: hidden;
-      opacity: 0;
-      flex-shrink: 0;
-      transition: width 0.2s, opacity 0.2s;
+      width: 0; height: 13px; overflow: hidden; opacity: 0;
+      flex-shrink: 0; transition: width 0.2s, opacity 0.2s;
     }
     .nav-links a .nav-icon img { width: 13px; height: 13px; flex-shrink: 0; display: block; opacity: 0.45; transition: opacity 0.2s; }
     .nav-links li.active > a .nav-icon img,
     .nav-links a:hover .nav-icon img { opacity: 1; }
     .nav-links li.active > a .nav-icon,
     .nav-links a:hover .nav-icon { width: 13px; opacity: 1; }
-    .nav-links li.active > a { color: #fff; font-weight: 300; }
+    .nav-links li.active > a { color: #fff; }
     .nav-links a:hover { color: #fff; }
     .nav-cta {
       padding: 13px 22px;
       background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
-      border: none;
-      color: #fff;
-      font-family: 'Unbounded', sans-serif;
-      font-size: var(--text-size-ui);
-      font-weight: var(--text-weight);
+      border: none; color: #fff; font-family: 'Unbounded', sans-serif;
+      font-size: var(--text-size-ui); font-weight: var(--text-weight);
       letter-spacing: var(--text-track-ui);
-      border-radius: 12px;
-      text-decoration: none;
-      white-space: nowrap;
-      position: relative;
-      overflow: hidden;
+      border-radius: 12px; text-decoration: none; white-space: nowrap;
+      position: relative; overflow: hidden;
       box-shadow: 0 0 4.1px rgba(0,0,0,0.25);
-      transition: opacity 0.2s, transform 0.2s;
-      flex-shrink: 0;
+      transition: opacity 0.2s, transform 0.2s; flex-shrink: 0;
     }
     .nav-cta::after {
-      content: '';
-      position: absolute; inset: 0;
-      border-radius: 10px;
+      content: ''; position: absolute; inset: 0; border-radius: 10px;
       box-shadow: inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
       pointer-events: none;
     }
     .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
     .nav-toggle {
-      display: none;
-      flex-direction: column; gap: 5px;
+      display: none; flex-direction: column; gap: 5px;
       background: none; border: none; cursor: pointer; padding: 4px;
     }
     .nav-toggle span {
@@ -207,31 +177,29 @@
     .nav-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
     .nav-toggle.open span:nth-child(2) { opacity: 0; }
     .nav-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-    /* ─── Mobile Menu ─── */
-    .mobile-menu {
-      display: none;
-    }
+    .mobile-menu { display: none; }
     @media (max-width: 860px) {
       .mobile-menu {
-        position: fixed; top: var(--nav-h); left: 0; right: 0;
-        background: rgba(20,20,20,0.98);
-        backdrop-filter: blur(20px);
-        border-bottom: 1px solid var(--border);
-        z-index: 99;
-        padding: 24px 20px 32px;
+        position: fixed; top: 0; left: 0; right: 0;
+        background: rgba(20,20,20,0.98); backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border); z-index: 9490;
+        padding: 96px 20px 32px; min-height: 50vh;
         transform: translateY(-110%);
-        transition: transform 0.35s cubic-bezier(0.32,0,0,1);
+        visibility: hidden;
+        transition: transform 0.35s cubic-bezier(0.32,0,0,1), visibility 0s linear 0.35s;
         display: flex; flex-direction: column; gap: 4px;
       }
-      .mobile-menu.open { transform: translateY(0); }
+      .mobile-menu.open { transform: translateY(0); visibility: visible; transition: transform 0.35s cubic-bezier(0.32,0,0,1), visibility 0s; }
+      .nav-toggle { display: flex; }
+      .nav-inner { padding: 0 20px; max-width: 100%; }
+      .nav-links { display: none; }
     }
     .mobile-menu a {
       display: block; padding: 14px 0;
       border-bottom: 1px solid var(--border);
       font-family: 'Unbounded', sans-serif;
       font-size: var(--text-size-ui); font-weight: var(--text-weight);
-      color: var(--text-dim); text-decoration: none;
-      transition: color 0.2s;
+      color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s;
     }
     .mobile-menu a:hover { color: var(--text); }
     .mobile-menu a:last-child { border-bottom: none; }
@@ -251,7 +219,7 @@
       display: flex;
       flex-direction: column;
     }
-    .hero-greeting { display: flex; flex-direction: column; padding: 0 8px 0 92px; }
+    .hero-greeting { display: flex; flex-direction: column; padding: 0; }
     .hero-middle {
       display: flex;
       flex-direction: row;
@@ -511,6 +479,10 @@
     .cs-card-3 .cs-card-label-frame { background: #E4E1FF; }
 
     .cs-num { color: rgba(0,0,0,0.35); }
+    .cs-card-title { display: none; }
+    .mob-br { display: none; }
+    .decks-mobile-strip { display: none; }
+    .decks-mob-modal { display: none; }
 
     /* ─── CS Card body ─── */
     .cs-card-body {
@@ -573,6 +545,7 @@
       color: #191919;
       display: -webkit-box;
       -webkit-line-clamp: 3;
+      line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
@@ -752,6 +725,10 @@
       height: 40px;
       flex-shrink: 0;
     }
+    /* Mobile item row wrapper — transparent on desktop */
+    .ai-build-item-row { display: contents; }
+    /* Mobile preview image inside item — hidden on desktop */
+    .ai-build-item-img { display: none; }
 
     /* ─── AI BUILD PREVIEW IMAGES ─── */
     .ai-build-preview {
@@ -1450,23 +1427,137 @@
 
     /* ─── Responsive ─── */
     @media (max-width: 860px) {
-      .hero-inner { padding: 48px 20px; }
+      /* Hero / Intro */
+      #intro { height: auto; overflow: hidden; }
+      .intro-copy { position: relative; top: 110px; }
+      .intro-item { display: none; }
+      .hero-bio-row { flex-direction: column; gap: 16px; }
+      .hero-subtext-ctas { gap: 12px; }
+      .greeting { font-size: 24px; }
+      .hero-name { font-size: 24px; margin-bottom: 4px; }
+      .hero-subtext-bio { font-size: 13px; font-weight: 300; }
+      .hero-ctas { margin-top: 20px; }
+
+      /* Case study label: handled in case studies section below */
+      .exp-card { display: none; }
+      .hero-inner { padding: 24px 20px 48px; }
+
+      /* Case Studies */
       .project-stack { padding: 0 24px; }
-      .nav-toggle { display: flex; }
-      .nav-inner { padding: 0 20px; max-width: 100%; }
+      .cs-cards { gap: 64px; }
+
+      /* Label tab: 32px, number only, per-card indentation */
+      .cs-card-label { margin-left: 24px; }
+      .cs-card-2 .cs-card-label { margin-left: 48px; }
+      .cs-card-3 .cs-card-label { margin-left: 24px; }
+      .cs-card-label-frame { width: 32px; padding: 0; font-size: 0; }
+      .cs-num { font-size: 11px; }
+
+      /* Card body: full vertical stack */
+      .cs-card-info { flex-direction: column; gap: 0; }
+      .cs-info-left { flex-direction: column; gap: 0; align-items: flex-start; flex: unset; }
+      .cs-card-logo { width: 48px; height: 48px; border-radius: 16px; }
+      .cs-card-title { display: block; font-family: 'Unbounded', sans-serif; font-size: 15px; font-weight: 500; color: #191919; letter-spacing: 0.01em; line-height: 1.2; margin: 24px 0 0; }
+      .cs-card-desc { font-size: 13px; font-weight: 300; padding-right: 0; margin-top: 8px; -webkit-line-clamp: unset; line-clamp: unset; overflow: visible; display: block; }
+      .cs-info-right { flex-direction: column; gap: 0; align-items: flex-start; flex: unset; margin-top: 20px; }
+      .cs-roles-pill { font-size: 11px; font-weight: 400; height: 40px; }
+      .cs-case-btn { font-size: 11px; font-weight: 400; margin-top: -4px; height: 40px; }
+
+      /* AI Builds */
+      .cs-card-4 { position: relative; height: auto; padding: 120px 20px 60px; }
+      .ai-builds-inner { width: 100%; }
+      .ai-build-preview { display: none; }
+      .ai-builds-list { gap: 12px; }
+      .ai-build-item { flex-direction: column; align-items: stretch; gap: 8px; padding: 8px; border-radius: 20px; }
+      .ai-build-item-row { display: flex; align-items: center; width: 100%; padding-left: 8px; gap: 6px; }
+      .ai-build-item-img { display: block; width: 100%; border-radius: 16px; object-fit: cover; aspect-ratio: 16/9; }
+      .ai-build-name { font-size: 13px; font-weight: 300; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+      /* LP / Websites */
+      .lp-inner { padding: 0 20px; }
+      .lp-label { font-size: 11px; }
+      .lp-heading { font-size: 24px; font-weight: 300; }
+
+      /* Decks */
+      .decks-section { padding: 60px 0; }
+      .decks-row { display: none; }
+      .decks-inner { text-align: center; padding: 48px 20px 120px; }
+      .decks-label { font-size: 11px; }
+      .decks-heading { font-size: 24px; font-weight: 300; }
+      .mob-br { display: inline; }
+      .desk-br { display: none; }
+      .decks-mobile-strip {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 12px;
+        padding: 0 12.5vw 24px;
+        scrollbar-width: none;
+      }
+      .decks-mobile-strip::-webkit-scrollbar { display: none; }
+      .decks-mobile-card {
+        flex: 0 0 75vw;
+        scroll-snap-align: center;
+        border-radius: 12px;
+        overflow: hidden;
+        opacity: 0.2;
+        transition: opacity 0.3s ease;
+      }
+      .decks-mobile-card.active { opacity: 1; }
+      .decks-mobile-card img { width: 100%; display: block; }
+
+      /* Clients */
+      .clients-inner { display: flex; flex-direction: column; padding: 60px 16px; text-align: left; align-items: flex-start; gap: 8px; }
+      .clients-heading { order: -1; font-size: 24px; font-weight: 300; line-height: 1.25; margin: 0 0 16px; text-align: center; align-self: center; }
+      .clients-pills-row { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; }
+      /* Reorder pill rows to match image: IgniteTunes group → All Clear Glass group → Insite group → Ride Vendor group */
+      .clients-inner > :nth-child(1) { order: 1; }
+      .clients-inner > :nth-child(2) { order: 2; }
+      .clients-inner > :nth-child(4) { order: 0; }
+      .clients-inner > :nth-child(5) { order: 3; }
+
+      /* Deck modal */
+      .decks-mob-modal {
+        display: none; position: fixed; inset: 0;
+        background: rgba(0,0,0,0.92); z-index: 9999;
+        flex-direction: column; align-items: center; justify-content: center;
+        padding: 20px;
+      }
+      .decks-mob-modal.open { display: flex; }
+      .decks-mob-close {
+        position: absolute; top: 20px; right: 20px;
+        width: 36px; height: 36px; border-radius: 10px;
+        background: #2a2a2a; border: none; color: #fff;
+        font-size: 18px; cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+      }
+      .decks-mob-carousel {
+        display: flex; overflow-x: auto;
+        scroll-snap-type: x mandatory; gap: 12px;
+        width: 100%; scrollbar-width: none;
+      }
+      .decks-mob-carousel::-webkit-scrollbar { display: none; }
+      .decks-mob-slide {
+        flex: 0 0 85vw; scroll-snap-align: center;
+        border-radius: 12px; overflow: hidden;
+      }
+      .decks-mob-slide img { width: 100%; display: block; }
+
+      /* Footer */
+      .footer-inner { padding: 40px 20px 0; }
+      .footer-top { flex-direction: column; gap: 32px; }
+      .footer-top > .hero-avatar-wrap { order: -2; }
+      .footer-headline { order: -1; font-size: 24px; }
+      .footer-nav-links { order: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 0; width: 100%; }
+      .footer-nav-links a { font-size: 13px; font-weight: 300; }
     }
     @media (max-width: 700px) {
       .hero-middle { flex-direction: column; }
-      .exp-card img { height: 120px; }
-      .hero-name { font-size: 36px; }
       .panel-header { flex-direction: column; }
       .panel-meta { align-items: flex-start; }
       .role-chip { white-space: normal; }
       .tab-head { padding: 10px 16px 12px; font-size: 8.5px; }
       .nav-links a span { display: none; }
-      .footer-inner { padding: 40px 20px 0; }
-      .footer-top { flex-direction: column; gap: 40px; }
-      .footer-headline { font-size: 40px; }
       .footer-contact-bar { flex-direction: row; padding: 4px; }
       .footer-email { display: none; }
     }
@@ -1479,6 +1570,11 @@
     html.js-intro .intro-item,
     html.js-intro .intro-copy { visibility: hidden; }
     html.js-intro nav { opacity: 0; }
+    @media (max-width: 860px) {
+      html.js-intro nav { opacity: 1 !important; }
+      html.js-intro .intro-copy { visibility: visible !important; }
+      html.js-intro .case-stack { opacity: 1 !important; }
+    }
 
     #intro {
       position: relative;
@@ -1780,6 +1876,74 @@
       border-radius: 12px 0 0 12px;
       background: linear-gradient(to right, #353537, #1C1C1C);
     }
+
+    /* ─── Slide modal: mobile overrides (must be after desktop defs) ─── */
+    @media (max-width: 860px) {
+      .slide-modal-wrap {
+        width: 92vw;
+        max-width: 92vw;
+        height: 90dvh;
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+      }
+      .slide-modal-label { margin-left: 16px; align-self: flex-start; }
+      .slide-modal-label-frame { font-size: 11px; padding: 0 4px; }
+      .slide-modal-body {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        border-radius: 20px 20px 16px 16px;
+        gap: 0;
+        padding: 0;
+      }
+      .slide-modal-close {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        z-index: 10;
+      }
+      .slide-modal-nav {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        background: #1c1c1c;
+        padding: 0 12px 0 16px;
+        border-radius: 20px 20px 0 0;
+        height: 72px;
+      }
+      #storyModal .slide-modal-nav {
+        height: auto;
+        min-height: 72px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+      }
+      .slide-modal-tabs {
+        overflow-x: auto;
+        scrollbar-width: none;
+        flex-wrap: nowrap;
+        flex: 1;
+      }
+      .slide-modal-tabs::-webkit-scrollbar { display: none; }
+      .slide-modal-tab-btn { font-size: 11px; }
+      .slide-modal-info,
+      .slide-modal-info span { font-size: 11px; }
+      .slide-modal-carousel { padding: 12px; overflow-y: auto; }
+      .slide-carousel-btn { display: none !important; }
+      .slide-carousel-track {
+        flex-direction: column;
+        gap: 8px;
+        border-radius: 0;
+        background: #1c1c1c;
+      }
+      .slide-carousel-img {
+        display: block !important;
+        height: calc((90dvh - 44px - 56px - 24px - 16px) / 3);
+        object-fit: cover;
+        border-radius: 12px;
+        flex-shrink: 0;
+      }
+    }
   </style>
 </head>
 <script>document.documentElement.classList.add('js-intro');</script>
@@ -1827,11 +1991,6 @@
     <div class="intro-copy">
       <div class="hero-inner">
 
-        <div class="hero-greeting">
-          <p class="greeting">Hi. I'm</p>
-          <h1 class="hero-name">Ola Fakomi</h1>
-        </div>
-
         <div class="hero-middle">
           <div class="hero-bio-row">
             <a href="about.html" class="hero-avatar-wrap">
@@ -1839,6 +1998,10 @@
               <img src="images/hero/OlaAvatar_realImg.png" alt="Ola Fakomi" class="hero-avatar-real" />
             </a>
             <div class="hero-subtext-ctas">
+              <div class="hero-greeting">
+                <p class="greeting">Hi. I'm</p>
+                <h1 class="hero-name">Ola Fakomi</h1>
+              </div>
               <div class="hero-subtext-swap">
                 <p class="hero-subtext-bio">A <span class="hero-orange">Product Designer</span> &amp; <span class="hero-blue">Design Engineer</span>, with 5+ years designing and building products for startups &amp; enterprises. I combine product design, brand design &amp; AI expertise to create business solutions in form of products, internal tools and websites at <a href="https://www.ovasys.co/" class="hero-link text-link" target="_blank" rel="noopener noreferrer">Ovasys.</a></p>
                 <p class="hero-subtext-exp">
@@ -1882,6 +2045,7 @@
           <div class="cs-card-info">
             <div class="cs-info-left">
               <div class="cs-card-logo"><img src="images/Logos/TheRoots_logoImg.png" alt="The Roots" /></div>
+              <h3 class="cs-card-title">The Roots</h3>
               <p class="cs-card-desc">The Roots is Indigenous Language learning for African languages. It was built to promote community learning and gamified for interactions.</p>
             </div>
             <div class="cs-info-right">
@@ -1916,6 +2080,7 @@
           <div class="cs-card-info">
             <div class="cs-info-left">
               <div class="cs-card-logo"><img src="images/Logos/CasestudyRevwit_logoImg.png" alt="Revwit" /></div>
+              <h3 class="cs-card-title">Revwit</h3>
               <p class="cs-card-desc">Revwit is an AI-enabled B2B Sales CRM. I optimized user flows + brand system that scaled user acquisition and shortened sales cycles.</p>
             </div>
             <div class="cs-info-right">
@@ -1950,6 +2115,7 @@
           <div class="cs-card-info">
             <div class="cs-info-left">
               <div class="cs-card-logo"><img src="images/Logos/caseStudyTrib_logoImg.png" alt="Trib" /></div>
+              <h3 class="cs-card-title">Trib</h3>
               <p class="cs-card-desc">Trib is a Web3-powered Q&amp;A gaming platform that enhances community engagement through interactive quizzes, tournaments, and rewards.</p>
             </div>
             <div class="cs-info-right">
@@ -1980,33 +2146,39 @@
         <span class="ai-builds-label">AI Product Builds</span>
         <div class="ai-builds-rule"></div>
         <div class="ai-builds-list">
+          <a href="https://www.loom.com/share/c4127f5148734a4da9f4aa2e5bb0e345" target="_blank" rel="noopener" class="ai-build-item ai-build-item--active">
+            <div class="ai-build-item-row">
+              <span class="ai-build-num">01.</span>
+              <span class="ai-build-name">Budget Efficiency App</span>
+              <img src="images/Icons/Icon-arrwwoor.svg" class="ai-build-arrow" alt="" />
+            </div>
+            <img class="ai-build-item-img" src="images/Builds/Built Budget Eff.webp" alt="Budget Efficiency App" />
+          </a>
           <a href="https://x.com/Olafakomi/status/2032791976836268153?s=20" target="_blank" rel="noopener" class="ai-build-item ai-build-item--active">
-            <span class="ai-build-num">01.</span>
-            <span class="ai-build-name">Left Unread</span>
-            <img src="images/Icons/Icon-arrwwoor.svg" class="ai-build-arrow" alt="" />
+            <div class="ai-build-item-row">
+              <span class="ai-build-num">02.</span>
+              <span class="ai-build-name">Left Unread</span>
+              <img src="images/Icons/Icon-arrwwoor.svg" class="ai-build-arrow" alt="" />
+            </div>
+            <img class="ai-build-item-img" src="images/Builds/Built Left Unread.webp" alt="Left Unread" />
           </a>
           <div class="ai-build-item ai-build-item--locked">
-            <span class="ai-build-num">02.</span>
-            <span class="ai-build-name">Content Management Tool</span>
-            <div class="ai-build-lock-area">
-              <span class="ai-build-im-on-it">I'm on it</span>
-              <img src="images/Icons/lock-icon.svg" class="ai-build-lock" alt="" />
+            <div class="ai-build-item-row">
+              <span class="ai-build-num">03.</span>
+              <span class="ai-build-name">Content Management Tool</span>
+              <div class="ai-build-lock-area">
+                <span class="ai-build-im-on-it">I'm on it</span>
+                <img src="images/Icons/lock-icon.svg" class="ai-build-lock" alt="" />
+              </div>
             </div>
-          </div>
-          <div class="ai-build-item ai-build-item--locked">
-            <span class="ai-build-num">03.</span>
-            <span class="ai-build-name">Budget Efficiency App</span>
-            <div class="ai-build-lock-area">
-              <span class="ai-build-im-on-it">I'm on it</span>
-              <img src="images/Icons/lock-icon.svg" class="ai-build-lock" alt="" />
-            </div>
+            <img class="ai-build-item-img" src="images/Builds/Contenttool.webp" alt="Content Management Tool" />
           </div>
         </div>
       </div>
       <!-- Preview images — slide up from bottom on item hover -->
-      <img class="ai-build-preview ai-build-preview--1" src="images/Builds/Built Left Unread.webp" alt="" />
-      <img class="ai-build-preview ai-build-preview--2" src="images/Builds/Contenttool.webp" alt="" />
-      <img class="ai-build-preview ai-build-preview--3" src="images/Builds/Built Budget Eff.webp" alt="" />
+      <img class="ai-build-preview ai-build-preview--1" src="images/Builds/Built Budget Eff.webp" alt="" />
+      <img class="ai-build-preview ai-build-preview--2" src="images/Builds/Built Left Unread.webp" alt="" />
+      <img class="ai-build-preview ai-build-preview--3" src="images/Builds/Contenttool.webp" alt="" />
     </div>
   </section>
 
@@ -2107,7 +2279,16 @@
     <!-- Heading -->
     <div class="decks-inner">
       <span class="decks-label">Beyond building products I help...</span>
-      <h2 class="decks-heading">Products scale with compelling<br>Visual <span class="decks-word decks-word--stories">Stories</span> &amp; <span class="decks-word decks-word--decks">Decks</span></h2>
+      <h2 class="decks-heading">Products scale<br class="mob-br"> with compelling<br class="desk-br"> Visual<br class="mob-br"> <span class="decks-word decks-word--stories">Stories</span> &amp; <span class="decks-word decks-word--decks">Decks</span></h2>
+    </div>
+    <!-- Mobile horizontal scroll strip -->
+    <div class="decks-mobile-strip">
+      <div class="decks-mobile-card"><img src="images/Decks/Stories Revwit.webp" alt="Revwit Visual Story" /></div>
+      <div class="decks-mobile-card"><img src="images/Decks/Kolme Stories.webp" alt="Kolme Visual Story" /></div>
+      <div class="decks-mobile-card"><img src="images/Decks/Migranium Stories.webp" alt="Migranium Visual Story" /></div>
+      <div class="decks-mobile-card"><img src="images/Decks/Decks Ecom.webp" alt="Ecom Deck" /></div>
+      <div class="decks-mobile-card"><img src="images/Decks/Decks Sales.webp" alt="Sales Deck" /></div>
+      <div class="decks-mobile-card"><img src="images/Decks/Decks AI.webp" alt="AI Deck" /></div>
     </div>
     <!-- Bottom row: Decks -->
     <div class="decks-row">
@@ -2132,6 +2313,19 @@
     </div>
   </section>
 
+  <!-- ─── DECK MOBILE MODAL ─── -->
+  <div class="decks-mob-modal" id="decksMobModal">
+    <button class="decks-mob-close" id="decksMobClose">&#x2715;</button>
+    <div class="decks-mob-carousel">
+      <div class="decks-mob-slide"><img src="images/Decks/Stories Revwit.webp" alt="Revwit Visual Story" /></div>
+      <div class="decks-mob-slide"><img src="images/Decks/Kolme Stories.webp" alt="Kolme Visual Story" /></div>
+      <div class="decks-mob-slide"><img src="images/Decks/Migranium Stories.webp" alt="Migranium Visual Story" /></div>
+      <div class="decks-mob-slide"><img src="images/Decks/Decks Ecom.webp" alt="Ecom Deck" /></div>
+      <div class="decks-mob-slide"><img src="images/Decks/Decks Sales.webp" alt="Sales Deck" /></div>
+      <div class="decks-mob-slide"><img src="images/Decks/Decks AI.webp" alt="AI Deck" /></div>
+    </div>
+  </div>
+
   <!-- ─── CLIENTS ─── -->
   <section class="clients" id="clients-section">
     <div class="clients-inner">
@@ -2146,7 +2340,7 @@
         <div class="client-pill"><div class="client-icon"><img src="images/Logos/SMEHive_logoImg.png" alt="SME Hive" /></div><span class="client-name">SME Hive</span></div>
         <div class="client-pill"><div class="client-icon"><img src="images/Logos/Justnovate_logoImg.png" alt="Justnovate" /></div><span class="client-name">Justnovate</span></div>
       </div>
-      <h2 class="clients-heading"><strong>Clients</strong> &amp; Collaborations</h2>
+      <h2 class="clients-heading"><strong>Clients</strong> &amp;<br class="mob-br"> Collaborations</h2>
       <div class="clients-pills-row">
         <div class="client-pill"><div class="client-icon"><img src="images/Logos/IgniteTunes_logoImg.png" alt="IgniteTunes" /></div><span class="client-name">IgniteTunes</span></div>
         <div class="client-pill"><div class="client-icon"><img src="images/Logos/HighNDry_logoImg.png" alt="High N Dry" /></div><span class="client-name">High N Dry</span></div>
@@ -2169,6 +2363,7 @@
           <a href="index.html">Home</a>
           <a href="ux-projects.html">UX Projects</a>
           <a href="graphics.html">Graphics</a>
+          <a href="lab.html">Lab</a>
           <a href="blog.html">Blogs</a>
           <a href="about.html">About</a>
         </div>
@@ -2227,17 +2422,16 @@
       function lerp(a, b, t) { return a + (b - a) * t; }
 
       function apply() {
+        const isMobile = window.innerWidth <= 860;
+        const gap = isMobile ? 64 : CARD_GAP;
         const vh      = window.innerHeight;
         const c1Top   = card1.getBoundingClientRect().top;
         const cardH   = card1.offsetHeight;
 
-        // Fan transforms (constant offsets — pull cards 2 & 3 up to overlap card 1).
-        // These are based purely on card geometry, not scroll position.
-        const fanT2 = -(cardH + CARD_GAP - FAN_OFFSET);          // card2 peeks 55px below card1 top
-        const fanT3 = -(2 * (cardH + CARD_GAP) - FAN_OFFSET * 2); // card3 peeks 110px below card1 top
+        const fanT2 = -(cardH + gap - FAN_OFFSET);
+        const fanT3 = -(2 * (cardH + gap) - FAN_OFFSET * 2);
 
-        // Spread progress: 0 = full fan, 1 = natural document-flow positions (transforms cleared)
-        // Fan held while card1 is below 65% of viewport; spreads as card rises toward top.
+        // Spread on scroll (same behavior on mobile and desktop)
         const spreadStart = vh * 0.65;
         const spreadEnd   = vh * 0.10;
         const spreadProg  = Math.max(0, Math.min(1, (spreadStart - c1Top) / (spreadStart - spreadEnd)));
@@ -2246,7 +2440,6 @@
           card2.style.transform = `translateY(${lerp(fanT2, 0, spreadProg)}px)`;
           card3.style.transform = `translateY(${lerp(fanT3, 0, spreadProg)}px)`;
         } else {
-          // Spread done — clear all transforms so cards scroll as plain document flow
           card2.style.transform = '';
           card3.style.transform = '';
         }
@@ -2590,6 +2783,35 @@
 
       setupCarousel('deckPrev',  'deckNext',  'deckTrack');
       setupCarousel('storyPrev', 'storyNext', 'storyTrack');
+    });
+
+    /* ─── Mobile deck strip: active card highlighting + modal ─── */
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.innerWidth > 860) return;
+
+      const strip = document.querySelector('.decks-mobile-strip');
+      const mobileCards = document.querySelectorAll('.decks-mobile-card');
+      if (strip && mobileCards.length) {
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach(e => e.target.classList.toggle('active', e.isIntersecting));
+        }, { root: strip, threshold: 0.5 });
+        mobileCards.forEach(c => obs.observe(c));
+      }
+
+      const storyModal = document.getElementById('storyModal');
+      const deckModal  = document.getElementById('deckModal');
+
+      // Cards 0-2 are stories, cards 3-5 are decks — matches the strip order
+      mobileCards.forEach((card, i) => {
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', () => {
+          const modal = i < 3 ? storyModal : deckModal;
+          if (modal) {
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+          }
+        });
+      });
     });
   </script>
 

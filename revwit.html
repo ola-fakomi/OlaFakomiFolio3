@@ -17,19 +17,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:        #ffffff;
-      --bg-page:   #f7f7f6;
-      --bg-card:   #FBFAFA;
-      --accent:    #4837f3;
-      --accent-lt: rgba(72,55,243,0.08);
-      --green:     #16a34a;
-      --green-lt:  rgba(22,163,74,0.1);
+      --bg:        #191919;
+      --bg-page:   #1f1f1f;
+      --bg-card:   #1f1f1f;
+      --bg-card2:  #262626;
+      --accent:    #818cf8;
+      --accent-lt: rgba(129,140,248,0.1);
+      --blue:      #818cf8;
+      --green:     #4ade80;
+      --green-lt:  rgba(74,222,128,0.1);
       --red-lt:    rgba(220,38,38,0.08);
-      --text:      #111111;
-      --text-dim:  #555555;
-      --text-mute: #999999;
-      --border:    rgba(0,0,0,0.08);
-      --nav-bg:    #111111;
+      --text:      #f0f0f0;
+      --text-dim:  #9a9aaa;
+      --text-mute: #7581a6;
+      --border:    rgba(255,255,255,0.07);
+      --nav-bg:    #191919;
       --r-sm:      10px;
       --r-md:      16px;
       --r-lg:      20px;
@@ -125,21 +127,25 @@
     .mobile-menu { display: none; }
     @media (max-width: 860px) {
       .mobile-menu {
-        position: fixed; top: 72px; left: 0; right: 0;
+        position: fixed; top: 0; left: 0; right: 0;
         background: rgba(20,20,20,0.98); backdrop-filter: blur(20px);
-        border-bottom: 1px solid rgba(255,255,255,0.07); z-index: 99;
-        padding: 24px 20px 32px;
+        border-bottom: 1px solid rgba(255,255,255,0.07); z-index: 9490;
+        padding: 96px 20px 32px; min-height: 50vh;
         transform: translateY(-110%);
-        transition: transform 0.35s cubic-bezier(0.32,0,0,1);
+        visibility: hidden;
+        transition: transform 0.35s cubic-bezier(0.32,0,0,1), visibility 0s linear 0.35s;
         display: flex; flex-direction: column; gap: 4px;
       }
-      .mobile-menu.open { transform: translateY(0); }
+      .mobile-menu.open { transform: translateY(0); visibility: visible; transition: transform 0.35s cubic-bezier(0.32,0,0,1), visibility 0s; }
+      .nav-toggle { display: flex; }
+      .nav-inner { padding: 0 20px; max-width: 100%; }
+      .nav-links { display: none; }
     }
     .mobile-menu a {
       display: block; padding: 14px 0;
       border-bottom: 1px solid rgba(255,255,255,0.07);
       font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 300;
-      color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s;
+      color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s;
     }
     .mobile-menu a:hover { color: #f0f0f0; }
     .mobile-menu a:last-child { border-bottom: none; }
@@ -225,7 +231,7 @@
     .pill-green {
       background: rgba(22,163,74,0.08);
       border: 1px solid rgba(22,163,74,0.15);
-      color: #16a34a;
+      color: #4ade80;
     }
     .pill-red {
       background: rgba(220,38,38,0.06);
@@ -382,12 +388,7 @@
       border-radius: 8px;
       transition: background 0.15s, color 0.15s;
     }
-    .back-home:hover, .next-cs:hover { background: #e8e7e6; color: var(--text); }
-
-    @media (max-width: 600px) {
-      .page { padding: 0 20px 60px; }
-      .nav-inner { padding: 0 20px; }
-    }
+    .back-home:hover, .next-cs:hover { background: var(--bg-card2); color: var(--text); }
 
     /* ── PAGE FOOTER ─────────────────────────────────────── */
     .cs-page-footer {
@@ -402,7 +403,7 @@
     .footer-top { display: flex; gap: 9px; align-items: flex-start; }
     .footer-headline {
       flex: 1; font-family: 'Unbounded', sans-serif;
-      font-size: 48px; font-weight: 300; letter-spacing: -0.04em;
+      font-size: 36px; font-weight: 300; letter-spacing: -0.04em;
       line-height: 0.9; color: #fff; mix-blend-mode: overlay; white-space: pre-wrap;
     }
     .footer-nav-links { flex: 1; display: flex; flex-direction: column; gap: 12px; }
@@ -479,12 +480,28 @@
       color: #fff; mix-blend-mode: overlay; text-align: center;
       line-height: 0.9; padding-bottom: 60px;
     }
-    @media (max-width: 809px) {
+    @media (max-width: 860px) {
+      .page { padding-left: 20px; padding-right: 20px; }
+      .cs-title { font-size: 20px; }
+      .cs-section-title { font-size: 15px; }
+      .cs-subtitle { font-size: 13px; }
+      .cs-body { font-size: 13px; }
+      .check-list li { font-size: 13px; }
+      .tldr p { font-size: 13px; }
+      .role-badge { font-size: 11px; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      /* Footer — matches homepage mobile style */
       .footer-inner { padding: 40px 20px 0; }
-      .footer-top { flex-direction: column; gap: 40px; }
-      .footer-headline { font-size: 40px; }
+      .footer-top { flex-direction: column; gap: 32px; }
+      .footer-top > .hero-avatar-wrap { order: -2; }
+      .footer-headline { order: -1; font-size: 24px; }
+      .footer-nav-links { order: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 0; width: 100%; }
+      .footer-nav-links a { font-size: 13px; font-weight: 300; }
       .footer-contact-bar { flex-direction: row; padding: 4px; }
       .footer-email { display: none; }
+    }
+    @media (max-width: 600px) {
+      .two-col { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -496,6 +513,9 @@
   <nav>
     <div class="nav-inner">
       <div class="nav-bar">
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
         <ul class="nav-links">
           <li><a href="index.html"><span class="nav-icon"><img src="images/Icons/navIcon_Home.svg" alt="" /></span>Home</a></li>
           <li><a href="ux-projects.html"><span class="nav-icon"><img src="images/Icons/navIcon_UXProjects.svg" alt="" /></span>UX Projects</a></li>
@@ -504,9 +524,6 @@
           <li><a href="about.html"><span class="nav-icon"><img src="images/Icons/navIcon_About.svg" alt="" /></span>About</a></li>
         </ul>
         <a href="mailto:olarewajufakomi@gmail.com" class="nav-cta">Let's talk</a>
-        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-          <span></span><span></span><span></span>
-        </button>
       </div>
     </div>
   </nav>
@@ -911,6 +928,7 @@
           <a href="index.html">Home</a>
           <a href="ux-projects.html">UX Projects</a>
           <a href="graphics.html">Graphics</a>
+          <a href="lab.html">Lab</a>
           <a href="blog.html">Blogs</a>
           <a href="about.html">About</a>
         </div>

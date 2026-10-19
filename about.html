@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <script src="src/nav.js" defer></script>
+  <script type="module" src="src/nav.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.27/dist/lenis.css">
   <script src="https://unpkg.com/lenis@1.3.27/dist/lenis.min.js"></script>
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
@@ -60,6 +60,8 @@
       pointer-events: none;
       z-index: 9000;
     }
+
+    @media (pointer: coarse), (max-width: 860px) { body { cursor: auto; } .cursor-svg { display: none; } }
 
     /* ─── Cursor ─── */
     .cursor-svg {
@@ -137,21 +139,25 @@
     .mobile-menu { display: none; }
     @media (max-width: 860px) {
       .mobile-menu {
-        position: fixed; top: var(--nav-h); left: 0; right: 0;
+        position: fixed; top: 0; left: 0; right: 0;
         background: rgba(20,20,20,0.98); backdrop-filter: blur(20px);
-        border-bottom: 1px solid var(--border); z-index: 99;
-        padding: 24px 20px 32px;
+        border-bottom: 1px solid var(--border); z-index: 9490;
+        padding: 96px 20px 32px; min-height: 50vh;
         transform: translateY(-110%);
-        transition: transform 0.35s cubic-bezier(0.32,0,0,1);
+        visibility: hidden;
+        transition: transform 0.35s cubic-bezier(0.32,0,0,1), visibility 0s linear 0.35s;
         display: flex; flex-direction: column; gap: 4px;
       }
-      .mobile-menu.open { transform: translateY(0); }
+      .mobile-menu.open { transform: translateY(0); visibility: visible; transition: transform 0.35s cubic-bezier(0.32,0,0,1), visibility 0s; }
+      .nav-toggle { display: flex; }
+      .nav-inner { padding: 0 20px; max-width: 100%; }
+      .nav-links { display: none; }
     }
     .mobile-menu a {
       display: block; padding: 14px 0;
       border-bottom: 1px solid var(--border);
       font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 300;
-      color: var(--text-dim); text-decoration: none; transition: color 0.2s;
+      color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s;
     }
     .mobile-menu a:hover { color: var(--text); }
     .mobile-menu a:last-child { border-bottom: none; }
@@ -285,7 +291,6 @@
     }
     .info-card {
       width: 100%; max-width: 900px;
-      height: 580px;
       background: rgba(14,14,14,0.96);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 20px;
@@ -305,7 +310,7 @@
     }
     .info-tab {
       font-family: 'Unbounded', sans-serif;
-      font-size: 13px; font-weight: 300;
+      font-size: 11px; font-weight: 300;
       color: rgba(255,255,255,0.35);
       background: none; border: none;
       cursor: pointer;
@@ -317,28 +322,6 @@
     .info-tab + .info-tab { padding-left: 14px; border-left: 1px solid #262626; }
     .info-tab:hover { color: rgba(255,255,255,0.7); }
     .info-tab.active { color: #fff; font-weight: 400; }
-    /* Close button — matches slide-modal-close */
-    .info-close {
-      margin-left: auto;
-      background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
-      border: none; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      width: 32px; height: 32px;
-      border-radius: 10px;
-      box-shadow: 0 0 4.1px rgba(0,0,0,0.25);
-      position: relative; overflow: hidden;
-      padding: 6px;
-      transition: opacity 0.2s, transform 0.2s;
-      text-decoration: none;
-    }
-    .info-close::after {
-      content: ''; position: absolute; inset: 0; border-radius: 10px;
-      box-shadow: inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
-      pointer-events: none;
-    }
-    .info-close img { width: 100%; height: 100%; opacity: 0.85; display: block; }
-    .info-close:hover { opacity: 0.85; transform: translateY(-1px); }
 
     /* Tab panels */
     .info-panel { display: none; padding: 12px 28px 36px 24px; }
@@ -369,17 +352,17 @@
     .exp-info { flex: 1; min-width: 0; }
     .exp-company {
       font-family: 'Unbounded', sans-serif;
-      font-size: 15px; font-weight: 400;
+      font-size: 11px; font-weight: 400;
       color: var(--text);
     }
     .exp-role {
-      font-size: 13px;
+      font-size: 11px;
       color: rgba(255,255,255,0.4);
       margin-top: -2px;
     }
     .exp-year {
       font-family: 'Unbounded', sans-serif;
-      font-size: 12px; font-weight: 300;
+      font-size: 11px; font-weight: 300;
       color: rgba(255,255,255,0.32);
       letter-spacing: 0.04em;
       flex-shrink: 0;
@@ -390,7 +373,7 @@
     .tools-group:last-child { margin-bottom: 0; }
     .tools-group-label {
       font-family: 'Unbounded', sans-serif;
-      font-size: 12px; font-weight: 300;
+      font-size: 11px; font-weight: 300;
       color: rgba(255,255,255,0.3);
       letter-spacing: 0.04em;
       text-transform: uppercase;
@@ -405,7 +388,7 @@
       border: 1px solid rgba(255,255,255,0.06);
       border-radius: 12px;
       font-family: 'Unbounded', sans-serif;
-      font-size: 13px; font-weight: 300;
+      font-size: 11px; font-weight: 300;
       letter-spacing: 0.02em;
       color: rgba(255,255,255,0.80);
       white-space: nowrap;
@@ -434,7 +417,7 @@
     .skill-item {
       display: flex; align-items: center; gap: 8px;
       font-family: 'Unbounded', sans-serif;
-      font-size: 13px; font-weight: 300;
+      font-size: 11px; font-weight: 300;
       color: #e0e0e0;
     }
     .skill-check {
@@ -524,17 +507,29 @@
     }
 
     /* ─── Responsive ─── */
-    @media (max-width: 860px) { .nav-toggle { display:flex; } .nav-inner { padding: 0 20px; max-width: 100%; } .ab-inner { padding: 0 20px; max-width: 100%; } }
+    @media (max-width: 860px) {
+      .nav-toggle { display: flex; }
+      .nav-inner { padding: 0 20px; max-width: 100%; }
+      .ab-inner { padding: 0 20px; max-width: 100%; }
+      .ab-headline { font-size: 18px; }
+      .ab-subtext { font-size: 13px; }
+      .ab-duo { flex-direction: column; }
+      .ab-duo-img.offset { margin-top: 0; }
+      .ab-grid { flex-direction: column; }
+      .ab-grid-col.outer { margin-top: 0; }
+      .footer-inner { padding: 40px 20px 0; }
+      .footer-top { flex-direction: column; gap: 32px; }
+      .footer-top > .hero-avatar-wrap { order: -2; }
+      .footer-headline { order: -1; font-size: 24px; }
+      .footer-nav-links { order: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 0; width: 100%; }
+      .footer-nav-links a { font-size: 13px; font-weight: 300; }
+      .footer-contact-bar { flex-direction: row; padding: 4px; }
+      .footer-email { display: none; }
+    }
     @media (max-width: 760px) {
       .ab-text-row { grid-template-columns: 1fr; gap: 12px; }
-      .ab-grid-col.outer { margin-top: 40px; }
       .skills-grid { grid-template-columns: 1fr 1fr; }
-      .info-card { height: 520px; }
       .info-card-wrap { padding: 16px; }
-      .footer-inner { padding: 40px 20px 0; }
-      .footer-top { flex-direction: column; gap: 40px; }
-      .footer-headline { font-size: 40px; }
-      .footer-email { display: none; }
     }
   </style>
 </head>
@@ -612,7 +607,6 @@
         <button class="info-tab active" data-panel="experience">Experience</button>
         <button class="info-tab" data-panel="tools">Tools</button>
         <button class="info-tab" data-panel="skills">Skills &amp; Competence</button>
-        <a href="index.html" class="info-close" aria-label="Back to home"><img src="images/Icons/IconCancel.png" alt="Close" /></a>
       </div>
 
       <!-- Experience -->
@@ -716,6 +710,7 @@
           <a href="index.html">Home</a>
           <a href="ux-projects.html">UX Projects</a>
           <a href="graphics.html">Graphics</a>
+          <a href="lab.html">Lab</a>
           <a href="blog.html">Blogs</a>
           <a href="about.html">About</a>
         </div>
