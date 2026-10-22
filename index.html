@@ -97,6 +97,28 @@
 
     @media (pointer: coarse), (max-width: 860px) { body { cursor: auto; } .cursor-svg { display: none; } }
 
+    /* ─── Page Loader ─── */
+    #page-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 1;
+      transition: opacity 0.45s ease;
+    }
+    #page-loader.fade-out { opacity: 0; pointer-events: none; }
+    #loader-pct {
+      font-family: "Bitcount Single", system-ui;
+      font-size: 40px;
+      font-weight: 400;
+      line-height: 0.9;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.02em;
+    }
+
     /* ─── Cursor ─── */
     .cursor-svg {
       position: fixed;
@@ -303,7 +325,7 @@
       font-weight: var(--text-weight);
       line-height: 1.7;
       color: rgba(255,255,255,0.58);
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      transition: opacity 0.15s ease, transform 0.15s ease;
     }
     .hero-subtext-exp {
       position: absolute;
@@ -1942,6 +1964,67 @@
   </style>
 </head>
 <body>
+  <div id="page-loader"><span id="loader-pct">0</span></div>
+  <script>
+    (function () {
+      var loader = document.getElementById('page-loader');
+      var pctEl  = document.getElementById('loader-pct');
+      if (!loader || !pctEl) return;
+
+      document.body.style.overflow = 'hidden';
+
+      var imgs, total, loadedCount = 0, target = 0, current = 0, dismissed = false;
+
+      function dismiss() {
+        if (dismissed) return;
+        dismissed = true;
+        document.body.style.overflow = '';
+        loader.classList.add('fade-out');
+        setTimeout(function () { if (loader.parentNode) loader.parentNode.removeChild(loader); }, 500);
+      }
+
+      function tick() {
+        if (current < target) {
+          current = Math.min(current + 2, target);
+          pctEl.textContent = current;
+        }
+        if (current < 100) {
+          requestAnimationFrame(tick);
+        } else {
+          dismiss();
+        }
+      }
+
+      function onLoad() {
+        loadedCount++;
+        target = Math.round((loadedCount / total) * 100);
+        if (loadedCount >= total) target = 100;
+      }
+
+      // Wait for DOM so all <img> tags are parsed
+      document.addEventListener('DOMContentLoaded', function () {
+        imgs  = Array.from(document.querySelectorAll('img'));
+        total = imgs.length || 1;
+
+        imgs.forEach(function (img) {
+          if (img.complete && img.naturalWidth > 0) {
+            onLoad();
+          } else {
+            img.addEventListener('load',  onLoad, { once: true });
+            img.addEventListener('error', onLoad, { once: true });
+          }
+        });
+
+        if (loadedCount >= total) target = 100;
+
+        // Hard fallback after 7s
+        setTimeout(function () { target = 100; }, 7000);
+
+        requestAnimationFrame(tick);
+      });
+    })();
+  </script>
+
   <div class="cursor-svg" id="cursor-svg">
     <img src="images/Icons/Icon_Cursor.svg" alt="" />
   </div>
@@ -2570,6 +2653,7 @@
         if (!isDragging) return;
         isDragging = false;
         expCard.classList.remove('dragging');
+        subtextSwap && subtextSwap.classList.remove('exp-hovered');
         // Animate back to original position
         const rect = expCard.getBoundingClientRect();
         expCard.style.transition = 'left 0.5s cubic-bezier(0.34,1.56,0.64,1), top 0.5s cubic-bezier(0.34,1.56,0.64,1), transform 0.35s cubic-bezier(0.34,1.56,0.64,1)';
