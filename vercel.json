@@ -4,6 +4,11 @@
   "cleanUrls": true,
   "redirects": [
     {
+      "source": "/visual-design",
+      "destination": "/graphics",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "www.olafakomi.vercel.app" }],
       "destination": "https://olafakomi.vercel.app/:path*",
