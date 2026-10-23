@@ -250,7 +250,7 @@
     .hero-bio-row {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 4px;
       flex: 1;
       min-width: 0;
     }
@@ -386,8 +386,10 @@
     .hero-link { color: var(--orange); }
     .hero-link:hover { text-decoration-color: rgba(255, 121, 116, 0.85); }
 
+    .hero-avatar-mobile-only { display: none; }
     .hero-ctas {
       display: flex; align-items: center; gap: 8px;
+      padding-top: 24px;
     }
     .btn-primary {
       display: inline-flex; align-items: center;
@@ -413,8 +415,8 @@
     .btn-secondary {
       display: inline-flex; align-items: center; gap: 9px;
       padding: 16px 24px;
-      background: rgba(72,55,243,0.08);
-      border: 1px solid rgba(72,55,243,0.45);
+      background: #1c1c1c;
+      border: 1px solid rgba(255,255,255,0.07);
       color: var(--text);
       font-family: 'Unbounded', sans-serif;
       font-size: var(--text-size-ui); font-weight: var(--text-weight);
@@ -424,7 +426,7 @@
       transition: background 0.18s, transform 0.15s;
     }
     .btn-secondary:hover { background: rgba(72,55,243,0.15); transform: translateY(-1px); }
-    .btn-secondary img { width: 18px; height: 18px; }
+    .btn-secondary img { width: 18px; height: 18px; filter: brightness(0) invert(1); }
 
     /* Case Studies badge */
     .exp-card {
@@ -1467,15 +1469,16 @@
     @media (max-width: 860px) {
       /* Hero / Intro */
       #intro { height: auto; overflow: hidden; }
-      .intro-copy { padding-top: calc(var(--nav-h) + 32px); }
+      .intro-copy { padding-top: var(--nav-h); }
       .hero-bio-row { gap: 16px; }
       .hero-avatar-spacer { display: none; }
+      .hero-avatar-mobile-only { display: flex; margin-left: -8px; }
+      .hero-subtext-row .hero-avatar-wrap { display: none; }
       .hero-subtext-row { flex-direction: column; }
       .hero-subtext-ctas { gap: 12px; }
       .greeting { font-size: 36px; line-height: 1; }
       .hero-name { font-size: 36px; line-height: 1; margin-bottom: 4px; }
       .hero-subtext-bio { font-size: 13px; font-weight: 300; }
-      .hero-ctas { margin-top: 20px; }
 
       /* Case study label: handled in case studies section below */
       .exp-card { display: none; }
@@ -1670,7 +1673,7 @@
 
     .intro-copy {
       position: relative;
-      padding-top: calc(var(--nav-h) + 128px);
+      padding-top: calc(var(--nav-h) + 96px);
     }
 
     /* Hide nav when any modal is open */
@@ -2109,6 +2112,12 @@
 
         <div class="hero-middle">
           <div class="hero-bio-row">
+
+            <!-- Avatar shown only on mobile, above greeting -->
+            <a href="about.html" class="hero-avatar-wrap hero-avatar-mobile-only">
+              <img src="images/hero/OlaAvatar_Img.webp" alt="Ola Fakomi" class="hero-avatar-illustrated" />
+              <img src="images/hero/OlaAvatar_realImg.webp" alt="Ola Fakomi" class="hero-avatar-real" />
+            </a>
 
             <!-- Greeting: spacer keeps text indented to match subtext below -->
             <div class="hero-greeting-row">
