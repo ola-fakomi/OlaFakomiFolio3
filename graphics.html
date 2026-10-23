@@ -13,7 +13,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ola Fakomi — Storyboard & Styleframe · Visual Design</title>
   <meta name="description" content="Ola Fakomi — Visual Designer specializing in storyboard-to-styleframe pipelines for motion and video production. 5+ years experience with Engorgio, CXT, Migranium, Revwit, Raven, and Efata." />
-  <link rel="icon" type="image/png" href="images/hero/OlaAvatar_Img.png" />
+  <link rel="icon" type="image/png" href="images/hero/OlaAvatar_Img.webp" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://olafakomi.com/graphics" />
   <meta property="og:title" content="Ola Fakomi — Storyboard & Styleframe · Visual Design" />
@@ -718,8 +718,9 @@
     }
     .footer-nav-links a {
       font-family: 'Unbounded', sans-serif;
-      font-size: 16px;
-      font-weight: 400;
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 0.02em;
       color: #fff;
       mix-blend-mode: overlay;
       text-decoration: none;
@@ -763,12 +764,21 @@
       border-radius: 10px; position: relative; overflow: hidden;
       cursor: pointer; transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
     }
+    .footer-social-icon::after {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 10px;
+      box-shadow: inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
     .footer-social-icon:hover { transform: translateY(-1px); }
     .footer-social-icon.active {
       background: linear-gradient(180deg, #353537 0%, #1f1e1e 100%);
-      border-radius: 10px;
-      box-shadow: 0 0 4.1px rgba(0,0,0,0.25), inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
+      box-shadow: 0 0 4.1px rgba(0,0,0,0.25);
     }
+    .footer-social-icon.active::after { opacity: 1; }
     .footer-social-icon img { display: block; position: relative; z-index: 1; filter: brightness(0) invert(1) opacity(0.35); transition: filter 0.2s; }
     .footer-social-icon.active img { filter: brightness(0) invert(1); }
     .footer-email {
@@ -777,7 +787,8 @@
       transform: translateX(-50%);
       font-family: 'Unbounded', sans-serif;
       font-size: 13px;
-      font-weight: 400;
+      font-weight: 300;
+      letter-spacing: 0.02em;
       color: #dadada;
       white-space: nowrap;
       line-height: 0.9;
@@ -798,7 +809,7 @@
       box-shadow: 0 0 4.1px rgba(0,0,0,0.25), inset -1px -1px 0 rgba(255,255,255,0.03), inset 1px 1px 0 rgba(255,255,255,0.08);
       font-family: 'Unbounded', sans-serif;
       font-size: 11px;
-      font-weight: 400;
+      font-weight: 300;
       color: #fff;
       letter-spacing: 0.01em;
       text-decoration: none;
@@ -808,7 +819,7 @@
     .footer-copyright {
       font-family: 'Unbounded', sans-serif;
       font-size: 13px;
-      font-weight: 400;
+      font-weight: 300;
       color: #fff;
       mix-blend-mode: overlay;
       text-align: center;
@@ -962,6 +973,26 @@
       border-radius: inherit;
     }
     .frame.sk-loaded::before { opacity: 0; }
+    .img-skeleton {
+      position: absolute; inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #252525 25%, #2d2d2d 50%, #252525 75%);
+      background-size: 200% 100%;
+      animation: sk-shimmer 1.5s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 2;
+      transition: opacity 0.25s ease;
+    }
+
+    /* ─── Bitcount UI labels — replaces Unbounded 13px/300 ─── */
+    .mobile-menu a,
+    .positioning p,
+    .section-label {
+      font-family: "Bitcount Single", system-ui;
+      font-size: 18px;
+      font-weight: 300;
+      letter-spacing: -0.03em;
+    }
 
   </style>
 </head>
@@ -1005,19 +1036,19 @@
 
         <div class="seq seq--4 seq-gap">
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Moe/Frame%202147257198.png" alt="Moe storyboard panel 1" loading="lazy">
+            <img src="Storyboard%20Images/Moe/Frame%202147257198.webp" alt="Moe storyboard panel 1" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Moe/Frame%202147257221.png" alt="Moe storyboard panel 2" loading="lazy">
+            <img src="Storyboard%20Images/Moe/Frame%202147257221.webp" alt="Moe storyboard panel 2" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Moe/Frame%202147257237.png" alt="Moe storyboard panel 3" loading="lazy">
+            <img src="Storyboard%20Images/Moe/Frame%202147257237.webp" alt="Moe storyboard panel 3" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Moe/Frame%202147257275.png" alt="Moe storyboard panel 4" loading="lazy">
+            <img src="Storyboard%20Images/Moe/Frame%202147257275.webp" alt="Moe storyboard panel 4" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
         </div>
@@ -1039,19 +1070,19 @@
 
         <div class="seq seq--4 seq-gap">
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Proxidize/Proxidize.png" alt="Proxidize storyboard panel 1" loading="lazy">
+            <img src="Storyboard%20Images/Proxidize/Proxidize.webp" alt="Proxidize storyboard panel 1" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Proxidize/Proxidize-1.png" alt="Proxidize storyboard panel 2" loading="lazy">
+            <img src="Storyboard%20Images/Proxidize/Proxidize-1.webp" alt="Proxidize storyboard panel 2" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Proxidize/Proxidize-2.png" alt="Proxidize storyboard panel 3" loading="lazy">
+            <img src="Storyboard%20Images/Proxidize/Proxidize-2.webp" alt="Proxidize storyboard panel 3" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Proxidize/Proxidize-3.png" alt="Proxidize storyboard panel 4" loading="lazy">
+            <img src="Storyboard%20Images/Proxidize/Proxidize-3.webp" alt="Proxidize storyboard panel 4" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
         </div>
@@ -1073,19 +1104,19 @@
 
         <div class="seq seq--4 seq-gap">
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Dexa/02%20Dexa.png" alt="Dexa storyboard panel 1" loading="lazy">
+            <img src="Storyboard%20Images/Dexa/02%20Dexa.webp" alt="Dexa storyboard panel 1" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Dexa/14%20Dexa.png" alt="Dexa storyboard panel 2" loading="lazy">
+            <img src="Storyboard%20Images/Dexa/14%20Dexa.webp" alt="Dexa storyboard panel 2" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Dexa/21%20Dexa.png" alt="Dexa storyboard panel 3" loading="lazy">
+            <img src="Storyboard%20Images/Dexa/21%20Dexa.webp" alt="Dexa storyboard panel 3" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Dexa/41%20Dexa.png" alt="Dexa storyboard panel 4" loading="lazy">
+            <img src="Storyboard%20Images/Dexa/41%20Dexa.webp" alt="Dexa storyboard panel 4" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
         </div>
@@ -1107,19 +1138,19 @@
 
         <div class="seq seq--4 seq-gap">
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Zyntha/Zynta_1.png" alt="Zyntha storyboard panel 1" loading="lazy">
+            <img src="Storyboard%20Images/Zyntha/Zynta_1.webp" alt="Zyntha storyboard panel 1" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Zyntha/Zynta_4-1.png" alt="Zyntha storyboard panel 2" loading="lazy">
+            <img src="Storyboard%20Images/Zyntha/Zynta_4-1.webp" alt="Zyntha storyboard panel 2" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Zyntha/Zynta_4.png" alt="Zyntha storyboard panel 3" loading="lazy">
+            <img src="Storyboard%20Images/Zyntha/Zynta_4.webp" alt="Zyntha storyboard panel 3" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
           <div class="frame frame--wide">
-            <img src="Storyboard%20Images/Zyntha/Screenshot%202026-04-18%20at%2018.12.26%201.png" alt="Zyntha storyboard panel 4" loading="lazy">
+            <img src="Storyboard%20Images/Zyntha/Screenshot%202026-04-18%20at%2018.12.26%201.webp" alt="Zyntha storyboard panel 4" loading="lazy">
             <span class="frame-badge">Storyboard</span>
           </div>
         </div>
@@ -1140,25 +1171,25 @@
       <span class="section-label reveal">Added Visuals</span>
       <div class="av-grid reveal">
         <!-- AITV -->
-        <div class="av-cell"><img src="Storyboard%20Images/AITV/25_TV.png" alt="AITV 1" loading="lazy"></div>
-        <div class="av-cell"><img src="Storyboard%20Images/AITV/26_TV.png" alt="AITV 2" loading="lazy"></div>
-        <div class="av-cell"><img src="Storyboard%20Images/AITV/45_TV.png" alt="AITV 3" loading="lazy"></div>
-        <div class="av-cell"><img src="Storyboard%20Images/AITV/55_TV.png" alt="AITV 4" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/AITV/25_TV.webp" alt="AITV 1" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/AITV/26_TV.webp" alt="AITV 2" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/AITV/45_TV.webp" alt="AITV 3" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/AITV/55_TV.webp" alt="AITV 4" loading="lazy"></div>
         <!-- CXT -->
-        <div class="av-cell"><img src="Storyboard%20Images/CXT/01.png" alt="CXT 1" loading="lazy"></div>
-        <div class="av-cell"><img src="Storyboard%20Images/CXT/3565-1.png" alt="CXT 2" loading="lazy"></div>
-        <div class="av-cell"><img src="Storyboard%20Images/CXT/3565.png" alt="CXT 3" loading="lazy"></div>
-        <div class="av-cell"><img src="Storyboard%20Images/CXT/3569.png" alt="CXT 4" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/CXT/01.webp" alt="CXT 1" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/CXT/3565-1.webp" alt="CXT 2" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/CXT/3565.webp" alt="CXT 3" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/CXT/3569.webp" alt="CXT 4" loading="lazy"></div>
         <!-- Efata -->
-        <div class="av-cell"><img src="Storyboard%20Images/Efata/01.png" alt="Efata 1" loading="lazy"></div>
-        <div class="av-cell"><img src="Storyboard%20Images/Efata/05.png" alt="Efata 2" loading="lazy"></div>
-        <div class="av-cell"><img src="Storyboard%20Images/Efata/29.png" alt="Efata 3" loading="lazy"></div>
-        <div class="av-cell"><img src="Storyboard%20Images/Efata/48.png" alt="Efata 4" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/Efata/01.webp" alt="Efata 1" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/Efata/05.webp" alt="Efata 2" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/Efata/29.webp" alt="Efata 3" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/Efata/48.webp" alt="Efata 4" loading="lazy"></div>
         <!-- Raven -->
-        <div class="av-cell"><img src="Storyboard%20Images/Raven/126.png" alt="Raven 1" loading="lazy"></div>
-        <div class="av-cell"><img src="Storyboard%20Images/Raven/131.png" alt="Raven 2" loading="lazy"></div>
-        <div class="av-cell"><img src="Storyboard%20Images/Raven/137.png" alt="Raven 3" loading="lazy"></div>
-        <div class="av-cell"><img src="Storyboard%20Images/Raven/252.png" alt="Raven 4" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/Raven/126.webp" alt="Raven 1" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/Raven/131.webp" alt="Raven 2" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/Raven/137.webp" alt="Raven 3" loading="lazy"></div>
+        <div class="av-cell"><img src="Storyboard%20Images/Raven/252.webp" alt="Raven 4" loading="lazy"></div>
       </div>
     </div>
   </div>
@@ -1180,8 +1211,8 @@
             <a href="about.html">About</a>
           </div>
           <a href="about.html" class="hero-avatar-wrap">
-            <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi" class="hero-avatar-illustrated" loading="lazy" />
-            <img src="images/hero/OlaAvatar_realImg.png" alt="Ola Fakomi" class="hero-avatar-real" loading="lazy" />
+            <img src="images/hero/OlaAvatar_Img.webp" alt="Ola Fakomi" class="hero-avatar-illustrated" loading="lazy" />
+            <img src="images/hero/OlaAvatar_realImg.webp" alt="Ola Fakomi" class="hero-avatar-real" loading="lazy" />
           </a>
         </div>
 
@@ -1281,6 +1312,34 @@
             setTimeout(function() { label.textContent = prev; }, 2000);
           });
         });
+      }
+    })();
+  </script>
+
+  <script>
+    /* ─── Skeleton image loading ─── */
+    (function () {
+      function skeleton(img) {
+        if (img.complete && img.naturalWidth > 0) return;
+        var p = img.parentElement;
+        if (!p) return;
+        if (window.getComputedStyle(p).position === 'static') p.style.position = 'relative';
+        var sk = document.createElement('div');
+        sk.className = 'img-skeleton';
+        p.appendChild(sk);
+        function done() {
+          sk.style.opacity = '0';
+          setTimeout(function () { sk.parentNode && sk.parentNode.removeChild(sk); }, 260);
+        }
+        img.addEventListener('load',  done, { once: true });
+        img.addEventListener('error', done, { once: true });
+      }
+      document.querySelectorAll('img').forEach(skeleton);
+      if ('IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) { if (e.isIntersecting) skeleton(e.target); });
+        });
+        document.querySelectorAll('img[loading="lazy"]').forEach(function (img) { obs.observe(img); });
       }
     })();
   </script>

@@ -11,7 +11,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>UX Projects — Ola Fakomi</title>
-  <link rel="icon" type="image/png" href="images/hero/OlaAvatar_Img.png" />
+  <link rel="icon" type="image/png" href="images/hero/OlaAvatar_Img.webp" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="UX Projects — Ola Fakomi" />
   <meta property="og:description" content="Product design, builds & websites by Ola Fakomi" />
@@ -401,7 +401,7 @@
     .footer-nav-links { flex: 1; display: flex; flex-direction: column; gap: 12px; }
     .footer-nav-links a {
       font-family: 'Unbounded', sans-serif;
-      font-size: var(--text-size-body); font-weight: var(--text-weight);
+      font-size: 13px; font-weight: var(--text-weight);
       letter-spacing: var(--text-track-ui);
       color: #fff; mix-blend-mode: overlay; text-decoration: none;
       line-height: 0.9; transition: opacity 0.2s;
@@ -508,6 +508,22 @@
       .footer-contact-bar { flex-direction: row; padding: 4px; }
       .footer-email { display: none; }
     }
+
+    /* ─── Skeleton loading ─── */
+    @keyframes sk-shimmer {
+      0%   { background-position: -200% 0; }
+      100% { background-position:  200% 0; }
+    }
+    .img-skeleton {
+      position: absolute; inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #252525 25%, #2d2d2d 50%, #252525 75%);
+      background-size: 200% 100%;
+      animation: sk-shimmer 1.5s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 2;
+      transition: opacity 0.25s ease;
+    }
   </style>
 </head>
 
@@ -537,7 +553,7 @@
             <div class="sp-info">
               <div class="sp-top-row">
                 <div class="sp-icon-box">
-                  <img src="images/Logos/TheRoots_logoImg.png" alt="The Roots" />
+                  <img src="images/Logos/TheRoots_logoImg.webp" alt="The Roots" />
                 </div>
                 <div class="sp-text-col">
                   <span class="sp-name">The Roots</span>
@@ -560,7 +576,7 @@
               </div>
             </div>
             <div class="sp-preview">
-              <img src="images/projects/Roots_displayImage.png" alt="The Roots" />
+              <img src="images/projects/Roots_displayImage.webp" alt="The Roots" />
             </div>
           </a>
 
@@ -568,7 +584,7 @@
             <div class="sp-info">
               <div class="sp-top-row">
                 <div class="sp-icon-box">
-                  <img src="images/Logos/CasestudyRevwit_logoImg.png" alt="Revwit" />
+                  <img src="images/Logos/CasestudyRevwit_logoImg.webp" alt="Revwit" />
                 </div>
                 <div class="sp-text-col">
                   <span class="sp-name">Revwit</span>
@@ -591,7 +607,7 @@
               </div>
             </div>
             <div class="sp-preview">
-              <img src="images/projects/Revwit_displayImage.png" alt="Revwit" />
+              <img src="images/projects/Revwit_displayImage.webp" alt="Revwit" />
             </div>
           </a>
 
@@ -599,7 +615,7 @@
             <div class="sp-info">
               <div class="sp-top-row">
                 <div class="sp-icon-box">
-                  <img src="images/Logos/caseStudyTrib_logoImg.png" alt="Trib" />
+                  <img src="images/Logos/caseStudyTrib_logoImg.webp" alt="Trib" />
                 </div>
                 <div class="sp-text-col">
                   <span class="sp-name">Trib</span>
@@ -622,7 +638,7 @@
               </div>
             </div>
             <div class="sp-preview">
-              <img src="images/projects/Trib_displayImage.png" alt="Trib" />
+              <img src="images/projects/Trib_displayImage.webp" alt="Trib" />
             </div>
           </a>
         </div><!-- /ux -->
@@ -633,7 +649,7 @@
           <a class="sp-card reveal" href="https://www.loom.com/share/c4127f5148734a4da9f4aa2e5bb0e345" target="_blank" rel="noopener">
             <div class="sp-info">
               <div class="sp-top-row">
-                <div class="sp-icon-box"><img src="images/Logos/Kelliworks_LogoImg.png" alt="Budget Efficiency App" /></div>
+                <div class="sp-icon-box"><img src="images/Logos/Kelliworks_LogoImg.webp" alt="Budget Efficiency App" /></div>
                 <div class="sp-text-col">
                   <span class="sp-name">Budget Efficiency App</span>
                   <span class="sp-sub">For an accounting firm to manage client budget &amp; transactions</span>
@@ -662,7 +678,7 @@
           <a class="sp-card reveal" href="https://www.loom.com/share/d580ae891e254c1aa9bc1008fbd4aba2" target="_blank" rel="noopener">
             <div class="sp-info">
               <div class="sp-top-row">
-                <div class="sp-icon-box"><img src="images/Logos/Kelliworks_LogoImg.png" alt="Content Management Tool" /></div>
+                <div class="sp-icon-box"><img src="images/Logos/Kelliworks_LogoImg.webp" alt="Content Management Tool" /></div>
                 <div class="sp-text-col">
                   <span class="sp-name">Content Management Tool</span>
                   <span class="sp-sub">Built to speed up content review process + Metricool</span>
@@ -691,7 +707,7 @@
           <a class="sp-card reveal" href="https://x.com/Olafakomi/status/2032791976836268153?s=20" target="_blank" rel="noopener">
             <div class="sp-info">
               <div class="sp-top-row">
-                <div class="sp-icon-box"><img src="images/Logos/LeftUnread_LogoImg.png" alt="Left Unread" /></div>
+                <div class="sp-icon-box"><img src="images/Logos/LeftUnread_LogoImg.webp" alt="Left Unread" /></div>
                 <div class="sp-text-col">
                   <span class="sp-name">Left Unread</span>
                   <span class="sp-sub">Bookclub Management app close friends &amp; lovers</span>
@@ -724,7 +740,7 @@
           <a class="sp-card reveal" href="https://www.pneumagroup.org/" target="_blank" rel="noopener">
             <div class="sp-info">
               <div class="sp-top-row">
-                <div class="sp-icon-box"><img src="images/Logos/Pneuma_LogoImg.png" alt="Pneuma Group" /></div>
+                <div class="sp-icon-box"><img src="images/Logos/Pneuma_LogoImg.webp" alt="Pneuma Group" /></div>
                 <div class="sp-text-col">
                   <span class="sp-name">Pneuma Group</span>
                   <span class="sp-sub">Built for an accounting firm to manages client budget &amp; transactions</span>
@@ -746,7 +762,7 @@
               </div>
             </div>
             <div class="sp-preview">
-              <img src="images/Websites/Pneuma.png" alt="Pneuma Group" />
+              <img src="images/Websites/Pneuma.webp" alt="Pneuma Group" />
             </div>
           </a>
 
@@ -754,7 +770,7 @@
             <div class="sp-info">
               <div class="sp-top-row">
                 <div class="sp-icon-box">
-                  <img src="images/Logos/Ovasys_LogoImg.png" alt="Ovasys" />
+                  <img src="images/Logos/Ovasys_LogoImg.webp" alt="Ovasys" />
                 </div>
                 <div class="sp-text-col">
                   <span class="sp-name">Ovasys.co</span>
@@ -777,14 +793,14 @@
               </div>
             </div>
             <div class="sp-preview">
-              <img src="images/Websites/Ovasys.png" alt="Ovasys.co" />
+              <img src="images/Websites/Ovasys.webp" alt="Ovasys.co" />
             </div>
           </a>
 
           <a class="sp-card reveal" href="https://bluespectruminnovative.com/" target="_blank" rel="noopener">
             <div class="sp-info">
               <div class="sp-top-row">
-                <div class="sp-icon-box"><img src="images/Logos/Bluespectrum_LogoImg.png" alt="Bluespectrum Innovative" /></div>
+                <div class="sp-icon-box"><img src="images/Logos/Bluespectrum_LogoImg.webp" alt="Bluespectrum Innovative" /></div>
                 <div class="sp-text-col">
                   <span class="sp-name">Bluespectrum Innovative</span>
                   <span class="sp-sub">Bookclub Management app close friends</span>
@@ -806,7 +822,7 @@
               </div>
             </div>
             <div class="sp-preview">
-              <img src="images/Websites/Bluespectrum.png" alt="Bluespectrum Innovative" />
+              <img src="images/Websites/Bluespectrum.webp" alt="Bluespectrum Innovative" />
             </div>
           </a>
         </div><!-- /websites -->
@@ -829,8 +845,8 @@
           <a href="about.html">About</a>
         </div>
         <a href="about.html" class="hero-avatar-wrap">
-          <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi" class="hero-avatar-illustrated" />
-          <img src="images/hero/OlaAvatar_realImg.png" alt="Ola Fakomi" class="hero-avatar-real" />
+          <img src="images/hero/OlaAvatar_Img.webp" alt="Ola Fakomi" class="hero-avatar-illustrated" />
+          <img src="images/hero/OlaAvatar_realImg.webp" alt="Ola Fakomi" class="hero-avatar-real" />
         </a>
       </div>
       <div class="footer-bottom">
@@ -932,6 +948,34 @@
             setTimeout(function() { label.textContent = prev; }, 2000);
           });
         });
+      }
+    })();
+  </script>
+
+  <script>
+    /* ─── Skeleton image loading ─── */
+    (function () {
+      function skeleton(img) {
+        if (img.complete && img.naturalWidth > 0) return;
+        var p = img.parentElement;
+        if (!p) return;
+        if (window.getComputedStyle(p).position === 'static') p.style.position = 'relative';
+        var sk = document.createElement('div');
+        sk.className = 'img-skeleton';
+        p.appendChild(sk);
+        function done() {
+          sk.style.opacity = '0';
+          setTimeout(function () { sk.parentNode && sk.parentNode.removeChild(sk); }, 260);
+        }
+        img.addEventListener('load',  done, { once: true });
+        img.addEventListener('error', done, { once: true });
+      }
+      document.querySelectorAll('img').forEach(skeleton);
+      if ('IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) { if (e.isIntersecting) skeleton(e.target); });
+        });
+        document.querySelectorAll('img[loading="lazy"]').forEach(function (img) { obs.observe(img); });
       }
     })();
   </script>

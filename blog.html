@@ -11,7 +11,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Blog — Ola Fakomi</title>
-  <link rel="icon" type="image/png" href="images/hero/OlaAvatar_Img.png" />
+  <link rel="icon" type="image/png" href="images/hero/OlaAvatar_Img.webp" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Blog — Ola Fakomi" />
   <meta property="og:description" content="Takes by Ovasys & Full Steam and HardLeft — newsletters by Ola Fakomi" />
@@ -296,7 +296,7 @@
     .footer-nav-links { flex: 1; display: flex; flex-direction: column; gap: 12px; }
     .footer-nav-links a {
       font-family: 'Unbounded', sans-serif;
-      font-size: 15px; font-weight: 300;
+      font-size: 13px; font-weight: 300;
       color: #fff; mix-blend-mode: overlay; text-decoration: none;
       line-height: 0.9; transition: opacity 0.2s;
     }
@@ -385,6 +385,22 @@
       .ep-featured-body { flex-direction: column; gap: 12px; }
       .ep-meta { text-align: left; }
     }
+
+    /* ─── Skeleton loading ─── */
+    @keyframes sk-shimmer {
+      0%   { background-position: -200% 0; }
+      100% { background-position:  200% 0; }
+    }
+    .img-skeleton {
+      position: absolute; inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #252525 25%, #2d2d2d 50%, #252525 75%);
+      background-size: 200% 100%;
+      animation: sk-shimmer 1.5s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 2;
+      transition: opacity 0.25s ease;
+    }
   </style>
 </head>
 
@@ -405,23 +421,23 @@
       <div class="nl-carousel">
         <div class="nl-carousel-track">
           <!-- Set 1 -->
-          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/s2%20e11.png" alt="" />
-          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/s2%20e6.png" alt="" />
-          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/s2%20e7.png" alt="" />
-          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e10.png" alt="" />
-          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e3.png" alt="" />
-          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e4.png" alt="" />
-          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e8.png" alt="" />
-          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e9.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/s2%20e11.webp" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/s2%20e6.webp" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/s2%20e7.webp" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e10.webp" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e3.webp" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e4.webp" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e8.webp" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e9.webp" alt="" />
           <!-- Set 2 (duplicate for seamless loop) -->
-          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/s2%20e11.png" alt="" />
-          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/s2%20e6.png" alt="" />
-          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/s2%20e7.png" alt="" />
-          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e10.png" alt="" />
-          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e3.png" alt="" />
-          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e4.png" alt="" />
-          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e8.png" alt="" />
-          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e9.png" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/s2%20e11.webp" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/s2%20e6.webp" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/s2%20e7.webp" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e10.webp" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e3.webp" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e4.webp" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e8.webp" alt="" />
+          <img class="nl-carousel-img" src="images/blogpage/takesByOvasys/tbo-s2e9.webp" alt="" />
         </div>
       </div>
 
@@ -495,23 +511,23 @@
         <div class="fshl-carousel">
           <div class="fshl-carousel-track">
             <!-- Set 1 -->
-            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E26.png" alt="" />
-            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E27.png" alt="" />
-            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E28.png" alt="" />
-            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E29.png" alt="" />
-            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E30.png" alt="" />
-            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E31.png" alt="" />
-            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E32.png" alt="" />
-            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E33.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E26.webp" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E27.webp" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E28.webp" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E29.webp" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E30.webp" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E31.webp" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E32.webp" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E33.webp" alt="" />
             <!-- Set 2 (duplicate for seamless loop) -->
-            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E26.png" alt="" />
-            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E27.png" alt="" />
-            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E28.png" alt="" />
-            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E29.png" alt="" />
-            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E30.png" alt="" />
-            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E31.png" alt="" />
-            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E32.png" alt="" />
-            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E33.png" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E26.webp" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E27.webp" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E28.webp" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E29.webp" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E30.webp" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E31.webp" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E32.webp" alt="" />
+            <img class="fshl-card-img" src="images/blogpage/FSHL/S4%20E33.webp" alt="" />
           </div>
         </div>
 
@@ -534,8 +550,8 @@
           <a href="about.html">About</a>
         </div>
         <a href="about.html" class="hero-avatar-wrap">
-          <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi" class="hero-avatar-illustrated" />
-          <img src="images/hero/OlaAvatar_realImg.png" alt="Ola Fakomi" class="hero-avatar-real" />
+          <img src="images/hero/OlaAvatar_Img.webp" alt="Ola Fakomi" class="hero-avatar-illustrated" />
+          <img src="images/hero/OlaAvatar_realImg.webp" alt="Ola Fakomi" class="hero-avatar-real" />
         </a>
       </div>
       <div class="footer-bottom">
@@ -610,6 +626,34 @@
             setTimeout(resetDefault, 2000);
           });
         });
+      }
+    })();
+  </script>
+
+  <script>
+    /* ─── Skeleton image loading ─── */
+    (function () {
+      function skeleton(img) {
+        if (img.complete && img.naturalWidth > 0) return;
+        var p = img.parentElement;
+        if (!p) return;
+        if (window.getComputedStyle(p).position === 'static') p.style.position = 'relative';
+        var sk = document.createElement('div');
+        sk.className = 'img-skeleton';
+        p.appendChild(sk);
+        function done() {
+          sk.style.opacity = '0';
+          setTimeout(function () { sk.parentNode && sk.parentNode.removeChild(sk); }, 260);
+        }
+        img.addEventListener('load',  done, { once: true });
+        img.addEventListener('error', done, { once: true });
+      }
+      document.querySelectorAll('img').forEach(skeleton);
+      if ('IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) { if (e.isIntersecting) skeleton(e.target); });
+        });
+        document.querySelectorAll('img[loading="lazy"]').forEach(function (img) { obs.observe(img); });
       }
     })();
   </script>

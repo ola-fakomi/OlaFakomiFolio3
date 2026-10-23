@@ -11,7 +11,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Lab — Ola Fakomi</title>
-  <link rel="icon" type="image/png" href="images/hero/OlaAvatar_Img.png" />
+  <link rel="icon" type="image/png" href="images/hero/OlaAvatar_Img.webp" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="The Lab — Ola Fakomi" />
   <meta property="og:description" content="Experiments & Explorations by Ola Fakomi" />
@@ -265,7 +265,7 @@
     .footer-nav-links { flex: 1; display: flex; flex-direction: column; gap: 12px; }
     .footer-nav-links a {
       font-family: 'Unbounded', sans-serif;
-      font-size: var(--text-size-body); font-weight: var(--text-weight);
+      font-size: 13px; font-weight: var(--text-weight);
       letter-spacing: var(--text-track-ui);
       color: #fff; mix-blend-mode: overlay; text-decoration: none;
       line-height: 0.9; transition: opacity 0.2s;
@@ -355,6 +355,34 @@
       .footer-contact-bar { flex-direction: row; padding: 4px; }
       .footer-email { display: none; }
     }
+
+    /* ─── Bitcount UI labels — replaces Unbounded 13px/300 ─── */
+    .nav-links a,
+    .nav-cta,
+    .mobile-menu a,
+    .section-label,
+    .footer-copyright {
+      font-family: "Bitcount Single", system-ui;
+      font-size: 18px;
+      font-weight: 300;
+      letter-spacing: -0.03em;
+    }
+
+    /* ─── Skeleton loading ─── */
+    @keyframes sk-shimmer {
+      0%   { background-position: -200% 0; }
+      100% { background-position:  200% 0; }
+    }
+    .img-skeleton {
+      position: absolute; inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #252525 25%, #2d2d2d 50%, #252525 75%);
+      background-size: 200% 100%;
+      animation: sk-shimmer 1.5s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 2;
+      transition: opacity 0.25s ease;
+    }
   </style>
 </head>
 <body>
@@ -400,8 +428,8 @@
           <a href="lab.html">Lab</a>
         </div>
         <a href="about.html" class="hero-avatar-wrap">
-          <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi" class="hero-avatar-illustrated" />
-          <img src="images/hero/OlaAvatar_realImg.png" alt="Ola Fakomi" class="hero-avatar-real" />
+          <img src="images/hero/OlaAvatar_Img.webp" alt="Ola Fakomi" class="hero-avatar-illustrated" />
+          <img src="images/hero/OlaAvatar_realImg.webp" alt="Ola Fakomi" class="hero-avatar-real" />
         </a>
       </div>
       <div class="footer-bottom">
@@ -477,6 +505,34 @@
             setTimeout(resetDefault, 2000);
           });
         });
+      }
+    })();
+  </script>
+
+  <script>
+    /* ─── Skeleton image loading ─── */
+    (function () {
+      function skeleton(img) {
+        if (img.complete && img.naturalWidth > 0) return;
+        var p = img.parentElement;
+        if (!p) return;
+        if (window.getComputedStyle(p).position === 'static') p.style.position = 'relative';
+        var sk = document.createElement('div');
+        sk.className = 'img-skeleton';
+        p.appendChild(sk);
+        function done() {
+          sk.style.opacity = '0';
+          setTimeout(function () { sk.parentNode && sk.parentNode.removeChild(sk); }, 260);
+        }
+        img.addEventListener('load',  done, { once: true });
+        img.addEventListener('error', done, { once: true });
+      }
+      document.querySelectorAll('img').forEach(skeleton);
+      if ('IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) { if (e.isIntersecting) skeleton(e.target); });
+        });
+        document.querySelectorAll('img[loading="lazy"]').forEach(function (img) { obs.observe(img); });
       }
     })();
   </script>

@@ -11,7 +11,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About — Ola Fakomi</title>
-  <link rel="icon" type="image/png" href="images/hero/OlaAvatar_Img.png" />
+  <link rel="icon" type="image/png" href="images/hero/OlaAvatar_Img.webp" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -172,9 +172,10 @@
       padding: 0;
     }
     .ab-label {
-      font-size: 11px;
+      font-family: "Bitcount Single", system-ui;
+      font-size: 18px;
       font-weight: 300;
-      letter-spacing: 0.02em;
+      letter-spacing: -0.03em;
       text-transform: uppercase;
       color: var(--text);
       margin-bottom: 16px;
@@ -271,7 +272,7 @@
     /* BG water layer — on top, masked by cursor */
     .info-bg-layer {
       position: absolute; inset: 0;
-      background-image: url('images/about/SkillSection_WaterBG.png');
+      background-image: url('images/about/SkillSection_WaterBG.webp');
       background-size: cover;
       background-position: center top;
       z-index: 1;
@@ -323,9 +324,10 @@
     .info-tab:hover { color: rgba(255,255,255,0.7); }
     .info-tab.active { color: #fff; font-weight: 400; }
 
-    /* Tab panels */
-    .info-panel { display: none; padding: 12px 28px 36px 24px; }
-    .info-panel.active { display: block; }
+    /* Tab panels — grid-stack so all panels share the same height (tallest wins) */
+    .info-panels-wrap { display: grid; }
+    .info-panel { grid-row: 1; grid-column: 1; padding: 12px 28px 36px 24px; visibility: hidden; opacity: 0; pointer-events: none; transition: opacity 0.15s ease; }
+    .info-panel.active { visibility: visible; opacity: 1; pointer-events: auto; }
 
     /* ── Experience ── */
     .exp-list { display: flex; flex-direction: column; gap: 0; }
@@ -450,7 +452,7 @@
     }
     .footer-nav-links { flex:1; display:flex; flex-direction:column; gap:12px; }
     .footer-nav-links a {
-      font-family:'Unbounded',sans-serif; font-size:16px; font-weight:300;
+      font-family:'Unbounded',sans-serif; font-size:13px; font-weight:300;
       color:#fff; mix-blend-mode:overlay; text-decoration:none;
       line-height:0.9; transition:opacity 0.2s;
     }
@@ -531,6 +533,22 @@
       .skills-grid { grid-template-columns: 1fr 1fr; }
       .info-card-wrap { padding: 16px; }
     }
+
+    /* ─── Skeleton loading ─── */
+    @keyframes sk-shimmer {
+      0%   { background-position: -200% 0; }
+      100% { background-position:  200% 0; }
+    }
+    .img-skeleton {
+      position: absolute; inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #252525 25%, #2d2d2d 50%, #252525 75%);
+      background-size: 200% 100%;
+      animation: sk-shimmer 1.5s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 2;
+      transition: opacity 0.25s ease;
+    }
   </style>
 </head>
 
@@ -548,8 +566,8 @@
         <p class="ab-subtext">I find the gaps between business goals and customer needs and use the design to close it.</p>
       </div>
       <div class="ab-duo reveal reveal-d2">
-        <div class="ab-duo-img"><img src="images/about/A_Stage1_Img1.png" alt="" /></div>
-        <div class="ab-duo-img offset"><img src="images/about/A_Stage1_Img2.png" alt="" /></div>
+        <div class="ab-duo-img"><img src="images/about/A_Stage1_Img1.webp" alt="" /></div>
+        <div class="ab-duo-img offset"><img src="images/about/A_Stage1_Img2.webp" alt="" /></div>
       </div>
     </div>
   </section>
@@ -563,8 +581,8 @@
         <p class="ab-subtext">Things &amp; People around me inspire me to exceed my limits and that makes me 10x better.</p>
       </div>
       <div class="ab-duo reveal reveal-d2">
-        <div class="ab-duo-img"><img src="images/about/A_Stage1_Img1-1.png" alt="" /></div>
-        <div class="ab-duo-img offset"><img src="images/about/A_Stage1_Img2-1.png" alt="" /></div>
+        <div class="ab-duo-img"><img src="images/about/A_Stage1_Img1-1.webp" alt="" /></div>
+        <div class="ab-duo-img offset"><img src="images/about/A_Stage1_Img2-1.webp" alt="" /></div>
       </div>
     </div>
   </section>
@@ -579,16 +597,16 @@
       </div>
       <div class="ab-grid reveal reveal-d2">
         <div class="ab-grid-col outer">
-          <div class="ab-grid-img"><img src="images/about/A_Stage3_Img1.png" alt="" /></div>
-          <div class="ab-grid-img"><img src="images/about/A_Stage3_Img2.png" alt="" /></div>
+          <div class="ab-grid-img"><img src="images/about/A_Stage3_Img1.webp" alt="" /></div>
+          <div class="ab-grid-img"><img src="images/about/A_Stage3_Img2.webp" alt="" /></div>
         </div>
         <div class="ab-grid-col">
-          <div class="ab-grid-img"><img src="images/about/A_Stage3_Img3.png" alt="" /></div>
-          <div class="ab-grid-img"><img src="images/about/A_Stage3_Img4.png" alt="" /></div>
+          <div class="ab-grid-img"><img src="images/about/A_Stage3_Img3.webp" alt="" /></div>
+          <div class="ab-grid-img"><img src="images/about/A_Stage3_Img4.webp" alt="" /></div>
         </div>
         <div class="ab-grid-col outer">
-          <div class="ab-grid-img"><img src="images/about/A_Stage3_Img5.png" alt="" /></div>
-          <div class="ab-grid-img"><img src="images/about/A_Stage3_Img6.png" alt="" /></div>
+          <div class="ab-grid-img"><img src="images/about/A_Stage3_Img5.webp" alt="" /></div>
+          <div class="ab-grid-img"><img src="images/about/A_Stage3_Img6.webp" alt="" /></div>
         </div>
       </div>
     </div>
@@ -609,11 +627,12 @@
         <button class="info-tab" data-panel="skills">Skills &amp; Competence</button>
       </div>
 
+      <div class="info-panels-wrap">
       <!-- Experience -->
       <div class="info-panel active" id="panel-experience">
         <div class="exp-list">
           <div class="exp-item">
-            <div class="exp-logo"><img src="images/Logos/Ovasys_LogoImg.png" alt="Ovasys" style="padding: 3px;" /></div>
+            <div class="exp-logo"><img src="images/Logos/Ovasys_LogoImg.webp" alt="Ovasys" style="padding: 3px;" /></div>
             <div class="exp-info">
               <div class="exp-company">Ovasys (Freelance)</div>
               <div class="exp-role">Product Designer</div>
@@ -621,7 +640,7 @@
             <span class="exp-year">2025</span>
           </div>
           <div class="exp-item">
-            <div class="exp-logo"><img src="images/Logos/CasestudyRevwit_logoImg.png" alt="Revwit" style="padding: 0;" /></div>
+            <div class="exp-logo"><img src="images/Logos/CasestudyRevwit_logoImg.webp" alt="Revwit" style="padding: 0;" /></div>
             <div class="exp-info">
               <div class="exp-company">Revwit</div>
               <div class="exp-role">Product &amp; Brand Designer</div>
@@ -629,7 +648,7 @@
             <span class="exp-year">2024 · 25</span>
           </div>
           <div class="exp-item">
-            <div class="exp-logo"><img src="images/Logos/Insite_logoImg.png" alt="Insite Pro" style="padding: 4px;" /></div>
+            <div class="exp-logo"><img src="images/Logos/Insite_logoImg.webp" alt="Insite Pro" style="padding: 4px;" /></div>
             <div class="exp-info">
               <div class="exp-company">Insite Pro</div>
               <div class="exp-role">Product Designer</div>
@@ -637,7 +656,7 @@
             <span class="exp-year">2023 · 24</span>
           </div>
           <div class="exp-item">
-            <div class="exp-logo"><img src="images/Logos/Pretzl_LogoImg.png" alt="Pretzel" /></div>
+            <div class="exp-logo"><img src="images/Logos/Pretzl_LogoImg.webp" alt="Pretzel" /></div>
             <div class="exp-info">
               <div class="exp-company">Pretzel</div>
               <div class="exp-role">Product Designer</div>
@@ -645,7 +664,7 @@
             <span class="exp-year">2021 · 22</span>
           </div>
           <div class="exp-item">
-            <div class="exp-logo"><img src="images/Logos/NextHandle_LogoImg.png" alt="NextHandle" /></div>
+            <div class="exp-logo"><img src="images/Logos/NextHandle_LogoImg.webp" alt="NextHandle" /></div>
             <div class="exp-info">
               <div class="exp-company">NextHandle</div>
               <div class="exp-role">Product &amp; Brand Designer</div>
@@ -660,21 +679,21 @@
         <div class="tools-group">
           <div class="tools-group-label">Design &amp; Development</div>
           <div class="tools-row">
-            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/Frame 1171275207.png" alt="Figma" /></div><span>Figma</span></div>
-            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/Framer_IconImg.png" alt="Framer" /></div><span>Framer</span></div>
-            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/Relume_IconImg.png" alt="Relume" /></div><span>Relume</span></div>
-            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/ImageFX_IconImg.png" alt="Image FX" /></div><span>Image FX</span></div>
-            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/Midjourney_IconImg.png" alt="Midjourney" /></div><span>Midjourney</span></div>
-            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/Jitter_IconImg.png" alt="Jitter" /></div><span>Jitter</span></div>
-            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/VSCode_IconImg.png" alt="VS Code" /></div><span>VS Code</span></div>
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/Frame 1171275207.webp" alt="Figma" /></div><span>Figma</span></div>
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/Framer_IconImg.webp" alt="Framer" /></div><span>Framer</span></div>
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/Relume_IconImg.webp" alt="Relume" /></div><span>Relume</span></div>
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/ImageFX_IconImg.webp" alt="Image FX" /></div><span>Image FX</span></div>
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/Midjourney_IconImg.webp" alt="Midjourney" /></div><span>Midjourney</span></div>
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/Jitter_IconImg.webp" alt="Jitter" /></div><span>Jitter</span></div>
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/VSCode_IconImg.webp" alt="VS Code" /></div><span>VS Code</span></div>
           </div>
         </div>
         <div class="tools-group">
           <div class="tools-group-label">Research &amp; Admin</div>
           <div class="tools-row">
-            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/ChatGPT_IconImg.png" alt="GPT" /></div><span>GPT</span></div>
-            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/Claude_IconImg.png" alt="Claude" /></div><span>Claude</span></div>
-            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/Linear_IconImg.png" alt="Linear" /></div><span>Linear</span></div>
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/ChatGPT_IconImg.webp" alt="GPT" /></div><span>GPT</span></div>
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/Claude_IconImg.webp" alt="Claude" /></div><span>Claude</span></div>
+            <div class="tool-chip"><div class="tool-icon"><img src="images/Logos/Linear_IconImg.webp" alt="Linear" /></div><span>Linear</span></div>
           </div>
         </div>
       </div>
@@ -696,6 +715,7 @@
         </div>
       </div>
 
+      </div><!-- /.info-panels-wrap -->
     </div>
     </div><!-- /.info-card-wrap -->
   </section>
@@ -715,8 +735,8 @@
           <a href="about.html">About</a>
         </div>
         <a href="about.html" class="hero-avatar-wrap">
-          <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi" class="hero-avatar-illustrated" />
-          <img src="images/hero/OlaAvatar_realImg.png" alt="Ola Fakomi" class="hero-avatar-real" />
+          <img src="images/hero/OlaAvatar_Img.webp" alt="Ola Fakomi" class="hero-avatar-illustrated" />
+          <img src="images/hero/OlaAvatar_realImg.webp" alt="Ola Fakomi" class="hero-avatar-real" />
         </a>
       </div>
       <div class="footer-bottom">
@@ -912,6 +932,33 @@
     })();
   </script>
 
+  <script>
+    /* ─── Skeleton image loading ─── */
+    (function () {
+      function skeleton(img) {
+        if (img.complete && img.naturalWidth > 0) return;
+        var p = img.parentElement;
+        if (!p) return;
+        if (window.getComputedStyle(p).position === 'static') p.style.position = 'relative';
+        var sk = document.createElement('div');
+        sk.className = 'img-skeleton';
+        p.appendChild(sk);
+        function done() {
+          sk.style.opacity = '0';
+          setTimeout(function () { sk.parentNode && sk.parentNode.removeChild(sk); }, 260);
+        }
+        img.addEventListener('load',  done, { once: true });
+        img.addEventListener('error', done, { once: true });
+      }
+      document.querySelectorAll('img').forEach(skeleton);
+      if ('IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) { if (e.isIntersecting) skeleton(e.target); });
+        });
+        document.querySelectorAll('img[loading="lazy"]').forEach(function (img) { obs.observe(img); });
+      }
+    })();
+  </script>
 
 </body>
 </html>

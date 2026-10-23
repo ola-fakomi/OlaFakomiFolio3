@@ -11,7 +11,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ola Fakomi — Design Engineer</title>
-  <link rel="icon" type="image/png" href="images/hero/OlaAvatar_Img.png" />
+  <link rel="icon" type="image/png" href="images/hero/OlaAvatar_Img.webp" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://olafakomi.vercel.app/" />
   <meta property="og:title" content="Ola Fakomi — Design Engineer" />
@@ -246,16 +246,30 @@
       display: flex;
       flex-direction: row;
       align-items: flex-start;
-      justify-content: space-between;
-      gap: 8px;
     }
     .hero-bio-row {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex: 1;
+      min-width: 0;
+    }
+    .hero-greeting-row {
       display: flex;
       flex-direction: row;
       align-items: flex-start;
       gap: 20px;
-      flex: 1;
-      min-width: 0;
+    }
+    .hero-avatar-spacer {
+      width: 72px;
+      flex-shrink: 0;
+    }
+    .hero-subtext-row {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
     }
     .hero-subtext-ctas {
       display: flex;
@@ -317,6 +331,8 @@
     }
     .hero-subtext-swap {
       position: relative;
+      flex: 1;
+      min-width: 0;
     }
     .hero-subtext-bio,
     .hero-subtext-exp {
@@ -1382,7 +1398,7 @@
     }
     .footer-nav-links a {
       font-family: 'Unbounded', sans-serif;
-      font-size: var(--text-size-body); font-weight: var(--text-weight); letter-spacing: var(--text-track-ui);
+      font-size: 13px; font-weight: var(--text-weight); letter-spacing: var(--text-track-ui);
       color: #fff;
       mix-blend-mode: overlay;
       text-decoration: none;
@@ -1452,7 +1468,9 @@
       /* Hero / Intro */
       #intro { height: auto; overflow: hidden; }
       .intro-copy { padding-top: calc(var(--nav-h) + 32px); }
-      .hero-bio-row { flex-direction: column; gap: 16px; }
+      .hero-bio-row { gap: 16px; }
+      .hero-avatar-spacer { display: none; }
+      .hero-subtext-row { flex-direction: column; }
       .hero-subtext-ctas { gap: 12px; }
       .greeting { font-size: 36px; line-height: 1; }
       .hero-name { font-size: 36px; line-height: 1; margin-bottom: 4px; }
@@ -1961,6 +1979,42 @@
         flex-shrink: 0;
       }
     }
+
+    /* ─── Bitcount UI labels — replaces Unbounded 13px/300 ─── */
+    .nav-links a,
+    .nav-cta,
+    .mobile-menu a,
+    .ai-builds-label,
+    .ai-build-im-on-it,
+    .ai-build-num,
+    .lp-label,
+    .decks-item-label,
+    .decks-label,
+    .footer-copyright,
+    .slide-modal-tab-btn,
+    .slide-modal-info,
+    .slide-carousel-placeholder {
+      font-family: "Bitcount Single", system-ui;
+      font-size: 18px;
+      font-weight: 300;
+      letter-spacing: -0.03em;
+    }
+
+    /* ─── Skeleton loading ─── */
+    @keyframes sk-shimmer {
+      0%   { background-position: -200% 0; }
+      100% { background-position:  200% 0; }
+    }
+    .img-skeleton {
+      position: absolute; inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #252525 25%, #2d2d2d 50%, #252525 75%);
+      background-size: 200% 100%;
+      animation: sk-shimmer 1.5s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 2;
+      transition: opacity 0.25s ease;
+    }
   </style>
 </head>
 <body>
@@ -2055,15 +2109,22 @@
 
         <div class="hero-middle">
           <div class="hero-bio-row">
-            <a href="about.html" class="hero-avatar-wrap">
-              <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi" class="hero-avatar-illustrated" />
-              <img src="images/hero/OlaAvatar_realImg.png" alt="Ola Fakomi" class="hero-avatar-real" />
-            </a>
-            <div class="hero-subtext-ctas">
+
+            <!-- Greeting: spacer keeps text indented to match subtext below -->
+            <div class="hero-greeting-row">
+              <div class="hero-avatar-spacer"></div>
               <div class="hero-greeting">
                 <p class="greeting">Hi. I'm</p>
                 <h1 class="hero-name">Ola Fakomi</h1>
               </div>
+            </div>
+
+            <!-- Subtext row: avatar | bio text | exp-card -->
+            <div class="hero-subtext-row">
+              <a href="about.html" class="hero-avatar-wrap">
+                <img src="images/hero/OlaAvatar_Img.webp" alt="Ola Fakomi" class="hero-avatar-illustrated" />
+                <img src="images/hero/OlaAvatar_realImg.webp" alt="Ola Fakomi" class="hero-avatar-real" />
+              </a>
               <div class="hero-subtext-swap">
                 <p class="hero-subtext-bio">A <span class="hero-orange">Product Designer</span> &amp; <span class="hero-blue">Design Engineer</span>, with 5+ years designing and building products for startups &amp; enterprises. I combine product design, brand design &amp; AI expertise to create business solutions in form of products, internal tools and websites at <a href="https://www.ovasys.co/" class="hero-link text-link" target="_blank" rel="noopener noreferrer">Ovasys.</a></p>
                 <p class="hero-subtext-exp">
@@ -2073,6 +2134,14 @@
                   <span class="exp-line">Building @ <strong style="color:#ffffff;">Ovasys</strong></span>
                 </p>
               </div>
+              <div class="exp-card">
+                <img src="images/hero/ExpCompIcon.webp" alt="Experience Summary" draggable="false" />
+              </div>
+            </div>
+
+            <!-- CTAs: spacer aligns buttons with the subtext above -->
+            <div class="hero-greeting-row">
+              <div class="hero-avatar-spacer"></div>
               <div class="hero-ctas">
                 <a href="mailto:olarewajufakomi@gmail.com" class="btn-primary">Let's talk</a>
                 <a href="#" class="btn-secondary">
@@ -2081,10 +2150,7 @@
                 </a>
               </div>
             </div>
-          </div>
 
-          <div class="exp-card">
-            <img src="images/hero/ExpCompIcon.webp" alt="Experience Summary" draggable="false" />
           </div>
         </div>
 
@@ -2106,7 +2172,7 @@
         <div class="cs-card-body">
           <div class="cs-card-info">
             <div class="cs-info-left">
-              <div class="cs-card-logo"><img src="images/Logos/TheRoots_logoImg.png" alt="The Roots" /></div>
+              <div class="cs-card-logo"><img src="images/Logos/TheRoots_logoImg.webp" alt="The Roots" /></div>
               <h3 class="cs-card-title">The Roots</h3>
               <p class="cs-card-desc">The Roots is Indigenous Language learning for African languages. It was built to promote community learning and gamified for interactions.</p>
             </div>
@@ -2126,7 +2192,7 @@
             </div>
           </div>
           <div class="cs-card-image-wrap">
-            <img class="cs-card-image" src="images/projects/Roots_displayImage.png" alt="The Roots" />
+            <img class="cs-card-image" src="images/projects/Roots_displayImage.webp" alt="The Roots" />
           </div>
         </div>
       </div>
@@ -2141,7 +2207,7 @@
         <div class="cs-card-body">
           <div class="cs-card-info">
             <div class="cs-info-left">
-              <div class="cs-card-logo"><img src="images/Logos/CasestudyRevwit_logoImg.png" alt="Revwit" /></div>
+              <div class="cs-card-logo"><img src="images/Logos/CasestudyRevwit_logoImg.webp" alt="Revwit" /></div>
               <h3 class="cs-card-title">Revwit</h3>
               <p class="cs-card-desc">Revwit is an AI-enabled B2B Sales CRM. I optimized user flows + brand system that scaled user acquisition and shortened sales cycles.</p>
             </div>
@@ -2161,7 +2227,7 @@
             </div>
           </div>
           <div class="cs-card-image-wrap">
-            <img class="cs-card-image" src="images/projects/Revwit_displayImage.png" alt="Revwit" />
+            <img class="cs-card-image" src="images/projects/Revwit_displayImage.webp" alt="Revwit" />
           </div>
         </div>
       </div>
@@ -2176,7 +2242,7 @@
         <div class="cs-card-body">
           <div class="cs-card-info">
             <div class="cs-info-left">
-              <div class="cs-card-logo"><img src="images/Logos/caseStudyTrib_logoImg.png" alt="Trib" /></div>
+              <div class="cs-card-logo"><img src="images/Logos/caseStudyTrib_logoImg.webp" alt="Trib" /></div>
               <h3 class="cs-card-title">Trib</h3>
               <p class="cs-card-desc">Trib is a Web3-powered Q&amp;A gaming platform that enhances community engagement through interactive quizzes, tournaments, and rewards.</p>
             </div>
@@ -2196,7 +2262,7 @@
             </div>
           </div>
           <div class="cs-card-image-wrap">
-            <img class="cs-card-image" src="images/projects/Trib_displayImage.png" alt="Trib" />
+            <img class="cs-card-image" src="images/projects/Trib_displayImage.webp" alt="Trib" />
           </div>
         </div>
       </div>
@@ -2261,7 +2327,7 @@
         <div class="lp-card-body">
           <div class="lp-card-nav">
             <div class="lp-card-brand">
-              <div class="lp-card-logo"><img src="images/Logos/Pneuma_LogoImg.png" alt="Pneuma Group" /></div>
+              <div class="lp-card-logo"><img src="images/Logos/Pneuma_LogoImg.webp" alt="Pneuma Group" /></div>
               <span class="lp-card-company">Pneuma Group</span>
             </div>
             <a href="https://pneumagroup.org" target="_blank" rel="noopener" class="lp-card-live-btn">
@@ -2269,7 +2335,7 @@
               <div class="lp-card-live-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.5" d="M7.9987 14.6663C11.6806 14.6663 14.6654 11.6816 14.6654 7.99967C14.6654 4.31778 11.6806 1.33301 7.9987 1.33301C4.3168 1.33301 1.33203 4.31778 1.33203 7.99967C1.33203 11.6816 4.3168 14.6663 7.9987 14.6663Z" stroke="#929292"/><path d="M6 10L10 6M10 6H7M10 6V9" stroke="#929292" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             </a>
           </div>
-          <img class="lp-card-image" src="images/Websites/Pneuma.png" alt="Pneuma Group website" />
+          <img class="lp-card-image" src="images/Websites/Pneuma.webp" alt="Pneuma Group website" />
         </div>
       </div>
       <div class="lp-card lp-card--2">
@@ -2281,7 +2347,7 @@
         <div class="lp-card-body">
           <div class="lp-card-nav">
             <div class="lp-card-brand">
-              <div class="lp-card-logo"><img src="images/Logos/Ovasys_LogoImg.png" alt="Ovasys" /></div>
+              <div class="lp-card-logo"><img src="images/Logos/Ovasys_LogoImg.webp" alt="Ovasys" /></div>
               <span class="lp-card-company">Ovasys</span>
             </div>
             <a href="https://ovasys.co" target="_blank" rel="noopener" class="lp-card-live-btn">
@@ -2289,7 +2355,7 @@
               <div class="lp-card-live-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.5" d="M7.9987 14.6663C11.6806 14.6663 14.6654 11.6816 14.6654 7.99967C14.6654 4.31778 11.6806 1.33301 7.9987 1.33301C4.3168 1.33301 1.33203 4.31778 1.33203 7.99967C1.33203 11.6816 4.3168 14.6663 7.9987 14.6663Z" stroke="#929292"/><path d="M6 10L10 6M10 6H7M10 6V9" stroke="#929292" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             </a>
           </div>
-          <img class="lp-card-image" src="images/Websites/Ovasys.png" alt="Ovasys website" />
+          <img class="lp-card-image" src="images/Websites/Ovasys.webp" alt="Ovasys website" />
         </div>
       </div>
       <div class="lp-card lp-card--3">
@@ -2301,7 +2367,7 @@
         <div class="lp-card-body">
           <div class="lp-card-nav">
             <div class="lp-card-brand">
-              <div class="lp-card-logo"><img src="images/Logos/Bluespectrum_LogoImg.png" alt="Bluespectrum" /></div>
+              <div class="lp-card-logo"><img src="images/Logos/Bluespectrum_LogoImg.webp" alt="Bluespectrum" /></div>
               <span class="lp-card-company">Bluespectrum Innovative</span>
             </div>
             <a href="https://bluespectruminnovative.com" target="_blank" rel="noopener" class="lp-card-live-btn">
@@ -2309,7 +2375,7 @@
               <div class="lp-card-live-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.5" d="M7.9987 14.6663C11.6806 14.6663 14.6654 11.6816 14.6654 7.99967C14.6654 4.31778 11.6806 1.33301 7.9987 1.33301C4.3168 1.33301 1.33203 4.31778 1.33203 7.99967C1.33203 11.6816 4.3168 14.6663 7.9987 14.6663Z" stroke="#929292"/><path d="M6 10L10 6M10 6H7M10 6V9" stroke="#929292" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             </a>
           </div>
-          <img class="lp-card-image" src="images/Websites/Bluespectrum.png" alt="Bluespectrum Innovative website" />
+          <img class="lp-card-image" src="images/Websites/Bluespectrum.webp" alt="Bluespectrum Innovative website" />
         </div>
       </div>
     </section>
@@ -2392,26 +2458,26 @@
   <section class="clients" id="clients-section">
     <div class="clients-inner">
       <div class="clients-pills-row">
-        <div class="client-pill"><div class="client-icon"><img src="images/Logos/AllClearGlass_logoImg.png" alt="All Clear Glass" /></div><span class="client-name">All Clear Glass</span></div>
-        <div class="client-pill"><div class="client-icon"><img src="images/Logos/MavlonTours_logoImg.png" alt="Mavlon Tours" /></div><span class="client-name">Mavlon Tours</span></div>
+        <div class="client-pill"><div class="client-icon"><img src="images/Logos/AllClearGlass_logoImg.webp" alt="All Clear Glass" /></div><span class="client-name">All Clear Glass</span></div>
+        <div class="client-pill"><div class="client-icon"><img src="images/Logos/MavlonTours_logoImg.webp" alt="Mavlon Tours" /></div><span class="client-name">Mavlon Tours</span></div>
       </div>
       <div class="clients-pills-row">
-        <div class="client-pill"><div class="client-icon"><img src="images/Logos/Insite_logoImg.png" alt="Insite" /></div><span class="client-name">Insite</span></div>
-        <div class="client-pill"><div class="client-icon"><img src="images/Logos/Daba_logoImg.png" alt="Daba" /></div><span class="client-name">Daba</span></div>
-        <div class="client-pill"><div class="client-icon"><img src="images/Logos/DriveMe_logoImg.png" alt="DriveMe" /></div><span class="client-name">DriveMe</span></div>
-        <div class="client-pill"><div class="client-icon"><img src="images/Logos/SMEHive_logoImg.png" alt="SME Hive" /></div><span class="client-name">SME Hive</span></div>
-        <div class="client-pill"><div class="client-icon"><img src="images/Logos/Justnovate_logoImg.png" alt="Justnovate" /></div><span class="client-name">Justnovate</span></div>
+        <div class="client-pill"><div class="client-icon"><img src="images/Logos/Insite_logoImg.webp" alt="Insite" /></div><span class="client-name">Insite</span></div>
+        <div class="client-pill"><div class="client-icon"><img src="images/Logos/Daba_logoImg.webp" alt="Daba" /></div><span class="client-name">Daba</span></div>
+        <div class="client-pill"><div class="client-icon"><img src="images/Logos/DriveMe_logoImg.webp" alt="DriveMe" /></div><span class="client-name">DriveMe</span></div>
+        <div class="client-pill"><div class="client-icon"><img src="images/Logos/SMEHive_logoImg.webp" alt="SME Hive" /></div><span class="client-name">SME Hive</span></div>
+        <div class="client-pill"><div class="client-icon"><img src="images/Logos/Justnovate_logoImg.webp" alt="Justnovate" /></div><span class="client-name">Justnovate</span></div>
       </div>
       <h2 class="clients-heading"><strong>Clients</strong> &amp;<br class="mob-br"> Collaborations</h2>
       <div class="clients-pills-row">
-        <div class="client-pill"><div class="client-icon"><img src="images/Logos/IgniteTunes_logoImg.png" alt="IgniteTunes" /></div><span class="client-name">IgniteTunes</span></div>
-        <div class="client-pill"><div class="client-icon"><img src="images/Logos/HighNDry_logoImg.png" alt="High N Dry" /></div><span class="client-name">High N Dry</span></div>
-        <div class="client-pill"><div class="client-icon"><img src="images/Logos/Renaissance_logoImg.png" alt="Renaissance" /></div><span class="client-name">Renaissance</span></div>
-        <div class="client-pill"><div class="client-icon"><img src="images/Logos/WashVilla_logoImg.png" alt="WashVilla" /></div><span class="client-name">WashVilla</span></div>
+        <div class="client-pill"><div class="client-icon"><img src="images/Logos/IgniteTunes_logoImg.webp" alt="IgniteTunes" /></div><span class="client-name">IgniteTunes</span></div>
+        <div class="client-pill"><div class="client-icon"><img src="images/Logos/HighNDry_logoImg.webp" alt="High N Dry" /></div><span class="client-name">High N Dry</span></div>
+        <div class="client-pill"><div class="client-icon"><img src="images/Logos/Renaissance_logoImg.webp" alt="Renaissance" /></div><span class="client-name">Renaissance</span></div>
+        <div class="client-pill"><div class="client-icon"><img src="images/Logos/WashVilla_logoImg.webp" alt="WashVilla" /></div><span class="client-name">WashVilla</span></div>
       </div>
       <div class="clients-pills-row">
-        <div class="client-pill"><div class="client-icon"><img src="images/Logos/RideVendor_logoImg.png" alt="Ride Vendor" /></div><span class="client-name">Ride Vendor</span></div>
-        <div class="client-pill"><div class="client-icon"><img src="images/Logos/Lochindaal_logoImg.png" alt="Lochindaal" /></div><span class="client-name">Lochindaal</span></div>
+        <div class="client-pill"><div class="client-icon"><img src="images/Logos/RideVendor_logoImg.webp" alt="Ride Vendor" /></div><span class="client-name">Ride Vendor</span></div>
+        <div class="client-pill"><div class="client-icon"><img src="images/Logos/Lochindaal_logoImg.webp" alt="Lochindaal" /></div><span class="client-name">Lochindaal</span></div>
       </div>
     </div>
   </section>
@@ -2430,8 +2496,8 @@
           <a href="about.html">About</a>
         </div>
         <a href="about.html" class="hero-avatar-wrap">
-          <img src="images/hero/OlaAvatar_Img.png" alt="Ola Fakomi" class="hero-avatar-illustrated" />
-          <img src="images/hero/OlaAvatar_realImg.png" alt="Ola Fakomi" class="hero-avatar-real" />
+          <img src="images/hero/OlaAvatar_Img.webp" alt="Ola Fakomi" class="hero-avatar-illustrated" />
+          <img src="images/hero/OlaAvatar_realImg.webp" alt="Ola Fakomi" class="hero-avatar-real" />
         </a>
       </div>
       <div class="footer-bottom">
@@ -2796,20 +2862,20 @@
       // Deck tab switching — real slide images per deck
       const deckSets = [
         [
-          'images/PitchDecks%20/Ecom/Ecom_1.png',
-          'images/PitchDecks%20/Ecom/Ecom_2.png',
-          'images/PitchDecks%20/Ecom/Ecom_3.png',
+          'images/PitchDecks%20/Ecom/Ecom_1.webp',
+          'images/PitchDecks%20/Ecom/Ecom_2.webp',
+          'images/PitchDecks%20/Ecom/Ecom_3.webp',
         ],
         [
-          'images/PitchDecks%20/RevwitDeck/Revwit_1.png',
-          'images/PitchDecks%20/RevwitDeck/Revwit_2.png',
-          'images/PitchDecks%20/RevwitDeck/Revwit_3.png',
+          'images/PitchDecks%20/RevwitDeck/Revwit_1.webp',
+          'images/PitchDecks%20/RevwitDeck/Revwit_2.webp',
+          'images/PitchDecks%20/RevwitDeck/Revwit_3.webp',
         ],
         [
-          'images/PitchDecks%20/Trib%20Deck/Trib_1.png',
-          'images/PitchDecks%20/Trib%20Deck/Trib_2.png',
-          'images/PitchDecks%20/Trib%20Deck/Trib_3.png',
-          'images/PitchDecks%20/Trib%20Deck/Trib_4.png',
+          'images/PitchDecks%20/Trib%20Deck/Trib_1.webp',
+          'images/PitchDecks%20/Trib%20Deck/Trib_2.webp',
+          'images/PitchDecks%20/Trib%20Deck/Trib_3.webp',
+          'images/PitchDecks%20/Trib%20Deck/Trib_4.webp',
         ],
       ];
       document.querySelectorAll('.slide-modal-tab-btn').forEach((btn, i) => {
@@ -2894,14 +2960,14 @@
             <button class="slide-modal-tab-btn" data-deck="1">B2B AI CRM</button>
             <button class="slide-modal-tab-btn" data-deck="2">Web3 Deck</button>
           </div>
-          <button class="slide-modal-close" id="deckClose"><img src="images/Icons/IconCancel.png" alt="Close" /></button>
+          <button class="slide-modal-close" id="deckClose"><img src="images/Icons/IconCancel.webp" alt="Close" /></button>
         </div>
         <div class="slide-modal-carousel">
           <button class="slide-carousel-btn slide-carousel-btn--prev" id="deckPrev"><img src="images/Icons/Iconleft.svg" alt="Previous" /></button>
           <div class="slide-carousel-track" id="deckTrack">
-            <img class="slide-carousel-img active" src="images/PitchDecks%20/Ecom/Ecom_1.png" alt="" />
-            <img class="slide-carousel-img" src="images/PitchDecks%20/Ecom/Ecom_2.png" alt="" />
-            <img class="slide-carousel-img" src="images/PitchDecks%20/Ecom/Ecom_3.png" alt="" />
+            <img class="slide-carousel-img active" src="images/PitchDecks%20/Ecom/Ecom_1.webp" alt="" />
+            <img class="slide-carousel-img" src="images/PitchDecks%20/Ecom/Ecom_2.webp" alt="" />
+            <img class="slide-carousel-img" src="images/PitchDecks%20/Ecom/Ecom_3.webp" alt="" />
           </div>
           <button class="slide-carousel-btn slide-carousel-btn--next" id="deckNext"><img src="images/Icons/IconRight.svg" alt="Next" /></button>
         </div>
@@ -2926,21 +2992,21 @@
             </div>
             <span>These are just preview shots, check <a href="graphics.html" class="text-link">Graphics</a> for video previews</span>
           </div>
-          <button class="slide-modal-close" id="storyClose"><img src="images/Icons/IconCancel.png" alt="Close" /></button>
+          <button class="slide-modal-close" id="storyClose"><img src="images/Icons/IconCancel.webp" alt="Close" /></button>
         </div>
         <div class="slide-modal-carousel">
           <button class="slide-carousel-btn slide-carousel-btn--prev" id="storyPrev"><img src="images/Icons/Iconleft.svg" alt="Previous" /></button>
           <div class="slide-carousel-track" id="storyTrack">
-            <img class="slide-carousel-img active" src="images/Storyboard/Storyboard_01.png" alt="Storyboard 01" />
-            <img class="slide-carousel-img" src="images/Storyboard/Storyboard_02.png" alt="Storyboard 02" />
-            <img class="slide-carousel-img" src="images/Storyboard/Storyboard_03.png" alt="Storyboard 03" />
-            <img class="slide-carousel-img" src="images/Storyboard/Storyboard_04.png" alt="Storyboard 04" />
-            <img class="slide-carousel-img" src="images/Storyboard/Storyboard_05.png" alt="Storyboard 05" />
-            <img class="slide-carousel-img" src="images/Storyboard/Storyboard_06.png" alt="Storyboard 06" />
-            <img class="slide-carousel-img" src="images/Storyboard/Storyboard_07.png" alt="Storyboard 07" />
-            <img class="slide-carousel-img" src="images/Storyboard/Storyboard_08.png" alt="Storyboard 08" />
-            <img class="slide-carousel-img" src="images/Storyboard/Storyboard_09.png" alt="Storyboard 09" />
-            <img class="slide-carousel-img" src="images/Storyboard/Storyboard_10.png" alt="Storyboard 10" />
+            <img class="slide-carousel-img active" src="images/Storyboard/Storyboard_01.webp" alt="Storyboard 01" />
+            <img class="slide-carousel-img" src="images/Storyboard/Storyboard_02.webp" alt="Storyboard 02" />
+            <img class="slide-carousel-img" src="images/Storyboard/Storyboard_03.webp" alt="Storyboard 03" />
+            <img class="slide-carousel-img" src="images/Storyboard/Storyboard_04.webp" alt="Storyboard 04" />
+            <img class="slide-carousel-img" src="images/Storyboard/Storyboard_05.webp" alt="Storyboard 05" />
+            <img class="slide-carousel-img" src="images/Storyboard/Storyboard_06.webp" alt="Storyboard 06" />
+            <img class="slide-carousel-img" src="images/Storyboard/Storyboard_07.webp" alt="Storyboard 07" />
+            <img class="slide-carousel-img" src="images/Storyboard/Storyboard_08.webp" alt="Storyboard 08" />
+            <img class="slide-carousel-img" src="images/Storyboard/Storyboard_09.webp" alt="Storyboard 09" />
+            <img class="slide-carousel-img" src="images/Storyboard/Storyboard_10.webp" alt="Storyboard 10" />
           </div>
           <button class="slide-carousel-btn slide-carousel-btn--next" id="storyNext"><img src="images/Icons/IconRight.svg" alt="Next" /></button>
         </div>
@@ -2993,6 +3059,34 @@
             setTimeout(function() { label.textContent = prev; }, 2000);
           });
         });
+      }
+    })();
+  </script>
+
+  <script>
+    /* ─── Skeleton image loading ─── */
+    (function () {
+      function skeleton(img) {
+        if (img.complete && img.naturalWidth > 0) return;
+        var p = img.parentElement;
+        if (!p) return;
+        if (window.getComputedStyle(p).position === 'static') p.style.position = 'relative';
+        var sk = document.createElement('div');
+        sk.className = 'img-skeleton';
+        p.appendChild(sk);
+        function done() {
+          sk.style.opacity = '0';
+          setTimeout(function () { sk.parentNode && sk.parentNode.removeChild(sk); }, 260);
+        }
+        img.addEventListener('load',  done, { once: true });
+        img.addEventListener('error', done, { once: true });
+      }
+      document.querySelectorAll('img').forEach(skeleton);
+      if ('IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) { if (e.isIntersecting) skeleton(e.target); });
+        });
+        document.querySelectorAll('img[loading="lazy"]').forEach(function (img) { obs.observe(img); });
       }
     })();
   </script>
