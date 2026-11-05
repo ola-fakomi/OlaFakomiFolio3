@@ -351,7 +351,17 @@
       pointer-events: none;
     }
     .hero-subtext-exp strong { color: var(--text); font-weight: 500; }
-    .exp-line { display: block; }
+    .exp-line {
+      display: block;
+      opacity: 0;
+      transform: translateY(5px);
+      transition: opacity 0.28s ease, transform 0.28s ease;
+    }
+    .exp-hovered .hero-subtext-exp .exp-line { opacity: 1; transform: none; }
+    .exp-hovered .hero-subtext-exp .exp-line:nth-child(1) { transition-delay: 0.02s; }
+    .exp-hovered .hero-subtext-exp .exp-line:nth-child(2) { transition-delay: 0.09s; }
+    .exp-hovered .hero-subtext-exp .exp-line:nth-child(3) { transition-delay: 0.16s; }
+    .exp-hovered .hero-subtext-exp .exp-line:nth-child(4) { transition-delay: 0.23s; }
     .exp-hovered .hero-subtext-bio {
       opacity: 0;
       transform: translateY(-6px);
@@ -2663,38 +2673,12 @@
       avatarWrap.addEventListener('mouseenter', () => playTick(750, 0.10, 0.055));
       avatarWrap.addEventListener('mouseleave', () => playTick(1100, 0.18, 0.055));
     }
-    const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&!?';
-    function scrambleLine(el, delay) {
-      const finalHTML = el.innerHTML;
-      const plain = el.textContent;
-      const len = plain.length;
-      const totalFrames = 12;
-      const resolveStart = 4;
-      let frame = 0;
-      setTimeout(() => {
-        const interval = setInterval(() => {
-          frame++;
-          if (frame >= totalFrames) { el.innerHTML = finalHTML; clearInterval(interval); return; }
-          const resolved = frame < resolveStart ? 0 : Math.floor(((frame - resolveStart) / (totalFrames - resolveStart)) * len);
-          let out = '';
-          for (let i = 0; i < len; i++) {
-            if (i < resolved || plain[i] === ' ') { out += plain[i]; }
-            else { out += SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)]; }
-          }
-          el.textContent = out;
-        }, 18);
-      }, delay);
-    }
-
     const expCard = document.querySelector('.exp-card');
     const subtextSwap = document.querySelector('.hero-subtext-swap');
     if (expCard) {
       expCard.addEventListener('mouseenter', () => {
         if (!expCard.classList.contains('dragging')) playTick(750, 0.10, 0.055);
-        if (subtextSwap) {
-          subtextSwap.classList.add('exp-hovered');
-          subtextSwap.querySelectorAll('.exp-line').forEach((line, i) => scrambleLine(line, i * 80));
-        }
+        if (subtextSwap) subtextSwap.classList.add('exp-hovered');
       });
       expCard.addEventListener('mouseleave', () => {
         if (!expCard.classList.contains('dragging')) playTick(1100, 0.18, 0.055);
